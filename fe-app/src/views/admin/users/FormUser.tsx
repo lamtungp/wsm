@@ -18,7 +18,6 @@ const FormUser = () => {
 
     const [user, setUser] = useState({
         id: '',
-        username: '',
         email: '',
         password: '',
     });
@@ -65,19 +64,6 @@ const FormUser = () => {
                             }
                         }}
                     >
-                        <Form.Group>
-                            <Form.Label>Username:</Form.Label>
-                            <Form.Control
-                                name="username"
-                                type="username"
-                                placeholder="Username"
-                                value={values.username}
-                                onChange={handleChange}
-                            />
-                            {errors.username && touched.username ? (
-                                <Form.Text className="text-danger">{errors.username}</Form.Text>
-                            ) : null}
-                        </Form.Group>
                         <Form.Group>
                             <Form.Label>Email:</Form.Label>
                             <Form.Control

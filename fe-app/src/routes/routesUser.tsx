@@ -4,6 +4,7 @@ const Dashboard = React.lazy(() => import('../views/user/dashboard/Dashboard'));
 const Requests = React.lazy(() => import('../views/user/request/Requests'));
 const Login = React.lazy(() => import('../views/pages/login/Login'));
 const FormRequest = React.lazy(() => import('../views/user/request/FormRequest'));
+const Requestings = React.lazy(() => import('../views/user/requestings/Requestings'));
 
 const routes = [
     { path: '/', exact: true, name: 'Home', component: Dashboard },
@@ -11,6 +12,7 @@ const routes = [
     { path: '/user', name: 'User', component: Dashboard, exact: true },
     { path: '/user/requests', name: 'Requests', component: Requests, exact: true },
     { path: '/user/requests/new', name: 'AddRequest', component: FormRequest },
+    { path: '/user/member/requests', name: 'Requestings', component: Requestings },
     // { path: '/user/users/add-user', name: 'AddUser', component: FormUser },
 ];
 

@@ -7,10 +7,15 @@ services:
     working_dir: /app
     restart: always
     tty: true
-    # command: /bin/bash
+    # command: npm i -g sequelize-cli
+    environment:
+      - NODE_ENV=development
     volumes:
       - ./be-app:/app
-      # - /app/node_modules
+      - ./be-app/src/migrations:/app/migrations
+      - /app/node_modules
+    env_file:
+      - ./be-app/.env
     depends_on:
       - db
 
@@ -23,7 +28,6 @@ services:
       - ./fe-app:/app
     ports:
       - "3000:3000"
-    command: npm start
 
   nginx:
     image: nginx:latest
