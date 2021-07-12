@@ -1,0 +1,69 @@
+version: "3.5"
+
+services:
+  node:
+    build:
+      context: ./be-app
+    working_dir: /app
+    restart: always
+    tty: true
+    # command: /bin/bash
+    volumes:
+      - ./be-app:/app
+      # - /app/node_modules
+    depends_on:
+      - db
+
+  react:
+    build:
+      context: ./fe-app
+    working_dir: /app
+    restart: always
+    volumes:
+      - ./fe-app:/app
+    ports:
+      - "3000:3000"
+    command: npm start
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./be-app/docker/services/nginx/conf:/etc/nginx/conf.d
+      - ./be-app:/app
+    working_dir: /app
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.6
+    restart: always
+    ports:
+      - "8181:80"
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3307:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: helloworld
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    volumes:
+      - ./be-app/docker/services/db/data:/var/lib/mysql
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
