@@ -7,32 +7,32 @@ const UserService = {
     },
 
     findUserById: (id: number): Promise<any> => {
-        const result = AxiosClient.get(`users/find-user-byid/${id}`);
+        const result = AxiosClient.get(`users/find-user-by-id/${id}`);
         return result;
     },
 
     findUserByEmail: (email: string): Promise<any> => {
-        const result = AxiosClient.get(`user/find-user-byemail/${email}`);
+        const result = AxiosClient.get(`users/find-user-by-email/${email}`);
         return result;
     },
 
     addUser: (param: object): Promise<any> => {
-        const result = AxiosClient.post('user/add-user', param);
+        const result = AxiosClient.post('users/add-user', param);
         return result;
     },
 
     deleteUser: (id: number): Promise<any> => {
-        const result = AxiosClient.delete(`user/delete-user/${id}`);
+        const result = AxiosClient.delete(`users/delete-user/${id}`);
         return result;
     },
 
     updateUser: (param: object, id: number): Promise<any> => {
-        const result = AxiosClient.post(`user/update-user/${id}`, param);
+        const result = AxiosClient.post(`users/update-user/${id}`, param);
         return result;
     },
 
     searchUser: (param: any): Promise<any> => {
-        const result = AxiosClient.get(`user/search-user?search=${param}`);
+        const result = AxiosClient.get(`users/search-user?search=${param}`);
         return result;
     },
 };

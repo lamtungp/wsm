@@ -5,6 +5,8 @@ const Requests = React.lazy(() => import('../views/user/request/Requests'));
 const Login = React.lazy(() => import('../views/pages/login/Login'));
 const FormRequest = React.lazy(() => import('../views/user/request/FormRequest'));
 const Requestings = React.lazy(() => import('../views/user/requestings/Requestings'));
+const Information = React.lazy(() => import('../views/user/information/Information'));
+const FormInformation = React.lazy(() => import('../views/user/information/FormInformation'));
 
 const routes = [
     { path: '/', exact: true, name: 'Home', component: Dashboard },
@@ -13,7 +15,8 @@ const routes = [
     { path: '/user/requests', name: 'Requests', component: Requests, exact: true },
     { path: '/user/requests/new', name: 'AddRequest', component: FormRequest },
     { path: '/user/member/requests', name: 'Requestings', component: Requestings },
-    // { path: '/user/users/add-user', name: 'AddUser', component: FormUser },
+    { path: '/user/profile', name: 'Information', component: Information, exact: true },
+    { path: '/user/profile/edit', name: 'FormInformation', component: FormInformation, exact: true },
 ];
 
 export default routes;

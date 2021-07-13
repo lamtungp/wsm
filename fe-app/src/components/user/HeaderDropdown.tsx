@@ -7,6 +7,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
 
     const logOut = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('email');
         history.push('/');
     };
     return (
@@ -33,7 +34,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
                         </span>
                     </div>
                 </CDropdownItem>
-                <CDropdownItem>Thông tin cá nhân</CDropdownItem>
+                <CDropdownItem onClick={() => history.push('/user/profile')}>Thông tin cá nhân</CDropdownItem>
                 <CDropdownItem>Danh sách yêu cầu</CDropdownItem>
                 <CDropdownItem className="m-0" divider />
                 <CDropdownItem onClick={() => logOut()}>Đăng xuất</CDropdownItem>

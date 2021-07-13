@@ -54,7 +54,7 @@ const FormRequest = () => {
             <CCardHeader className="d-flex">
                 <h2
                     className="m-0 font-weight-bold d-flex"
-                    style={{ width: '80%', fontSize: '13px', lineHeight: '1.57' }}
+                    style={{ width: '82%', fontSize: '13px', lineHeight: '1.57' }}
                 >
                     Tạo mới yêu cầu
                 </h2>

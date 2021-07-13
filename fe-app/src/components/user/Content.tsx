@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { CContainer, CFade } from '@coreui/react';
+import { CFade } from '@coreui/react';
 
 // routes config
 import routes from '../../routes/routesUser';
@@ -14,7 +14,7 @@ const loading = (
 const Content: React.FunctionComponent = (): React.ReactElement => {
     return (
         <main className="c-main p-4">
-            <CContainer fluid>
+            <div>
                 <Suspense fallback={loading}>
                     <Switch>
                         {routes.map((route, index) => {
@@ -36,7 +36,7 @@ const Content: React.FunctionComponent = (): React.ReactElement => {
                         })}
                     </Switch>
                 </Suspense>
-            </CContainer>
+            </div>
         </main>
     );
 };

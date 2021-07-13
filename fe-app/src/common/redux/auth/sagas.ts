@@ -14,6 +14,7 @@ function* loginSaga(action: LoginAction) {
         console.log(response);
         if (response) {
             localStorage.setItem('token', response);
+            localStorage.setItem('email', action.payload.email);
             yield put(loginSuccess({ email: action.payload.email, token: response }));
             window.location.pathname = '';
         } else {

@@ -12,4 +12,12 @@ export default class UserRepository {
         const users = await this.user.findAll({});
         return users;
     }
+
+    protected async getUserByEmail(email: string): Promise<any> {
+        const user = await this.user.findOne({
+            attributes: { exclude: ['password', 'permission'] },
+            where: { email },
+        });
+        return user;
+    }
 }

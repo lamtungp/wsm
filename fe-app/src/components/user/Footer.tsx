@@ -3,7 +3,7 @@ import { CFooter } from '@coreui/react';
 
 const Footer: React.FunctionComponent = (): React.ReactElement => {
     return (
-        <CFooter fixed={false}>
+        <CFooter fixed={false} style={{ backgroundColor: '#fdfdfd' }}>
             <div>
                 <span className="ml-1">Coppyright&copy; 2021 reactApp.</span>
             </div>

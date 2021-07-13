@@ -31,12 +31,17 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
             <CRow>
                 <CCol xs="12">
                     <CCard>
-                        <CCardHeader>
-                            <div className="d-flex">
-                                <h5 className="w-70 d-flex">Yêu cầu của tôi</h5>
-                                {/* <div className="float-left w-30" style={{ float: 'left' }}>
-                                    <h5>Số ngày phép còn lại: 0</h5>
-                                </div> */}
+                        <CCardHeader className="d-flex">
+                            <h2
+                                className="m-0 font-weight-bold d-flex"
+                                style={{ width: '82%', fontSize: '13px', lineHeight: '1.57' }}
+                            >
+                                Tạo mới yêu cầu
+                            </h2>
+                            <div>
+                                <h2 className="m-0 font-weight-bold" style={{ fontSize: '13px', lineHeight: '1.57' }}>
+                                    Số ngày phép còn lại: 10
+                                </h2>
                             </div>
                         </CCardHeader>
                         <CCardHeader style={{ border: 'none' }}>
