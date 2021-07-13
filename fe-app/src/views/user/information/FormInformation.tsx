@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
-import { useHistory, useParams } from 'react-router-dom';
-import { CCard, CCardHeader, CCardBody, CRow, CCol, CImg } from '@coreui/react';
+import { useHistory } from 'react-router-dom';
+import { CCard, CCardHeader, CCardBody, CRow, CCol } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
 // import { InputMoment } from 'react-input-moment';
 
@@ -17,12 +17,13 @@ const SignupSchema = Yup.object().shape({
 
 const FormInformation = () => {
     const history = useHistory();
-    const params = useParams();
+    // const params = useParams();
 
     const [user, setUser] = useState({
         id: '',
         email: '',
         address: '',
+        avatar: '',
         contractTerm: '',
         dayIn: '',
         dayOfficial: '',
@@ -120,7 +121,12 @@ const FormInformation = () => {
                                             </div>
                                             <CRow>
                                                 <CCol lg="7">
-                                                    <Form.Control name="avatar" type="file" onChange={handleChange} />
+                                                    <Form.Control
+                                                        name="avatar"
+                                                        type="file"
+                                                        value={values.avatar}
+                                                        onChange={handleChange}
+                                                    />
                                                 </CCol>
                                             </CRow>
                                         </CCol>
@@ -130,13 +136,26 @@ const FormInformation = () => {
                                     <Form.Label>Giới tính</Form.Label>
                                     <CRow>
                                         <CCol lg="1" className="pr-1">
-                                            <input type="radio" id="male" name="sex" value="male" checked />
+                                            <input
+                                                type="radio"
+                                                id="male"
+                                                name="sex"
+                                                value="male"
+                                                checked
+                                                onChange={handleChange}
+                                            />
                                             <label htmlFor="male" className="ml-1">
                                                 Male
                                             </label>
                                         </CCol>
                                         <CCol lg="1" className="pr-1">
-                                            <input type="radio" id="female" name="sex" value="female" />
+                                            <input
+                                                type="radio"
+                                                id="female"
+                                                name="sex"
+                                                value="female"
+                                                onChange={handleChange}
+                                            />
                                             <label htmlFor="female" className="ml-1">
                                                 Female
                                             </label>
@@ -207,11 +226,6 @@ const FormInformation = () => {
                                                 <Form.Text className="text-danger">{errors.address}</Form.Text>
                                             ) : null}
                                         </CCol>
-                                    </CRow>
-                                </Form.Group>
-                                <Form.Group>
-                                    <CRow>
-                                        <CCol lg="8"></CCol>
                                     </CRow>
                                 </Form.Group>
                                 <Button onClick={() => handleSubmit()}>

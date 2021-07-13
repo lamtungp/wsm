@@ -6,7 +6,7 @@ import { FaPencilAlt } from 'react-icons/fa';
 
 import userService from '../../../common/redux/user/services';
 
-const fields = ['Nội dung', 'Trạng thái', 'Người xử lý', 'Thời hạn'];
+// const fields = ['Nội dung', 'Trạng thái', 'Người xử lý', 'Thời hạn'];
 
 const Infomation: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();
@@ -42,14 +42,9 @@ const Infomation: React.FunctionComponent = (): React.ReactElement => {
             <CCol xs="12">
                 <CCard>
                     <CCardHeader>
-                        <div className="d-flex">
-                            <h2
-                                className="m-0 font-weight-bold d-flex"
-                                style={{ width: '80%', fontSize: '13px', lineHeight: '1.57' }}
-                            >
-                                Thông tin cá nhân
-                            </h2>
-                        </div>
+                        <h2 className="m-0 font-weight-bold d-flex" style={{ fontSize: '13px', lineHeight: '1.57' }}>
+                            Thông tin cá nhân
+                        </h2>
                     </CCardHeader>
                     <CCardHeader style={{ border: 'none' }}>
                         <CButton

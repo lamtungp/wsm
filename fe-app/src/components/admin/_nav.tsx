@@ -11,7 +11,7 @@ const _nav = [
     {
         _tag: 'CSidebarNavItem',
         name: 'Quản lý nhân viên',
-        to: '/admin/staffs',
+        to: '/admin/users',
         icon: <FaShareSquare style={{ marginRight: '1rem' }} />,
     },
     {

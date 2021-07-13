@@ -11,13 +11,13 @@ const poolConfig = {
 };
 
 const database = {
-    username: 'user',
-    password: 'secret', // if blank then set null
-    database: 'helloworld',
-    host: 'db',
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD, // if blank then set null
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
     pool: process.env.enableConnectionPool ? poolConfig : null,
     dialect: 'mysql',
-    port: 3306,
+    port: process.env.DB_PORT,
     timezone: '+00:00',
 };
 

@@ -18,7 +18,7 @@ import { GlobalState } from '../../common/redux';
 
 import navigation from './_nav';
 
-const SidebarAdmin: React.FunctionComponent = (): React.ReactElement => {
+const SidebarUser: React.FunctionComponent = (): React.ReactElement => {
     const dispatch = useDispatch();
     const show = useSelector((state: GlobalState) => state.sidebar.sidebarShow);
 
@@ -42,4 +42,4 @@ const SidebarAdmin: React.FunctionComponent = (): React.ReactElement => {
     );
 };
 
-export default React.memo(SidebarAdmin);
+export default React.memo(SidebarUser);

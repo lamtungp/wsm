@@ -5,7 +5,7 @@ const Footer: React.FunctionComponent = (): React.ReactElement => {
     return (
         <CFooter fixed={false} style={{ backgroundColor: '#fdfdfd' }}>
             <div>
-                <span className="ml-1">Coppyright&copy; 2021 reactApp.</span>
+                <span className="ml-1">2021 &copy; WSMDev</span>
             </div>
             <div className="mfs-auto">
                 <span className="mr-1">Powered by</span>

@@ -25,6 +25,18 @@ const App: React.FunctionComponent = (): React.ReactElement => {
                 <BrowserRouter>
                     <Switch>
                         <Route
+                            path="/admin/login"
+                            render={() => {
+                                return localStorage.getItem('token') ? <Redirect to="/admin" /> : <Login />;
+                            }}
+                        />
+                        <Route
+                            path="/admin"
+                            render={() => {
+                                return localStorage.getItem('token') ? <LayoutAdmin /> : <Redirect to="/admin/login" />;
+                            }}
+                        />
+                        <Route
                             path="/login"
                             render={() => {
                                 return localStorage.getItem('token') ? <Redirect to="/" /> : <Login />;
@@ -37,18 +49,7 @@ const App: React.FunctionComponent = (): React.ReactElement => {
                                 return localStorage.getItem('token') ? <LayoutUser /> : <Redirect to="/login" />;
                             }}
                         />
-                        <Route
-                            path="/admin/login"
-                            render={() => {
-                                return localStorage.getItem('token') ? <Redirect to="/admin" /> : <Login />;
-                            }}
-                        />
-                        <Route
-                            path="/admin"
-                            render={() => {
-                                return localStorage.getItem('token') ? <LayoutAdmin /> : <Redirect to="/admin/login" />;
-                            }}
-                        />
+                        {/* <Route path="/admin" component={LayoutAdmin} /> */}
                     </Switch>
                 </BrowserRouter>
             </React.Suspense>

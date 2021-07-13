@@ -22,6 +22,8 @@ const FormRequest = () => {
     const [user, setUser] = useState({
         id: '',
         content: '',
+        dayStart: '',
+        dayEnd: '',
         project: 'Zinza Intern',
         phoneNumber: '',
         reason: '',
@@ -54,7 +56,7 @@ const FormRequest = () => {
             <CCardHeader className="d-flex">
                 <h2
                     className="m-0 font-weight-bold d-flex"
-                    style={{ width: '82%', fontSize: '13px', lineHeight: '1.57' }}
+                    style={{ width: '85.5%', fontSize: '13px', lineHeight: '1.57' }}
                 >
                     Tạo mới yêu cầu
                 </h2>
@@ -90,7 +92,7 @@ const FormRequest = () => {
                                             <CRow>
                                                 <CCol lg="8">
                                                     <Form.Label>Nội dung:</Form.Label>
-                                                    <Form.Control name="content" as="select">
+                                                    <Form.Control name="content" as="select" value={values.content}>
                                                         <option value="take_leave">Nghỉ phép có lương</option>
                                                         <option value="days_off">Nghỉ phép không lương</option>
                                                         <option value="over_time">Làm thêm giờ</option>
@@ -104,11 +106,21 @@ const FormRequest = () => {
                                             <CRow>
                                                 <CCol lg="6">
                                                     <Form.Label>Từ:</Form.Label>
-                                                    <Form.Control name="dayStart" type="date" onChange={handleChange} />
+                                                    <Form.Control
+                                                        name="dayStart"
+                                                        type="date"
+                                                        value={values.dayStart}
+                                                        onChange={handleChange}
+                                                    />
                                                 </CCol>
                                                 <CCol lg="6">
                                                     <Form.Label>Đến:</Form.Label>
-                                                    <Form.Control name="dayStart" type="date" onChange={handleChange} />
+                                                    <Form.Control
+                                                        name="dayStart"
+                                                        type="date"
+                                                        value={values.dayEnd}
+                                                        onChange={handleChange}
+                                                    />
                                                 </CCol>
                                             </CRow>
                                         </Form.Group>
@@ -157,7 +169,7 @@ const FormRequest = () => {
                                             </CRow>
                                         </Form.Group>
                                         <Button onClick={() => handleSubmit()}>
-                                            <FaSave />
+                                            <FaSave className="mb-1 mr-1" />
                                             <span>Lưu</span>
                                         </Button>
                                     </Form>
@@ -171,10 +183,7 @@ const FormRequest = () => {
                                 fontSize: '0.8125rem',
                             }}
                         >
-                            <div
-                                className="rules take-leave"
-                                style={{ padding: '25px', backgroundColor: 'ghostwhite', margin: '20px' }}
-                            >
+                            <div style={{ padding: '25px', backgroundColor: 'ghostwhite', margin: '20px' }}>
                                 a, Khi xin nghỉ phép chú ý:
                                 <ul className="p-0">
                                     <li>Nếu còn ngày phép: Xin nghỉ phép có lương.</li>

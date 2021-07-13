@@ -8,19 +8,19 @@ const localizer = momentLocalizer(moment);
 const myEvent = [
     {
         start: moment().toDate(),
-        end: moment().add(0, 'days').toDate(),
-        title: 'p.mt',
+        // end: moment().add(0, 'days').toDate(),
+        // title: 'today',
     },
 ];
 const Dashboard = () => {
     return (
-        <div>
+        <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
             <Calendar
                 localizer={localizer}
                 events={myEvent}
-                startAccessor="start"
-                endAccessor="end"
-                style={{ height: 500 }}
+                // startAccessor="start"
+                // endAccessor="end"
+                style={{ height: 700 }}
                 culture="en-GB"
             />
         </div>

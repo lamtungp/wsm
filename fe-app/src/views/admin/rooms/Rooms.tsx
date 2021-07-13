@@ -1,18 +1,40 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { CButton, CCard, CCardBody, CCol, CDataTable, CRow } from '@coreui/react';
+import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
 
 import userService from '../../../common/redux/user/services';
 
 const fields = [
-    'id',
-    'username',
-    'email',
-    'password',
+    {
+        key: 'id',
+        label: 'id',
+    },
+    {
+        key: 'name',
+        label: 'name',
+        sorter: false,
+    },
+    {
+        key: 'email',
+        label: 'email',
+        sorter: false,
+    },
+    {
+        key: 'password',
+        label: 'password',
+        sorter: false,
+    },
     {
         key: 'show_details',
         label: '',
         _style: { width: '10%', height: '100%' },
+        sorter: false,
+        filter: false,
+    },
+    {
+        key: 'edit',
+        label: '',
+        _style: { width: '12%', height: '100%' },
         sorter: false,
         filter: false,
     },
@@ -42,28 +64,57 @@ const Rooms = () => {
             <CRow>
                 <CCol xs="12">
                     <CCard>
-                        <CButton
-                            className="btn btn-primary"
-                            style={{ float: 'right', width: '10rem' }}
-                            onClick={() => {
-                                history.push('/base/users/add-user');
-                            }}
-                        >
-                            Add
-                        </CButton>
+                        <CCardHeader>
+                            <h2
+                                className="m-0 font-weight-bold d-flex"
+                                style={{ fontSize: '13px', lineHeight: '1.57' }}
+                            >
+                                Thông tin các phòng
+                            </h2>
+                        </CCardHeader>
+                        <CCardHeader style={{ border: 'none' }}>
+                            <CButton
+                                className="btn-primary"
+                                onClick={() => {
+                                    history.push('/admin/rooms/add-room');
+                                }}
+                            >
+                                + Thêm phòng
+                            </CButton>
+                        </CCardHeader>
                         <CCardBody>
                             <CDataTable
                                 items={listUser}
                                 hover
                                 striped
                                 border
-                                size="sm"
+                                size="md"
                                 fields={fields}
                                 itemsPerPage={5}
                                 tableFilter
                                 sorter
                                 pagination
                                 scopedSlots={{
+                                    // eslint-disable-next-line react/display-name
+                                    edit: (item: any) => {
+                                        return (
+                                            <td>
+                                                <div className="d-flex justify-content-center">
+                                                    <CButton
+                                                        color="primary"
+                                                        variant="outline"
+                                                        shape="square"
+                                                        size="sm"
+                                                        onClick={() => {
+                                                            history.push(`/admin/staffs-room/${item.id}`);
+                                                        }}
+                                                    >
+                                                        Xem nhân viên
+                                                    </CButton>
+                                                </div>
+                                            </td>
+                                        );
+                                    },
                                     // eslint-disable-next-line react/display-name
                                     show_details: (item: any) => {
                                         return (
@@ -76,7 +127,7 @@ const Rooms = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            history.push(`/base/users/update-user/${item.id}`);
+                                                            history.push(`/admin/rooms/update-room/${item.id}`);
                                                         }}
                                                     >
                                                         Update

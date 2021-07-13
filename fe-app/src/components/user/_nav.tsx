@@ -11,7 +11,7 @@ const _nav = [
     {
         _tag: 'CSidebarNavDropdown',
         name: 'Các yêu cầu',
-        route: '/user',
+        route: '/requests',
         icon: <FaShareSquare style={{ marginRight: '1rem' }} />,
         _children: [
             {

@@ -6,6 +6,6 @@ const { database } = env;
 export default new Sequelize(database.database, database.username, database.password, {
     dialect: database.dialect as Dialect,
     host: database.host,
-    port: database.port,
+    port: Number(database.port),
     pool: database.pool,
 });

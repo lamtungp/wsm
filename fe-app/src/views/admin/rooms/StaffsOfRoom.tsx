@@ -31,9 +31,16 @@ const fields = [
         sorter: false,
         filter: false,
     },
+    {
+        key: 'edit',
+        label: '',
+        _style: { width: '12%', height: '100%' },
+        sorter: false,
+        filter: false,
+    },
 ];
 
-const Users = () => {
+const StaffsOfRoom = () => {
     const history = useHistory();
     const [listUser, setListUser] = useState([{ id: '', email: '', password: '' }]);
 
@@ -65,16 +72,6 @@ const Users = () => {
                                 Thông tin nhân viên
                             </h2>
                         </CCardHeader>
-                        <CCardHeader style={{ border: 'none' }}>
-                            <CButton
-                                className="btn-primary"
-                                onClick={() => {
-                                    history.push('/admin/users/add-user');
-                                }}
-                            >
-                                + Thêm nhân viên
-                            </CButton>
-                        </CCardHeader>
                         <CCardBody>
                             <CDataTable
                                 items={listUser}
@@ -89,6 +86,26 @@ const Users = () => {
                                 pagination
                                 scopedSlots={{
                                     // eslint-disable-next-line react/display-name
+                                    edit: (item: any) => {
+                                        return (
+                                            <td>
+                                                <div className="d-flex justify-content-center">
+                                                    <CButton
+                                                        color="primary"
+                                                        variant="outline"
+                                                        shape="square"
+                                                        size="sm"
+                                                        onClick={() => {
+                                                            history.push(`/admin/staff-rooms/${item.id}`);
+                                                        }}
+                                                    >
+                                                        Xem nhân viên
+                                                    </CButton>
+                                                </div>
+                                            </td>
+                                        );
+                                    },
+                                    // eslint-disable-next-line react/display-name
                                     show_details: (item: any) => {
                                         return (
                                             <td>
@@ -100,7 +117,7 @@ const Users = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            history.push(`/admin/users/update-user/${item.id}`);
+                                                            history.push(`/admin/rooms/update-room/${item.id}`);
                                                         }}
                                                     >
                                                         Update
@@ -130,4 +147,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default StaffsOfRoom;
