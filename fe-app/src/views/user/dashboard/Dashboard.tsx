@@ -21,7 +21,6 @@ const Dashboard = () => {
                 startAccessor="start"
                 endAccessor="end"
                 style={{ height: 500 }}
-                view="month"
                 culture="en-GB"
             />
         </div>

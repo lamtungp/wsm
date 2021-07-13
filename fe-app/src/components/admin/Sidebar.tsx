@@ -24,7 +24,7 @@ const SidebarAdmin: React.FunctionComponent = (): React.ReactElement => {
 
     return (
         <CSidebar show={show} onShowChange={(val: any) => dispatch(SetSidebar(val))}>
-            <CSidebarBrand className="d-md-down-none" to="/">
+            <CSidebarBrand className="d-md-down-none" to="/admin">
                 WSM
             </CSidebarBrand>
             <CSidebarNav>

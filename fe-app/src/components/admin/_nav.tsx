@@ -5,13 +5,13 @@ const _nav = [
     {
         _tag: 'CSidebarNavItem',
         name: 'Quản lý phòng ban',
-        to: '/admin',
+        to: '/admin/rooms',
         icon: <FaWindowMaximize style={{ marginRight: '1rem', color: 'lightgray' }} />,
     },
     {
         _tag: 'CSidebarNavItem',
         name: 'Quản lý nhân viên',
-        to: '/admin',
+        to: '/admin/staffs',
         icon: <FaShareSquare style={{ marginRight: '1rem' }} />,
     },
     {
