@@ -20,4 +20,9 @@ export default class UserRepository {
         });
         return user;
     }
+
+    protected async createUser(value: any): Promise<any> {
+        const checked = await this.user.create(value);
+        return checked;
+    }
 }

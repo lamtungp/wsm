@@ -1,6 +1,12 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+const auth = {
+    screat: process.env.JWT_SECRET,
+    user: process.env.USER,
+    pass: process.env.PASS,
+};
+
 const poolConfig = {
     max: 100,
     min: 0,
@@ -30,6 +36,8 @@ export default {
     database,
     jwtSecret: process.env.JWT_SECRET,
     jwtExpiresIn: '20d',
+
+    auth,
 
     salt: process.env.SALT,
 };

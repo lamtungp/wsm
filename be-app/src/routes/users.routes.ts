@@ -9,5 +9,6 @@ const userController = new UserController(userModel);
 /* GET users. */
 router.get('/get-user', userController.getListUsers);
 router.get('/find-user-by-email/:email', userController.findUserByEmail);
+router.post('/create-user', userController.addUser);
 
 export default router;

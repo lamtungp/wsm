@@ -1,13 +1,13 @@
 import { BuildOptions, Model } from 'sequelize';
 
-export interface UserAttributes {
+export interface CheckedAttributes {
     id: string;
-    username: string;
-    email: string;
-    password: string;
+    checkin: string;
+    checkout: string;
+    month: string;
 }
-export interface UserModel extends Model<UserAttributes>, UserAttributes {}
+export interface CheckedModel extends Model<CheckedAttributes>, CheckedAttributes {}
 
-export type UserStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): UserModel;
+export type CheckedStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): CheckedModel;
 };
