@@ -18,7 +18,7 @@ const Dashboard = () => {
             <Calendar
                 localizer={localizer}
                 events={myEvent}
-                // startAccessor="start"
+                startAccessor="start"
                 // endAccessor="end"
                 style={{ height: 700 }}
                 culture="en-GB"

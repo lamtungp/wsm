@@ -7,7 +7,7 @@ services:
     working_dir: /app
     restart: always
     tty: true
-    # command: npm i -g sequelize-cli
+    # command: npm rebuild node-sass
     environment:
       - NODE_ENV=development
     volumes:

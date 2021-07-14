@@ -5,8 +5,10 @@ import { Button, Form } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
 import { CCard, CCardHeader, CCardBody, CRow, CCol, CTextarea } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
-// import { InputMoment } from 'react-input-moment';
+import 'flatpickr/dist/themes/airbnb.css';
+import Flatpickr from 'react-flatpickr';
 
+import 'flatpickr/dist/flatpickr.css';
 import userService from '../../../common/redux/user/services';
 
 const SignupSchema = Yup.object().shape({
@@ -18,6 +20,9 @@ const SignupSchema = Yup.object().shape({
 const FormRequest = () => {
     const history = useHistory();
     const params = useParams();
+
+    const [dateStart, setDateStart] = useState('');
+    const [dateEnd, setDateEnd] = useState('');
 
     const [user, setUser] = useState({
         id: '',
@@ -53,133 +58,166 @@ const FormRequest = () => {
 
     return (
         <CCard className="w3-margin-top login" style={{ backgroundColor: '#fff' }}>
-            <CCardHeader className="d-flex">
-                <h2
-                    className="m-0 font-weight-bold d-flex"
-                    style={{ width: '85.5%', fontSize: '13px', lineHeight: '1.57' }}
-                >
-                    Tạo mới yêu cầu
-                </h2>
-                <div>
-                    <h2 className="m-0 font-weight-bold" style={{ fontSize: '13px', lineHeight: '1.57' }}>
-                        Số ngày phép còn lại: 10
-                    </h2>
-                </div>
+            <CCardHeader>
+                <CRow>
+                    <CCol lg="8">
+                        <h2
+                            className="m-0 font-weight-bold d-flex"
+                            style={{ width: '85%', fontSize: '13px', lineHeight: '1.57' }}
+                        >
+                            Tạo mới yêu cầu
+                        </h2>
+                    </CCol>
+                    <CCol lg="4">
+                        <div>
+                            <h2
+                                className="m-0 font-weight-bold float-right"
+                                style={{ fontSize: '13px', lineHeight: '1.57' }}
+                            >
+                                Số ngày phép còn lại: 10
+                            </h2>
+                        </div>
+                    </CCol>
+                </CRow>
             </CCardHeader>
             <CCardBody>
                 <div>
                     <CRow>
-                        <CCol md="6">
-                            <Formik
-                                initialValues={user}
-                                validationSchema={SignupSchema}
-                                enableReinitialize
-                                onSubmit={(values) => {
-                                    handle(values);
-                                }}
-                                validateOnChange={true}
-                                // validateOnBlur={false}
-                            >
-                                {({ handleChange, handleSubmit, errors, touched, values }) => (
-                                    <Form
-                                        onKeyDown={(e) => {
-                                            if (e.key === 'Enter') {
-                                                handleSubmit();
-                                            }
+                        <CCol lg="7">
+                            <CRow>
+                                <CCol lg="10">
+                                    <Formik
+                                        initialValues={user}
+                                        validationSchema={SignupSchema}
+                                        enableReinitialize
+                                        onSubmit={(values) => {
+                                            handle(values);
                                         }}
+                                        validateOnChange={true}
+                                        // validateOnBlur={false}
                                     >
-                                        <Form.Group>
-                                            <CRow>
-                                                <CCol lg="8">
-                                                    <Form.Label>Nội dung:</Form.Label>
-                                                    <Form.Control name="content" as="select" value={values.content}>
-                                                        <option value="take_leave">Nghỉ phép có lương</option>
-                                                        <option value="days_off">Nghỉ phép không lương</option>
-                                                        <option value="over_time">Làm thêm giờ</option>
-                                                        <option value="take_device_out">Mang thiết bị về nhà</option>
-                                                        <option value="forgot_to_check">Quên check in/check out</option>
-                                                    </Form.Control>
-                                                </CCol>
-                                            </CRow>
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <CRow>
-                                                <CCol lg="6">
-                                                    <Form.Label>Từ:</Form.Label>
-                                                    <Form.Control
-                                                        name="dayStart"
-                                                        type="date"
-                                                        value={values.dayStart}
-                                                        onChange={handleChange}
-                                                    />
-                                                </CCol>
-                                                <CCol lg="6">
-                                                    <Form.Label>Đến:</Form.Label>
-                                                    <Form.Control
-                                                        name="dayStart"
-                                                        type="date"
-                                                        value={values.dayEnd}
-                                                        onChange={handleChange}
-                                                    />
-                                                </CCol>
-                                            </CRow>
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <CRow>
-                                                <CCol lg="8">
-                                                    <Form.Label>Số điện thoại:</Form.Label>
-                                                    <Form.Control
-                                                        name="phoneNumber"
-                                                        type="phoneNumber"
-                                                        placeholder="123456789"
-                                                        value={values.phoneNumber}
-                                                        onChange={handleChange}
-                                                    />
-                                                    {errors.phoneNumber && touched.phoneNumber ? (
-                                                        <Form.Text className="text-danger">
-                                                            {errors.phoneNumber}
-                                                        </Form.Text>
-                                                    ) : null}
-                                                </CCol>
-                                            </CRow>
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <CRow>
-                                                <CCol lg="8">
-                                                    <Form.Label>Dự án:</Form.Label>
-                                                    <Form.Control name="project" value={values.project} readOnly />
-                                                </CCol>
-                                            </CRow>
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <CRow>
-                                                <CCol lg="8">
-                                                    <Form.Label>Lý do:</Form.Label>
-                                                    <CTextarea
-                                                        name="reason"
-                                                        rows={3}
-                                                        placeholder='Cần nêu lý do cụ thể, không viết "Lý do cá nhân"'
-                                                        value={values.reason}
-                                                        onChange={handleChange}
-                                                    />
-                                                    {errors.reason && touched.reason ? (
-                                                        <Form.Text className="text-danger">{errors.reason}</Form.Text>
-                                                    ) : null}
-                                                </CCol>
-                                            </CRow>
-                                        </Form.Group>
-                                        <Button onClick={() => handleSubmit()}>
-                                            <FaSave className="mb-1 mr-1" />
-                                            <span>Lưu</span>
-                                        </Button>
-                                    </Form>
-                                )}
-                            </Formik>
+                                        {({ handleChange, handleSubmit, errors, touched, values }) => (
+                                            <Form
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') {
+                                                        handleSubmit();
+                                                    }
+                                                }}
+                                            >
+                                                <Form.Group>
+                                                    <CRow>
+                                                        <CCol lg="8">
+                                                            <Form.Label>Nội dung:</Form.Label>
+                                                            <Form.Control
+                                                                name="content"
+                                                                as="select"
+                                                                value={values.content}
+                                                                onChange={handleChange}
+                                                            >
+                                                                <option value="take_leave">Nghỉ phép có lương</option>
+                                                                <option value="days_off">Nghỉ phép không lương</option>
+                                                                <option value="over_time">Làm thêm giờ</option>
+                                                                <option value="take_device_out">
+                                                                    Mang thiết bị về nhà
+                                                                </option>
+                                                                <option value="forgot_to_check">
+                                                                    Quên check in/check out
+                                                                </option>
+                                                            </Form.Control>
+                                                        </CCol>
+                                                    </CRow>
+                                                </Form.Group>
+                                                <Form.Group>
+                                                    <CRow>
+                                                        <CCol lg="6">
+                                                            <Form.Label>Từ:</Form.Label>
+                                                            <Flatpickr
+                                                                className="form-control bg-white"
+                                                                value={dateStart}
+                                                                options={{
+                                                                    dateFormat: 'd-m-Y H:i',
+                                                                    enableTime: true,
+                                                                }}
+                                                                onChange={(dateSelect: any) => setDateStart(dateSelect)}
+                                                            />
+                                                        </CCol>
+                                                        <CCol lg="6">
+                                                            <Form.Label>Đến:</Form.Label>
+                                                            <Flatpickr
+                                                                className="form-control bg-white"
+                                                                value={dateEnd}
+                                                                options={{
+                                                                    dateFormat: 'd-m-Y H:i',
+                                                                    enableTime: true,
+                                                                }}
+                                                                onChange={(dateSelect: any) => setDateEnd(dateSelect)}
+                                                            />
+                                                        </CCol>
+                                                    </CRow>
+                                                </Form.Group>
+                                                <Form.Group>
+                                                    <CRow>
+                                                        <CCol lg="8">
+                                                            <Form.Label>Số điện thoại:</Form.Label>
+                                                            <Form.Control
+                                                                name="phoneNumber"
+                                                                type="phoneNumber"
+                                                                placeholder="123456789"
+                                                                value={values.phoneNumber}
+                                                                onChange={handleChange}
+                                                            />
+                                                            {errors.phoneNumber && touched.phoneNumber ? (
+                                                                <Form.Text className="text-danger">
+                                                                    {errors.phoneNumber}
+                                                                </Form.Text>
+                                                            ) : null}
+                                                        </CCol>
+                                                    </CRow>
+                                                </Form.Group>
+                                                <Form.Group>
+                                                    <CRow>
+                                                        <CCol lg="8">
+                                                            <Form.Label>Dự án:</Form.Label>
+                                                            <Form.Control
+                                                                name="project"
+                                                                value={values.project}
+                                                                readOnly
+                                                            />
+                                                        </CCol>
+                                                    </CRow>
+                                                </Form.Group>
+                                                <Form.Group>
+                                                    <CRow>
+                                                        <CCol lg="8">
+                                                            <Form.Label>Lý do:</Form.Label>
+                                                            <CTextarea
+                                                                name="reason"
+                                                                rows={3}
+                                                                placeholder='Cần nêu lý do cụ thể, không viết "Lý do cá nhân"'
+                                                                value={values.reason}
+                                                                onChange={handleChange}
+                                                            />
+                                                            {errors.reason && touched.reason ? (
+                                                                <Form.Text className="text-danger">
+                                                                    {errors.reason}
+                                                                </Form.Text>
+                                                            ) : null}
+                                                        </CCol>
+                                                    </CRow>
+                                                </Form.Group>
+                                                <Button onClick={() => handleSubmit()}>
+                                                    <FaSave className="mb-1 mr-1" />
+                                                    <span>Lưu</span>
+                                                </Button>
+                                            </Form>
+                                        )}
+                                    </Formik>
+                                </CCol>
+                            </CRow>
                         </CCol>
                         <CCol
-                            md="5"
+                            lg="5"
                             style={{
-                                fontFamily: '"Roboto", "Helvetica Neue", Helvetica, Arial',
                                 fontSize: '0.8125rem',
                             }}
                         >

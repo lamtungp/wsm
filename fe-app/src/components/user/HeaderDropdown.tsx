@@ -26,7 +26,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
                 >
                     <div className="d-flex h-100 align-items-center">
                         <div className="c-avatar">
-                            <CImg src="avatars/1.jpg" className="c-avatar-img" alt="lam.pt@zinza.com.vn" />
+                            <CImg src="avatars/1.jpg" className="c-avatar-img" alt="avatar" />
                         </div>
                         <span className="ml-3">
                             <div className="fs-lg font-weight-bold text-white">Pham Tung Lam</div>
@@ -35,7 +35,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
                     </div>
                 </CDropdownItem>
                 <CDropdownItem onClick={() => history.push('/user/profile')}>Thông tin cá nhân</CDropdownItem>
-                <CDropdownItem>Danh sách yêu cầu</CDropdownItem>
+                <CDropdownItem onClick={() => history.push('/user/requests')}>Danh sách yêu cầu</CDropdownItem>
                 <CDropdownItem className="m-0" divider />
                 <CDropdownItem onClick={() => logOut()}>Đăng xuất</CDropdownItem>
             </CDropdownMenu>

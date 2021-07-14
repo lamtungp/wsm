@@ -152,15 +152,20 @@ const FormUser = () => {
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label>Avatar</Form.Label>
-                                    <div style={{ marginBottom: '1rem' }}>
+                                    <div
+                                        style={{
+                                            marginBottom: '1rem',
+                                            width: '12rem',
+                                            padding: '3px',
+                                            border: '1px solid #dee2e6',
+                                            borderRadius: '4px',
+                                        }}
+                                    >
                                         <img
-                                            src={`/images/${values.avatar}`}
+                                            src={`/images/no-avatar.jpg`}
                                             alt="avatar"
                                             style={{
-                                                width: '12rem',
-                                                padding: '3px',
-                                                border: '1px solid #dee2e6',
-                                                borderRadius: '4px',
+                                                width: '100%',
                                             }}
                                         />
                                     </div>
@@ -170,9 +175,13 @@ const FormUser = () => {
                                                 name="avatar"
                                                 type="file"
                                                 onChange={(e: any) => {
-                                                    const files = e.target.files[0].name;
-                                                    console.log(files);
-                                                    setFieldValue('avatar', files);
+                                                    if (e.target.value) {
+                                                        const files = e.target.files[0].name;
+                                                        console.log(files);
+                                                        setFieldValue('avatar', files);
+                                                    } else {
+                                                        setFieldValue('avatar', 'no-avatar.jpg');
+                                                    }
                                                 }}
                                             />
                                         </CCol>

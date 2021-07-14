@@ -61,42 +61,60 @@ const Infomation: React.FunctionComponent = (): React.ReactElement => {
                         <CRow>
                             <CCol lg="6">
                                 <h4 style={{ fontSize: '17px' }}>Thông tin cá nhân</h4>
-                                <Table bordered hover className="text-center">
+                                <Table bordered hover style={{ fontSize: '13px' }}>
                                     <tbody>
                                         <tr>
-                                            <td>Email</td>
+                                            <td>
+                                                <strong>Email</strong>
+                                            </td>
                                             <td>{user.email}</td>
                                         </tr>
                                         <tr>
-                                            <td>Họ tên</td>
+                                            <td>
+                                                <strong>Họ tên</strong>
+                                            </td>
                                             <td>{user.name}</td>
                                         </tr>
                                         <tr>
-                                            <td>Địa chỉ</td>
+                                            <td>
+                                                <strong>Địa chỉ</strong>
+                                            </td>
                                             <td>{user.address}</td>
                                         </tr>
                                         <tr>
-                                            <td>Thâm niên</td>
+                                            <td>
+                                                <strong>Thâm niên</strong>
+                                            </td>
                                             <td>{user.senority}</td>
                                         </tr>
                                         <tr>
-                                            <td>Số điện thoại</td>
+                                            <td>
+                                                <strong>Số điện thoại</strong>
+                                            </td>
                                             <td>{user.phoneNumber}</td>
                                         </tr>
                                         <tr>
-                                            <td>Ngày sinh</td>
+                                            <td>
+                                                <strong>Ngày sinh</strong>
+                                            </td>
                                             <td>{user.dob}</td>
                                         </tr>
                                         <tr>
-                                            <td>Ngày vào công ty</td>
+                                            <td>
+                                                <strong>Ngày vào công ty</strong>
+                                            </td>
                                             <td>{user.dayIn}</td>
                                         </tr>
                                         <tr>
-                                            <td>Ngày lên chính thức</td>
+                                            <td>
+                                                <strong>Ngày lên chính thức</strong>
+                                            </td>
                                             <td>{user.dayOfficial}</td>
                                         </tr>
                                         <tr>
-                                            <td>Số ngày phép còn lại</td>
+                                            <td>
+                                                <strong>Số ngày phép còn lại</strong>
+                                            </td>
                                             <td>{user.vacationsDay}</td>
                                         </tr>
                                     </tbody>

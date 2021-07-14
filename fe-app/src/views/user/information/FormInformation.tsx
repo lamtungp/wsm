@@ -79,7 +79,7 @@ const FormInformation = () => {
                         validateOnChange={true}
                         // validateOnBlur={false}
                     >
-                        {({ handleChange, handleSubmit, errors, touched, values }) => (
+                        {({ handleChange, handleSubmit, setFieldValue, errors, touched, values }) => (
                             <Form
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') {
@@ -107,15 +107,20 @@ const FormInformation = () => {
                                     <CRow>
                                         <CCol lg="6">
                                             <Form.Label>Avatar</Form.Label>
-                                            <div style={{ marginBottom: '1rem' }}>
+                                            <div
+                                                style={{
+                                                    marginBottom: '1rem',
+                                                    width: '12rem',
+                                                    padding: '3px',
+                                                    border: '1px solid #dee2e6',
+                                                    borderRadius: '4px',
+                                                }}
+                                            >
                                                 <img
-                                                    src="/avatars/1.jpg"
+                                                    src={`/avatars/${values.avatar}`}
                                                     alt="avatar"
                                                     style={{
-                                                        width: '12rem',
-                                                        padding: '3px',
-                                                        border: '1px solid #dee2e6',
-                                                        borderRadius: '4px',
+                                                        width: '100%',
                                                     }}
                                                 />
                                             </div>
@@ -124,8 +129,15 @@ const FormInformation = () => {
                                                     <Form.Control
                                                         name="avatar"
                                                         type="file"
-                                                        value={values.avatar}
-                                                        onChange={handleChange}
+                                                        onChange={(e: any) => {
+                                                            if (e.target.value) {
+                                                                const files = e.target.files[0].name;
+                                                                console.log(files);
+                                                                setFieldValue('avatar', files);
+                                                            } else {
+                                                                setFieldValue('avatar', 'no-avatar.jpg');
+                                                            }
+                                                        }}
                                                     />
                                                 </CCol>
                                             </CRow>
