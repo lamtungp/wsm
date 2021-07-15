@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CImg } from '@coreui/react';
 import { useHistory } from 'react-router-dom';
 
+import userService from '../../common/redux/user/services';
+
 const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();
+    const [user, setUser] = useState({
+        avatar: '',
+    });
+
+    React.useEffect(() => {
+        getUser();
+    }, []);
 
     const logOut = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('email');
         history.push('/');
     };
+
+    const getUser = async () => {
+        const user = await userService.findUserByEmail(String(localStorage.getItem('email')));
+        setUser(user);
+    };
+
     return (
         <CDropdown inNav className="c-header-nav-items mx-2">
             <CDropdownToggle className="c-header-nav-link" caret={false}>
@@ -26,7 +41,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
                 >
                     <div className="d-flex h-100 align-items-center">
                         <div className="c-avatar">
-                            <CImg src="avatars/1.jpg" className="c-avatar-img" alt="avatar" />
+                            <CImg src={`avatars/${user.avatar}`} className="c-avatar-img" alt="avatar" />
                         </div>
                         <span className="ml-3">
                             <div className="fs-lg font-weight-bold text-white">Pham Tung Lam</div>

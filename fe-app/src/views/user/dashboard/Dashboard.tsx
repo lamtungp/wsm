@@ -3,6 +3,8 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
+import CustomToolbar from './Toolbar';
+
 const localizer = momentLocalizer(moment);
 
 const myEvent = [
@@ -12,6 +14,13 @@ const myEvent = [
         // title: 'today',
     },
 ];
+
+// const CustomHeader = () => (
+//     <div>
+//         <div>2</div>
+//     </div>
+// );
+
 const Dashboard = () => {
     return (
         <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
@@ -21,7 +30,14 @@ const Dashboard = () => {
                 startAccessor="start"
                 // endAccessor="end"
                 style={{ height: 700 }}
-                culture="en-GB"
+                views={{ month: true }}
+                culture="ar-AE"
+                components={{
+                    toolbar: CustomToolbar,
+                    // day: {
+                    //     header: CustomHeader,
+                    // },
+                }}
             />
         </div>
     );

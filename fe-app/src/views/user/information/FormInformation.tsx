@@ -57,6 +57,8 @@ const FormInformation = () => {
         }
     };
 
+    console.log(user);
+
     return (
         <CCard className="w3-margin-top login" style={{ backgroundColor: '#fff' }}>
             <CCardHeader className="d-flex">

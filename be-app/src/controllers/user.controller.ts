@@ -3,15 +3,15 @@ import userModel from '../models/user.model';
 import UserRepository from '../repositories/user.repository';
 
 export default class UserController {
-    private userController: UserRepository;
+    private user: UserRepository;
 
     constructor() {
-        this.userController = UserRepository.getInstance();
+        this.user = UserRepository.getInstance();
     }
 
     public getListUsers = async (_req: Request, res: Response) => {
         try {
-            const users = await this.userController.getUsers();
+            const users = await this.user.getUsers();
             return res.status(200).json(users);
         } catch (error) {
             console.log(error);
@@ -21,7 +21,7 @@ export default class UserController {
 
     public findUserByEmail = async (req: Request, res: Response) => {
         try {
-            const user = await this.userController.getUserByEmail(req.params.email);
+            const user = await this.user.getUserByEmail(req.params.email);
             return res.status(200).json(user);
         } catch (error) {
             console.log(error);
@@ -31,7 +31,7 @@ export default class UserController {
 
     public addUser = async (req: Request, res: Response) => {
         try {
-            const user = await this.userController.createUser(req.body);
+            const user = await this.user.createUser(req.body);
             return res.status(200).json(user);
         } catch (error) {
             console.log(error);

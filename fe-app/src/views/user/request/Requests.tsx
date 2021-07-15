@@ -1,25 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react';
 import { Table } from 'react-bootstrap';
 import { FaEye, FaDownload } from 'react-icons/fa';
 
-import userService from '../../../common/redux/user/services';
+import requestService from '../../../common/redux/request/services';
 
 const fields = ['Nội dung', 'Trạng thái', 'Người xử lý', 'Thời hạn', ''];
 
 const Requests: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();
-    // const [listUser, setListUser] = useState([{ id: '', email: '', password: '' }]);
+    const [listRequest, setListRequest] = useState([{ nameRequest: '', state: '', handler: '', timeout: '' }]);
 
     React.useEffect(() => {
         getListTodo();
     }, []);
 
     const getListTodo = async () => {
-        const res = await userService.getList();
+        const res = await requestService.getListRequest(Number(localStorage.getItem('idAccount')));
         console.log(res);
-        // setListUser(res);
+        setListRequest(res);
     };
 
     return (
@@ -52,7 +52,7 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
                             </CButton>
                         </CCardHeader>
                         <CCardBody style={{ border: 'none' }}>
-                            <Table bordered className="text-center align-items-center">
+                            <Table bordered hover className="text-center align-items-center">
                                 <thead>
                                     <tr>
                                         {fields.map((item, index) => {
@@ -61,48 +61,28 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>
-                                            <CButton className="btn-primary mr-1">
-                                                <FaEye />
-                                            </CButton>
-                                            <CButton className="btn-primary">
-                                                <FaDownload />
-                                            </CButton>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>
-                                            <CButton className="btn-primary mr-1">
-                                                <FaEye />
-                                            </CButton>
-                                            <CButton className="btn-primary">
-                                                <FaDownload />
-                                            </CButton>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Larry the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>@fat</td>
-                                        <td>
-                                            <CButton className="btn-primary mr-1">
-                                                <FaEye />
-                                            </CButton>
-                                            <CButton className="btn-primary">
-                                                <FaDownload />
-                                            </CButton>
-                                        </td>
-                                    </tr>
+                                    {listRequest.map((item, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{item.nameRequest}</td>
+                                                <td>
+                                                    <span className="badge badge-pill badge-warning text-white">
+                                                        {item.state}
+                                                    </span>
+                                                </td>
+                                                <td>{item.handler}</td>
+                                                <td>{item.timeout}</td>
+                                                <td>
+                                                    <CButton className="btn-primary mr-1">
+                                                        <FaEye />
+                                                    </CButton>
+                                                    <CButton className="btn-primary">
+                                                        <FaDownload />
+                                                    </CButton>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
                                 </tbody>
                             </Table>
                         </CCardBody>

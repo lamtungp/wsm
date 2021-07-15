@@ -1,6 +1,8 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 // import { useDispatch } from 'react-redux';
 
+import userService from '../user/services';
+
 import { AUTH_ACTIONS, LoginAction } from './actionTypes';
 import { loginSuccess, loginFailure } from './actions';
 import authServices from './services';
@@ -15,6 +17,8 @@ function* loginSaga(action: LoginAction) {
         if (response) {
             localStorage.setItem('token', response);
             localStorage.setItem('email', action.payload.email);
+            const account = yield call(userService.findUserByEmail, String(localStorage.getItem('email')));
+            localStorage.setItem('idAccount', account.id);
             yield put(loginSuccess({ email: action.payload.email, token: response }));
             window.location.pathname = '';
         } else {

@@ -2,58 +2,58 @@ import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
-import { useHistory, useParams } from 'react-router-dom';
+// import { useHistory, useParams } from 'react-router-dom';
 import { CCard, CCardHeader, CCardBody, CRow, CCol, CTextarea } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
 import 'flatpickr/dist/themes/airbnb.css';
 import Flatpickr from 'react-flatpickr';
 
 import 'flatpickr/dist/flatpickr.css';
-import userService from '../../../common/redux/user/services';
+import requestService from '../../../common/redux/request/services';
 
 const SignupSchema = Yup.object().shape({
-    content: Yup.string().min(2, 'Too short!').max(20, 'Too long!').required('Required!'),
+    reason: Yup.string().min(2, 'Too short!').max(20, 'Too long!').required('Required!'),
     phoneNumber: Yup.string().min(2, 'Too Short!').required('Required!'),
-    project: Yup.string().min(2, 'Too short!').required('Required!').email('Invalid email'),
 });
 
 const FormRequest = () => {
-    const history = useHistory();
-    const params = useParams();
+    // const history = useHistory();
+    // const params = useParams();
 
-    const [dateStart, setDateStart] = useState('');
-    const [dateEnd, setDateEnd] = useState('');
+    // const [dateStart, setDateStart] = useState('');
+    // const [dateEnd, setDateEnd] = useState('');
 
-    const [user, setUser] = useState({
-        id: '',
-        content: '',
-        dayStart: '',
-        dayEnd: '',
+    const user = {
+        nameRequest: 'Nghỉ phép có lương',
+        start: '',
+        end: '',
+        timeout: '',
         project: 'Zinza Intern',
         phoneNumber: '',
         reason: '',
-    });
-    const idUser = Number(Object.values(params)[0]);
+        userID: localStorage.getItem('idAccount'),
+    };
+    // const idRequest = Number(Object.values(params)[0]);
     useEffect(() => {
-        if (idUser) {
-            const getItem = async () => {
-                const _user = await userService.findUserById(idUser);
-                setUser(_user);
-            };
-            getItem();
-        }
+        // if (idRequest) {
+        //     const getItem = async () => {
+        //         const _request = await requestService.findRequestById(idRequest);
+        //         setUser(_request);
+        //     };
+        //     getItem();
+        // }
     }, []);
 
     const handle = async (values: any) => {
-        if (values.id) {
-            await userService.updateUser(values, values.id);
-            await userService.getList();
-            history.push('/base/users');
-        } else {
-            await userService.addUser(values);
-            await userService.getList();
-            history.push('/base/users');
-        }
+        // if (values.id) {
+        //     await requestService.updateRequest(values, values.id);
+        //     await requestService.getList();
+        //     history.push('/base/users');
+        // } else {
+        // await requestService.addRequest(values);
+        // await requestService.getList();
+        // history.push('/user/requests');
+        // }
     };
 
     return (
@@ -91,6 +91,7 @@ const FormRequest = () => {
                                         validationSchema={SignupSchema}
                                         enableReinitialize
                                         onSubmit={(values) => {
+                                            console.log(values);
                                             handle(values);
                                         }}
                                         validateOnChange={true}
@@ -109,18 +110,22 @@ const FormRequest = () => {
                                                         <CCol lg="8">
                                                             <Form.Label>Nội dung:</Form.Label>
                                                             <Form.Control
-                                                                name="content"
+                                                                name="nameRequest"
                                                                 as="select"
-                                                                value={values.content}
+                                                                value={values.nameRequest}
                                                                 onChange={handleChange}
                                                             >
-                                                                <option value="take_leave">Nghỉ phép có lương</option>
-                                                                <option value="days_off">Nghỉ phép không lương</option>
-                                                                <option value="over_time">Làm thêm giờ</option>
-                                                                <option value="take_device_out">
+                                                                <option value="Nghỉ phép có lương">
+                                                                    Nghỉ phép có lương
+                                                                </option>
+                                                                <option value="Nghỉ phép không lương">
+                                                                    Nghỉ phép không lương
+                                                                </option>
+                                                                <option value="Làm thêm giờ">Làm thêm giờ</option>
+                                                                <option value="Mang thiết bị về nhà">
                                                                     Mang thiết bị về nhà
                                                                 </option>
-                                                                <option value="forgot_to_check">
+                                                                <option value="Quên check in/check out">
                                                                     Quên check in/check out
                                                                 </option>
                                                             </Form.Control>
@@ -133,24 +138,34 @@ const FormRequest = () => {
                                                             <Form.Label>Từ:</Form.Label>
                                                             <Flatpickr
                                                                 className="form-control bg-white"
-                                                                value={dateStart}
+                                                                value={values.start}
+                                                                name="start"
                                                                 options={{
                                                                     dateFormat: 'd-m-Y H:i',
                                                                     enableTime: true,
                                                                 }}
-                                                                onChange={(dateSelect: any) => setDateStart(dateSelect)}
+                                                                onChange={(dateSelect: any) => {
+                                                                    const date = new Date(String(dateSelect[0]));
+                                                                    values.start = date.toLocaleString();
+                                                                    values.timeout += date.toLocaleString();
+                                                                }}
                                                             />
                                                         </CCol>
                                                         <CCol lg="6">
                                                             <Form.Label>Đến:</Form.Label>
                                                             <Flatpickr
                                                                 className="form-control bg-white"
-                                                                value={dateEnd}
+                                                                value={values.end}
+                                                                name="end"
                                                                 options={{
                                                                     dateFormat: 'd-m-Y H:i',
                                                                     enableTime: true,
                                                                 }}
-                                                                onChange={(dateSelect: any) => setDateEnd(dateSelect)}
+                                                                onChange={(dateSelect: any) => {
+                                                                    const date = new Date(String(dateSelect[0]));
+                                                                    values.end = date.toLocaleString();
+                                                                    values.timeout += ` ~ ${date.toLocaleString()}`;
+                                                                }}
                                                             />
                                                         </CCol>
                                                     </CRow>

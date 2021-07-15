@@ -1,16 +1,19 @@
 import { Request, Response } from 'express';
 import RequestRepository from '../repositories/request.repository';
+import UserRepository from '../repositories/user.repository';
 
 export default class RequestController {
-    private requestController: RequestRepository;
+    private request: RequestRepository;
+    private user: UserRepository;
 
     constructor() {
-        this.requestController = RequestRepository.getInstance();
+        this.request = RequestRepository.getInstance();
+        this.user = UserRepository.getInstance();
     }
 
     public getAllRequest = async (_req: Request, res: Response) => {
         try {
-            const requests = await this.requestController.getRequests();
+            const requests = await this.request.getRequests();
             return res.status(200).json(requests);
         } catch (error) {
             console.log(error);
@@ -20,7 +23,7 @@ export default class RequestController {
 
     public getListRequest = async (req: Request, res: Response) => {
         try {
-            const requests = await this.requestController.getRequestsAccount(Number(req.params.id));
+            const requests = await this.request.getRequestsAccount(Number(req.params.id));
             return res.status(200).json(requests);
         } catch (error) {
             console.log(error);
@@ -30,7 +33,7 @@ export default class RequestController {
 
     public findRequestById = async (req: Request, res: Response) => {
         try {
-            const request = await this.requestController.getRequestById(Number(req.params.id));
+            const request = await this.request.getRequestById(Number(req.params.id));
             return res.status(200).json(request);
         } catch (error) {
             console.log(error);
@@ -40,7 +43,7 @@ export default class RequestController {
 
     public addRequest = async (req: Request, res: Response) => {
         try {
-            const request = await this.requestController.createRequest(req.body);
+            const request = await this.request.createRequest(req.body);
             return res.status(200).json(request);
         } catch (error) {
             console.log(error);

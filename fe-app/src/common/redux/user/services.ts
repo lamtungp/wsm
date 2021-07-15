@@ -17,7 +17,7 @@ const UserService = {
     },
 
     addUser: (param: object): Promise<any> => {
-        const result = AxiosClient.post('users/add-user', param);
+        const result = AxiosClient.post('users/create-user', param);
         return result;
     },
 
