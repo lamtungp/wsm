@@ -1,5 +1,5 @@
 import { DataTypes, Sequelize } from 'sequelize';
-import { RequestStatic } from '../interfaces/request';
+import { RequestStatic } from './request.model.d';
 import sequelizeInstance from '../lib/sequelize';
 import userModel from './user.model';
 

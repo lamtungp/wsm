@@ -1,5 +1,5 @@
 {
-    "name": "be-app",
+    "name": "nodejs-typescript",
     "version": "0.0.0",
     "private": true,
     "scripts": {
@@ -18,7 +18,9 @@
         "jade": "~1.11.0",
         "morgan": "~1.9.1",
         "mysql2": "^2.2.5",
-        "nodemailer": "^6.6.2"
+        "nodemailer": "^6.6.2",
+        "reflect-metadata": "^0.1.13",
+        "sequelize-typescript": "^2.1.0"
     },
     "devDependencies": {
         "@types/cookie-parser": "^1.4.2",

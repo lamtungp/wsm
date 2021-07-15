@@ -1,10 +1,16 @@
 import { Request, Response } from 'express';
-import CheckedRepository from '../repositories/Checked.repository';
+import CheckedRepository from '../repositories/checked.repository';
 
-export default class CheckedController extends CheckedRepository {
+export default class CheckedController {
+    private checkedController: CheckedRepository;
+
+    constructor() {
+        this.checkedController = CheckedRepository.getInstance();
+    }
+
     public getListCheckeds = async (req: Request, res: Response) => {
         try {
-            const checkeds = await this.getChecked();
+            const checkeds = await this.checkedController.getChecked();
             return res.status(200).json(checkeds);
         } catch (error) {
             console.log(error);
@@ -14,7 +20,7 @@ export default class CheckedController extends CheckedRepository {
 
     public findCheckedById = async (req: Request, res: Response) => {
         try {
-            const checked = await this.getCheckedById(Number(req.params.id));
+            const checked = await this.checkedController.getCheckedById(Number(req.params.id));
             return res.status(200).json(checked);
         } catch (error) {
             console.log(error);
@@ -24,7 +30,7 @@ export default class CheckedController extends CheckedRepository {
 
     public addChecked = async (req: Request, res: Response) => {
         try {
-            const checked = await this.createChecked(req.body);
+            const checked = await this.checkedController.createChecked(req.body);
             return res.status(200).json(checked);
         } catch (error) {
             console.log(error);
@@ -34,7 +40,11 @@ export default class CheckedController extends CheckedRepository {
 
     public updateCheckeds = async (req: Request, res: Response) => {
         try {
-            const checked = await this.updateChecked(Number(req.params.id), req.body, req.query.userId);
+            const checked = await this.checkedController.updateChecked(
+                Number(req.params.id),
+                req.body,
+                req.query.userId,
+            );
             return res.status(200).json(checked);
         } catch (error) {
             console.log(error);

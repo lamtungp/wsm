@@ -1,5 +1,5 @@
 import { DataTypes, Sequelize } from 'sequelize';
-import { CheckedStatic } from '../interfaces/checked';
+import { CheckedStatic } from './checked.model.d';
 import sequelizeInstance from '../lib/sequelize';
 import userModel from './user.model';
 

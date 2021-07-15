@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import RequestController from '../controllers/request.controller';
-import requestModel from '../models/request.model';
+// import requestModel from '../models/request.model';
 
 const router = Router();
 
-const requestController = new RequestController(requestModel);
+const requestController = new RequestController();
 
 /* GET users. */
 router.get('/get-all-request', requestController.getAllRequest);

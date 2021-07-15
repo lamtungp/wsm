@@ -1,10 +1,9 @@
 import { Router } from 'express';
 import UserController from '../controllers/user.controller';
-import userModel from '../models/user.model';
 
 const router = Router();
 
-const userController = new UserController(userModel);
+const userController = new UserController();
 
 /* GET users. */
 router.get('/get-user', userController.getListUsers);

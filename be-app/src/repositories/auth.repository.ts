@@ -1,16 +1,12 @@
 // import bcrypt from '../lib/bcrypt';
-import { UserAttributes, UserStatic } from '../interfaces/user';
+import { UserAttributes, UserStatic } from '../models/user.model.d';
 
 export default class AuthRepository {
-    private customer: UserStatic;
+    private user: UserStatic;
 
-    constructor(customer: UserStatic) {
-        this.customer = customer;
+    constructor(user: UserStatic) {
+        this.user = user;
     }
-
-    /**
-     * CUSTOMER
-     */
 
     /**
      * @param  {string} email
@@ -19,21 +15,21 @@ export default class AuthRepository {
      * @returns Promise
      */
 
-    protected async findCustomerByEmail(email: string, password: string): Promise<UserAttributes> {
-        const customer = await this.customer.findOne({
+    protected async findUserByEmail(email: string, password: string): Promise<UserAttributes> {
+        const user = await this.user.findOne({
             where: {
                 email: email,
                 password: password,
             },
         });
-        return customer;
+        return user;
     }
 
     protected async checkAuthenticationData(email: string, password: string): Promise<UserAttributes | undefined> {
-        const customer = await this.findCustomerByEmail(email, password);
-        if (!customer) {
+        const user = await this.findUserByEmail(email, password);
+        if (!user) {
             return undefined;
         }
-        return customer;
+        return user;
     }
 }

@@ -1,5 +1,5 @@
 import { DataTypes, Sequelize } from 'sequelize';
-import { RoomStatic } from '../interfaces/room';
+import { RoomStatic } from './room.model.d';
 import sequelizeInstance from '../lib/sequelize';
 
 const RoomModel = function (sequelize: Sequelize): RoomStatic {

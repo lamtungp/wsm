@@ -5,9 +5,9 @@ import AuthRepository from '../repositories/auth.repository';
 export default class AuthController extends AuthRepository {
     public userLogin = async (req: Request, res: Response) => {
         const { email, password } = req.body;
-        const customerData = await this.checkAuthenticationData(email, password);
-        if (customerData) {
-            const token = generateToken(customerData);
+        const userData = await this.checkAuthenticationData(email, password);
+        if (userData) {
+            const token = generateToken(userData);
             return res.status(200).json(token);
         } else {
             return res.status(500).json({ token: null });

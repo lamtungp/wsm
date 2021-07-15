@@ -1,31 +1,40 @@
 import { Op } from 'sequelize';
-import { RequestStatic } from '../interfaces/request';
+import requestModel from '../models/request.model';
+import { RequestStatic } from '../models/request.model.d';
 
 export default class RequestRepository {
     private request: RequestStatic;
+    static instance: RequestRepository;
 
     constructor(request: RequestStatic) {
         this.request = request;
     }
 
-    protected async getRequests(): Promise<any> {
+    static getInstance() {
+        if (!RequestRepository.instance) {
+            this.instance = new RequestRepository(requestModel);
+        }
+        return RequestRepository.instance;
+    }
+
+    public async getRequests(): Promise<any> {
         const requests = await this.request.findAll({});
         return requests;
     }
 
-    protected async getRequestsAccount(userID: number): Promise<any> {
+    public async getRequestsAccount(userID: number): Promise<any> {
         const requests = await this.request.findAll({ where: { userID } });
         return requests;
     }
 
-    protected async getRequestById(id: number): Promise<any> {
+    public async getRequestById(id: number): Promise<any> {
         const request = await this.request.findOne({
             where: { id },
         });
         return request;
     }
 
-    protected async createRequest(value: any): Promise<any> {
+    public async createRequest(value: any): Promise<any> {
         const request = await this.request.create(value);
         return request;
     }
