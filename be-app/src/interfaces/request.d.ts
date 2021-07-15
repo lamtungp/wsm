@@ -1,13 +1,19 @@
 import { BuildOptions, Model } from 'sequelize';
 
-export interface UserAttributes {
+export interface RequestAttributes {
     id: string;
-    username: string;
-    email: string;
-    password: string;
+    nameRequest: string;
+    state: string;
+    timeout: string;
+    start: string;
+    end: string;
+    phoneNumber: string;
+    project: string;
+    reason: string;
+    userID: string;
 }
-export interface UserModel extends Model<UserAttributes>, UserAttributes {}
+export interface RequestModel extends Model<RequestAttributes>, RequestAttributes {}
 
-export type UserStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): UserModel;
+export type RequestStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): RequestModel;
 };

@@ -1,10 +1,10 @@
 import { DataTypes, Sequelize } from 'sequelize';
-import { UserStatic } from '../interfaces/user';
+import { CheckedStatic } from '../interfaces/checked';
 import sequelizeInstance from '../lib/sequelize';
 import userModel from './user.model';
 
-const CheckedModel = function (sequelize: Sequelize): UserStatic {
-    const Checked = <UserStatic>sequelize.define(
+const CheckedModel = function (sequelize: Sequelize): CheckedStatic {
+    const Checked = <CheckedStatic>sequelize.define(
         'checkeds',
         {
             id: {

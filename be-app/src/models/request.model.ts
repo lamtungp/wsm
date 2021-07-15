@@ -1,10 +1,10 @@
 import { DataTypes, Sequelize } from 'sequelize';
-import { UserStatic } from '../interfaces/user';
+import { RequestStatic } from '../interfaces/request';
 import sequelizeInstance from '../lib/sequelize';
 import userModel from './user.model';
 
-const RequestModel = function (sequelize: Sequelize): UserStatic {
-    const Request = <UserStatic>sequelize.define(
+const RequestModel = function (sequelize: Sequelize): RequestStatic {
+    const Request = <RequestStatic>sequelize.define(
         'requests',
         {
             id: {
@@ -25,11 +25,11 @@ const RequestModel = function (sequelize: Sequelize): UserStatic {
                 allowNull: false,
             },
             start: {
-                type: DataTypes.DATE,
+                type: DataTypes.STRING,
                 allowNull: false,
             },
             end: {
-                type: DataTypes.DATE,
+                type: DataTypes.STRING,
                 allowNull: false,
             },
             phoneNumber: {

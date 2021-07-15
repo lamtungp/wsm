@@ -1,13 +1,11 @@
 import { BuildOptions, Model } from 'sequelize';
 
-export interface UserAttributes {
+export interface RoomAttributes {
     id: string;
-    username: string;
-    email: string;
-    password: string;
+    nameRoom: string;
 }
-export interface UserModel extends Model<UserAttributes>, UserAttributes {}
+export interface RoomModel extends Model<RoomAttributes>, RoomAttributes {}
 
-export type UserStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): UserModel;
+export type RoomStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): RoomModel;
 };

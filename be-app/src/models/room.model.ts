@@ -1,9 +1,9 @@
 import { DataTypes, Sequelize } from 'sequelize';
-import { UserStatic } from '../interfaces/user';
+import { RoomStatic } from '../interfaces/room';
 import sequelizeInstance from '../lib/sequelize';
 
-const RoomModel = function (sequelize: Sequelize): UserStatic {
-    const Room = <UserStatic>sequelize.define(
+const RoomModel = function (sequelize: Sequelize): RoomStatic {
+    const Room = <RoomStatic>sequelize.define(
         'rooms',
         {
             id: {
@@ -15,10 +15,6 @@ const RoomModel = function (sequelize: Sequelize): UserStatic {
                 type: DataTypes.STRING,
                 unique: true,
                 allowNull: false,
-            },
-            members: {
-                type: DataTypes.INTEGER,
-                allowNull: true,
             },
         },
         {
