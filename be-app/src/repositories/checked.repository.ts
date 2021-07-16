@@ -27,14 +27,21 @@ export default class CheckedRepository {
         return checked;
     }
 
+    public async getCheckedByIdAccount(userID: number, day: string): Promise<any> {
+        const checked = await this.checked.findOne({
+            where: { userID, day },
+        });
+        return checked;
+    }
+
     public async createChecked(value: any): Promise<any> {
         const checked = await this.checked.create(value);
         return checked;
     }
 
-    public async updateChecked(id: number, value: object, userID: {}): Promise<any> {
-        const userChecked = await this.checked.findOne({ where: userID });
-        const checked = await this.checked.update(value, { where: { id } });
+    public async updateChecked(day: string, userID: number, value: any): Promise<any> {
+        console.log(`${day} ${value}`);
+        const checked = await this.checked.update(value, { where: { day, userID } });
         return checked;
     }
 }

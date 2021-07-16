@@ -44,7 +44,6 @@ const FormRequest = () => {
                 setRequest(_request);
                 setDateStart(new Date(_request.start));
                 setDateEnd(new Date(_request.end));
-                // console.log(_request);
             };
             getItem();
         }

@@ -13,16 +13,20 @@ const CheckedModel = function (sequelize: Sequelize): CheckedStatic {
                 autoIncrement: true,
             },
             checkin: {
-                type: DataTypes.DATE,
-                allowNull: false,
+                type: DataTypes.STRING,
+                defaultValue: '',
             },
             checkout: {
-                type: DataTypes.DATE,
-                allowNull: false,
+                type: DataTypes.STRING,
+                defaultValue: '',
+            },
+            day: {
+                type: DataTypes.STRING,
+                defaultValue: '',
             },
             month: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
+                defaultValue: '',
             },
             userID: {
                 type: DataTypes.INTEGER,

@@ -28,6 +28,16 @@ export default class CheckedController {
         }
     };
 
+    public findCheckedByAccountId = async (req: Request, res: Response) => {
+        try {
+            const checked = await this.checked.getCheckedById(Number(req.params.id));
+            return res.status(200).json(checked);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.messages);
+        }
+    };
+
     public addChecked = async (req: Request, res: Response) => {
         try {
             const checked = await this.checked.createChecked(req.body);
@@ -40,8 +50,22 @@ export default class CheckedController {
 
     public updateCheckeds = async (req: Request, res: Response) => {
         try {
-            const checked = await this.checked.updateChecked(Number(req.params.id), req.body, req.query.userId);
-            return res.status(200).json(checked);
+            const userChecked = await this.checked.getCheckedByIdAccount(
+                Number(req.query.userID),
+                String(req.query.day),
+            );
+            // console.log(userChecked);
+            if (userChecked !== null) {
+                const checked = await this.checked.updateChecked(
+                    String(req.query.day),
+                    Number(req.query.userID),
+                    req.body,
+                );
+                return res.status(200).json(checked);
+            } else {
+                const checked = await this.checked.createChecked(req.body);
+                return res.status(200).json(checked);
+            }
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.messages);

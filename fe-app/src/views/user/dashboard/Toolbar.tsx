@@ -3,10 +3,10 @@ import { CCol, CRow } from '@coreui/react';
 import moment from 'moment';
 import { FaSignInAlt, FaSignOutAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
+import checkedServices from '../../../common/redux/checked/services';
+
 const CustomToolbar = (toolbar: any) => {
-    const [checkin, setCheckin] = React.useState(true);
-    const [checkout, setCheckout] = React.useState(false);
-    const [values, setValues] = React.useState({});
+    const [show, setShow] = React.useState(true);
 
     const goToBack = () => {
         toolbar.date.setMonth(toolbar.date.getMonth() - 1);
@@ -35,6 +35,11 @@ const CustomToolbar = (toolbar: any) => {
         );
     };
 
+    const handle = async (values: object) => {
+        console.log(values);
+        await checkedServices.updateChecked(values);
+    };
+
     return (
         <div className="rbc-toolbar-container py-2">
             <CRow>
@@ -44,9 +49,32 @@ const CustomToolbar = (toolbar: any) => {
                 <CCol lg="4">
                     <div className="rbc-btn-group float-right">
                         <button
-                            className={checkin ? 'btn btn-primary mr-1' : 'd-none'}
+                            className={show ? 'btn btn-primary mr-1' : 'd-none'}
                             onClick={() => {
-                                setCheckin(false), setCheckout(true);
+                                if (
+                                    localStorage.getItem('dayChecked') !==
+                                    String(new Date().toLocaleString()).split(', ')[1]
+                                )
+                                    localStorage.removeItem('daychecked');
+                                if (
+                                    !localStorage.getItem('dayChecked') &&
+                                    localStorage.getItem('dayChecked') !==
+                                        String(new Date().toLocaleString()).split(', ')[1]
+                                ) {
+                                    setShow(false);
+                                    localStorage.setItem(
+                                        'dayChecked',
+                                        String(new Date().toLocaleString()).split(', ')[1],
+                                    );
+                                    handle({
+                                        checkin: new Date().toLocaleString(),
+                                        month: new Date().getMonth() + 1,
+                                        day: String(new Date().toLocaleString()).split(', ')[1],
+                                        userID: localStorage.getItem('idAccount'),
+                                    });
+                                } else {
+                                    window.alert('Bạn đã checkin/checkout hôm nay rồi!');
+                                }
                             }}
                             style={{ borderRadius: '4px' }}
                         >
@@ -54,9 +82,11 @@ const CustomToolbar = (toolbar: any) => {
                             <span>Checkin</span>
                         </button>
                         <button
-                            className={checkout ? 'btn btn-primary mr-1' : 'd-none'}
+                            className={!show ? 'btn btn-primary mr-1' : 'd-none'}
                             onClick={() => {
-                                setCheckin(true), setCheckout(false);
+                                if (window.confirm('Bạn muốn check-out ngay bây giờ?')) {
+                                    handle({ checkout: new Date().toLocaleString() }), setShow(true);
+                                }
                             }}
                             style={{ borderRadius: '4px' }}
                         >

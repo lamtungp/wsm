@@ -4,7 +4,9 @@ export interface CheckedAttributes {
     id: string;
     checkin: string;
     checkout: string;
+    day: string;
     month: string;
+    userID: string;
 }
 export interface CheckedModel extends Model<CheckedAttributes>, CheckedAttributes {}
 
