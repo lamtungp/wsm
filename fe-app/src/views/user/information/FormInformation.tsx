@@ -119,7 +119,11 @@ const FormInformation = () => {
                                                 }}
                                             >
                                                 <img
-                                                    src={`/avatars/${values.avatar}`}
+                                                    src={
+                                                        values.avatar
+                                                            ? `avatars/${values.avatar}`
+                                                            : 'avatars/no-avatar.jpg'
+                                                    }
                                                     alt="avatar"
                                                     style={{
                                                         width: '100%',

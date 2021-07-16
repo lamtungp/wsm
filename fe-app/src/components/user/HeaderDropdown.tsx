@@ -17,6 +17,8 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
     const logOut = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('email');
+        localStorage.removeItem('idAccount');
+        localStorage.removeItem('permission');
         history.push('/');
     };
 
@@ -29,7 +31,11 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
         <CDropdown inNav className="c-header-nav-items mx-2">
             <CDropdownToggle className="c-header-nav-link" caret={false}>
                 <div className="c-avatar">
-                    <CImg src="avatars/1.jpg" className="c-avatar-img" alt="lam.pt@zinza.com.vn" />
+                    <CImg
+                        src={user.avatar ? `avatars/${user.avatar}` : 'avatars/no-avatar.jpg'}
+                        className="c-avatar-img"
+                        alt="lam.pt@zinza.com.vn"
+                    />
                 </div>
             </CDropdownToggle>
             <CDropdownMenu className="p-0" placement="bottom-end" style={{ width: '18rem' }}>
@@ -41,7 +47,11 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
                 >
                     <div className="d-flex h-100 align-items-center">
                         <div className="c-avatar">
-                            <CImg src={`avatars/${user.avatar}`} className="c-avatar-img" alt="avatar" />
+                            <CImg
+                                src={user.avatar ? `avatars/${user.avatar}` : 'avatars/no-avatar.jpg'}
+                                className="c-avatar-img"
+                                alt="avatar"
+                            />
                         </div>
                         <span className="ml-3">
                             <div className="fs-lg font-weight-bold text-white">Pham Tung Lam</div>

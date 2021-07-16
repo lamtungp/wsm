@@ -25,28 +25,38 @@ const App: React.FunctionComponent = (): React.ReactElement => {
                 <BrowserRouter>
                     <Switch>
                         <Route
-                            path="/admin/login"
-                            render={() => {
-                                return localStorage.getItem('token') ? <Redirect to="/admin" /> : <Login />;
-                            }}
-                        />
-                        <Route
                             path="/admin"
                             render={() => {
-                                return localStorage.getItem('token') ? <LayoutAdmin /> : <Redirect to="/admin/login" />;
+                                return localStorage.getItem('token') &&
+                                    localStorage.getItem('permission') === 'admin' ? (
+                                    <LayoutAdmin />
+                                ) : (
+                                    <Redirect to="/login" />
+                                );
                             }}
                         />
                         <Route
                             path="/login"
                             render={() => {
-                                return localStorage.getItem('token') ? <Redirect to="/" /> : <Login />;
+                                if (localStorage.getItem('token')) {
+                                    if (localStorage.getItem('permission') === 'user') return <Redirect to="/" />;
+                                    else if (localStorage.getItem('permission') === 'admin')
+                                        return <Redirect to="/admin" />;
+                                    else return <Redirect to="/manager" />;
+                                }
+                                return <Login />;
                             }}
                         />
                         <Route path="/forgot-password" component={ResetPassword} />
                         <Route
                             path="/"
                             render={() => {
-                                return localStorage.getItem('token') ? <LayoutUser /> : <Redirect to="/login" />;
+                                return localStorage.getItem('token') &&
+                                    localStorage.getItem('permission') === 'user' ? (
+                                    <LayoutUser />
+                                ) : (
+                                    <Redirect to="/login" />
+                                );
                             }}
                         />
                         {/* <Route path="/admin" component={LayoutAdmin} /> */}

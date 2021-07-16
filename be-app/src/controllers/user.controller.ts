@@ -9,7 +9,7 @@ export default class UserController {
         this.user = UserRepository.getInstance();
     }
 
-    public getListUsers = async (_req: Request, res: Response) => {
+    public getAllUsers = async (_req: Request, res: Response) => {
         try {
             const users = await this.user.getUsers();
             return res.status(200).json(users);

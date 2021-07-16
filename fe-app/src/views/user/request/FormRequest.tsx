@@ -7,8 +7,9 @@ import { CCard, CCardHeader, CCardBody, CRow, CCol, CTextarea } from '@coreui/re
 import { FaSave } from 'react-icons/fa';
 import 'flatpickr/dist/themes/airbnb.css';
 import Flatpickr from 'react-flatpickr';
-
 import 'flatpickr/dist/flatpickr.css';
+import { useHistory, useParams } from 'react-router-dom';
+
 import requestService from '../../../common/redux/request/services';
 
 const SignupSchema = Yup.object().shape({
@@ -17,14 +18,16 @@ const SignupSchema = Yup.object().shape({
 });
 
 const FormRequest = () => {
-    // const history = useHistory();
-    // const params = useParams();
+    const history = useHistory();
+    const params = useParams();
 
-    // const [dateStart, setDateStart] = useState('');
-    // const [dateEnd, setDateEnd] = useState('');
+    const [dateStart, setDateStart] = useState(new Date());
+    const [dateEnd, setDateEnd] = useState(new Date());
 
-    const user = {
+    const [request, setRequest] = useState({
+        id: '',
         nameRequest: 'Nghỉ phép có lương',
+        state: 'Đang xử lý',
         start: '',
         end: '',
         timeout: '',
@@ -32,28 +35,34 @@ const FormRequest = () => {
         phoneNumber: '',
         reason: '',
         userID: localStorage.getItem('idAccount'),
-    };
-    // const idRequest = Number(Object.values(params)[0]);
+    });
+    const idRequest = Number(Object.values(params)[0]);
     useEffect(() => {
-        // if (idRequest) {
-        //     const getItem = async () => {
-        //         const _request = await requestService.findRequestById(idRequest);
-        //         setUser(_request);
-        //     };
-        //     getItem();
-        // }
+        if (idRequest) {
+            const getItem = async () => {
+                const _request = await requestService.findRequestById(idRequest);
+                setRequest(_request);
+                setDateStart(new Date(_request.start));
+                setDateEnd(new Date(_request.end));
+                // console.log(_request);
+            };
+            getItem();
+        }
     }, []);
+    // console.log(request);
+    // const d = new Date('2015/3/25, 14:01:00');
+    // console.log(d);
 
     const handle = async (values: any) => {
-        // if (values.id) {
-        //     await requestService.updateRequest(values, values.id);
-        //     await requestService.getList();
-        //     history.push('/base/users');
-        // } else {
-        // await requestService.addRequest(values);
-        // await requestService.getList();
-        // history.push('/user/requests');
-        // }
+        if (values.id) {
+            await requestService.updateRequest(values, values.id);
+            await requestService.getListRequest(Number(localStorage.getItem('idAccount')));
+            history.push('/base/users');
+        } else {
+            await requestService.addRequest(values);
+            await requestService.getListRequest(Number(localStorage.getItem('idAccount')));
+            history.push('/user/requests');
+        }
     };
 
     return (
@@ -87,10 +96,11 @@ const FormRequest = () => {
                             <CRow>
                                 <CCol lg="10">
                                     <Formik
-                                        initialValues={user}
+                                        initialValues={request}
                                         validationSchema={SignupSchema}
                                         enableReinitialize
                                         onSubmit={(values) => {
+                                            values.timeout = `${values.start} ~ ${values.end}`;
                                             console.log(values);
                                             handle(values);
                                         }}
@@ -138,16 +148,22 @@ const FormRequest = () => {
                                                             <Form.Label>Từ:</Form.Label>
                                                             <Flatpickr
                                                                 className="form-control bg-white"
-                                                                value={values.start}
+                                                                value={dateStart}
                                                                 name="start"
+                                                                type="start"
                                                                 options={{
                                                                     dateFormat: 'd-m-Y H:i',
                                                                     enableTime: true,
                                                                 }}
                                                                 onChange={(dateSelect: any) => {
                                                                     const date = new Date(String(dateSelect[0]));
-                                                                    values.start = date.toLocaleString();
-                                                                    values.timeout += date.toLocaleString();
+                                                                    const arr = date.toLocaleString().split(', ');
+                                                                    const arrDate = arr[1].split('/');
+                                                                    arr.pop();
+                                                                    const arrDateReverse = arrDate.reverse();
+                                                                    arr.push(arrDateReverse.join('/'));
+                                                                    setDateStart(new Date(arr.reverse().join(', ')));
+                                                                    values.start = arr.reverse().join(', ');
                                                                 }}
                                                             />
                                                         </CCol>
@@ -155,16 +171,22 @@ const FormRequest = () => {
                                                             <Form.Label>Đến:</Form.Label>
                                                             <Flatpickr
                                                                 className="form-control bg-white"
-                                                                value={values.end}
+                                                                value={dateEnd}
                                                                 name="end"
+                                                                type="end"
                                                                 options={{
                                                                     dateFormat: 'd-m-Y H:i',
                                                                     enableTime: true,
                                                                 }}
                                                                 onChange={(dateSelect: any) => {
                                                                     const date = new Date(String(dateSelect[0]));
-                                                                    values.end = date.toLocaleString();
-                                                                    values.timeout += ` ~ ${date.toLocaleString()}`;
+                                                                    const arr = date.toLocaleString().split(', ');
+                                                                    const arrDate = arr[1].split('/');
+                                                                    arr.pop();
+                                                                    const arrDateReverse = arrDate.reverse();
+                                                                    arr.push(arrDateReverse.join('/'));
+                                                                    setDateEnd(new Date(arr.reverse().join(', ')));
+                                                                    values.end = arr.reverse().join(', ');
                                                                 }}
                                                             />
                                                         </CCol>
@@ -207,6 +229,7 @@ const FormRequest = () => {
                                                             <Form.Label>Lý do:</Form.Label>
                                                             <CTextarea
                                                                 name="reason"
+                                                                type="reason"
                                                                 rows={3}
                                                                 placeholder='Cần nêu lý do cụ thể, không viết "Lý do cá nhân"'
                                                                 value={values.reason}

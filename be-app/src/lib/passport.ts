@@ -29,8 +29,8 @@ export function passportConfiguration(passport: PassportStatic) {
     );
 }
 
-export function generateToken(customer: UserAttributes) {
-    return jwt.sign({ id: customer.id, email: customer.email }, env.jwtSecret, {
+export function generateToken(user: UserAttributes) {
+    return jwt.sign({ id: user.id, email: user.email, permission: user.permission }, env.jwtSecret, {
         expiresIn: env.jwtExpiresIn,
     });
 }

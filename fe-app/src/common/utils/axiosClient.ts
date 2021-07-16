@@ -7,6 +7,7 @@ const AxiosClient = axios.create({
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
+        'auth-token': localStorage.getItem('token'),
     },
 });
 

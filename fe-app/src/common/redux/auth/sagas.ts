@@ -1,7 +1,4 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-// import { useDispatch } from 'react-redux';
-
-import userService from '../user/services';
 
 import { AUTH_ACTIONS, LoginAction } from './actionTypes';
 import { loginSuccess, loginFailure } from './actions';
@@ -15,12 +12,14 @@ function* loginSaga(action: LoginAction) {
         const response = yield call(authServices.login, { email, password });
         console.log(response);
         if (response) {
-            localStorage.setItem('token', response);
+            localStorage.setItem('token', response.token);
             localStorage.setItem('email', action.payload.email);
-            const account = yield call(userService.findUserByEmail, String(localStorage.getItem('email')));
-            localStorage.setItem('idAccount', account.id);
-            yield put(loginSuccess({ email: action.payload.email, token: response }));
-            window.location.pathname = '';
+            localStorage.setItem('permission', response.permission);
+            localStorage.setItem('idAccount', response.id);
+            yield put(loginSuccess({ email: action.payload.email, token: response.token }));
+            if (localStorage.getItem('permission') === 'admin') window.location.pathname = '/admin';
+            else if (localStorage.getItem('permission') === 'manager') window.location.pathname = '/manager';
+            else window.location.pathname = '';
         } else {
             alert(response.message);
         }

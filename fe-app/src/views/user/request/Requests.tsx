@@ -10,7 +10,7 @@ const fields = ['Nội dung', 'Trạng thái', 'Người xử lý', 'Thờ
 
 const Requests: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();
-    const [listRequest, setListRequest] = useState([{ nameRequest: '', state: '', handler: '', timeout: '' }]);
+    const [listRequest, setListRequest] = useState([{ id: '', nameRequest: '', state: '', handler: '', timeout: '' }]);
 
     React.useEffect(() => {
         getListTodo();
@@ -18,7 +18,7 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
 
     const getListTodo = async () => {
         const res = await requestService.getListRequest(Number(localStorage.getItem('idAccount')));
-        console.log(res);
+        // console.log(res);
         setListRequest(res);
     };
 
@@ -27,18 +27,27 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
             <CRow>
                 <CCol xs="12">
                     <CCard>
-                        <CCardHeader className="d-flex">
-                            <h2
-                                className="m-0 font-weight-bold d-flex"
-                                style={{ width: '85.5%', fontSize: '13px', lineHeight: '1.57' }}
-                            >
-                                Tạo mới yêu cầu
-                            </h2>
-                            <div>
-                                <h2 className="m-0 font-weight-bold" style={{ fontSize: '13px', lineHeight: '1.57' }}>
-                                    Số ngày phép còn lại: 10
-                                </h2>
-                            </div>
+                        <CCardHeader>
+                            <CRow>
+                                <CCol lg="8">
+                                    <h2
+                                        className="m-0 font-weight-bold d-flex"
+                                        style={{ width: '85%', fontSize: '13px', lineHeight: '1.57' }}
+                                    >
+                                        Yêu cầu của tôi
+                                    </h2>
+                                </CCol>
+                                <CCol lg="4">
+                                    <div>
+                                        <h2
+                                            className="m-0 font-weight-bold float-right"
+                                            style={{ fontSize: '13px', lineHeight: '1.57' }}
+                                        >
+                                            Số ngày phép còn lại: 10
+                                        </h2>
+                                    </div>
+                                </CCol>
+                            </CRow>
                         </CCardHeader>
                         <CCardHeader style={{ border: 'none' }}>
                             <CButton
@@ -73,7 +82,10 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
                                                 <td>{item.handler}</td>
                                                 <td>{item.timeout}</td>
                                                 <td>
-                                                    <CButton className="btn-primary mr-1">
+                                                    <CButton
+                                                        className="btn-primary mr-1"
+                                                        onClick={() => history.push(`/user/requests/${item.id}`)}
+                                                    >
                                                         <FaEye />
                                                     </CButton>
                                                     <CButton className="btn-primary">
