@@ -2,11 +2,11 @@ import { CHECKED_ACTION } from './actionTypes';
 // import productService from "./service";
 
 export interface CheckedState {
-    Checkeds: any[];
+    checkeds: any[];
 }
 
 const initialState: CheckedState = {
-    Checkeds: [],
+    checkeds: [],
 };
 
 const reducer = (state = initialState, action: any): CheckedState | undefined => {
@@ -14,7 +14,7 @@ const reducer = (state = initialState, action: any): CheckedState | undefined =>
         case CHECKED_ACTION.SET_CHECKEDS:
             return {
                 ...state,
-                Checkeds: action.payload,
+                checkeds: [...state.checkeds, action.payload],
             };
     }
     return state;

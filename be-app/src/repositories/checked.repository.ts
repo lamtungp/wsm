@@ -15,14 +15,14 @@ export default class CheckedRepository {
         }
         return CheckedRepository.instance;
     }
-    public async getChecked(): Promise<any> {
+    public async getCheckeds(): Promise<any> {
         const checkeds = await this.checked.findAll({});
         return checkeds;
     }
 
-    public async getCheckedById(id: number): Promise<any> {
-        const checked = await this.checked.findOne({
-            where: { id },
+    public async getListCheckedById(userID: number): Promise<any> {
+        const checked = await this.checked.findAll({
+            where: { userID },
         });
         return checked;
     }

@@ -1,19 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { useSelector } from 'react-redux';
+
+import { GlobalState } from '../../../common/redux/index';
+import CheckedServices from '../../../common/redux/checked/services';
 
 import CustomToolbar from './Toolbar';
+import CustomEvents from './Event';
 
 const localizer = momentLocalizer(moment);
-
-const myEvent = [
-    {
-        start: moment().toDate(),
-        // end: moment().add(0, 'days').toDate(),
-        // title: 'today',
-    },
-];
 
 // const CustomHeader = () => (
 //     <div>
@@ -22,6 +19,38 @@ const myEvent = [
 // );
 
 const Dashboard = () => {
+    const checked = useSelector((state: GlobalState) => state.checked.checkeds);
+    // console.log(checked);
+    const d = new Date('2021/7/16, 11:59:24');
+
+    const [listChecked, setListChecked] = useState([]);
+    const myEvent = [
+        {
+            start: moment().toDate(),
+            end: checked.length ? moment().add(0, 'days').toDate() : '',
+            title: checked,
+        },
+    ];
+
+    React.useEffect(() => {
+        getListChecked();
+    }, []);
+
+    const getListChecked = async () => {
+        const list = await CheckedServices.getListChecked(Number(localStorage.getItem('idAccount')));
+        console.log(list.length);
+        setListChecked(list);
+    };
+    listChecked.map((item: any) => {
+        console.log(item);
+        myEvent.push({
+            start: new Date(item.checkin),
+            end: item.checkout ? new Date(item.checkout) : new Date(item.checkin),
+            title: [item.checkin.split(', ')[1], item.checkout.split(', ')[1]],
+        });
+    });
+    console.log(myEvent);
+
     return (
         <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
             <Calendar
@@ -34,6 +63,7 @@ const Dashboard = () => {
                 culture="ar-AE"
                 components={{
                     toolbar: CustomToolbar,
+                    event: CustomEvents,
                     // day: {
                     //     header: CustomHeader,
                     // },

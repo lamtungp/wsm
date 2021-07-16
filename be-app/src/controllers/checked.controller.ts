@@ -8,9 +8,9 @@ export default class CheckedController {
         this.checked = CheckedRepository.getInstance();
     }
 
-    public getListCheckeds = async (req: Request, res: Response) => {
+    public getAllChecked = async (req: Request, res: Response) => {
         try {
-            const checkeds = await this.checked.getChecked();
+            const checkeds = await this.checked.getCheckeds();
             return res.status(200).json(checkeds);
         } catch (error) {
             console.log(error);
@@ -18,9 +18,9 @@ export default class CheckedController {
         }
     };
 
-    public findCheckedById = async (req: Request, res: Response) => {
+    public getListChecked = async (req: Request, res: Response) => {
         try {
-            const checked = await this.checked.getCheckedById(Number(req.params.id));
+            const checked = await this.checked.getListCheckedById(Number(req.params.userID));
             return res.status(200).json(checked);
         } catch (error) {
             console.log(error);
@@ -30,7 +30,7 @@ export default class CheckedController {
 
     public findCheckedByAccountId = async (req: Request, res: Response) => {
         try {
-            const checked = await this.checked.getCheckedById(Number(req.params.id));
+            const checked = await this.checked.getCheckedByIdAccount(Number(req.params.userID), String(req.query.day));
             return res.status(200).json(checked);
         } catch (error) {
             console.log(error);
