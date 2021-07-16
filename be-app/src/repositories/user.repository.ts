@@ -1,4 +1,4 @@
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 import userModel from '../models/user.model';
 import { UserStatic } from '../models/user.model.d';
 
@@ -32,6 +32,11 @@ export default class UserRepository {
 
     public async createUser(value: any): Promise<any> {
         const checked = await this.user.create(value);
+        return checked;
+    }
+
+    public async updateUser(value: any, id: number): Promise<any> {
+        const checked = await this.user.update(value, { where: { id } });
         return checked;
     }
 }

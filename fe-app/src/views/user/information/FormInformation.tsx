@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
@@ -10,9 +10,7 @@ import { FaSave } from 'react-icons/fa';
 import userService from '../../../common/redux/user/services';
 
 const SignupSchema = Yup.object().shape({
-    content: Yup.string().min(2, 'Too short!').max(20, 'Too long!').required('Required!'),
-    phoneNumber: Yup.string().min(2, 'Too Short!').required('Required!'),
-    project: Yup.string().min(2, 'Too short!').required('Required!').email('Invalid email'),
+    email: Yup.string().min(2, 'Too short!').required('Required!').email('Invalid email'),
 });
 
 const FormInformation = () => {
@@ -47,13 +45,9 @@ const FormInformation = () => {
 
     const handle = async (values: any) => {
         if (values.id) {
+            console.log(values);
             await userService.updateUser(values, values.id);
-            await userService.getList();
-            history.push('/base/users');
-        } else {
-            await userService.addUser(values);
-            await userService.getList();
-            history.push('/base/users');
+            history.push('/user/profile');
         }
     };
 
@@ -113,6 +107,7 @@ const FormInformation = () => {
                                                 style={{
                                                     marginBottom: '1rem',
                                                     width: '12rem',
+                                                    height: '12rem',
                                                     padding: '3px',
                                                     border: '1px solid #dee2e6',
                                                     borderRadius: '4px',
@@ -121,8 +116,8 @@ const FormInformation = () => {
                                                 <img
                                                     src={
                                                         values.avatar
-                                                            ? `avatars/${values.avatar}`
-                                                            : 'avatars/no-avatar.jpg'
+                                                            ? `/avatars/${values.avatar}`
+                                                            : '/avatars/no-avatar.jpg'
                                                     }
                                                     alt="avatar"
                                                     style={{
@@ -153,29 +148,29 @@ const FormInformation = () => {
                                 <Form.Group>
                                     <Form.Label>Giới tính</Form.Label>
                                     <CRow>
-                                        <CCol lg="1" className="pr-1">
-                                            <input
-                                                type="radio"
-                                                id="male"
-                                                name="sex"
-                                                value="male"
-                                                checked
-                                                onChange={handleChange}
-                                            />
-                                            <label htmlFor="male" className="ml-1">
-                                                Male
+                                        <CCol lg="2" className="pr-1">
+                                            <label>
+                                                {values.sex === 'male' ? (
+                                                    <Field type="radio" name="sex" id="male" value="male" checked />
+                                                ) : (
+                                                    <Field type="radio" name="sex" id="male" value="male" />
+                                                )}
+
+                                                <label htmlFor="male" className="ml-1">
+                                                    Male
+                                                </label>
                                             </label>
                                         </CCol>
-                                        <CCol lg="1" className="pr-1">
-                                            <input
-                                                type="radio"
-                                                id="female"
-                                                name="sex"
-                                                value="female"
-                                                onChange={handleChange}
-                                            />
-                                            <label htmlFor="female" className="ml-1">
-                                                Female
+                                        <CCol lg="2" className="px-1">
+                                            <label>
+                                                {values.sex === 'female' ? (
+                                                    <Field type="radio" name="sex" id="female" value="female" checked />
+                                                ) : (
+                                                    <Field type="radio" name="sex" id="female" value="female" />
+                                                )}
+                                                <label htmlFor="female" className="ml-1">
+                                                    Female
+                                                </label>
                                             </label>
                                         </CCol>
                                     </CRow>

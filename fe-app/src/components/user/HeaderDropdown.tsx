@@ -32,7 +32,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
             <CDropdownToggle className="c-header-nav-link" caret={false}>
                 <div className="c-avatar">
                     <CImg
-                        src={user.avatar ? `avatars/${user.avatar}` : 'avatars/no-avatar.jpg'}
+                        src={user.avatar ? `/avatars/${user.avatar}` : '/avatars/no-avatar.jpg'}
                         className="c-avatar-img"
                         alt="lam.pt@zinza.com.vn"
                     />
@@ -48,7 +48,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
                     <div className="d-flex h-100 align-items-center">
                         <div className="c-avatar">
                             <CImg
-                                src={user.avatar ? `avatars/${user.avatar}` : 'avatars/no-avatar.jpg'}
+                                src={user.avatar ? `/avatars/${user.avatar}` : '/avatars/no-avatar.jpg'}
                                 className="c-avatar-img"
                                 alt="avatar"
                             />

@@ -2,7 +2,7 @@ import AxiosClient from '../../utils/axiosClient';
 
 const UserService = {
     getList: (): Promise<any> => {
-        const results = AxiosClient.get('/users/get-user');
+        const results = AxiosClient.get('/users/get-all-user');
         return results;
     },
 

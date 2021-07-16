@@ -38,4 +38,14 @@ export default class UserController {
             return res.status(500).json(error.messages);
         }
     };
+
+    public updateForUser = async (req: Request, res: Response) => {
+        try {
+            const user = await this.user.updateUser(req.body, Number(req.params.id));
+            return res.status(200).json(user);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.messages);
+        }
+    };
 }

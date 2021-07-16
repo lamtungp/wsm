@@ -14,5 +14,6 @@ router.get('/get-list-user', userController.getAllUsers);
 
 router.get('/find-user-by-email/:email', userController.findUserByEmail);
 router.post('/create-user', verifyAdminMiddleware, userController.addUser);
+router.post('/update-user/:id', verifyUserMiddleware, userController.updateForUser);
 
 export default router;

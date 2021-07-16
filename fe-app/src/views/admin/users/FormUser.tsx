@@ -27,7 +27,7 @@ const FormUser = () => {
         dob: '',
         phoneNumber: '',
         sex: 'male',
-        permission: '',
+        permission: 'admin',
         roomID: '3',
     });
     const idUser = Number(Object.values(params)[0]);
@@ -71,7 +71,7 @@ const FormUser = () => {
                         enableReinitialize
                         onSubmit={(values) => {
                             console.log(values);
-                            handle(values);
+                            // handle(values);
                         }}
                         validateOnChange={true}
                         // validateOnBlur={false}
@@ -182,19 +182,15 @@ const FormUser = () => {
                                     <Form.Label className="font-weight-bold">Giới tính</Form.Label>
                                     <CRow>
                                         <CCol lg="2" className="pr-1">
-                                            <label>
-                                                <Field type="radio" name="sex" id="male" value="male" checked />
-                                                <label htmlFor="male" className="ml-1">
-                                                    Male
-                                                </label>
+                                            <label className="m-0">
+                                                <Field type="radio" name="sex" value="male" />
+                                                <label className="ml-1">Male</label>
                                             </label>
                                         </CCol>
                                         <CCol lg="2" className="px-1">
-                                            <label>
-                                                <Field type="radio" name="sex" id="female" value="female" />
-                                                <label htmlFor="female" className="ml-1">
-                                                    Female
-                                                </label>
+                                            <label className="m-0">
+                                                <Field type="radio" name="sex" value="female" />
+                                                <label className="ml-1">Female</label>
                                             </label>
                                         </CCol>
                                     </CRow>

@@ -6,7 +6,6 @@ import React from 'react';
 // import checkedServices from '../../../common/redux/checked/services';
 
 const CustomEvents = (event: any) => {
-    console.log(event.title);
     return (
         <div className="text-center">
             {event.title.map((item: any, index: any) => {

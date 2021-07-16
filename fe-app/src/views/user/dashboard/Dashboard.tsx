@@ -21,7 +21,6 @@ const localizer = momentLocalizer(moment);
 const Dashboard = () => {
     const checked = useSelector((state: GlobalState) => state.checked.checkeds);
     // console.log(checked);
-    const d = new Date('2021/7/16, 11:59:24');
 
     const [listChecked, setListChecked] = useState([]);
     const myEvent = [
@@ -38,18 +37,15 @@ const Dashboard = () => {
 
     const getListChecked = async () => {
         const list = await CheckedServices.getListChecked(Number(localStorage.getItem('idAccount')));
-        console.log(list.length);
         setListChecked(list);
     };
     listChecked.map((item: any) => {
-        console.log(item);
         myEvent.push({
             start: new Date(item.checkin),
             end: item.checkout ? new Date(item.checkout) : new Date(item.checkin),
             title: [item.checkin.split(', ')[1], item.checkout.split(', ')[1]],
         });
     });
-    console.log(myEvent);
 
     return (
         <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
