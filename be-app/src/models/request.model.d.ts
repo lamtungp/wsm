@@ -1,16 +1,16 @@
 import { BuildOptions, Model } from 'sequelize';
 
 export interface RequestAttributes {
-    id: string;
+    id: number;
     nameRequest: string;
     state: string;
     timeout: string;
-    start: string;
-    end: string;
+    startDay: string;
+    endDay: string;
     phoneNumber: string;
     project: string;
     reason: string;
-    userID: string;
+    userId: string;
 }
 export interface RequestModel extends Model<RequestAttributes>, RequestAttributes {}
 

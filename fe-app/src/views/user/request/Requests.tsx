@@ -17,7 +17,7 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
     }, []);
 
     const getListTodo = async () => {
-        const res = await requestService.getListRequest(Number(localStorage.getItem('idAccount')));
+        const res = await requestService.getListRequest(Number(localStorage.getItem('userId')));
         // console.log(res);
         setListRequest(res);
     };
@@ -43,7 +43,7 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
                                             className="m-0 font-weight-bold float-right"
                                             style={{ fontSize: '13px', lineHeight: '1.57' }}
                                         >
-                                            Số ngày phép còn lại: 10
+                                            Số ngày phép còn lại: {localStorage.getItem('vacationDay')}
                                         </h2>
                                     </div>
                                 </CCol>

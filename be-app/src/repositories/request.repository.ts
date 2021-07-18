@@ -22,8 +22,8 @@ export default class RequestRepository {
         return requests;
     }
 
-    public async getRequestsAccount(userID: number): Promise<any> {
-        const requests = await this.request.findAll({ where: { userID } });
+    public async getRequestsAccount(userId: number): Promise<any> {
+        const requests = await this.request.findAll({ where: { userId } });
         return requests;
     }
 
@@ -34,9 +34,9 @@ export default class RequestRepository {
         return request;
     }
 
-    public async getRequestByIdAccount(userID: number): Promise<any> {
+    public async getRequestByIdAccount(userId: number): Promise<any> {
         const request = await this.request.findOne({
-            where: { userID },
+            where: { userId },
         });
         return request;
     }

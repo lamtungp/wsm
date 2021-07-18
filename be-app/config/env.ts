@@ -1,6 +1,13 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+export const Environment = {
+    QA: 'qa',
+    UAT: 'uat',
+    Production: 'production',
+    Development: 'development',
+};
+
 const auth = {
     screat: process.env.JWT_SECRET,
     user: process.env.USER,

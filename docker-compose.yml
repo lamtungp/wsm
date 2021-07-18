@@ -40,17 +40,17 @@ services:
       - ./be-app:/app
     working_dir: /app
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:4.6
-    restart: always
-    ports:
-      - "8181:80"
-    environment:
-      - PMA_HOST=db
-      - PMA_USER=root
-      - PMA_PASSWORD=root
-    depends_on:
-      - db
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:4.6
+  #   restart: always
+  #   ports:
+  #     - "8181:80"
+  #   environment:
+  #     - PMA_HOST=db
+  #     - PMA_USER=root
+  #     - PMA_PASSWORD=root
+  #   depends_on:
+  #     - db
 
   db:
     image: mysql:8.0
@@ -66,8 +66,8 @@ services:
     volumes:
       - ./be-app/docker/services/db/data:/var/lib/mysql
 
-  redis:
-    image: redis:latest
-    restart: always
-    ports:
-      - "6379:6379"
+  # redis:
+  #   image: redis:latest
+  #   restart: always
+  #   ports:
+  #     - "6379:6379"

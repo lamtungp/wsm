@@ -19,6 +19,16 @@ export default class UserController {
         }
     };
 
+    public getListUsers = async (req: Request, res: Response) => {
+        try {
+            const users = await this.user.getListUser(Number(req.params.departmentId));
+            return res.status(200).json(users);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.messages);
+        }
+    };
+
     public findUserByEmail = async (req: Request, res: Response) => {
         try {
             const user = await this.user.getUserByEmail(req.params.email);

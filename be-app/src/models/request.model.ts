@@ -4,57 +4,51 @@ import sequelizeInstance from '../lib/sequelize';
 import userModel from './user.model';
 
 const RequestModel = function (sequelize: Sequelize): RequestStatic {
-    const Request = <RequestStatic>sequelize.define(
-        'requests',
-        {
-            id: {
-                type: DataTypes.INTEGER,
-                primaryKey: true,
-                autoIncrement: true,
-            },
-            nameRequest: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            state: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            timeout: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            start: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            end: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            phoneNumber: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            project: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            reason: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            userID: {
-                type: DataTypes.INTEGER,
-                references: { model: 'users', key: 'id' },
-            },
+    const Request = <RequestStatic>sequelize.define('requests', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
         },
-        {
-            timestamps: false,
+        nameRequest: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
-    );
+        state: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        timeout: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        startDay: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        endDay: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        phoneNumber: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        project: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        reason: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            references: { model: 'users', key: 'id' },
+        },
+    });
 
-    Request.belongsTo(userModel, { foreignKey: 'userID' });
+    Request.belongsTo(userModel, { foreignKey: 'userId' });
 
     return Request;
 };

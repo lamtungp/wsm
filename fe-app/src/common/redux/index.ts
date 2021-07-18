@@ -5,7 +5,7 @@ import { all } from 'redux-saga/effects';
 import authReducer, { AuthState } from './auth/reducer';
 // Import all sagas here
 import authSagas from './auth/sagas';
-import checkedReducer, { CheckedState } from './checked/reducer';
+import checkinReducer, { CheckinState } from './checkin/reducer';
 import sidebarReducer, { SidebarState } from './sidebar/reducer';
 import userReducer, { UserState } from './user/reducer';
 
@@ -13,14 +13,14 @@ export interface GlobalState {
     auth: AuthState;
     sidebar: SidebarState;
     user: UserState;
-    checked: CheckedState;
+    checkin: CheckinState;
 }
 
 export const combinedReducer = combineReducers({
     auth: authReducer,
     sidebar: sidebarReducer,
     user: userReducer,
-    checked: checkedReducer,
+    checkin: checkinReducer,
 });
 
 export const rootSaga = function* (): any {

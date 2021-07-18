@@ -27,8 +27,7 @@ const App: React.FunctionComponent = (): React.ReactElement => {
                         <Route
                             path="/admin"
                             render={() => {
-                                return localStorage.getItem('token') &&
-                                    localStorage.getItem('permission') === 'admin' ? (
+                                return localStorage.getItem('token') && localStorage.getItem('role') === 'admin' ? (
                                     <LayoutAdmin />
                                 ) : (
                                     <Redirect to="/login" />
@@ -39,9 +38,8 @@ const App: React.FunctionComponent = (): React.ReactElement => {
                             path="/login"
                             render={() => {
                                 if (localStorage.getItem('token')) {
-                                    if (localStorage.getItem('permission') === 'user') return <Redirect to="/" />;
-                                    else if (localStorage.getItem('permission') === 'admin')
-                                        return <Redirect to="/admin" />;
+                                    if (localStorage.getItem('role') === 'user') return <Redirect to="/" />;
+                                    else if (localStorage.getItem('role') === 'admin') return <Redirect to="/admin" />;
                                     else return <Redirect to="/manager" />;
                                 }
                                 return <Login />;
@@ -51,8 +49,7 @@ const App: React.FunctionComponent = (): React.ReactElement => {
                         <Route
                             path="/"
                             render={() => {
-                                return localStorage.getItem('token') &&
-                                    localStorage.getItem('permission') === 'user' ? (
+                                return localStorage.getItem('token') && localStorage.getItem('role') === 'user' ? (
                                     <LayoutUser />
                                 ) : (
                                     <Redirect to="/login" />

@@ -15,7 +15,7 @@ export function passportConfiguration(passport: PassportStatic) {
     };
 
     passport.use(
-        new JwtStrategy(opts, async (jwtPayload, cb) => {
+        new JwtStrategy(opts, async (jwtPayload: any, cb: any) => {
             const user = await userModel.findOne({
                 where: { id: jwtPayload.id },
             });
@@ -30,7 +30,7 @@ export function passportConfiguration(passport: PassportStatic) {
 }
 
 export function generateToken(user: UserAttributes) {
-    return jwt.sign({ id: user.id, email: user.email, permission: user.permission }, env.jwtSecret, {
+    return jwt.sign({ id: user.id, email: user.email, role: user.role }, env.jwtSecret, {
         expiresIn: env.jwtExpiresIn,
     });
 }

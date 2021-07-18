@@ -10,7 +10,7 @@ const userController = new UserController();
 
 /* GET users. */
 router.get('/get-all-user', verifyAdminMiddleware, userController.getAllUsers);
-router.get('/get-list-user', userController.getAllUsers);
+router.get('/get-list-user/:departmentId', userController.getListUsers);
 
 router.get('/find-user-by-email/:email', userController.findUserByEmail);
 router.post('/create-user', verifyAdminMiddleware, userController.addUser);

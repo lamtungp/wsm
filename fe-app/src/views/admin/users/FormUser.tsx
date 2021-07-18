@@ -26,8 +26,8 @@ const FormUser = () => {
         dayIn: '',
         dob: '',
         phoneNumber: '',
-        sex: 'male',
-        permission: 'admin',
+        gender: 'male',
+        role: 'admin',
         roomID: '3',
     });
     const idUser = Number(Object.values(params)[0]);
@@ -40,6 +40,10 @@ const FormUser = () => {
             getItem();
         }
     }, []);
+
+    // const getDepartments = async () => {
+    //     const
+    // }
 
     const handle = async (values: any) => {
         if (values.id) {
@@ -71,12 +75,12 @@ const FormUser = () => {
                         enableReinitialize
                         onSubmit={(values) => {
                             console.log(values);
-                            // handle(values);
+                            handle(values);
                         }}
                         validateOnChange={true}
                         // validateOnBlur={false}
                     >
-                        {({ handleChange, handleSubmit, setFieldValue, errors, touched, values }) => (
+                        {({ handleChange, handleSubmit, errors, touched, values }) => (
                             <Form
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') {
@@ -142,54 +146,17 @@ const FormUser = () => {
                                     </CRow>
                                 </Form.Group> */}
                                 <Form.Group>
-                                    <Form.Label className="font-weight-bold">Avatar</Form.Label>
-                                    <div
-                                        style={{
-                                            marginBottom: '1rem',
-                                            width: '12rem',
-                                            padding: '3px',
-                                            border: '1px solid #dee2e6',
-                                            borderRadius: '4px',
-                                        }}
-                                    >
-                                        <img
-                                            src={`/avatars/${values.avatar}`}
-                                            alt="avatar"
-                                            style={{
-                                                width: '100%',
-                                            }}
-                                        />
-                                    </div>
-                                    <CRow>
-                                        <CCol lg="4">
-                                            <Form.Control
-                                                name="avatar"
-                                                type="file"
-                                                onChange={(e: any) => {
-                                                    if (e.target.value) {
-                                                        const files = e.target.files[0].name;
-                                                        console.log(files);
-                                                        setFieldValue('avatar', files);
-                                                    } else {
-                                                        setFieldValue('avatar', 'no-avatar.jpg');
-                                                    }
-                                                }}
-                                            />
-                                        </CCol>
-                                    </CRow>
-                                </Form.Group>
-                                <Form.Group>
                                     <Form.Label className="font-weight-bold">Giới tính</Form.Label>
                                     <CRow>
                                         <CCol lg="2" className="pr-1">
                                             <label className="m-0">
-                                                <Field type="radio" name="sex" value="male" />
+                                                <Field type="radio" name="gender" value="male" />
                                                 <label className="ml-1">Male</label>
                                             </label>
                                         </CCol>
                                         <CCol lg="2" className="px-1">
                                             <label className="m-0">
-                                                <Field type="radio" name="sex" value="female" />
+                                                <Field type="radio" name="gender" value="female" />
                                                 <label className="ml-1">Female</label>
                                             </label>
                                         </CCol>
@@ -252,9 +219,26 @@ const FormUser = () => {
                                         <CCol lg="4">
                                             <Form.Label className="font-weight-bold">Phân quyền:</Form.Label>
                                             <Form.Control
-                                                name="permission"
+                                                name="role"
                                                 as="select"
-                                                value={values.permission}
+                                                value={values.role}
+                                                onChange={handleChange}
+                                            >
+                                                <option value="admin">Admin</option>
+                                                <option value="manager">Manager</option>
+                                                <option value="user">User</option>
+                                            </Form.Control>
+                                        </CCol>
+                                    </CRow>
+                                </Form.Group>
+                                <Form.Group>
+                                    <CRow>
+                                        <CCol lg="4">
+                                            <Form.Label className="font-weight-bold">Phân quyền:</Form.Label>
+                                            <Form.Control
+                                                name="role"
+                                                as="select"
+                                                value={values.role}
                                                 onChange={handleChange}
                                             >
                                                 <option value="admin">Admin</option>

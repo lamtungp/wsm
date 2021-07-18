@@ -21,7 +21,7 @@ const Infomation: React.FunctionComponent = (): React.ReactElement => {
         name: '',
         phoneNumber: '',
         senority: '',
-        sex: '',
+        gender: '',
         vacationsDay: '0',
     });
 

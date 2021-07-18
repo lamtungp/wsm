@@ -26,11 +26,11 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            start: {
+            startDay: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            end: {
+            endDay: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
@@ -46,14 +46,24 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            userID: {
+            userId: {
                 type: Sequelize.INTEGER,
                 references: { model: 'users', key: 'id' },
+            },
+            createdAt: {
+                type: Sequelize.DATE,
+                allowNull: false,
+                defaultValue: Sequelize.literal('NOW()'),
+            },
+            updatedAt: {
+                type: Sequelize.DATE,
+                allowNull: false,
+                defaultValue: Sequelize.literal('NOW()'),
             },
         });
     },
 
-    down: async (queryInterface, _Sequelize) => {
+    down: async (queryInterface, Sequelize) => {
         /**
          * Add reverting commands here.
          *

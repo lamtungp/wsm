@@ -34,7 +34,7 @@ const FormRequest = () => {
         project: 'Zinza Intern',
         phoneNumber: '',
         reason: '',
-        userID: localStorage.getItem('idAccount'),
+        userId: localStorage.getItem('userId'),
     });
     const idRequest = Number(Object.values(params)[0]);
     useEffect(() => {
@@ -82,7 +82,7 @@ const FormRequest = () => {
                                 className="m-0 font-weight-bold float-right"
                                 style={{ fontSize: '13px', lineHeight: '1.57' }}
                             >
-                                Số ngày phép còn lại: 10
+                                Số ngày phép còn lại: {localStorage.getItem('vacationDay')}
                             </h2>
                         </div>
                     </CCol>

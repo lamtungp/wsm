@@ -1,6 +1,5 @@
 import React from 'react';
 
-const Dashboard = React.lazy(() => import('../views/user/dashboard/Dashboard'));
 const Rooms = React.lazy(() => import('../views/admin/rooms/Rooms'));
 const Users = React.lazy(() => import('../views/admin/users/Users'));
 const Login = React.lazy(() => import('../views/pages/login/Login'));
@@ -9,7 +8,7 @@ const FormRoom = React.lazy(() => import('../views/admin/rooms/FormRoom'));
 const FormUser = React.lazy(() => import('../views/admin/users/FormUser'));
 
 const routes = [
-    { path: '/admin', exact: true, name: 'Home', component: Dashboard },
+    { path: '/admin', exact: true, name: 'Home', component: Users },
     { path: '/admin/login', name: 'Home', component: Login },
     { path: '/admin/users', name: 'Users', component: Users, exact: true },
     { path: '/admin/rooms', name: 'Rooms', component: Rooms, exact: true },

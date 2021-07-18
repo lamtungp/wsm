@@ -1,7 +1,8 @@
 import { Sequelize, DataTypes } from 'sequelize';
 import { UserStatic } from './user.model.d';
 import sequelizeInstance from '../lib/sequelize';
-import roomModel from './room.model';
+import departmentModel from './department.model';
+import { values } from 'sequelize/types/lib/operators';
 // import {
 //     Table,
 //     Column,
@@ -15,90 +16,82 @@ import roomModel from './room.model';
 // } from 'sequelize-typescript';
 
 const UserModel = function (sequelize: Sequelize): UserStatic {
-    const User = <UserStatic>sequelize.define(
-        'users',
-        {
-            id: {
-                type: DataTypes.INTEGER,
-                primaryKey: true,
-            },
-            email: {
-                type: DataTypes.INTEGER,
-                unique: true,
-                allowNull: false,
-            },
-            password: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-            },
-            avatar: {
-                type: DataTypes.STRING,
-                allowNull: true,
-            },
-            name: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            sex: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            dob: {
-                type: DataTypes.DATEONLY,
-                allowNull: false,
-            },
-            phoneNumber: {
-                type: DataTypes.STRING,
-                allowNull: true,
-            },
-            senority: {
-                type: DataTypes.STRING,
-                allowNull: true,
-            },
-            address: {
-                type: DataTypes.STRING,
-                allowNull: true,
-            },
-            dayIn: {
-                type: DataTypes.DATEONLY,
-                allowNull: false,
-            },
-            dayOfficial: {
-                type: DataTypes.STRING,
-                allowNull: true,
-            },
-            contractTerm: {
-                type: DataTypes.STRING,
-                allowNull: true,
-            },
-            vacationsDay: {
-                type: DataTypes.STRING,
-                allowNull: true,
-            },
-            permission: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            roomID: {
-                type: DataTypes.INTEGER,
-                references: { model: 'room', key: 'id' },
-            },
+    const User = <UserStatic>sequelize.define('users', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
         },
-        {
-            timestamps: false,
+        email: {
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: false,
         },
-    );
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        avatar: {
+            type: DataTypes.STRING,
+            defaultValue: '',
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        gender: {
+            type: DataTypes.ENUM({ values: ['male', 'female'] }),
+            allowNull: false,
+        },
+        dob: {
+            type: DataTypes.STRING,
+            defaultValue: '',
+        },
+        phoneNumber: {
+            type: DataTypes.STRING,
+            defaultValue: '',
+        },
+        senority: {
+            type: DataTypes.STRING,
+            defaultValue: '',
+        },
+        address: {
+            type: DataTypes.STRING,
+            defaultValue: '',
+        },
+        dayIn: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        dayOfficial: {
+            type: DataTypes.STRING,
+            defaultValue: '',
+        },
+        contractTerm: {
+            type: DataTypes.STRING,
+            defaultValue: '',
+        },
+        vacationsDay: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+        },
+        role: {
+            type: DataTypes.ENUM({ values: ['admin', 'user', 'manager'] }),
+            allowNull: false,
+        },
+        departmentId: {
+            type: DataTypes.INTEGER,
+            references: { model: 'departments', key: 'id' },
+        },
+    });
 
-    User.belongsTo(roomModel, { foreignKey: 'roomID' });
+    User.belongsTo(departmentModel, { foreignKey: 'departmentId' });
 
     return User;
 };
 
 export default UserModel(sequelizeInstance);
 
-// @Table({
-//     timestamps: false,
-// })
 // class User extends Model<UserStatic> {
 //     @AutoIncrement
 //     @Column({ type: DataType.INTEGER, primaryKey: true })

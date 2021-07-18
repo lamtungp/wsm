@@ -5,7 +5,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useSelector } from 'react-redux';
 
 import { GlobalState } from '../../../common/redux/index';
-import CheckedServices from '../../../common/redux/checked/services';
+import checkinServices from '../../../common/redux/checkin/services';
 
 import CustomToolbar from './Toolbar';
 import CustomEvents from './Event';
@@ -19,27 +19,27 @@ const localizer = momentLocalizer(moment);
 // );
 
 const Dashboard = () => {
-    const checked = useSelector((state: GlobalState) => state.checked.checkeds);
-    // console.log(checked);
+    const checkin = useSelector((state: GlobalState) => state.checkin.checkins);
+    // console.log(checkin);
 
-    const [listChecked, setListChecked] = useState([]);
+    const [listcheckin, setListCheckin] = useState([]);
     const myEvent = [
         {
             start: moment().toDate(),
-            end: checked.length ? moment().add(0, 'days').toDate() : '',
-            title: checked,
+            end: checkin.length ? moment().add(0, 'days').toDate() : '',
+            title: checkin,
         },
     ];
 
     React.useEffect(() => {
-        getListChecked();
+        getListCheckin();
     }, []);
 
-    const getListChecked = async () => {
-        const list = await CheckedServices.getListChecked(Number(localStorage.getItem('idAccount')));
-        setListChecked(list);
+    const getListCheckin = async () => {
+        const list = await checkinServices.getListCheckin(Number(localStorage.getItem('userId')));
+        setListCheckin(list);
     };
-    listChecked.map((item: any) => {
+    listcheckin.map((item: any) => {
         myEvent.push({
             start: new Date(item.checkin),
             end: item.checkout ? new Date(item.checkout) : new Date(item.checkin),

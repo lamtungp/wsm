@@ -4,8 +4,8 @@ import moment from 'moment';
 import { FaSignInAlt, FaSignOutAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 
-import checkedServices from '../../../common/redux/checked/services';
-import { SetChecked } from '../../../common/redux/checked/actions';
+import checkinServices from '../../../common/redux/checkin/services';
+import { SetCheckin } from '../../../common/redux/checkin/actions';
 
 const CustomToolbar = (toolbar: any) => {
     const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const CustomToolbar = (toolbar: any) => {
 
     const handleData = async (values: object) => {
         console.log(values);
-        await checkedServices.updateChecked(values);
+        await checkinServices.updateCheckin(values);
     };
 
     const handleDate = (input: string) => {
@@ -58,23 +58,23 @@ const CustomToolbar = (toolbar: any) => {
     }, []);
 
     const handleClickCheckin = () => {
-        if (localStorage.getItem('dayChecked') !== String(new Date().toLocaleString()).split(', ')[1]) {
-            localStorage.removeItem('daychecked');
+        if (localStorage.getItem('dayCheckin') !== String(new Date().toLocaleString()).split(', ')[1]) {
+            localStorage.removeItem('dayCheckin');
             localStorage.removeItem('isCheckout');
         }
         if (
-            !localStorage.getItem('dayChecked') &&
-            localStorage.getItem('dayChecked') !== String(new Date().toLocaleString()).split(', ')[1]
+            !localStorage.getItem('dayCheckin') &&
+            localStorage.getItem('dayCheckin') !== String(new Date().toLocaleString()).split(', ')[1]
         ) {
             const dayCheckin = String(new Date().toLocaleString());
-            dispatch(SetChecked(dayCheckin.split(', ')[0]));
+            dispatch(SetCheckin(dayCheckin.split(', ')[0]));
             setShow(false);
-            localStorage.setItem('dayChecked', String(new Date().toLocaleString()).split(', ')[1]);
+            localStorage.setItem('dayCheckin', String(new Date().toLocaleString()).split(', ')[1]);
             handleData({
                 checkin: handleDate(dayCheckin),
                 month: new Date().getMonth() + 1,
                 day: dayCheckin.split(', ')[1],
-                userID: localStorage.getItem('idAccount'),
+                userId: localStorage.getItem('userId'),
             });
         } else {
             window.alert('Bạn đã checkin/checkout hôm nay rồi!');
@@ -86,7 +86,7 @@ const CustomToolbar = (toolbar: any) => {
             const dayCheckout = String(new Date().toLocaleString());
             setShow(true);
             localStorage.setItem('isCheckout', 'true');
-            dispatch(SetChecked(dayCheckout.split(', ')[0]));
+            dispatch(SetCheckin(dayCheckout.split(', ')[0]));
             handleData({ checkout: handleDate(dayCheckout) });
         }
     };

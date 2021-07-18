@@ -22,9 +22,14 @@ export default class UserRepository {
         return users;
     }
 
+    public async getListUser(departmentId: number): Promise<any> {
+        const users = await this.user.findAll({ where: { departmentId } });
+        return users;
+    }
+
     public async getUserByEmail(email: string): Promise<any> {
         const user = await this.user.findOne({
-            attributes: { exclude: ['password', 'permission'] },
+            attributes: { exclude: ['password', 'role'] },
             where: { email },
         });
         return user;

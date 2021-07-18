@@ -1,12 +1,12 @@
 import { BuildOptions, Model } from 'sequelize';
 
 export interface UserAttributes {
-    id: string;
+    id: number;
     name: string;
     email: string;
     password: string;
     avatar: string;
-    sex: string;
+    gender: string;
     dob: string;
     phoneNumber: string;
     senority: string;
@@ -15,8 +15,8 @@ export interface UserAttributes {
     dayOfficial: string;
     contractTerm: string;
     vacationsDay: string;
-    permission: string;
-    roomID: string;
+    role: string;
+    departmentId: number;
 }
 export interface UserModel extends Model<UserAttributes>, UserAttributes {}
 
