@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
 
 import userService from '../../../common/redux/user/services';
@@ -31,25 +31,20 @@ const fields = [
         sorter: false,
         filter: false,
     },
-    {
-        key: 'edit',
-        label: '',
-        _style: { width: '12%', height: '100%' },
-        sorter: false,
-        filter: false,
-    },
 ];
 
-const Rooms = () => {
+const StaffsOfRoom = () => {
     const history = useHistory();
+    const param = useParams();
     const [listUser, setListUser] = useState([{ id: '', email: '', password: '' }]);
+    const deparmentId = Number(Object.values(param)[0]);
 
     React.useEffect(() => {
         getListTodo();
     }, []);
 
     const getListTodo = async () => {
-        const res = await userService.getList();
+        const res = await userService.getListUser(deparmentId);
         console.log(res);
         setListUser(res);
     };
@@ -69,18 +64,8 @@ const Rooms = () => {
                                 className="m-0 font-weight-bold d-flex"
                                 style={{ fontSize: '13px', lineHeight: '1.57' }}
                             >
-                                Thông tin các phòng
+                                Thông tin nhân viên
                             </h2>
-                        </CCardHeader>
-                        <CCardHeader style={{ border: 'none' }}>
-                            <CButton
-                                className="btn-primary"
-                                onClick={() => {
-                                    history.push('/admin/rooms/add-room');
-                                }}
-                            >
-                                + Thêm phòng
-                            </CButton>
                         </CCardHeader>
                         <CCardBody>
                             <CDataTable
@@ -95,26 +80,6 @@ const Rooms = () => {
                                 sorter
                                 pagination
                                 scopedSlots={{
-                                    // eslint-disable-next-line react/display-name
-                                    edit: (item: any) => {
-                                        return (
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <CButton
-                                                        color="primary"
-                                                        variant="outline"
-                                                        shape="square"
-                                                        size="sm"
-                                                        onClick={() => {
-                                                            history.push(`/admin/staffs-room/${item.id}`);
-                                                        }}
-                                                    >
-                                                        Xem nhân viên
-                                                    </CButton>
-                                                </div>
-                                            </td>
-                                        );
-                                    },
                                     // eslint-disable-next-line react/display-name
                                     show_details: (item: any) => {
                                         return (
@@ -157,4 +122,4 @@ const Rooms = () => {
     );
 };
 
-export default Rooms;
+export default StaffsOfRoom;

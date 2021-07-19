@@ -5,7 +5,7 @@ const _nav = [
     {
         _tag: 'CSidebarNavItem',
         name: 'Quản lý phòng ban',
-        to: '/admin/rooms',
+        to: '/admin/departments',
         icon: <FaWindowMaximize style={{ marginRight: '1rem', color: 'lightgray' }} />,
     },
     {

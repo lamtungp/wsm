@@ -27,7 +27,7 @@ const FormRequest = () => {
     const [request, setRequest] = useState({
         id: '',
         nameRequest: 'Nghỉ phép có lương',
-        state: 'Đang xử lý',
+        state: 'Pending',
         startDay: '',
         endDay: '',
         timeout: '',

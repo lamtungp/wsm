@@ -7,21 +7,70 @@ import userService from '../../../common/redux/user/services';
 const fields = [
     {
         key: 'id',
-        label: 'id',
+        label: 'Id',
     },
     {
         key: 'name',
-        label: 'name',
-        sorter: false,
+        label: 'Họ tên',
     },
     {
         key: 'email',
-        label: 'email',
+        label: 'Email',
         sorter: false,
     },
     {
         key: 'password',
-        label: 'password',
+        label: 'Mật khẩu',
+        sorter: false,
+    },
+    {
+        key: 'gender',
+        label: 'Giới tính',
+        sorter: false,
+    },
+    {
+        key: 'dob',
+        label: 'Ngày sinh',
+        sorter: false,
+    },
+    {
+        key: 'phoneNumber',
+        label: 'SĐT',
+        sorter: false,
+    },
+    {
+        key: 'address',
+        label: 'Địa chỉ',
+        sorter: false,
+    },
+    {
+        key: 'dayIn',
+        label: 'Ngày vào',
+        sorter: false,
+    },
+    {
+        key: 'dayIn',
+        label: 'Ngày vào',
+        sorter: false,
+    },
+    {
+        key: 'dayOfficial',
+        label: 'Ngày chính thức',
+        sorter: false,
+    },
+    {
+        key: 'senority',
+        label: 'Thâm niên',
+        sorter: false,
+    },
+    {
+        key: 'vacationsDay',
+        label: 'Nghỉ phép',
+        sorter: false,
+    },
+    {
+        key: 'contractTerm',
+        label: 'Hợp đồng',
         sorter: false,
     },
     {
@@ -42,7 +91,7 @@ const Users = () => {
     }, []);
 
     const getListTodo = async () => {
-        const res = await userService.getList();
+        const res = await userService.getAllUser();
         console.log(res);
         setListUser(res);
     };

@@ -18,6 +18,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
         localStorage.removeItem('role');
+        localStorage.removeItem('vacationDay');
         history.push('/');
     };
 

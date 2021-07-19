@@ -48,11 +48,11 @@ const FormUser = () => {
     const handle = async (values: any) => {
         if (values.id) {
             await userService.updateUser(values, values.id);
-            await userService.getList();
+            await userService.getAllUser();
             history.push('/admin/users');
         } else {
             await userService.addUser(values);
-            await userService.getList();
+            await userService.getAllUser();
             history.push('/admin/users');
         }
     };
@@ -90,7 +90,7 @@ const FormUser = () => {
                             >
                                 <Form.Group>
                                     <CRow>
-                                        <CCol lg="6">
+                                        <CCol lg="5">
                                             <Form.Label className="font-weight-bold">Họ tên:</Form.Label>
                                             <Form.Control
                                                 name="name"
@@ -103,7 +103,7 @@ const FormUser = () => {
                                 </Form.Group>
                                 <Form.Group>
                                     <CRow>
-                                        <CCol lg="6">
+                                        <CCol lg="5">
                                             <Form.Label className="font-weight-bold">Email:</Form.Label>
                                             <Form.Control
                                                 name="email"
@@ -116,7 +116,7 @@ const FormUser = () => {
                                 </Form.Group>
                                 <Form.Group>
                                     <CRow>
-                                        <CCol lg="6">
+                                        <CCol lg="5">
                                             <Form.Label className="font-weight-bold">Mật khẩu:</Form.Label>
                                             <Form.Control
                                                 name="password"
@@ -234,7 +234,7 @@ const FormUser = () => {
                                 <Form.Group>
                                     <CRow>
                                         <CCol lg="4">
-                                            <Form.Label className="font-weight-bold">Phân quyền:</Form.Label>
+                                            <Form.Label className="font-weight-bold">Division:</Form.Label>
                                             <Form.Control
                                                 name="role"
                                                 as="select"

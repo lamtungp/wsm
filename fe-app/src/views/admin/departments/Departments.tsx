@@ -2,60 +2,54 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
 
-import userService from '../../../common/redux/user/services';
+import departmentService from '../../../common/redux/department/services';
 
 const fields = [
     {
         key: 'id',
-        label: 'id',
+        label: 'Id',
     },
     {
-        key: 'name',
-        label: 'name',
-        sorter: false,
+        key: 'nameDepartment',
+        label: 'Tên phòng',
     },
     {
-        key: 'email',
-        label: 'email',
-        sorter: false,
-    },
-    {
-        key: 'password',
-        label: 'password',
+        key: 'description',
+        label: 'Mô tả',
         sorter: false,
     },
     {
         key: 'show_details',
         label: '',
-        _style: { width: '10%', height: '100%' },
+        _style: { width: '15%', height: '100%' },
         sorter: false,
         filter: false,
     },
     {
         key: 'edit',
         label: '',
-        _style: { width: '12%', height: '100%' },
+        _style: { width: '15%', height: '100%' },
         sorter: false,
         filter: false,
     },
 ];
 
-const StaffsOfRoom = () => {
+const Rooms = () => {
     const history = useHistory();
-    const [listUser, setListUser] = useState([{ id: '', email: '', password: '' }]);
+    const [listdepartment, setListdepartment] = useState([{ id: '', nameDepartment: '', description: '' }]);
 
     React.useEffect(() => {
         getListTodo();
     }, []);
 
     const getListTodo = async () => {
-        const res = await userService.getList();
+        const res = await departmentService.getList();
         console.log(res);
-        setListUser(res);
+        setListdepartment(res);
     };
 
-    const deleteUser = async (id: number) => {
-        await userService.deleteUser(id);
+    const deletedepartment = async (id: number) => {
+        await departmentService.deleteDepartment(id);
         getListTodo();
     };
 
@@ -69,12 +63,22 @@ const StaffsOfRoom = () => {
                                 className="m-0 font-weight-bold d-flex"
                                 style={{ fontSize: '13px', lineHeight: '1.57' }}
                             >
-                                Thông tin nhân viên
+                                Thông tin các phòng
                             </h2>
+                        </CCardHeader>
+                        <CCardHeader style={{ border: 'none' }}>
+                            <CButton
+                                className="btn-primary"
+                                onClick={() => {
+                                    history.push('/admin/departments/add-department');
+                                }}
+                            >
+                                + Thêm phòng
+                            </CButton>
                         </CCardHeader>
                         <CCardBody>
                             <CDataTable
-                                items={listUser}
+                                items={listdepartment}
                                 hover
                                 striped
                                 border
@@ -96,7 +100,7 @@ const StaffsOfRoom = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            history.push(`/admin/staff-rooms/${item.id}`);
+                                                            history.push(`/admin/staffs-department/${item.id}`);
                                                         }}
                                                     >
                                                         Xem nhân viên
@@ -128,7 +132,7 @@ const StaffsOfRoom = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            deleteUser(item.id);
+                                                            deletedepartment(item.id);
                                                         }}
                                                     >
                                                         Delete
@@ -147,4 +151,4 @@ const StaffsOfRoom = () => {
     );
 };
 
-export default StaffsOfRoom;
+export default Rooms;

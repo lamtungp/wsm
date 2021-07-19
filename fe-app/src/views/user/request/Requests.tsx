@@ -76,7 +76,9 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
                                                 <td>{item.nameRequest}</td>
                                                 <td>
                                                     <span className="badge badge-pill badge-warning text-white">
-                                                        {item.state}
+                                                        {item.state === 'Pending' ? 'Đang chờ xử lý' : ''}
+                                                        {item.state === 'Confirmed' ? 'Đồng ý' : ''}
+                                                        {item.state === 'Declined' ? 'Từ chối' : ''}
                                                     </span>
                                                 </td>
                                                 <td>{item.handler}</td>
