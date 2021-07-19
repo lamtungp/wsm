@@ -13,8 +13,8 @@ const checkinController = new CheckinController();
 /* GET users. */
 router.get('/get-all-checkin', checkinController.getAllCheckin);
 router.get('/get-list-checkin/:userId', checkinController.getListCheckin);
-router.get('/find-checkin-by-idAccount/:idAccount', checkinController.findCheckinByAccountId);
-router.post('/create-checkin/:idAccount', checkinController.addCheckin);
+router.get('/find-checkin-by-userId/:userId', checkinController.findCheckinByUserId);
+router.post('/create-checkin/:userId', checkinController.addCheckin);
 router.post('/update-checkin', checkinController.updateCheckins);
 
 export default router;

@@ -1,6 +1,7 @@
 import messages from '../messages';
 
 export default class HttpError extends Error {
+    data: object;
     messageKey: string;
     statusCode: number;
 

@@ -11,7 +11,7 @@ const requestController = new RequestController();
 
 /* GET users. */
 router.get('/get-all-request', verifyAdminMiddleware, requestController.getAllRequest);
-router.get('/get-list-request/:id', verifyUserMiddleware, requestController.getListRequest);
+router.get('/get-list-request/:userId', requestController.getListRequest);
 router.get('/find-request-by-id/:id', requestController.findRequestById);
 router.post('/create-request', requestController.addRequest);
 

@@ -7,7 +7,6 @@
 import app from './app';
 const debug = require('debug')('be-app:server');
 import http from 'http';
-// import db from './lib/sequelize';
 
 /**
  * Get port from environment and store in Express.

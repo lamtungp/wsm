@@ -34,7 +34,7 @@ export default class RequestRepository {
         return request;
     }
 
-    public async getRequestByIdAccount(userId: number): Promise<any> {
+    public async getRequestByUserId(userId: number): Promise<any> {
         const request = await this.request.findOne({
             where: { userId },
         });

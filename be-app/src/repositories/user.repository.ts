@@ -27,10 +27,10 @@ export default class UserRepository {
         return users;
     }
 
-    public async getUserByEmail(email: string): Promise<any> {
+    public async getUserById(id: number): Promise<any> {
         const user = await this.user.findOne({
             attributes: { exclude: ['password', 'role'] },
-            where: { email },
+            where: { id },
         });
         return user;
     }

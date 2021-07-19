@@ -1,4 +1,5 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import InternalServerError from '../commons/http-errors/InternalServerError';
 import userModel from '../models/user.model';
 import UserRepository from '../repositories/user.repository';
 
@@ -9,53 +10,48 @@ export default class UserController {
         this.user = UserRepository.getInstance();
     }
 
-    public getAllUsers = async (_req: Request, res: Response) => {
-        try {
-            const users = await this.user.getUsers();
+    public getAllUsers = async (_req: Request, res: Response, next: NextFunction) => {
+        const users = await this.user.getUsers();
+        if (!!users) {
             return res.status(200).json(users);
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json(error.messages);
+        } else {
+            next(new InternalServerError());
         }
     };
 
-    public getListUsers = async (req: Request, res: Response) => {
-        try {
-            const users = await this.user.getListUser(Number(req.params.departmentId));
+    public getListUsers = async (req: Request, res: Response, next: NextFunction) => {
+        const users = await this.user.getListUser(Number(req.params.departmentId));
+        if (!!users) {
             return res.status(200).json(users);
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json(error.messages);
+        } else {
+            next(new InternalServerError());
         }
     };
 
-    public findUserByEmail = async (req: Request, res: Response) => {
-        try {
-            const user = await this.user.getUserByEmail(req.params.email);
+    public findUserById = async (req: Request, res: Response, next: NextFunction) => {
+        const user = await this.user.getUserById(Number(req.params.id));
+        if (!!user) {
             return res.status(200).json(user);
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json(error.messages);
+        } else {
+            next(new InternalServerError());
         }
     };
 
-    public addUser = async (req: Request, res: Response) => {
-        try {
-            const user = await this.user.createUser(req.body);
+    public addUser = async (req: Request, res: Response, next: NextFunction) => {
+        const user = await this.user.createUser(req.body);
+        if (!!user) {
             return res.status(200).json(user);
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json(error.messages);
+        } else {
+            next(new InternalServerError());
         }
     };
 
-    public updateForUser = async (req: Request, res: Response) => {
-        try {
-            const user = await this.user.updateUser(req.body, Number(req.params.id));
+    public updateForUser = async (req: Request, res: Response, next: NextFunction) => {
+        const user = await this.user.updateUser(req.body, Number(req.params.id));
+        if (!!user) {
             return res.status(200).json(user);
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json(error.messages);
+        } else {
+            next(new InternalServerError());
         }
     };
 }

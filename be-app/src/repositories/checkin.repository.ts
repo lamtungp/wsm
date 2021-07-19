@@ -27,7 +27,7 @@ export default class CheckinRepository {
         return checkin;
     }
 
-    public async getCheckinByIdAccount(userId: number, date: string): Promise<any> {
+    public async getCheckinByUserId(userId: number, date: string): Promise<any> {
         const checkin = await this.checkin.findOne({
             where: { userId, date },
         });
@@ -39,8 +39,9 @@ export default class CheckinRepository {
         return checkin;
     }
 
-    public async updateCheckin(date: string, userId: number, value: any): Promise<any> {
-        const checkin = await this.checkin.update(value, { where: { date, userId } });
+    public async updateCheckin(userId: number, date: string, value: any): Promise<any> {
+        // console.log(userId, ' ', date, ' ', value);
+        const checkin = await this.checkin.update(value, { where: { userId, date } });
         return checkin;
     }
 }
