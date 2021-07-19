@@ -13,7 +13,6 @@ function* loginSaga(action: LoginAction) {
         console.log(response);
         if (response) {
             localStorage.setItem('token', response.token);
-            localStorage.setItem('email', action.payload.email);
             localStorage.setItem('role', response.role);
             localStorage.setItem('userId', response.id);
             localStorage.setItem('vacationDay', response.vacationDay);

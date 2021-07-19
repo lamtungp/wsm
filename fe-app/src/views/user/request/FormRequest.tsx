@@ -28,8 +28,8 @@ const FormRequest = () => {
         id: '',
         nameRequest: 'Nghỉ phép có lương',
         state: 'Đang xử lý',
-        start: '',
-        end: '',
+        startDay: '',
+        endDay: '',
         timeout: '',
         project: 'Zinza Intern',
         phoneNumber: '',
@@ -55,11 +55,11 @@ const FormRequest = () => {
     const handle = async (values: any) => {
         if (values.id) {
             await requestService.updateRequest(values, values.id);
-            await requestService.getListRequest(Number(localStorage.getItem('idAccount')));
+            await requestService.getListRequest(Number(localStorage.getItem('userId')));
             history.push('/base/users');
         } else {
             await requestService.addRequest(values);
-            await requestService.getListRequest(Number(localStorage.getItem('idAccount')));
+            await requestService.getListRequest(Number(localStorage.getItem('userId')));
             history.push('/user/requests');
         }
     };
@@ -99,7 +99,7 @@ const FormRequest = () => {
                                         validationSchema={SignupSchema}
                                         enableReinitialize
                                         onSubmit={(values) => {
-                                            values.timeout = `${values.start} ~ ${values.end}`;
+                                            values.timeout = `${values.startDay} ~ ${values.endDay}`;
                                             console.log(values);
                                             handle(values);
                                         }}
@@ -162,7 +162,7 @@ const FormRequest = () => {
                                                                     const arrDateReverse = arrDate.reverse();
                                                                     arr.push(arrDateReverse.join('/'));
                                                                     setDateStart(new Date(arr.reverse().join(', ')));
-                                                                    values.start = arr.reverse().join(', ');
+                                                                    values.startDay = arr.reverse().join(', ');
                                                                 }}
                                                             />
                                                         </CCol>
@@ -185,7 +185,7 @@ const FormRequest = () => {
                                                                     const arrDateReverse = arrDate.reverse();
                                                                     arr.push(arrDateReverse.join('/'));
                                                                     setDateEnd(new Date(arr.reverse().join(', ')));
-                                                                    values.end = arr.reverse().join(', ');
+                                                                    values.endDay = arr.reverse().join(', ');
                                                                 }}
                                                             />
                                                         </CCol>

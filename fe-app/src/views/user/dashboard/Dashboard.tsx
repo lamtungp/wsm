@@ -39,11 +39,12 @@ const Dashboard = () => {
         const list = await checkinServices.getListCheckin(Number(localStorage.getItem('userId')));
         setListCheckin(list);
     };
+
     listcheckin.map((item: any) => {
         myEvent.push({
-            start: new Date(item.checkin),
-            end: item.checkout ? new Date(item.checkout) : new Date(item.checkin),
-            title: [item.checkin.split(', ')[1], item.checkout.split(', ')[1]],
+            start: new Date(`${item.date} ${item.checkin}`),
+            end: item.checkout ? new Date(`${item.date} ${item.checkout}`) : new Date(`${item.date} ${item.checkin}`),
+            title: [item.checkin, item.checkout],
         });
     });
 

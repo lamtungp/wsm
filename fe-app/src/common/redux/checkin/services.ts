@@ -26,10 +26,8 @@ const CheckinServices = {
         return result;
     },
 
-    updateCheckin: (param: object): Promise<any> => {
-        const dayCheckin = localStorage.getItem('dayCheckin');
-        const userId = localStorage.getItem('userId');
-        const result = AxiosClient.post(`checkin/update-checkin?userId=${userId}&day=${dayCheckin}`, param);
+    updateCheckin: (param: object, userId: number, date: string): Promise<any> => {
+        const result = AxiosClient.post(`checkin/update-checkin?userId=${userId}&date=${date}`, param);
         return result;
     },
 

@@ -16,14 +16,13 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
 
     const logOut = () => {
         localStorage.removeItem('token');
-        localStorage.removeItem('email');
-        localStorage.removeItem('idAccount');
-        localStorage.removeItem('permission');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('role');
         history.push('/');
     };
 
     const getUser = async () => {
-        const user = await userService.findUserByEmail(String(localStorage.getItem('email')));
+        const user = await userService.findUserById(Number(localStorage.getItem('userId')));
         setUser(user);
     };
 

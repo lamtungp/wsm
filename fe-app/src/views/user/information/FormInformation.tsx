@@ -29,7 +29,7 @@ const FormInformation = () => {
         name: '',
         phoneNumber: '',
         senority: '',
-        sex: '',
+        gender: '',
         vacationsDay: '0',
     });
 
@@ -38,7 +38,7 @@ const FormInformation = () => {
     }, []);
 
     const getListTodo = async () => {
-        const res = await userService.findUserByEmail(String(localStorage.getItem('email')));
+        const res = await userService.findUserById(Number(localStorage.getItem('userId')));
         // console.log(res);
         setUser(res);
     };
@@ -150,10 +150,10 @@ const FormInformation = () => {
                                     <CRow>
                                         <CCol lg="2" className="pr-1">
                                             <label>
-                                                {values.sex === 'male' ? (
-                                                    <Field type="radio" name="sex" id="male" value="male" checked />
+                                                {values.gender === 'male' ? (
+                                                    <Field type="radio" name="gender" id="male" value="male" checked />
                                                 ) : (
-                                                    <Field type="radio" name="sex" id="male" value="male" />
+                                                    <Field type="radio" name="gender" id="male" value="male" />
                                                 )}
 
                                                 <label htmlFor="male" className="ml-1">
@@ -163,10 +163,16 @@ const FormInformation = () => {
                                         </CCol>
                                         <CCol lg="2" className="px-1">
                                             <label>
-                                                {values.sex === 'female' ? (
-                                                    <Field type="radio" name="sex" id="female" value="female" checked />
+                                                {values.gender === 'female' ? (
+                                                    <Field
+                                                        type="radio"
+                                                        name="gender"
+                                                        id="female"
+                                                        value="female"
+                                                        checked
+                                                    />
                                                 ) : (
-                                                    <Field type="radio" name="sex" id="female" value="female" />
+                                                    <Field type="radio" name="gender" id="female" value="female" />
                                                 )}
                                                 <label htmlFor="female" className="ml-1">
                                                     Female

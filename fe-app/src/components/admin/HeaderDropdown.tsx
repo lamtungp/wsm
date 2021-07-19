@@ -7,9 +7,8 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
 
     const logOut = () => {
         localStorage.removeItem('token');
-        localStorage.removeItem('email');
-        localStorage.removeItem('idAccount');
-        localStorage.removeItem('permission');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('role');
         history.push('/');
     };
     return (
