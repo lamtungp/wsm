@@ -3,7 +3,7 @@ import { DepartmentStatic } from './department.model.d';
 import sequelizeInstance from '../lib/sequelize';
 
 const DepartmentModel = function (sequelize: Sequelize): DepartmentStatic {
-    const Department = <DepartmentStatic>sequelize.define('rooms', {
+    const Department = <DepartmentStatic>sequelize.define('departments', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,

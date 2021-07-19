@@ -9,10 +9,13 @@ const router = Router();
 
 const requestController = new RequestController();
 
-/* GET users. */
+/* GET all request. */
 router.get('/get-all-request', verifyAdminMiddleware, requestController.getAllRequest);
+/* GET list request. */
 router.get('/get-list-request/:userId', requestController.getListRequest);
+/* GET request by id. */
 router.get('/find-request-by-id/:id', requestController.findRequestById);
+/* CREATE request. */
 router.post('/create-request', requestController.addRequest);
 
 export default router;

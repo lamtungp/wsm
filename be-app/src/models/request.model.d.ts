@@ -11,6 +11,7 @@ export interface RequestAttributes {
     project: string;
     reason: string;
     userId: string;
+    handler: string;
 }
 export interface RequestModel extends Model<RequestAttributes>, RequestAttributes {}
 

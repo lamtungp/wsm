@@ -15,8 +15,8 @@ const RequestModel = function (sequelize: Sequelize): RequestStatic {
             allowNull: false,
         },
         state: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            type: DataTypes.ENUM({ values: ['Pending', 'Confirmed', 'Declined'] }),
+            defaultValue: 'Pending',
         },
         timeout: {
             type: DataTypes.STRING,
@@ -45,6 +45,10 @@ const RequestModel = function (sequelize: Sequelize): RequestStatic {
         userId: {
             type: DataTypes.INTEGER,
             references: { model: 'users', key: 'id' },
+        },
+        handler: {
+            type: DataTypes.STRING,
+            defaultValue: '',
         },
     });
 

@@ -11,6 +11,7 @@ router.get('/', (_req, res) => {
     res.send('Go to auth APIs !!');
     res.json({ message: 'Go to auth APIs !!' });
 });
+
 router.post('/user-login', wrap(authController.userLogin));
 
 export default router;

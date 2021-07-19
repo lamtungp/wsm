@@ -36,12 +36,12 @@ export default class UserRepository {
     }
 
     public async createUser(value: any): Promise<any> {
-        const checked = await this.user.create(value);
-        return checked;
+        const user = await this.user.create(value);
+        return user;
     }
 
     public async updateUser(value: any, id: number): Promise<any> {
-        const checked = await this.user.update(value, { where: { id } });
-        return checked;
+        const user = await this.user.update(value, { where: { id } });
+        return user;
     }
 }
