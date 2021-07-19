@@ -18,4 +18,8 @@ router.get('/find-request-by-id/:id', requestController.findRequestById);
 /* CREATE request. */
 router.post('/create-request', requestController.addRequest);
 
+router.post('/update-request/:id', requestController.updateForRequest);
+
+router.get('/find-request-by-state', requestController.getListRequestByState);
+
 export default router;

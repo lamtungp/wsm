@@ -37,26 +37,37 @@ const FormRequest = () => {
         userId: localStorage.getItem('userId'),
     });
     const idRequest = Number(Object.values(params)[0]);
+
+    const handleDate = (input: string): string => {
+        const arr = input.split(', ');
+        const arrDate = arr[1].split('/');
+        arr.pop();
+        const arrDateReverse = arrDate.reverse();
+        arr.push(arrDateReverse.join('/'));
+        return arr.reverse().join(', ');
+    };
+
     useEffect(() => {
         if (idRequest) {
             const getItem = async () => {
                 const _request = await requestService.findRequestById(idRequest);
+                console.log(_request);
                 setRequest(_request);
-                setDateStart(new Date(_request.start));
-                setDateEnd(new Date(_request.end));
+                setDateStart(new Date(_request.startDay));
+                setDateEnd(new Date(_request.endDay));
             };
             getItem();
         }
     }, []);
     // console.log(request);
-    // const d = new Date('2015/3/25, 14:01:00');
+    // const d = new Date().toLocaleString();
     // console.log(d);
 
     const handle = async (values: any) => {
         if (values.id) {
             await requestService.updateRequest(values, values.id);
             await requestService.getListRequest(Number(localStorage.getItem('userId')));
-            history.push('/base/users');
+            history.push('/user/users');
         } else {
             await requestService.addRequest(values);
             await requestService.getListRequest(Number(localStorage.getItem('userId')));
@@ -155,14 +166,12 @@ const FormRequest = () => {
                                                                     enableTime: true,
                                                                 }}
                                                                 onChange={(dateSelect: any) => {
-                                                                    const date = new Date(String(dateSelect[0]));
-                                                                    const arr = date.toLocaleString().split(', ');
-                                                                    const arrDate = arr[1].split('/');
-                                                                    arr.pop();
-                                                                    const arrDateReverse = arrDate.reverse();
-                                                                    arr.push(arrDateReverse.join('/'));
-                                                                    setDateStart(new Date(arr.reverse().join(', ')));
-                                                                    values.startDay = arr.reverse().join(', ');
+                                                                    const date = new Date(
+                                                                        String(dateSelect[0]),
+                                                                    ).toLocaleString();
+                                                                    const str = handleDate(date);
+                                                                    setDateStart(new Date(str));
+                                                                    values.startDay = str;
                                                                 }}
                                                             />
                                                         </CCol>
@@ -178,14 +187,12 @@ const FormRequest = () => {
                                                                     enableTime: true,
                                                                 }}
                                                                 onChange={(dateSelect: any) => {
-                                                                    const date = new Date(String(dateSelect[0]));
-                                                                    const arr = date.toLocaleString().split(', ');
-                                                                    const arrDate = arr[1].split('/');
-                                                                    arr.pop();
-                                                                    const arrDateReverse = arrDate.reverse();
-                                                                    arr.push(arrDateReverse.join('/'));
-                                                                    setDateEnd(new Date(arr.reverse().join(', ')));
-                                                                    values.endDay = arr.reverse().join(', ');
+                                                                    const date = new Date(
+                                                                        String(dateSelect[0]),
+                                                                    ).toLocaleString();
+                                                                    const str = handleDate(date);
+                                                                    setDateEnd(new Date(str));
+                                                                    values.endDay = str;
                                                                 }}
                                                             />
                                                         </CCol>

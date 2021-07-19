@@ -83,7 +83,7 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
                                                 </td>
                                                 <td>{item.handler}</td>
                                                 <td>{item.timeout}</td>
-                                                <td>
+                                                <td style={{ width: '17%' }}>
                                                     <CButton
                                                         className="btn-primary mr-1"
                                                         onClick={() => history.push(`/user/requests/${item.id}`)}

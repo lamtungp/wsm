@@ -13,9 +13,13 @@ router.get('/health-check', (_req, res) => {
 });
 
 router.use('/user', usersRoute);
+
 router.use('/request', requestRoute);
+
 router.use('/checkin', checkinRoute);
+
 router.use('/auth', authRoute);
+
 router.use('/department', departmentRoute);
 
 export default router;

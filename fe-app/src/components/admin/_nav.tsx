@@ -23,7 +23,7 @@ const _nav = [
     {
         _tag: 'CSidebarNavItem',
         name: 'Yêu cầu cần duyệt',
-        to: '/admin/requests',
+        to: '/admin/requestings',
         icon: <FaClipboard style={{ marginRight: '1rem' }} />,
     },
 ];

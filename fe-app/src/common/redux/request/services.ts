@@ -16,6 +16,11 @@ const RequestServices = {
         return result;
     },
 
+    findRequestByState: (state: string): Promise<any> => {
+        const result = AxiosClient.get(`request/find-request-by-state?state=${state}`);
+        return result;
+    },
+
     addRequest: (param: object): Promise<any> => {
         const result = AxiosClient.post('request/create-request', param);
         return result;

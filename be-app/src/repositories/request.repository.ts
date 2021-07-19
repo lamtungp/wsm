@@ -34,6 +34,13 @@ export default class RequestRepository {
         return request;
     }
 
+    public async getRequestByState(state: string): Promise<any> {
+        const request = await this.request.findAll({
+            where: { state },
+        });
+        return request;
+    }
+
     public async getRequestByUserId(userId: number): Promise<any> {
         const request = await this.request.findOne({
             where: { userId },
@@ -43,6 +50,11 @@ export default class RequestRepository {
 
     public async createRequest(value: any): Promise<any> {
         const request = await this.request.create(value);
+        return request;
+    }
+
+    public async updateRequest(value: any, id: number): Promise<any> {
+        const request = await this.request.update(value, { where: { id } });
         return request;
     }
 }
