@@ -19,7 +19,6 @@ function* loginSaga(action: LoginAction) {
             localStorage.setItem('vacationDay', response.vacationDay);
             yield put(loginSuccess({ email: action.payload.email, token: response.token }));
             if (localStorage.getItem('role') === 'admin') window.location.pathname = '/admin';
-            else if (localStorage.getItem('role') === 'manager') window.location.pathname = '/manager';
             else window.location.pathname = '';
         } else {
             alert(response.message);

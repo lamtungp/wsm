@@ -11,6 +11,11 @@ const UserService = {
         return results;
     },
 
+    getListStaff: (userId: number): Promise<any> => {
+        const results = AxiosClient.get(`/user/get-list-staff/${userId}?role=user`);
+        return results;
+    },
+
     getUserById: (id: number): Promise<any> => {
         const result = AxiosClient.get(`user/find-user-by-id/${id}`);
         return result;

@@ -48,8 +48,9 @@ export default class CheckinController {
             const userCheckin = await this.checkin.getCheckinByUserId(Number(req.query.userId), String(req.query.date));
             // console.log(userCheckin);
             if (!!userCheckin) {
-                if (!!!userCheckin.dataValues.checkout && !!!userCheckin.dataValues.checkin) {
-                    console.log('here');
+                console.log('here');
+                if (!!!userCheckin.dataValues.checkout) {
+                    console.log('here1');
                     const checkin = await this.checkin.updateCheckin(
                         Number(req.query.userId),
                         String(req.query.date),

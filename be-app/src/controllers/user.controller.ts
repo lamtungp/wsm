@@ -28,6 +28,20 @@ export default class UserController {
         }
     };
 
+    public getListStaff = async (req: Request, res: Response, next: NextFunction) => {
+        const manager = await this.user.getUserById(Number(req.params.userId));
+        if (!!manager) {
+            const users = await this.user.getListStaff(manager.dataValues.departmentId, String(req.query.role));
+            if (!!users) {
+                return res.status(200).json(users);
+            } else {
+                next(new InternalServerError());
+            }
+        } else {
+            next(new InternalServerError());
+        }
+    };
+
     public findUserById = async (req: Request, res: Response, next: NextFunction) => {
         const user = await this.user.getUserById(Number(req.params.id));
         if (!!user) {

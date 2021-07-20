@@ -27,9 +27,14 @@ export default class UserRepository {
         return users;
     }
 
+    public async getListStaff(departmentId: number, role: string): Promise<any> {
+        const users = await this.user.findAll({ where: { departmentId, role } });
+        return users;
+    }
+
     public async getUserById(id: number): Promise<any> {
         const user = await this.user.findOne({
-            attributes: { exclude: ['password', 'role'] },
+            attributes: { exclude: ['password'] },
             where: { id },
         });
         return user;

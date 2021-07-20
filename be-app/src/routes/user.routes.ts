@@ -13,6 +13,8 @@ router.get('/get-all-user', verifyAdminMiddleware, userController.getAllUsers);
 
 router.get('/get-list-user/:departmentId', userController.getListUsers);
 
+router.get('/get-list-staff/:userId', userController.getListStaff);
+
 router.get('/find-user-by-id/:id', userController.findUserById);
 
 router.post('/create-user', verifyAdminMiddleware, userController.addUser);

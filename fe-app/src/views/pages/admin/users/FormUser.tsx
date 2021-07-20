@@ -111,6 +111,19 @@ const FormUser = () => {
                                     </CRow>
                                 </Form.Group>
                                 <Form.Group>
+                                    <CRow>
+                                        <CCol lg="5">
+                                            <Form.Label className="font-weight-bold">Password:</Form.Label>
+                                            <Form.Control
+                                                name="password"
+                                                type="password"
+                                                value={values.password}
+                                                onChange={handleChange}
+                                            />
+                                        </CCol>
+                                    </CRow>
+                                </Form.Group>
+                                <Form.Group>
                                     <Form.Label className="font-weight-bold">Giới tính</Form.Label>
                                     <CRow>
                                         <CCol lg="2" className="pr-1">

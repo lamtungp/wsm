@@ -49,7 +49,9 @@ const App: React.FunctionComponent = (): React.ReactElement => {
                         <Route
                             path="/"
                             render={() => {
-                                return localStorage.getItem('token') && localStorage.getItem('role') === 'user' ? (
+                                return localStorage.getItem('token') &&
+                                    (localStorage.getItem('role') === 'user' ||
+                                        localStorage.getItem('role') === 'manager') ? (
                                     <LayoutUser />
                                 ) : (
                                     <Redirect to="/login" />

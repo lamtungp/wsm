@@ -28,14 +28,14 @@ const _nav = [
     },
     {
         _tag: 'CSidebarNavItem',
-        name: 'Lịch phỏng vấn',
-        to: '/user/user_invitations',
+        name: 'Danh sach nhân viên cấp dưới',
+        to: '/user/list_staff',
         icon: <FaCalendarCheck style={{ marginRight: '1rem' }} />,
     },
     {
         _tag: 'CSidebarNavItem',
-        name: 'Bảng tạm',
-        to: '/clipboards/new',
+        name: 'Thống kê giờ làm việc',
+        to: '/user/working_hours',
         icon: <FaClipboard style={{ marginRight: '1rem' }} />,
     },
 ];
