@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
 
-import userService from '../../../common/redux/user/services';
+import departmentService from '../../../../common/redux/department/services';
 
 const fields = [
     {
@@ -10,94 +10,46 @@ const fields = [
         label: 'Id',
     },
     {
-        key: 'name',
-        label: 'Họ tên',
+        key: 'nameDepartment',
+        label: 'Tên phòng',
     },
     {
-        key: 'email',
-        label: 'Email',
-        sorter: false,
-    },
-    {
-        key: 'password',
-        label: 'Mật khẩu',
-        sorter: false,
-    },
-    {
-        key: 'gender',
-        label: 'Giới tính',
-        sorter: false,
-    },
-    {
-        key: 'dob',
-        label: 'Ngày sinh',
-        sorter: false,
-    },
-    {
-        key: 'phoneNumber',
-        label: 'SĐT',
-        sorter: false,
-    },
-    {
-        key: 'address',
-        label: 'Địa chỉ',
-        sorter: false,
-    },
-    {
-        key: 'dayIn',
-        label: 'Ngày vào',
-        sorter: false,
-    },
-    {
-        key: 'dayIn',
-        label: 'Ngày vào',
-        sorter: false,
-    },
-    {
-        key: 'dayOfficial',
-        label: 'Ngày chính thức',
-        sorter: false,
-    },
-    {
-        key: 'senority',
-        label: 'Thâm niên',
-        sorter: false,
-    },
-    {
-        key: 'vacationsDay',
-        label: 'Nghỉ phép',
-        sorter: false,
-    },
-    {
-        key: 'contractTerm',
-        label: 'Hợp đồng',
+        key: 'description',
+        label: 'Mô tả',
         sorter: false,
     },
     {
         key: 'show_details',
         label: '',
-        _style: { width: '10%', height: '100%' },
+        _style: { width: '15%', height: '100%' },
+        sorter: false,
+        filter: false,
+    },
+    {
+        key: 'edit',
+        label: '',
+        _style: { width: '15%', height: '100%' },
         sorter: false,
         filter: false,
     },
 ];
 
-const Users = () => {
+const Rooms = () => {
     const history = useHistory();
-    const [listUser, setListUser] = useState([{ id: '', email: '', password: '' }]);
+    const [listdepartment, setListdepartment] = useState([{ id: '', nameDepartment: '', description: '' }]);
 
     React.useEffect(() => {
         getListTodo();
     }, []);
 
     const getListTodo = async () => {
-        const res = await userService.getAllUser();
+        const res = await departmentService.getList();
         console.log(res);
-        setListUser(res);
+        setListdepartment(res);
     };
 
-    const deleteUser = async (id: number) => {
-        await userService.deleteUser(id);
+    const deletedepartment = async (id: number) => {
+        await departmentService.deleteDepartment(id);
         getListTodo();
     };
 
@@ -111,22 +63,22 @@ const Users = () => {
                                 className="m-0 font-weight-bold d-flex"
                                 style={{ fontSize: '13px', lineHeight: '1.57' }}
                             >
-                                Thông tin nhân viên
+                                Thông tin các phòng
                             </h2>
                         </CCardHeader>
                         <CCardHeader style={{ border: 'none' }}>
                             <CButton
                                 className="btn-primary"
                                 onClick={() => {
-                                    history.push('/admin/users/add-user');
+                                    history.push('/admin/departments/add-department');
                                 }}
                             >
-                                + Thêm nhân viên
+                                + Thêm phòng
                             </CButton>
                         </CCardHeader>
                         <CCardBody>
                             <CDataTable
-                                items={listUser}
+                                items={listdepartment}
                                 hover
                                 striped
                                 border
@@ -137,6 +89,26 @@ const Users = () => {
                                 sorter
                                 pagination
                                 scopedSlots={{
+                                    // eslint-disable-next-line react/display-name
+                                    edit: (item: any) => {
+                                        return (
+                                            <td>
+                                                <div className="d-flex justify-content-center">
+                                                    <CButton
+                                                        color="primary"
+                                                        variant="outline"
+                                                        shape="square"
+                                                        size="sm"
+                                                        onClick={() => {
+                                                            history.push(`/admin/staffs-department/${item.id}`);
+                                                        }}
+                                                    >
+                                                        Xem nhân viên
+                                                    </CButton>
+                                                </div>
+                                            </td>
+                                        );
+                                    },
                                     // eslint-disable-next-line react/display-name
                                     show_details: (item: any) => {
                                         return (
@@ -149,7 +121,9 @@ const Users = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            history.push(`/admin/users/update-user/${item.id}`);
+                                                            history.push(
+                                                                `/admin/departments/update-department/${item.id}`,
+                                                            );
                                                         }}
                                                     >
                                                         Update
@@ -160,7 +134,7 @@ const Users = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            deleteUser(item.id);
+                                                            deletedepartment(item.id);
                                                         }}
                                                     >
                                                         Delete
@@ -179,4 +153,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default Rooms;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
 
-import departmentService from '../../../common/redux/department/services';
+import userService from '../../../../common/redux/user/services';
 
 const fields = [
     {
@@ -10,46 +10,44 @@ const fields = [
         label: 'Id',
     },
     {
-        key: 'nameDepartment',
-        label: 'Tên phòng',
+        key: 'name',
+        label: 'Họ tên',
     },
     {
-        key: 'description',
-        label: 'Mô tả',
+        key: 'email',
+        label: 'Email',
+        sorter: false,
+    },
+    {
+        key: 'password',
+        label: 'Mật khẩu',
         sorter: false,
     },
     {
         key: 'show_details',
         label: '',
-        _style: { width: '15%', height: '100%' },
-        sorter: false,
-        filter: false,
-    },
-    {
-        key: 'edit',
-        label: '',
-        _style: { width: '15%', height: '100%' },
+        _style: { width: '10%', height: '100%' },
         sorter: false,
         filter: false,
     },
 ];
 
-const Rooms = () => {
+const Users = () => {
     const history = useHistory();
-    const [listdepartment, setListdepartment] = useState([{ id: '', nameDepartment: '', description: '' }]);
+    const [listUser, setListUser] = useState([{ id: '', name: '', email: '', password: '' }]);
 
     React.useEffect(() => {
         getListTodo();
     }, []);
 
     const getListTodo = async () => {
-        const res = await departmentService.getList();
+        const res = await userService.getAllUser();
         console.log(res);
-        setListdepartment(res);
+        setListUser(res);
     };
 
-    const deletedepartment = async (id: number) => {
-        await departmentService.deleteDepartment(id);
+    const deleteUser = async (id: number) => {
+        await userService.deleteUser(id);
         getListTodo();
     };
 
@@ -63,22 +61,12 @@ const Rooms = () => {
                                 className="m-0 font-weight-bold d-flex"
                                 style={{ fontSize: '13px', lineHeight: '1.57' }}
                             >
-                                Thông tin các phòng
+                                Thông tin tài khoản
                             </h2>
-                        </CCardHeader>
-                        <CCardHeader style={{ border: 'none' }}>
-                            <CButton
-                                className="btn-primary"
-                                onClick={() => {
-                                    history.push('/admin/departments/add-department');
-                                }}
-                            >
-                                + Thêm phòng
-                            </CButton>
                         </CCardHeader>
                         <CCardBody>
                             <CDataTable
-                                items={listdepartment}
+                                items={listUser}
                                 hover
                                 striped
                                 border
@@ -89,26 +77,6 @@ const Rooms = () => {
                                 sorter
                                 pagination
                                 scopedSlots={{
-                                    // eslint-disable-next-line react/display-name
-                                    edit: (item: any) => {
-                                        return (
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <CButton
-                                                        color="primary"
-                                                        variant="outline"
-                                                        shape="square"
-                                                        size="sm"
-                                                        onClick={() => {
-                                                            history.push(`/admin/staffs-department/${item.id}`);
-                                                        }}
-                                                    >
-                                                        Xem nhân viên
-                                                    </CButton>
-                                                </div>
-                                            </td>
-                                        );
-                                    },
                                     // eslint-disable-next-line react/display-name
                                     show_details: (item: any) => {
                                         return (
@@ -121,7 +89,7 @@ const Rooms = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            history.push(`/admin/rooms/update-room/${item.id}`);
+                                                            history.push(`/admin/resetpassword/${item.id}`);
                                                         }}
                                                     >
                                                         Update
@@ -132,7 +100,7 @@ const Rooms = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            deletedepartment(item.id);
+                                                            deleteUser(item.id);
                                                         }}
                                                     >
                                                         Delete
@@ -151,4 +119,4 @@ const Rooms = () => {
     );
 };
 
-export default Rooms;
+export default Users;

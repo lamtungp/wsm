@@ -2,8 +2,20 @@ import React from 'react';
 import { CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CImg } from '@coreui/react';
 import { useHistory } from 'react-router-dom';
 
+import userService from '../../common/redux/user/services';
+
 const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();
+
+    const [user, setUser] = React.useState({
+        avatar: '',
+        name: '',
+        email: '',
+    });
+
+    React.useEffect(() => {
+        getUser();
+    }, []);
 
     const logOut = () => {
         localStorage.removeItem('token');
@@ -12,11 +24,21 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
         localStorage.removeItem('vacationDay');
         history.push('/');
     };
+
+    const getUser = async () => {
+        const user = await userService.getUserById(Number(localStorage.getItem('userId')));
+        setUser(user);
+    };
+
     return (
         <CDropdown inNav className="c-header-nav-items mx-2">
             <CDropdownToggle className="c-header-nav-link" caret={false}>
                 <div className="c-avatar">
-                    <CImg src="avatars/1.jpg" className="c-avatar-img" alt="lam.pt@zinza.com.vn" />
+                    <CImg
+                        src={user.avatar ? `/avatars/${user.avatar}` : '/avatars/no-avatar.jpg'}
+                        className="c-avatar-img"
+                        alt={user.email}
+                    />
                 </div>
             </CDropdownToggle>
             <CDropdownMenu className="p-0" placement="bottom-end" style={{ width: '18rem' }}>
@@ -28,11 +50,15 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
                 >
                     <div className="d-flex h-100 align-items-center">
                         <div className="c-avatar">
-                            <CImg src="avatars/1.jpg" className="c-avatar-img" alt="lam.pt@zinza.com.vn" />
+                            <CImg
+                                src={user.avatar ? `/avatars/${user.avatar}` : '/avatars/no-avatar.jpg'}
+                                className="c-avatar-img"
+                                alt={user.email}
+                            />
                         </div>
                         <span className="ml-3">
-                            <div className="fs-lg font-weight-bold text-white">Pham Tung Lam</div>
-                            <div className="text-light">lam.pt@zinza.com.vn</div>
+                            <div className="fs-lg font-weight-bold text-white">{user.name}</div>
+                            <div className="text-light">{user.email}</div>
                         </span>
                     </div>
                 </CDropdownItem>

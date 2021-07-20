@@ -6,9 +6,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import { CRow, CCol, CCard, CCardHeader, CCardBody } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
 
-import departmentService from '../../../common/redux/department/services';
+import departmentService from '../../../../common/redux/department/services';
 
-const SignupSchema = Yup.object().shape({
+const DepartmentSchema = Yup.object().shape({
     nameDepartment: Yup.string().min(2, 'Too short!').required('Required!'),
     description: Yup.string().min(2, 'Too Short!').required('Required!'),
 });
@@ -34,7 +34,7 @@ const FormRoom = () => {
     }, []);
 
     const handle = async (values: any) => {
-        if (values.id) {
+        if (!!values.id) {
             await departmentService.updateDepartment(values, values.id);
             await departmentService.getList();
             history.push('/admin/departments');
@@ -59,9 +59,10 @@ const FormRoom = () => {
                 <div>
                     <Formik
                         initialValues={department}
-                        validationSchema={SignupSchema}
+                        validationSchema={DepartmentSchema}
                         enableReinitialize
                         onSubmit={(values) => {
+                            console.log(values);
                             handle(values);
                         }}
                         validateOnChange={true}

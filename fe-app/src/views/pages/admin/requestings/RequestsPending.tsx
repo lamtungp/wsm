@@ -1,15 +1,15 @@
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react';
 import React from 'react';
-import { Tab, Table, Tabs } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { FaCheck, FaTimesCircle } from 'react-icons/fa';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
-import requestServices from '../../../common/redux/request/services';
+import requestServices from '../../../../common/redux/request/services';
 
 const fields = ['Nội dung', 'Trạng thái', 'Người xử lý', 'Thời hạn', 'SDT', 'Dự án', 'Lý do', ''];
 
 const RequestsPending: React.FunctionComponent = (): React.ReactElement => {
-    const history = useHistory();
+    // const history = useHistory();
     const [requestsPending, setRequestsPending] = React.useState([
         { id: 0, nameRequest: '', state: '', handler: '', timeout: '', phoneNumber: '', project: '', reason: '' },
     ]);
@@ -26,7 +26,7 @@ const RequestsPending: React.FunctionComponent = (): React.ReactElement => {
     const handleRequest = async (values: object, id: number) => {
         console.log('hello');
         await requestServices.updateRequest(values, id);
-        await requestServices.getAllRequest();
+        getRequests();
     };
 
     return (
@@ -61,8 +61,6 @@ const RequestsPending: React.FunctionComponent = (): React.ReactElement => {
                                         <td>
                                             <span className="badge badge-pill badge-warning text-white">
                                                 {item.state === 'Pending' ? 'Đang chờ xử lý' : ''}
-                                                {item.state === 'Confirmed' ? 'Đồng ý' : ''}
-                                                {item.state === 'Declined' ? 'Từ chối' : ''}
                                             </span>
                                         </td>
                                         <td>{item.handler}</td>

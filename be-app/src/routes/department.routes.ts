@@ -2,19 +2,18 @@ import { Router } from 'express';
 import DepartmentController from '../controllers/department.controller';
 import verifyAdminMiddleware from '../middlewares/verify.admin.middleware';
 // import verifyManagerMiddleware from '../middlewares/verify.manager.middleware';
-import verifyUserMiddleware from '../middlewares/verify.user.middleware';
 
 const router = Router();
 
 const departmentController = new DepartmentController();
 
 /* GET users. */
-router.get('/get-all-department', departmentController.getAllDepartment);
+router.get('/get-all-department', verifyAdminMiddleware, departmentController.getAllDepartment);
 
-// router.get('/find-department-by-id/:id', departmentController.findUserById);
+router.get('/find-department-by-id/:id', verifyAdminMiddleware, departmentController.findDepartmentById);
 
 router.post('/create-department', verifyAdminMiddleware, departmentController.addDepartment);
 
-// router.post('/update-usedepartmentr/:id', verifyUserMiddleware, departmentController.updateForUser);
+router.post('/update-department/:id', verifyAdminMiddleware, departmentController.updateForDepartment);
 
 export default router;

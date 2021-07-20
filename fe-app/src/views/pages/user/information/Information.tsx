@@ -4,7 +4,7 @@ import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/reac
 import { Table } from 'react-bootstrap';
 import { FaPencilAlt } from 'react-icons/fa';
 
-import userService from '../../../common/redux/user/services';
+import userService from '../../../../common/redux/user/services';
 
 // const fields = ['Nội dung', 'Trạng thái', 'Người xử lý', 'Thời hạn'];
 
@@ -30,7 +30,7 @@ const Infomation: React.FunctionComponent = (): React.ReactElement => {
     }, []);
 
     const getListTodo = async () => {
-        const res = await userService.findUserById(Number(localStorage.getItem('userId')));
+        const res = await userService.getUserById(Number(localStorage.getItem('userId')));
         // console.log(res);
         setUser(res);
     };

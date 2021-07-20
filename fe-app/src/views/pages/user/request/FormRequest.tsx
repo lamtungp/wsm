@@ -10,9 +10,9 @@ import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/flatpickr.css';
 import { useHistory, useParams } from 'react-router-dom';
 
-import requestService from '../../../common/redux/request/services';
+import requestService from '../../../../common/redux/request/services';
 
-const SignupSchema = Yup.object().shape({
+const RequestSchema = Yup.object().shape({
     reason: Yup.string().min(2, 'Too short!').max(20, 'Too long!').required('Required!'),
     phoneNumber: Yup.string().min(2, 'Too Short!').required('Required!'),
 });
@@ -107,7 +107,7 @@ const FormRequest = () => {
                                 <CCol lg="10">
                                     <Formik
                                         initialValues={request}
-                                        validationSchema={SignupSchema}
+                                        validationSchema={RequestSchema}
                                         enableReinitialize
                                         onSubmit={(values) => {
                                             values.timeout = `${values.startDay} ~ ${values.endDay}`;

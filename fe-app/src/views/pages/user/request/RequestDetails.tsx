@@ -4,7 +4,7 @@ import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/reac
 import { Table } from 'react-bootstrap';
 import { FaPencilAlt } from 'react-icons/fa';
 
-import requestService from '../../../common/redux/request/services';
+import requestService from '../../../../common/redux/request/services';
 
 const RequestDetails: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();

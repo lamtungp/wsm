@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Checked = React.lazy(() => import('../views/user/dashboard/Dashboard'));
-const Requests = React.lazy(() => import('../views/user/request/Requests'));
+const Checked = React.lazy(() => import('../views/pages/user/dashboard/Dashboard'));
+const Requests = React.lazy(() => import('../views/pages/user/request/Requests'));
 const Login = React.lazy(() => import('../views/pages/login/Login'));
-const FormRequest = React.lazy(() => import('../views/user/request/FormRequest'));
-const RequestDetails = React.lazy(() => import('../views/user/request/RequestDetails'));
-const Requestings = React.lazy(() => import('../views/user/requestings/Requestings'));
-const Information = React.lazy(() => import('../views/user/information/Information'));
-const FormInformation = React.lazy(() => import('../views/user/information/FormInformation'));
+const FormRequest = React.lazy(() => import('../views/pages/user/request/FormRequest'));
+const RequestDetails = React.lazy(() => import('../views/pages/user/request/RequestDetails'));
+const Requestings = React.lazy(() => import('../views/pages/user/requestings/Requestings'));
+const Information = React.lazy(() => import('../views/pages/user/information/Information'));
+const FormInformation = React.lazy(() => import('../views/pages/user/information/FormInformation'));
 
 const routes = [
     { path: '/', exact: true, name: 'Home', component: Checked },

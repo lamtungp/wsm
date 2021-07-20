@@ -4,8 +4,8 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useSelector } from 'react-redux';
 
-import { GlobalState } from '../../../common/redux/index';
-import checkinServices from '../../../common/redux/checkin/services';
+import { GlobalState } from '../../../../common/redux/index';
+import checkinServices from '../../../../common/redux/checkin/services';
 
 import CustomToolbar from './Toolbar';
 import CustomEvents from './Event';

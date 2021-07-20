@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
 
-import userService from '../../../common/redux/user/services';
+import userService from '../../../../common/redux/user/services';
 
 const fields = [
     {

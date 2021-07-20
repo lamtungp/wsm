@@ -11,13 +11,8 @@ const UserService = {
         return results;
     },
 
-    findUserById: (id: number): Promise<any> => {
+    getUserById: (id: number): Promise<any> => {
         const result = AxiosClient.get(`user/find-user-by-id/${id}`);
-        return result;
-    },
-
-    findUserByEmail: (email: string): Promise<any> => {
-        const result = AxiosClient.get(`user/find-user-by-email/${email}`);
         return result;
     },
 
@@ -33,11 +28,6 @@ const UserService = {
 
     updateUser: (param: object, id: number): Promise<any> => {
         const result = AxiosClient.post(`user/update-user/${id}`, param);
-        return result;
-    },
-
-    searchUser: (param: any): Promise<any> => {
-        const result = AxiosClient.get(`user/search-user?search=${param}`);
         return result;
     },
 };

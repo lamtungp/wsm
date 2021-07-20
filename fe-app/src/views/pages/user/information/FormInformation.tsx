@@ -7,9 +7,9 @@ import { CCard, CCardHeader, CCardBody, CRow, CCol } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
 // import { InputMoment } from 'react-input-moment';
 
-import userService from '../../../common/redux/user/services';
+import userService from '../../../../common/redux/user/services';
 
-const SignupSchema = Yup.object().shape({
+const InformationSchema = Yup.object().shape({
     email: Yup.string().min(2, 'Too short!').required('Required!').email('Invalid email'),
 });
 
@@ -38,7 +38,7 @@ const FormInformation = () => {
     }, []);
 
     const getListTodo = async () => {
-        const res = await userService.findUserById(Number(localStorage.getItem('userId')));
+        const res = await userService.getUserById(Number(localStorage.getItem('userId')));
         // console.log(res);
         setUser(res);
     };
@@ -67,7 +67,7 @@ const FormInformation = () => {
                 <div>
                     <Formik
                         initialValues={user}
-                        validationSchema={SignupSchema}
+                        validationSchema={InformationSchema}
                         enableReinitialize
                         onSubmit={(values) => {
                             handle(values);

@@ -4,8 +4,8 @@ import moment from 'moment';
 import { FaSignInAlt, FaSignOutAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 
-import checkinServices from '../../../common/redux/checkin/services';
-import { SetCheckin } from '../../../common/redux/checkin/actions';
+import checkinServices from '../../../../common/redux/checkin/services';
+import { SetCheckin } from '../../../../common/redux/checkin/actions';
 
 const CustomToolbar = (toolbar: any) => {
     const dispatch = useDispatch();

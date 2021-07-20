@@ -6,10 +6,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import { CRow, CCol, CCard, CCardHeader, CCardBody } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
 
-import userService from '../../../common/redux/user/services';
+import userService from '../../../../common/redux/user/services';
 
-const SignupSchema = Yup.object().shape({
-    password: Yup.string().min(2, 'Too Short!').required('Required!'),
+const UserSchema = Yup.object().shape({
     email: Yup.string().min(2, 'Too short!').required('Required!').email('Invalid email'),
 });
 
@@ -28,26 +27,23 @@ const FormUser = () => {
         phoneNumber: '',
         gender: 'male',
         role: 'admin',
-        roomID: '3',
+        departmentId: 1,
     });
     const idUser = Number(Object.values(params)[0]);
     useEffect(() => {
         if (idUser) {
             const getItem = async () => {
-                const _user = await userService.findUserById(idUser);
+                const _user = await userService.getUserById(idUser);
+                console.log(_user);
                 setUser(_user);
             };
             getItem();
         }
     }, []);
 
-    // const getDepartments = async () => {
-    //     const
-    // }
-
     const handle = async (values: any) => {
         if (values.id) {
-            await userService.updateUser(values, values.id);
+            await userService.updateUser(values, idUser);
             await userService.getAllUser();
             history.push('/admin/users');
         } else {
@@ -71,7 +67,7 @@ const FormUser = () => {
                 <div>
                     <Formik
                         initialValues={user}
-                        validationSchema={SignupSchema}
+                        validationSchema={UserSchema}
                         enableReinitialize
                         onSubmit={(values) => {
                             console.log(values);
@@ -114,37 +110,6 @@ const FormUser = () => {
                                         </CCol>
                                     </CRow>
                                 </Form.Group>
-                                <Form.Group>
-                                    <CRow>
-                                        <CCol lg="5">
-                                            <Form.Label className="font-weight-bold">Mật khẩu:</Form.Label>
-                                            <Form.Control
-                                                name="password"
-                                                type="password"
-                                                placeholder="Password"
-                                                value={values.password}
-                                                onChange={handleChange}
-                                            />
-                                        </CCol>
-                                    </CRow>
-                                </Form.Group>
-                                {/* <Form.Group>
-                                    <CRow>
-                                        <CCol lg="6">
-                                            <Form.Label className="font-weight-bold">Xác nhận mật khẩu:</Form.Label>
-                                            <Form.Control
-                                                name="password"
-                                                type="password"
-                                                placeholder="Password"
-                                                value={values.password}
-                                                onChange={handleChange}
-                                            />
-                                            {errors.password && touched.password ? (
-                                                <Form.Text className="text-danger">{errors.password}</Form.Text>
-                                            ) : null}
-                                        </CCol>
-                                    </CRow>
-                                </Form.Group> */}
                                 <Form.Group>
                                     <Form.Label className="font-weight-bold">Giới tính</Form.Label>
                                     <CRow>
@@ -234,16 +199,15 @@ const FormUser = () => {
                                 <Form.Group>
                                     <CRow>
                                         <CCol lg="4">
-                                            <Form.Label className="font-weight-bold">Division:</Form.Label>
+                                            <Form.Label className="font-weight-bold">Department:</Form.Label>
                                             <Form.Control
-                                                name="role"
+                                                name="departmentId"
                                                 as="select"
-                                                value={values.role}
+                                                value={values.departmentId}
                                                 onChange={handleChange}
                                             >
-                                                <option value="admin">Admin</option>
-                                                <option value="manager">Manager</option>
-                                                <option value="user">User</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
                                             </Form.Control>
                                         </CCol>
                                     </CRow>

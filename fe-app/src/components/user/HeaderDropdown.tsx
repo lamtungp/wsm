@@ -8,6 +8,8 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();
     const [user, setUser] = useState({
         avatar: '',
+        name: '',
+        email: '',
     });
 
     React.useEffect(() => {
@@ -23,7 +25,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
     };
 
     const getUser = async () => {
-        const user = await userService.findUserById(Number(localStorage.getItem('userId')));
+        const user = await userService.getUserById(Number(localStorage.getItem('userId')));
         setUser(user);
     };
 
@@ -34,7 +36,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
                     <CImg
                         src={user.avatar ? `/avatars/${user.avatar}` : '/avatars/no-avatar.jpg'}
                         className="c-avatar-img"
-                        alt="lam.pt@zinza.com.vn"
+                        alt={user.email}
                     />
                 </div>
             </CDropdownToggle>
@@ -54,8 +56,8 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
                             />
                         </div>
                         <span className="ml-3">
-                            <div className="fs-lg font-weight-bold text-white">Pham Tung Lam</div>
-                            <div className="text-light">lam.pt@zinza.com.vn</div>
+                            <div className="fs-lg font-weight-bold text-white">{user.name}</div>
+                            <div className="text-light">{user.email}</div>
                         </span>
                     </div>
                 </CDropdownItem>
