@@ -9,13 +9,13 @@ const Requestings: React.FunctionComponent = (): React.ReactElement => {
     return (
         <Tabs defaultActiveKey="pending">
             <Tab eventKey="pending" title="Đang chờ duyệt">
-                <RequestsPending />
+                {localStorage.getItem('role') === 'manager' ? <RequestsPending /> : <></>}
             </Tab>
             <Tab eventKey="confirmed" title="Đã đồng ý">
-                <RequestsConfirmed />
+                {localStorage.getItem('role') === 'manager' ? <RequestsConfirmed /> : <></>}
             </Tab>
             <Tab eventKey="declined" title="Đã từ chối">
-                <RequestsDeclined />
+                {localStorage.getItem('role') === 'manager' ? <RequestsDeclined /> : <></>}
             </Tab>
         </Tabs>
     );
