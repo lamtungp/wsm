@@ -20,7 +20,6 @@ export default class CheckinController {
     };
 
     public getListCheckin = async (req: Request, res: Response, next: NextFunction) => {
-        console.log(req.params.userId);
         const checkin = await this.checkin.getListCheckinById(Number(req.params.userId));
         if (!!checkin) {
             return res.status(200).json(checkin);
@@ -40,7 +39,6 @@ export default class CheckinController {
 
     public findCheckinByUserIdDate = async (req: Request, res: Response, next: NextFunction) => {
         const checkin = await this.checkin.getCheckinByUserIdDate(Number(req.params.userId), String(req.query.date));
-        console.log(!!checkin);
         if (!!checkin) {
             return res.status(200).json(checkin);
         } else {

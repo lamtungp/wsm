@@ -27,20 +27,7 @@ export default {
         sendError: 'An error occurred while sending mail',
         subject: {
             verificationCode: 'Safe Nourishment verification code',
-            krogerCronjob: 'Kroger CronJob Notification',
-            ingredientsCronjob: 'Ingredients CronJob Notification',
         },
-    },
-    category: {
-        categoryExists: 'This value already exists',
-        hasReferences: 'Cannot be deleted. Remove all existing references first',
-    },
-    allergen: {
-        allergenExists: 'This value already exists',
-        hasReferences: 'Cannot be deleted. Remove all existing references first',
-    },
-    allergenIngredient: {
-        existed: 'This value already exists',
     },
     admin: {
         country: {
@@ -52,19 +39,5 @@ export default {
             countryHasReference: 'Country cannot be deleted. Remove all existing references first',
             countryIsExist: 'This value already exists',
         },
-        productBranch: { notFoundProduct: 'Not found product' },
     },
-    cronjob: {
-        kroger: {
-            start: 'Cronjob - Sync Data from Kroger API started',
-            ended: 'Cronjob - Sync Data from Kroger API done',
-            failed: 'Cronjob - Sync Data from Kroger API failed. See below:',
-        },
-        ingredients: {
-            start: 'Cronjob - Sync Data ingredients start',
-            ended: 'Cronjob - Sync Data ingredients done',
-            failed: 'Cronjob - Sync Data ingredients failed. See below:',
-        },
-    },
-    branch: { productIdNotFound: 'Not found product id' },
 };

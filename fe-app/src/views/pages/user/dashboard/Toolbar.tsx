@@ -38,11 +38,18 @@ const CustomToolbar = (toolbar: any) => {
         );
     };
 
+    const handleDate = (date: string) => {
+        const arrDate = date.split('/');
+        const arrDateReverse = arrDate.reverse();
+        const str = arrDateReverse.join('/');
+        return str;
+    };
+
+    const userId = Number(localStorage.getItem('userId'));
+    const date = handleDate(new Date().toLocaleDateString());
+
     React.useEffect(() => {
-        // if (!localStorage.getItem('isCheckout')) setShow(false);
         const getCheckin = async () => {
-            const userId = Number(localStorage.getItem('userId'));
-            const date = handleDate(new Date().toLocaleDateString());
             try {
                 const res = await checkinServices.getCheckinByUserId(userId, date);
                 if (!!res.checkin && !!!res.checkout) setShow(false);
@@ -55,17 +62,9 @@ const CustomToolbar = (toolbar: any) => {
         getCheckin();
     }, []);
 
-    const handleDate = (date: string) => {
-        const arrDate = date.split('/');
-        const arrDateReverse = arrDate.reverse();
-        const str = arrDateReverse.join('/');
-        return str;
-    };
-
     const handleCheckin = async (values: object) => {
         console.log(values);
-        const userId = Number(localStorage.getItem('userId'));
-        const date = handleDate(new Date().toLocaleDateString());
+
         try {
             await checkinServices.updateCheckin(values, userId, date);
             dispatch(SetCheckin(new Date().toLocaleTimeString()));
@@ -78,8 +77,7 @@ const CustomToolbar = (toolbar: any) => {
 
     const handleCheckout = async (values: object) => {
         console.log(values);
-        const userId = Number(localStorage.getItem('userId'));
-        const date = handleDate(new Date().toLocaleDateString());
+
         try {
             await checkinServices.updateCheckin(values, userId, date);
             dispatch(SetCheckin(new Date().toLocaleTimeString()));
@@ -93,7 +91,7 @@ const CustomToolbar = (toolbar: any) => {
     const handleClickCheckin = () => {
         handleCheckin({
             checkin: new Date().toLocaleTimeString(),
-            date: handleDate(new Date().toLocaleDateString()),
+            date: date,
             userId: localStorage.getItem('userId'),
         });
     };

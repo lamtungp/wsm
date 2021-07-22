@@ -1,7 +1,6 @@
 export default {
     mailTemplate: {
         verificationCode: 'verification-code',
-        cronJobError: 'cron-job-error',
     },
     validationAction: {
         signUp: 'SignUp',

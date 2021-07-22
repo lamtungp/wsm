@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
 import indexRouter from './routes/index';
+import camelcase from './lib/camelcase';
 
 var app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(camelcase);
 
 app.use('/api/v1', indexRouter);
 
@@ -22,7 +24,6 @@ app.get('/', function (_req, res) {
     res.send('Hello!');
     // throw new Error('Broken');
 });
-
 // catch 404 and forward to error handler
 app.use(function (req, _res, next) {
     next(createError(404));
