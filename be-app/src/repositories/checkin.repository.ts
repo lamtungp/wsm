@@ -47,7 +47,7 @@ export default class CheckinRepository {
         return users;
     }
 
-    public async getCheckinByUserId(userId: number, date: string): Promise<any> {
+    public async getCheckinByUserIdDate(userId: number, date: string): Promise<any> {
         const checkin = await this.checkin.findOne({
             where: { userId, date },
         });

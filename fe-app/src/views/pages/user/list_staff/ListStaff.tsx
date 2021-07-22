@@ -72,7 +72,7 @@ const fields = [
 ];
 
 const ListStaff = () => {
-    const [listUser, setListUser] = useState([{ id: '', email: '', password: '' }]);
+    const [listUser, setListUser] = useState([{}]);
 
     React.useEffect(() => {
         getUsers();
@@ -83,6 +83,9 @@ const ListStaff = () => {
         setListUser(res);
     };
 
+    listUser.map((user: any) => {
+        delete user['password'];
+    });
     console.log(listUser);
 
     return (

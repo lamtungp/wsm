@@ -38,6 +38,23 @@ const CustomToolbar = (toolbar: any) => {
         );
     };
 
+    React.useEffect(() => {
+        // if (!localStorage.getItem('isCheckout')) setShow(false);
+        const getCheckin = async () => {
+            const userId = Number(localStorage.getItem('userId'));
+            const date = handleDate(new Date().toLocaleDateString());
+            try {
+                const res = await checkinServices.getCheckinByUserId(userId, date);
+                if (!!res.checkin && !!!res.checkout) setShow(false);
+                else setShow(true);
+                console.log(res);
+            } catch (error) {
+                setShow(true);
+            }
+        };
+        getCheckin();
+    }, []);
+
     const handleDate = (date: string) => {
         const arrDate = date.split('/');
         const arrDateReverse = arrDate.reverse();
@@ -45,41 +62,45 @@ const CustomToolbar = (toolbar: any) => {
         return str;
     };
 
-    const handleData = async (values: object) => {
+    const handleCheckin = async (values: object) => {
         console.log(values);
         const userId = Number(localStorage.getItem('userId'));
         const date = handleDate(new Date().toLocaleDateString());
         try {
             await checkinServices.updateCheckin(values, userId, date);
+            dispatch(SetCheckin(new Date().toLocaleTimeString()));
+            setShow(false);
         } catch (error) {
-            console.log(error);
+            setShow(true);
+            window.alert('Bạn đã checkin rồi');
         }
     };
 
-    React.useEffect(() => {
-        if (!localStorage.getItem('isCheckout')) setShow(false);
-    }, []);
+    const handleCheckout = async (values: object) => {
+        console.log(values);
+        const userId = Number(localStorage.getItem('userId'));
+        const date = handleDate(new Date().toLocaleDateString());
+        try {
+            await checkinServices.updateCheckin(values, userId, date);
+            dispatch(SetCheckin(new Date().toLocaleTimeString()));
+            setShow(true);
+        } catch (error) {
+            setShow(false);
+            window.alert('Bạn đã checkin rồi');
+        }
+    };
 
     const handleClickCheckin = () => {
-        if (localStorage.getItem('isCheckout')) {
-            window.alert('Bạn đã checkin/checkout hôm nay rồi!');
-        } else {
-            dispatch(SetCheckin(new Date().toLocaleTimeString()));
-            handleData({
-                checkin: new Date().toLocaleTimeString(),
-                date: handleDate(new Date().toLocaleDateString()),
-                userId: localStorage.getItem('userId'),
-            });
-            setShow(false);
-        }
+        handleCheckin({
+            checkin: new Date().toLocaleTimeString(),
+            date: handleDate(new Date().toLocaleDateString()),
+            userId: localStorage.getItem('userId'),
+        });
     };
 
     const handleClickCheckout = () => {
         if (window.confirm('Bạn muốn check-out ngay bây giờ?')) {
-            setShow(true);
-            localStorage.setItem('isCheckout', 'true');
-            dispatch(SetCheckin(new Date().toLocaleTimeString()));
-            handleData({ checkout: handleDate(new Date().toLocaleTimeString()) });
+            handleCheckout({ checkout: handleDate(new Date().toLocaleTimeString()) });
         }
     };
 

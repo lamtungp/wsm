@@ -7,12 +7,14 @@ export interface props {
     prop: {
         apiData: any[];
         fileName: string;
+        // fields: any[];
     };
 }
 
 export const ExportToExcel: React.FunctionComponent<props> = ({ prop }): React.ReactElement => {
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const fileExtension = '.xlsx';
+
     const exportToCSV = (apiData: any[], fileName: string) => {
         const wb = XLSX.utils.book_new();
         wb.Props = {
@@ -22,7 +24,13 @@ export const ExportToExcel: React.FunctionComponent<props> = ({ prop }): React.R
             CreatedDate: new Date(),
         };
         wb.SheetNames.push('Data');
+        console.log(Array(apiData));
+        // const range = XLSX.utils.decode_range(ws['!ref']);
+        // console.log(XLSX.utils.decode_range(ws['!ref']));
+        // const header = Object.keys(apiData[0]); // columns name
+
         const ws = XLSX.utils.json_to_sheet(apiData);
+        console.log(ws);
         wb.Sheets['Data'] = ws;
 
         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });

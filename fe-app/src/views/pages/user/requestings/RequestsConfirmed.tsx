@@ -59,27 +59,9 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
                                     <tr key={index}>
                                         <td>{item.nameRequest}</td>
                                         <td>
-                                            {item.state === 'Confirmed' ? (
-                                                <span className="badge badge-pill badge-success text-white">
-                                                    Đồng ý
-                                                </span>
-                                            ) : (
-                                                <></>
-                                            )}
-                                            {item.state === 'Declined' ? (
-                                                <span className="badge badge-pill badge-warning text-white">
-                                                    Từ chối
-                                                </span>
-                                            ) : (
-                                                <></>
-                                            )}
-                                            {item.state === 'Pending' ? (
-                                                <span className="badge badge-pill badge-warning text-white">
-                                                    Đang chờ xử lý
-                                                </span>
-                                            ) : (
-                                                <></>
-                                            )}
+                                            <span className="badge badge-pill badge-success text-white">
+                                                {item.state === 'Confirmed' ? 'Đồng ý' : ''}
+                                            </span>
                                         </td>
                                         <td>{item.handler}</td>
                                         <td>{item.timeout}</td>

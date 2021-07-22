@@ -76,11 +76,27 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
                                                 <tr key={index}>
                                                     <td>{item.nameRequest}</td>
                                                     <td>
-                                                        <span className="badge badge-pill badge-warning text-white">
-                                                            {item.state === 'Pending' ? 'Đang chờ xử lý' : ''}
-                                                            {item.state === 'Confirmed' ? 'Đồng ý' : ''}
-                                                            {item.state === 'Declined' ? 'Từ chối' : ''}
-                                                        </span>
+                                                        {item.state === 'Confirmed' ? (
+                                                            <span className="badge badge-pill badge-success text-white">
+                                                                Đồng ý
+                                                            </span>
+                                                        ) : (
+                                                            <></>
+                                                        )}
+                                                        {item.state === 'Declined' ? (
+                                                            <span className="badge badge-pill badge-warning text-white">
+                                                                Từ chối
+                                                            </span>
+                                                        ) : (
+                                                            <></>
+                                                        )}
+                                                        {item.state === 'Pending' ? (
+                                                            <span className="badge badge-pill badge-warning text-white">
+                                                                Đang chờ xử lý
+                                                            </span>
+                                                        ) : (
+                                                            <></>
+                                                        )}
                                                     </td>
                                                     <td>{item.handler}</td>
                                                     <td>{item.timeout}</td>

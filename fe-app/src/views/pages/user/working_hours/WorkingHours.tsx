@@ -3,7 +3,6 @@ import { CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/r
 // import { Form } from 'react-bootstrap';
 
 import userService from '../../../../common/redux/user/services';
-import checkinServices from '../../../../common/redux/checkin/services';
 
 import { ExportToExcel } from './ExportToExcel';
 
@@ -14,12 +13,17 @@ const fields = [
     },
     {
         key: 'name',
-        label: 'Checkin',
+        label: 'Họ tên',
         sorter: false,
     },
     {
         key: 'email',
-        label: 'Checkout',
+        label: 'Email',
+        sorter: false,
+    },
+    {
+        key: 'gender',
+        label: 'Giới tính',
         sorter: false,
     },
     {
@@ -30,7 +34,9 @@ const fields = [
 ];
 
 const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
-    const [listUser, setListUser] = useState([{ id: '', checkin: '', checkout: '', time: 0, checkins: [{}] }]);
+    const [listUser, setListUser] = useState([
+        { id: '', checkin: '', checkout: '', time: 0, checkins: [{}], gender: '' },
+    ]);
 
     React.useEffect(() => {
         handleDate(new Date());
@@ -45,7 +51,6 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
     const handleDate = (date: Date) => {
         const arr = date.toLocaleDateString().split('/');
         arr.shift();
-        console.log(arr.join('-'));
         return arr.join('-');
     };
 
@@ -76,13 +81,9 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
         //     const h = Math.round((second / 36) * 10) / 1000;
         //     t += h;
         // });
-        console.log('t ', t);
         user.time = Math.round(t);
+        delete user['checkins'];
     });
-    // console.log(listUser);
-    // const handleChange = (e: any) => {
-    //     console.log(e.target.value);
-    // };
 
     return (
         <>
@@ -104,16 +105,12 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
                                         <Form.Group>
                                             <Form.Label>Nội dung:</Form.Label>
                                             <Form.Control
-                                                name="nameRequest"
+                                                name="month"
                                                 as="select"
                                                 defaultValue={new Date().getMonth()}
                                                 onChange={handleChange}
                                             >
-                                                <option value="Nghỉ phép có lương">Nghỉ phép có lương</option>
-                                                <option value="Nghỉ phép không lương">Nghỉ phép không lương</option>
-                                                <option value="Làm thêm giờ">Làm thêm giờ</option>
-                                                <option value="Mang thiết bị về nhà">Mang thiết bị về nhà</option>
-                                                <option value="Quên check in/check out">Quên check in/check out</option>
+                                                <option value="1-2021">1/2021</option>
                                             </Form.Control>
                                         </Form.Group>
                                     </Form>
