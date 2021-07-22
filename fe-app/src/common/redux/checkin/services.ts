@@ -11,6 +11,11 @@ const CheckinServices = {
         return results;
     },
 
+    getListCheckinWithDate: (userId: number, date: string): Promise<any> => {
+        const results = AxiosClient.get(`checkin/get-list-checkin-with-date/${userId}?date=${date}`);
+        return results;
+    },
+
     findCheckinById: (id: number): Promise<any> => {
         const result = AxiosClient.get(`checkin/find-checkin-by-id/${id}`);
         return result;

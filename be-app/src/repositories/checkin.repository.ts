@@ -1,9 +1,12 @@
-import { Op } from 'sequelize';
+import { Op, Sequelize } from 'sequelize';
 import checkinModel from '../models/checkin.model';
 import { CheckinStatic } from '../models/checkin.model.d';
-
+import moment from 'moment';
+import { UserStatic } from '../models/user.model.d';
+import userModel from '../models/user.model';
 export default class CheckinRepository {
     private checkin: CheckinStatic;
+    private user: UserStatic = userModel;
     static instance: CheckinRepository;
 
     constructor(checkin: CheckinStatic) {
@@ -25,6 +28,23 @@ export default class CheckinRepository {
             where: { userId },
         });
         return checkin;
+    }
+
+    public async getCheckinWithDate(userId: number, date: string): Promise<any> {
+        const users = await this.checkin.findAll({
+            where:
+                (Sequelize.where(
+                    Sequelize.fn(
+                        'CONCAT',
+                        Sequelize.fn('MONTH', Sequelize.col('date')),
+                        '-',
+                        Sequelize.fn('YEAR', Sequelize.col('date')),
+                    ),
+                    date,
+                ),
+                { userId }),
+        });
+        return users;
     }
 
     public async getCheckinByUserId(userId: number, date: string): Promise<any> {

@@ -107,15 +107,14 @@ const ListStaff = () => {
                                     border
                                     size="md"
                                     fields={fields}
-                                    itemsPerPage={5}
+                                    itemsPerPage={10}
                                     tableFilter
-                                    sorter
                                     pagination
                                 />
+                                <ExportToExcel prop={{ apiData: listUser, fileName: 'DanhSachNhanVien' }} />
                             </CCardBody>
                         </CCard>
                     </CCol>
-                    <ExportToExcel prop={{ apiData: listUser, fileName: 'DanhSachNhanVien' }} />
                 </CRow>
             ) : (
                 <></>

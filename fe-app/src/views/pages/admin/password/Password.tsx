@@ -26,7 +26,7 @@ const fields = [
     {
         key: 'show_details',
         label: '',
-        _style: { width: '10%', height: '100%' },
+        _style: { width: '8%' },
         sorter: false,
         filter: false,
     },
@@ -44,11 +44,6 @@ const Users = () => {
         const res = await userService.getAllUser();
         console.log(res);
         setListUser(res);
-    };
-
-    const deleteUser = async (id: number) => {
-        await userService.deleteUser(id);
-        getListTodo();
     };
 
     return (
@@ -92,18 +87,7 @@ const Users = () => {
                                                             history.push(`/admin/resetpassword/${item.id}`);
                                                         }}
                                                     >
-                                                        Update
-                                                    </CButton>
-                                                    <CButton
-                                                        color="primary"
-                                                        variant="outline"
-                                                        shape="square"
-                                                        size="sm"
-                                                        onClick={() => {
-                                                            deleteUser(item.id);
-                                                        }}
-                                                    >
-                                                        Delete
+                                                        Đổi mật khẩu
                                                     </CButton>
                                                 </div>
                                             </td>

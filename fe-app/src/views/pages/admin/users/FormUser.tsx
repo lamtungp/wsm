@@ -76,7 +76,7 @@ const FormUser = () => {
                         validateOnChange={true}
                         // validateOnBlur={false}
                     >
-                        {({ handleChange, handleSubmit, errors, touched, values }) => (
+                        {({ handleChange, handleSubmit, values }) => (
                             <Form
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') {

@@ -9,10 +9,9 @@ import {
 } from '@coreui/react';
 
 // routes config
-import { SetSidebar } from '../../common/redux/sidebar/actions';
-import { GlobalState } from '../../common/redux';
-
-import { HeaderDropdown } from './index';
+import { SetSidebar } from '../../../common/redux/sidebar/actions';
+import { GlobalState } from '../../../common/redux';
+import { HeaderDropdown } from '../index';
 
 const Header: React.FunctionComponent = (): React.ReactElement => {
     const dispatch = useDispatch();

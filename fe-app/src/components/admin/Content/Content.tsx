@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { CContainer, CFade } from '@coreui/react';
 
 // routes config
-import routes from '../../routes/routesAdmin';
+import routes from '../../../routes/routesAdmin';
 
 const loading = (
     <div className="pt-3 text-center">

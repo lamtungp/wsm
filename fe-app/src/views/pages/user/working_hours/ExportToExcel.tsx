@@ -16,7 +16,7 @@ export const ExportToExcel: React.FunctionComponent<props> = ({ prop }): React.R
     const exportToCSV = (apiData: any[], fileName: string) => {
         const wb = XLSX.utils.book_new();
         wb.Props = {
-            Title: 'Danh sách nhân viên',
+            Title: 'Thống kê giờ làm việc',
             Subject: 'Zinza Intern',
             Author: 'Lam Tung',
             CreatedDate: new Date(),

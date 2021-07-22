@@ -21,6 +21,11 @@ export default class CheckinController {
         return res.status(200).json(checkin);
     };
 
+    public getListCheckinWithDate = async (req: Request, res: Response) => {
+        const checkin = await this.checkin.getCheckinWithDate(Number(req.params.userId), String(req.query.date));
+        return res.status(200).json(checkin);
+    };
+
     public findCheckinByUserId = async (req: Request, res: Response) => {
         try {
             // console.log('userId ', req.params.userId);

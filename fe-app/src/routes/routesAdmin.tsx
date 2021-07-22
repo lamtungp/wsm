@@ -10,7 +10,6 @@ const FormDepartment = React.lazy(() => import('../views/pages/admin/departments
 const Requestings = React.lazy(() => import('../views/pages/admin/requestings/Requestings'));
 const Password = React.lazy(() => import('../views/pages/admin/password/Password'));
 const ResetPassword = React.lazy(() => import('../views/pages/admin/password/ResetPassword'));
-
 // const RequestsPending = React.lazy(() => import('../views/pages/admin/requestings/RequestsPending'));
 // const RequestsDeclined = React.lazy(() => import('../views/pages/admin/requestings/RequestsDeclined'));
 

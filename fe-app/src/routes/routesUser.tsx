@@ -9,6 +9,7 @@ const Requestings = React.lazy(() => import('../views/pages/user/requestings/Req
 const Information = React.lazy(() => import('../views/pages/user/information/Information'));
 const FormInformation = React.lazy(() => import('../views/pages/user/information/FormInformation'));
 const ListStaff = React.lazy(() => import('../views/pages/user/list_staff/ListStaff'));
+const WorkingHours = React.lazy(() => import('../views/pages/user/working_hours/WorkingHours'));
 
 const routes = [
     { path: '/', exact: true, name: 'Home', component: Checked },
@@ -22,6 +23,7 @@ const routes = [
     { path: '/user/profile', name: 'Information', component: Information, exact: true },
     { path: '/user/profile/edit', name: 'FormInformation', component: FormInformation, exact: true },
     { path: '/user/list_staff', name: 'ListStaff', component: ListStaff },
+    { path: '/user/working_hours', name: 'WorkingHours', component: WorkingHours },
 ];
 
 export default routes;

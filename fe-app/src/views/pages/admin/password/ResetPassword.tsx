@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Formik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import * as Yup from 'yup';
-import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CRow, CCardHeader } from '@coreui/react';
+import { CCard, CCardBody, CCardGroup, CCol, CContainer, CRow, CCardHeader } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
 
 import userServices from '../../../../common/redux/user/services';

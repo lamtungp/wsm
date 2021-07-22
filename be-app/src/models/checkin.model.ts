@@ -28,8 +28,6 @@ const CheckinModel = function (sequelize: Sequelize): CheckinStatic {
         },
     });
 
-    Checkin.belongsTo(userModel, { foreignKey: 'userId' });
-
     return Checkin;
 };
 

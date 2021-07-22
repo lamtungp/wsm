@@ -71,7 +71,6 @@ const fields = [
     {
         key: 'show_details',
         label: '',
-        _style: { width: '10%', height: '100%' },
         sorter: false,
         filter: false,
     },
@@ -119,7 +118,7 @@ const Users = () => {
                                 + Thêm nhân viên
                             </CButton>
                         </CCardHeader>
-                        <CCardBody>
+                        <CCardBody className="text-center">
                             <CDataTable
                                 items={listUser}
                                 hover
@@ -127,9 +126,8 @@ const Users = () => {
                                 border
                                 size="md"
                                 fields={fields}
-                                itemsPerPage={5}
+                                itemsPerPage={10}
                                 tableFilter
-                                sorter
                                 pagination
                                 scopedSlots={{
                                     // eslint-disable-next-line react/display-name
@@ -147,7 +145,7 @@ const Users = () => {
                                                             history.push(`/admin/users/update-user/${item.id}`);
                                                         }}
                                                     >
-                                                        Update
+                                                        Sửa
                                                     </CButton>
                                                     <CButton
                                                         color="primary"
@@ -158,7 +156,7 @@ const Users = () => {
                                                             deleteUser(item.id);
                                                         }}
                                                     >
-                                                        Delete
+                                                        Xóa
                                                     </CButton>
                                                 </div>
                                             </td>

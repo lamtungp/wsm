@@ -2,10 +2,8 @@ import React from 'react';
 import { Formik } from 'formik';
 import { Form } from 'react-bootstrap';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
-import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CLink, CRow } from '@coreui/react';
-
-import { login } from '../../../common/redux/auth/actions';
+// import { useDispatch } from 'react-redux';
+import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CRow } from '@coreui/react';
 
 const SignupSchema = Yup.object().shape({
     email: Yup.string().required('Required!').email('Invalid email'),
@@ -13,7 +11,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const ResetPassword: React.FunctionComponent = (): React.ReactElement => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     // const handleLogin = (values: { email: string; newPassword: string }) => {
     //     dispatch(login(values));
     // };
@@ -27,7 +25,7 @@ const ResetPassword: React.FunctionComponent = (): React.ReactElement => {
                             <Formik
                                 initialValues={{ email: '', newPassword: '' }}
                                 validationSchema={SignupSchema}
-                                onSubmit={(values) => {
+                                onSubmit={() => {
                                     // handleLogin(values);
                                 }}
                                 validateOnChange={true}

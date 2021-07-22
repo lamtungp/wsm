@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CImg } from '@coreui/react';
 import { useHistory } from 'react-router-dom';
 
-import userService from '../../common/redux/user/services';
+import userService from '../../../common/redux/user/services';
 
 const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();
-
-    const [user, setUser] = React.useState({
+    const [user, setUser] = useState({
         avatar: '',
         name: '',
         email: '',
@@ -53,7 +52,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
                             <CImg
                                 src={user.avatar ? `/avatars/${user.avatar}` : '/avatars/no-avatar.jpg'}
                                 className="c-avatar-img"
-                                alt={user.email}
+                                alt="avatar"
                             />
                         </div>
                         <span className="ml-3">
@@ -62,8 +61,8 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
                         </span>
                     </div>
                 </CDropdownItem>
-                <CDropdownItem onClick={() => history.push('/admin/profile')}>Thông tin cá nhân</CDropdownItem>
-                <CDropdownItem>Danh sách yêu cầu</CDropdownItem>
+                <CDropdownItem onClick={() => history.push('/user/profile')}>Thông tin cá nhân</CDropdownItem>
+                <CDropdownItem onClick={() => history.push('/user/requests')}>Danh sách yêu cầu</CDropdownItem>
                 <CDropdownItem className="m-0" divider />
                 <CDropdownItem onClick={() => logOut()}>Đăng xuất</CDropdownItem>
             </CDropdownMenu>
