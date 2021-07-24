@@ -13,35 +13,31 @@ export default class DepartmentController {
         const departments = await this.department.getDepartments();
         if (!!departments) {
             return res.status(200).json(departments);
-        } else {
-            next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 
     public addDepartment = async (req: Request, res: Response, next: NextFunction) => {
         const department = await this.department.createDepartment(req.body);
         if (!!department) {
             return res.status(200).json(department);
-        } else {
-            next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 
     public updateForDepartment = async (req: Request, res: Response, next: NextFunction) => {
         const department = await this.department.updateDepartment(req.body, Number(req.params.id));
         if (!!department) {
             return res.status(200).json(department);
-        } else {
-            next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 
     public findDepartmentById = async (req: Request, res: Response, next: NextFunction) => {
         const department = await this.department.getDepartmentById(Number(req.params.id));
         if (!!department) {
             return res.status(200).json(department);
-        } else {
-            next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 }

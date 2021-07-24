@@ -19,8 +19,12 @@ router.get('/get-staff-with-checkin/:userId', userController.getStaffsWithChecki
 
 router.get('/find-user-by-id/:id', userController.findUserById);
 
+router.get('/confirm/:confirmationCode', userController.verifyAccount);
+
 router.post('/create-user', verifyAdminMiddleware, userController.addUser);
 
 router.post('/update-user/:id', userController.updateForUser);
+
+router.delete('/delete-user/:id', userController.deleteOneUser);
 
 export default router;

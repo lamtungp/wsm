@@ -16,6 +16,7 @@ const LayoutUser = React.lazy(() => import('./components/user/Layout'));
 const LayoutAdmin = React.lazy(() => import('./components/admin/Layout'));
 const Login = React.lazy(() => import('./views/pages/login/Login'));
 const ResetPassword = React.lazy(() => import('./views/pages/resetpassword/ResetPassword'));
+const ConfirmAccount = React.lazy(() => import('./views/pages/confirmAccount/ConfirmAccount'));
 
 const App: React.FunctionComponent = (): React.ReactElement => {
     const wrapper = React.createRef();
@@ -24,6 +25,7 @@ const App: React.FunctionComponent = (): React.ReactElement => {
             <React.Suspense fallback={loading}>
                 <BrowserRouter>
                     <Switch>
+                        <Route path="/confirm/:confirmationCode" component={ConfirmAccount} />
                         <Route
                             path="/admin"
                             render={() => {

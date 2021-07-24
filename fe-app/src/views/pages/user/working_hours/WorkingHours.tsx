@@ -81,7 +81,7 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
         //     const h = Math.round((second / 36) * 10) / 1000;
         //     t += h;
         // });
-        user.time = Math.round(t);
+        user.time = t;
         delete user['checkins'];
     });
 

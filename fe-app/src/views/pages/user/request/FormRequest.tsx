@@ -67,7 +67,7 @@ const FormRequest = () => {
         if (values.id) {
             await requestService.updateRequest(values, values.id);
             await requestService.getListRequest(Number(localStorage.getItem('userId')));
-            history.push('/user/users');
+            history.push('/user/requests');
         } else {
             await requestService.addRequest(values);
             await requestService.getListRequest(Number(localStorage.getItem('userId')));

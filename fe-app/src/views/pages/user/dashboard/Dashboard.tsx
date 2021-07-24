@@ -23,6 +23,7 @@ const Dashboard = () => {
     // console.log(checkin);
 
     const [listcheckin, setListCheckin] = useState([]);
+    // console.log(moment().toDate());
     const myEvent = [
         {
             start: moment().toDate(),
@@ -36,8 +37,12 @@ const Dashboard = () => {
     }, []);
 
     const getListCheckin = async () => {
-        const list = await checkinServices.getListCheckin(Number(localStorage.getItem('userId')));
-        setListCheckin(list);
+        try {
+            const list = await checkinServices.getListCheckin(Number(localStorage.getItem('userId')));
+            setListCheckin(list);
+        } catch (err) {
+            // console.log(err);
+        }
     };
 
     listcheckin.map((item: any) => {

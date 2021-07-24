@@ -85,6 +85,14 @@ module.exports = {
                 allowNull: false,
                 defaultValue: Sequelize.literal('NOW()'),
             },
+            status: {
+                type: Sequelize.ENUM({ values: ['actived', 'pending'] }),
+                defaultValue: 'pending',
+            },
+            confirmCode: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
         });
     },
 

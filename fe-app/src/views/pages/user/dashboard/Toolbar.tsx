@@ -28,6 +28,9 @@ const CustomToolbar = (toolbar: any) => {
         toolbar.onNavigate('current');
     };
 
+    const d = new Date();
+    console.log(d.toLocaleTimeString());
+
     const label = () => {
         const date = moment(toolbar.date);
         return (
@@ -52,10 +55,14 @@ const CustomToolbar = (toolbar: any) => {
         const getCheckin = async () => {
             try {
                 const res = await checkinServices.getCheckinByUserId(userId, date);
-                if (!!res.checkin && !!!res.checkout) setShow(false);
-                else setShow(true);
+                if (!!res.checkin && !!!res.checkout) {
+                    setShow(false);
+                } else {
+                    setShow(true);
+                }
                 console.log(res);
             } catch (error) {
+                console.log(error);
                 setShow(true);
             }
         };

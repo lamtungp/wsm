@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
 import indexRouter from './routes/index';
-import camelcase from './lib/camelcase';
+// import camelcase from './lib/camelcase';
 
 var app = express();
 
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(camelcase);
+// app.use(camelcase);
 
 app.use('/api/v1', indexRouter);
 

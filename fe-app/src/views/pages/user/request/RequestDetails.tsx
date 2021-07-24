@@ -44,17 +44,21 @@ const RequestDetails: React.FunctionComponent = (): React.ReactElement => {
                                 Chi tiết yêu cầu
                             </h2>
                         </CCardHeader>
-                        <CCardHeader style={{ border: 'none' }}>
-                            <CButton
-                                className="btn btn-primary shadow"
-                                style={{ float: 'left' }}
-                                onClick={() => {
-                                    history.push(`/user/requests/${request.id}/edit`);
-                                }}
-                            >
-                                <FaPencilAlt />
-                            </CButton>
-                        </CCardHeader>
+                        {request.state === 'Pending' ? (
+                            <CCardHeader style={{ border: 'none' }}>
+                                <CButton
+                                    className="btn btn-primary shadow"
+                                    style={{ float: 'left' }}
+                                    onClick={() => {
+                                        history.push(`/user/requests/${request.id}/edit`);
+                                    }}
+                                >
+                                    <FaPencilAlt />
+                                </CButton>
+                            </CCardHeader>
+                        ) : (
+                            <></>
+                        )}
                         <CCardBody style={{ border: 'none' }}>
                             <Table bordered hover className="align-items-center">
                                 <tbody>
@@ -69,9 +73,27 @@ const RequestDetails: React.FunctionComponent = (): React.ReactElement => {
                                             <b>Trạng thái</b>
                                         </td>
                                         <td>
-                                            <span className="badge badge-pill badge-warning text-white">
-                                                {request.state}
-                                            </span>
+                                            {request.state === 'Pending' ? (
+                                                <span className="badge badge-pill badge-warning text-white">
+                                                    Đang chờ xử lý
+                                                </span>
+                                            ) : (
+                                                <></>
+                                            )}
+                                            {request.state === 'Confirmed' ? (
+                                                <span className="badge badge-pill badge-success text-white">
+                                                    Đã đồng ý
+                                                </span>
+                                            ) : (
+                                                <></>
+                                            )}
+                                            {request.state === 'Declinded' ? (
+                                                <span className="badge badge-pill badge-danger text-white">
+                                                    Đã từ chối
+                                                </span>
+                                            ) : (
+                                                <></>
+                                            )}
                                         </td>
                                     </tr>
                                     <tr>

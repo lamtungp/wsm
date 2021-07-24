@@ -17,45 +17,40 @@ export default class RequestController {
         const requests = await this.request.getRequests();
         if (!!requests) {
             return res.status(200).json(requests);
-        } else {
-            next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 
     public getListRequest = async (req: Request, res: Response, next: NextFunction) => {
         const requests = await this.request.getRequestsAccount(Number(req.params.userId));
         if (!!requests) {
             return res.status(200).json(requests);
-        } else {
-            next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 
     public getListRequestByState = async (req: Request, res: Response, next: NextFunction) => {
         const requests = await this.request.getRequestByState(String(req.query.state));
         if (!!requests) {
             return res.status(200).json(requests);
-        } else {
-            next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 
     public findRequestById = async (req: Request, res: Response, next: NextFunction) => {
         const request = await this.request.getRequestById(Number(req.params.id));
         if (!!request) {
             return res.status(200).json(request);
-        } else {
-            next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 
     public addRequest = async (req: Request, res: Response, next: NextFunction) => {
         const request = await this.request.createRequest(req.body);
         if (!!request) {
             return res.status(200).json(request);
-        } else {
-            next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 
     public updateForRequest = async (req: Request, res: Response, next: NextFunction) => {
@@ -73,8 +68,7 @@ export default class RequestController {
         const request = await this.request.updateRequest(req.body, Number(req.params.id));
         if (!!request) {
             return res.status(200).json(request);
-        } else {
-            next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 }

@@ -17,6 +17,8 @@ export interface UserAttributes {
     vacationsDay: string;
     role: string;
     departmentId: number;
+    status: string;
+    confirmationCode: string;
 }
 export interface UserModel extends Model<UserAttributes>, UserAttributes {}
 

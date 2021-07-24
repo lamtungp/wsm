@@ -39,10 +39,10 @@ export default class UserRepository {
         return users;
     }
 
-    public async getStaffWithCheckin(departmentId: number, role: string, date: string): Promise<any> {
+    public async getStaffWithCheckin(departmentId: number, date: string): Promise<any> {
         const users = await this.user.findAll({
             attributes: ['id', 'email', 'name', 'gender'],
-            where: { departmentId, role },
+            where: { departmentId },
             include: [
                 {
                     model: this.checkin,
@@ -69,6 +69,13 @@ export default class UserRepository {
         return user;
     }
 
+    public async findUserByConfirmCode(confirmationCode: string): Promise<any> {
+        const user = await this.user.findOne({
+            where: { confirmationCode },
+        });
+        return user;
+    }
+
     public async createUser(value: any): Promise<any> {
         const user = await this.user.create(value);
         return user;
@@ -76,6 +83,11 @@ export default class UserRepository {
 
     public async updateUser(value: any, id: number): Promise<any> {
         const user = await this.user.update(value, { where: { id } });
+        return user;
+    }
+
+    public async deleteUser(id: number): Promise<any> {
+        const user = await this.user.destroy({ where: { id } });
         return user;
     }
 }

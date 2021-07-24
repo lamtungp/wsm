@@ -84,6 +84,14 @@ const UserModel = function (sequelize: Sequelize): UserStatic {
             type: DataTypes.INTEGER,
             references: { model: 'departments', key: 'id' },
         },
+        status: {
+            type: DataTypes.ENUM({ values: ['actived', 'pending'] }),
+            defaultValue: 'pending',
+        },
+        confirmationCode: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     });
 
     User.belongsTo(departmentModel, { foreignKey: 'departmentId' });

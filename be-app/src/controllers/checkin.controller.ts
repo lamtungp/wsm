@@ -14,45 +14,42 @@ export default class CheckinController {
         const checkins = await this.checkin.getCheckins();
         if (!!checkins) {
             return res.status(200).json(checkins);
-        } else {
-            return next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 
     public getListCheckin = async (req: Request, res: Response, next: NextFunction) => {
-        const checkin = await this.checkin.getListCheckinById(Number(req.params.userId));
-        if (!!checkin) {
-            return res.status(200).json(checkin);
-        } else {
-            return next(new InternalServerError());
+        const checkins = await this.checkin.getListCheckinById(Number(req.params.userId));
+        if (!!checkins) {
+            return res.status(200).json(checkins);
         }
+        next(new InternalServerError());
     };
 
     public getListCheckinWithDate = async (req: Request, res: Response, next: NextFunction) => {
-        const checkin = await this.checkin.getCheckinWithDate(Number(req.params.userId), String(req.query.date));
-        if (!!checkin) {
-            return res.status(200).json(checkin);
-        } else {
-            return next(new InternalServerError());
+        const checkins = await this.checkin.getCheckinWithDate(Number(req.params.userId), String(req.query.date));
+        console.log(checkins);
+        if (!!checkins) {
+            return res.status(200).json(checkins);
         }
+        next(new InternalServerError());
     };
 
     public findCheckinByUserIdDate = async (req: Request, res: Response, next: NextFunction) => {
         const checkin = await this.checkin.getCheckinByUserIdDate(Number(req.params.userId), String(req.query.date));
+        console.log(checkin);
         if (!!checkin) {
             return res.status(200).json(checkin);
-        } else {
-            return next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 
     public addCheckin = async (req: Request, res: Response, next: NextFunction) => {
         const checkin = await this.checkin.createCheckin(req.body);
         if (!!checkin) {
             return res.status(200).json(checkin);
-        } else {
-            return next(new InternalServerError());
         }
+        next(new InternalServerError());
     };
 
     public updateCheckins = async (req: Request, res: Response, next: NextFunction) => {
@@ -68,9 +65,8 @@ export default class CheckinController {
                     req.body,
                 );
                 return res.status(200).json(checkin);
-            } else {
-                next(new InternalServerError('Ngay da checkin'));
             }
+            next(new InternalServerError('Ngay da checkin'));
         } else {
             const checkin = await this.checkin.createCheckin(req.body);
             return res.status(200).json(checkin);

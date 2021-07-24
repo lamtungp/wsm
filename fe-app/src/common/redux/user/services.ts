@@ -17,7 +17,7 @@ const UserService = {
     },
 
     getStaffWithCheckin: (userId: number, date: string): Promise<any> => {
-        const results = AxiosClient.get(`/user/get-staff-with-checkin/${userId}?role=user&date=${date}`);
+        const results = AxiosClient.get(`/user/get-staff-with-checkin/${userId}?date=${date}`);
         return results;
     },
 
@@ -40,5 +40,11 @@ const UserService = {
         const result = AxiosClient.post(`user/update-user/${id}`, param);
         return result;
     },
+
+    verifyUser: (confirmationCode: string): Promise<any> => {
+        const result = AxiosClient.get(`user/confirm/${confirmationCode}`);
+        return result;
+    },
 };
+
 export default UserService;
