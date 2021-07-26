@@ -1,6 +1,9 @@
 const API = {
     AUTH: {
-        LOGIN: 'accounts/login',
+        LOGIN: 'auth/user-login',
+    },
+    USER: {
+        GET_ALL_USER: 'user/get-all-user',
     },
 };
 

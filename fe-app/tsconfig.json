@@ -17,5 +17,5 @@
         "jsx": "react-jsx"
     },
     "include": ["src"],
-    "typeRoots": ["typing/calendar.d.ts"]
+    "typeRoots": ["typing/index.d.ts"]
 }

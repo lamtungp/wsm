@@ -20,28 +20,28 @@ services:
     depends_on:
       - db
 
-  react:
-    build:
-      context: ./fe-app
-    working_dir: /app
-    restart: always
-    volumes:
-      - ./fe-app:/app
-    environment: 
-      - CHOKIDAR_USEPOLLING=true
-    ports:
-      - "3000:3000"
+  # react:
+  #   build:
+  #     context: ./fe-app
+  #   working_dir: /app
+  #   restart: always
+  #   volumes:
+  #     - ./fe-app:/app
+  #   environment:
+  #     - CHOKIDAR_USEPOLLING=true
+  #   ports:
+  #     - "3000:3000"
 
-  nginx:
-    image: nginx:latest
-    restart: always
-    ports:
-      - "443:443"
-      - "80:80"
-    volumes:
-      - ./be-app/docker/services/nginx/conf:/etc/nginx/conf.d
-      - ./be-app:/app
-    working_dir: /app
+  # nginx:
+  #   image: nginx:latest
+  #   restart: always
+  #   ports:
+  #     - "443:443"
+  #     - "80:80"
+  #   volumes:
+  #     - ./be-app/docker/services/nginx/conf:/etc/nginx/conf.d
+  #     - ./be-app:/app
+  #   working_dir: /app
 
   # phpmyadmin:
   #   image: phpmyadmin/phpmyadmin:4.6

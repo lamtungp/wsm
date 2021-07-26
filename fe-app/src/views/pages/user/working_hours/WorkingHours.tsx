@@ -65,23 +65,21 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
 
     listUser.map((user: any) => {
         let t = 0;
-        user.checkins.map((item: any) => {
-            if (!!!item.checkout) {
-                t += 0;
-            } else {
-                const second = handleTime(item.checkout) - handleTime(item.checkin);
-                const h = Math.round((second / 36) * 10) / 1000;
-                t += h;
-            }
-        });
-        // const checkins = await checkinServices.getListCheckinWithDate(Number(user.id), '7-2021');
-        // console.log(checkins);
-        // checkins.map((item: any) => {
-        //     const second = handleTime(item.checkout) - handleTime(item.checkin);
-        //     const h = Math.round((second / 36) * 10) / 1000;
-        //     t += h;
-        // });
+        console.log(user);
+        if (!!user.checkins) {
+            user.checkins.map((item: any) => {
+                if (!!!item.checkout) {
+                    t += 0;
+                } else {
+                    const second = handleTime(item.checkout) - handleTime(item.checkin);
+                    const h = Math.round(second / 36) / 1000;
+                    t += h;
+                }
+            });
+        }
+        console.log(t);
         user.time = t;
+        console.log(user);
         delete user['checkins'];
     });
 

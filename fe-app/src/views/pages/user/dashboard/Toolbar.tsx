@@ -91,7 +91,6 @@ const CustomToolbar = (toolbar: any) => {
             setShow(true);
         } catch (error) {
             setShow(false);
-            window.alert('Bạn đã checkin rồi');
         }
     };
 

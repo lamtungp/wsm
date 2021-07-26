@@ -10,7 +10,7 @@ const router = Router();
 const requestController = new RequestController();
 
 /* GET all request. */
-router.get('/get-all-request', verifyAdminMiddleware, requestController.getAllRequest);
+router.get('/get-all-request', requestController.getAllRequest);
 /* GET list request. */
 router.get('/get-list-request/:userId', requestController.getListRequest);
 /* GET request by id. */

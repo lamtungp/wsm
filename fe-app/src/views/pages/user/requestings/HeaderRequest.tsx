@@ -24,7 +24,7 @@ const HeaderRequest: React.FunctionComponent<TabsProp> = ({ tabs }): React.React
         <Tabs
             transition={false}
             defaultActiveKey={option !== 'undefined' ? option : 'pending'}
-            onSelect={(firstTab) => history.push(`/admin/requestings/${firstTab}`)}
+            onSelect={(firstTab) => history.push(`/user/member/requests/${firstTab}`)}
         >
             {tabs.map((tab) => {
                 return (
