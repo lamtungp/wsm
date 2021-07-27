@@ -134,7 +134,7 @@ const Users = () => {
                                     show_details: (item: any) => {
                                         return (
                                             <td>
-                                                <div className="d-flex">
+                                                <div className="d-flex justify-content-center">
                                                     <CButton
                                                         className="mr-2"
                                                         color="primary"

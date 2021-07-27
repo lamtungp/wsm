@@ -11,8 +11,8 @@ interface LoginParams {
 }
 
 interface LoginRespone {
-    email: string;
     token: string;
+    status: string;
 }
 
 interface LoginAction {
@@ -27,6 +27,7 @@ interface LoginSuccessAction {
 
 interface LoginFailureAction {
     type: typeof AUTH_ACTIONS.LOGIN_FAILURE;
+    payload: LoginRespone;
 }
 
 interface LogoutAction {

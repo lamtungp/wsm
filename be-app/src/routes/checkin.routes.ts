@@ -10,16 +10,13 @@ const router = Router();
 
 const checkinController = new CheckinController();
 
-/* GET all checkin. */
-router.get('/get-all-checkin', checkinController.getAllCheckin);
-
 router.get('/get-list-checkin/:userId', checkinController.getListCheckin);
 
 router.get('/get-list-checkin-with-date/:userId', checkinController.getListCheckinWithDate);
 
 router.get('/find-checkin-by-userId/:userId', checkinController.findCheckinByUserIdDate);
 
-router.post('/create-checkin/:userId', checkinController.addCheckin);
+// router.post('/create-checkin/:userId', checkinController.addCheckin);
 
 router.post('/update-checkin', checkinController.updateCheckins);
 

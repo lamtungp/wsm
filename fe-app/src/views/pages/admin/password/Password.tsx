@@ -26,7 +26,7 @@ const fields = [
     {
         key: 'show_details',
         label: '',
-        _style: { width: '8%' },
+        _style: { width: '15%' },
         sorter: false,
         filter: false,
     },
@@ -76,7 +76,7 @@ const Users = () => {
                                     show_details: (item: any) => {
                                         return (
                                             <td>
-                                                <div className="d-flex">
+                                                <div className="d-flex justify-content-center">
                                                     <CButton
                                                         className="mr-2"
                                                         color="primary"

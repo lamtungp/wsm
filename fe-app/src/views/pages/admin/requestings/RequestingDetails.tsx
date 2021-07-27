@@ -1,11 +1,11 @@
 import { CCard, CCardBody, CCardHeader, CCol, CRow, CButton } from '@coreui/react';
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { FaCheck, FaTimesCircle } from 'react-icons/fa';
 
 import requestServices from '../../../../common/redux/request/services';
-import TabsConstant from '../../../../common/constants/app';
+import AppsConstant from '../../../../common/constants/app';
 
 import HeaderRequest from './HeaderRequest';
 
@@ -16,7 +16,7 @@ type tplotOptions = {
 };
 
 const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
-    // const history = useHistory();
+    const history = useHistory();
     const param = useParams();
     const option = String(Object.values(param)[0]) !== 'undefined' ? String(Object.values(param)[0]) : 'pending';
     const [requests, setRequests] = React.useState([
@@ -47,7 +47,7 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
 
     return (
         <div>
-            <HeaderRequest tabs={TabsConstant.tabSetting} />
+            <HeaderRequest tabs={AppsConstant.tabSetting} />
             <CCard className="mt-3">
                 <CCardHeader>
                     <CRow>
@@ -118,7 +118,7 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
                                                                 },
                                                                 item.id,
                                                             );
-                                                            window.location.pathname = '/admin/requestings/confirmed';
+                                                            history.push('/admin/requestings/confirmed');
                                                         }}
                                                     >
                                                         <FaCheck />
@@ -133,7 +133,7 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
                                                                 },
                                                                 item.id,
                                                             );
-                                                            window.location.pathname = '/admin/requestings/declined';
+                                                            history.push('/admin/requestings/declined');
                                                         }}
                                                     >
                                                         <FaTimesCircle />

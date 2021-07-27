@@ -5,7 +5,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { CCard, CCardHeader, CCardBody, CRow, CCol } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
-// import { InputMoment } from 'react-input-moment';
+import dayjs from 'dayjs';
 
 import userService from '../../../../common/redux/user/services';
 
@@ -25,7 +25,7 @@ const FormInformation = () => {
         contractTerm: '',
         dayIn: '',
         dayOfficial: '',
-        dob: '',
+        dob: dayjs().format('YYYY-MM-DD'),
         name: '',
         phoneNumber: '',
         senority: '',
@@ -34,10 +34,10 @@ const FormInformation = () => {
     });
 
     React.useEffect(() => {
-        getListTodo();
+        getInformation();
     }, []);
 
-    const getListTodo = async () => {
+    const getInformation = async () => {
         const res = await userService.getUserById(Number(localStorage.getItem('userId')));
         // console.log(res);
         setUser(res);
@@ -86,7 +86,10 @@ const FormInformation = () => {
                                 <Form.Group>
                                     <CRow>
                                         <CCol lg="6">
-                                            <Form.Label>Tên</Form.Label>
+                                            <Form.Label>
+                                                Họ Tên
+                                                <span className="text-danger">(*)</span>
+                                            </Form.Label>
                                             <Form.Control
                                                 name="name"
                                                 type="name"
@@ -146,7 +149,10 @@ const FormInformation = () => {
                                     </CRow>
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Label>Giới tính</Form.Label>
+                                    <Form.Label>
+                                        Giới tính
+                                        <span className="text-danger">(*)</span>
+                                    </Form.Label>
                                     <CRow>
                                         <CCol lg="2" className="pr-1">
                                             <label>
@@ -182,12 +188,15 @@ const FormInformation = () => {
                                     </CRow>
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Label>Ngày sinh</Form.Label>
+                                    <Form.Label>
+                                        Ngày sinh
+                                        <span className="text-danger">(*)</span>
+                                    </Form.Label>
                                     <CRow>
                                         <CCol lg="3">
                                             <Form.Control
                                                 name="dob"
-                                                type="dob"
+                                                type="date"
                                                 value={values.dob}
                                                 onChange={handleChange}
                                             />

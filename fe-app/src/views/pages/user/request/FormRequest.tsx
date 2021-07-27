@@ -9,6 +9,8 @@ import 'flatpickr/dist/themes/airbnb.css';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/flatpickr.css';
 import { useHistory, useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import requestService from '../../../../common/redux/request/services';
 
@@ -17,6 +19,8 @@ const RequestSchema = Yup.object().shape({
     phoneNumber: Yup.string().min(2, 'Too Short!').required('Required!'),
 });
 
+dayjs.extend(customParseFormat);
+
 const FormRequest = () => {
     const history = useHistory();
     const params = useParams();
@@ -24,12 +28,16 @@ const FormRequest = () => {
     const [dateStart, setDateStart] = useState(new Date());
     const [dateEnd, setDateEnd] = useState(new Date());
 
+    const handleDate = (input: string): string => {
+        return dayjs(input).format('YYYY-MM-DD H:mm:ss');
+    };
+
     const [request, setRequest] = useState({
         id: '',
         nameRequest: 'Nghỉ phép có lương',
         state: 'Pending',
-        startDay: '',
-        endDay: '',
+        startDay: handleDate(new Date().toUTCString()),
+        endDay: handleDate(new Date().toUTCString()),
         timeout: '',
         project: 'Zinza Intern',
         phoneNumber: '',
@@ -37,15 +45,6 @@ const FormRequest = () => {
         userId: localStorage.getItem('userId'),
     });
     const idRequest = Number(Object.values(params)[0]);
-
-    const handleDate = (input: string): string => {
-        const arr = input.split(', ');
-        const arrDate = arr[1].split('/');
-        arr.pop();
-        const arrDateReverse = arrDate.reverse();
-        arr.push(arrDateReverse.join('/'));
-        return arr.reverse().join(', ');
-    };
 
     useEffect(() => {
         if (idRequest) {
@@ -149,6 +148,9 @@ const FormRequest = () => {
                                                                     Quên check in/check out
                                                                 </option>
                                                             </Form.Control>
+                                                            {errors.nameRequest && touched.nameRequest ? (
+                                                                <Form.Text>{errors.nameRequest}</Form.Text>
+                                                            ) : null}
                                                         </CCol>
                                                     </CRow>
                                                 </Form.Group>
@@ -168,7 +170,7 @@ const FormRequest = () => {
                                                                 onChange={(dateSelect: any) => {
                                                                     const date = new Date(
                                                                         String(dateSelect[0]),
-                                                                    ).toLocaleString();
+                                                                    ).toUTCString();
                                                                     const str = handleDate(date);
                                                                     setDateStart(new Date(str));
                                                                     values.startDay = str;
@@ -189,7 +191,7 @@ const FormRequest = () => {
                                                                 onChange={(dateSelect: any) => {
                                                                     const date = new Date(
                                                                         String(dateSelect[0]),
-                                                                    ).toLocaleString();
+                                                                    ).toUTCString();
                                                                     const str = handleDate(date);
                                                                     setDateEnd(new Date(str));
                                                                     values.endDay = str;

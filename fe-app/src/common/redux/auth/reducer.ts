@@ -7,7 +7,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
     // jwtToken: '',
-    user: { email: '', token: '' },
+    user: { token: '', status: '' },
 };
 
 const reducer = (state = initialState, action: any): AuthState => {

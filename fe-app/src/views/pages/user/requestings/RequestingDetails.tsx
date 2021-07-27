@@ -5,7 +5,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { FaCheck, FaTimesCircle } from 'react-icons/fa';
 
 import requestServices from '../../../../common/redux/request/services';
-import TabsConstant from '../../../../common/constants/app';
+import AppsConstant from '../../../../common/constants/app';
 
 import HeaderRequest from './HeaderRequest';
 
@@ -52,7 +52,7 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
 
     return (
         <div>
-            <HeaderRequest tabs={TabsConstant.tabSetting} />
+            <HeaderRequest tabs={AppsConstant.tabSetting} />
             <CCard className="mt-3">
                 <CCardHeader>
                     <CRow>
@@ -92,14 +92,14 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
                                                     <></>
                                                 )}
                                                 {item.state === 'Declined' ? (
-                                                    <span className="badge badge-pill badge-warning text-white">
+                                                    <span className="badge badge-pill badge-danger text-white">
                                                         Từ chối
                                                     </span>
                                                 ) : (
                                                     <></>
                                                 )}
                                                 {item.state === 'Pending' ? (
-                                                    <span className="badge badge-pill badge-danger text-white">
+                                                    <span className="badge badge-pill badge-warning text-white">
                                                         Đang chờ xử lý
                                                     </span>
                                                 ) : (

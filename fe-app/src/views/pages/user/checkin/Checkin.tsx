@@ -44,14 +44,19 @@ const Dashboard = () => {
             // console.log(err);
         }
     };
-
-    listcheckin.map((item: any) => {
-        myEvent.push({
-            start: new Date(`${item.date} ${item.checkin}`),
-            end: item.checkout ? new Date(`${item.date} ${item.checkout}`) : new Date(`${item.date} ${item.checkin}`),
-            title: [item.checkin, item.checkout],
+    console.log(myEvent);
+    if (listcheckin.length > 0) {
+        myEvent.pop();
+        listcheckin.map((item: any) => {
+            myEvent.push({
+                start: new Date(`${item.date} ${item.checkin}`),
+                end: item.checkout
+                    ? new Date(`${item.date} ${item.checkout}`)
+                    : new Date(`${item.date} ${item.checkin}`),
+                title: [item.checkin, item.checkout],
+            });
         });
-    });
+    }
 
     return (
         <div style={{ backgroundColor: '#fff', padding: '1rem' }}>

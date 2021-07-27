@@ -3,9 +3,13 @@ import { CCol, CRow } from '@coreui/react';
 import moment from 'moment';
 import { FaSignInAlt, FaSignOutAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import checkinServices from '../../../../common/redux/checkin/services';
 import { SetCheckin } from '../../../../common/redux/checkin/actions';
+
+dayjs.extend(customParseFormat);
 
 const CustomToolbar = (toolbar: any) => {
     const dispatch = useDispatch();
@@ -28,8 +32,8 @@ const CustomToolbar = (toolbar: any) => {
         toolbar.onNavigate('current');
     };
 
-    const d = new Date();
-    console.log(d.toLocaleTimeString());
+    // const d = new Date();
+    // console.log(d.toLocaleTimeString());
 
     const label = () => {
         const date = moment(toolbar.date);
@@ -42,14 +46,15 @@ const CustomToolbar = (toolbar: any) => {
     };
 
     const handleDate = (date: string) => {
-        const arrDate = date.split('/');
-        const arrDateReverse = arrDate.reverse();
-        const str = arrDateReverse.join('/');
-        return str;
+        return dayjs(date).format('YYYY-MM-DD');
+    };
+    const handleTime = (time: string) => {
+        return dayjs(time).format('H:mm');
     };
 
     const userId = Number(localStorage.getItem('userId'));
-    const date = handleDate(new Date().toLocaleDateString());
+    const date = handleDate(new Date().toUTCString());
+    // console.log(date);
 
     React.useEffect(() => {
         const getCheckin = async () => {
@@ -69,42 +74,35 @@ const CustomToolbar = (toolbar: any) => {
         getCheckin();
     }, []);
 
-    const handleCheckin = async (values: object) => {
-        console.log(values);
+    // const d = dayjs(new Date().toUTCString()).format('YYYY-MM-DD H:mm');
 
+    const handleCheckin = async (values: object, type: string) => {
+        console.log(values);
         try {
             await checkinServices.updateCheckin(values, userId, date);
-            dispatch(SetCheckin(new Date().toLocaleTimeString()));
-            setShow(false);
+            dispatch(SetCheckin(handleTime(new Date().toUTCString())));
+            if (type === 'checkin') {
+                setShow(false);
+            } else {
+                setShow(true);
+            }
         } catch (error) {
-            setShow(true);
-            window.alert('Bạn đã checkin rồi');
+            if (type === 'checkin') {
+                setShow(true);
+                window.alert('Bạn đã checkin rồi');
+            } else {
+                setShow(false);
+            }
         }
     };
 
-    const handleCheckout = async (values: object) => {
-        console.log(values);
-
-        try {
-            await checkinServices.updateCheckin(values, userId, date);
-            dispatch(SetCheckin(new Date().toLocaleTimeString()));
-            setShow(true);
-        } catch (error) {
-            setShow(false);
-        }
-    };
-
-    const handleClickCheckin = () => {
-        handleCheckin({
-            checkin: new Date().toLocaleTimeString(),
-            date: date,
-            userId: localStorage.getItem('userId'),
-        });
-    };
-
-    const handleClickCheckout = () => {
-        if (window.confirm('Bạn muốn check-out ngay bây giờ?')) {
-            handleCheckout({ checkout: handleDate(new Date().toLocaleTimeString()) });
+    const handleClick = (values: object, type: string) => {
+        if (type === 'checkout') {
+            if (window.confirm('Bạn muốn check-out ngay bây giờ?')) {
+                handleCheckin(values, type);
+            }
+        } else {
+            handleCheckin(values, type);
         }
     };
 
@@ -118,7 +116,16 @@ const CustomToolbar = (toolbar: any) => {
                     <div className="rbc-btn-group float-right">
                         <button
                             className={show ? 'btn btn-primary mr-1' : 'd-none'}
-                            onClick={handleClickCheckin}
+                            onClick={() =>
+                                handleClick(
+                                    {
+                                        checkin: handleTime(new Date().toUTCString()),
+                                        date: date,
+                                        userId: localStorage.getItem('userId'),
+                                    },
+                                    'checkin',
+                                )
+                            }
                             style={{ borderRadius: '4px' }}
                         >
                             <FaSignInAlt className="mr-1" />
@@ -126,7 +133,14 @@ const CustomToolbar = (toolbar: any) => {
                         </button>
                         <button
                             className={!show ? 'btn btn-primary mr-1' : 'd-none'}
-                            onClick={handleClickCheckout}
+                            onClick={() =>
+                                handleClick(
+                                    {
+                                        checkout: handleTime(new Date().toUTCString()),
+                                    },
+                                    'checkout',
+                                )
+                            }
                             style={{ borderRadius: '4px' }}
                         >
                             <FaSignOutAlt className="mr-1" />

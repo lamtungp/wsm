@@ -33,7 +33,7 @@ export default class UserRepository {
 
     public async getListStaff(departmentId: number, role: string): Promise<any> {
         const users = await this.user.findAll({
-            attributes: { exclude: ['createdAt', 'updatedAt'] },
+            attributes: { exclude: ['createdAt', 'updatedAt', 'confirmationCode'] },
             where: { departmentId, role },
         });
         return users;

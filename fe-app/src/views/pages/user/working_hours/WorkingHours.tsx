@@ -72,15 +72,14 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
                     t += 0;
                 } else {
                     const second = handleTime(item.checkout) - handleTime(item.checkin);
-                    const h = Math.round(second / 36) / 1000;
+                    const h = Math.round((second / 3600) * 1000) / 1000;
                     t += h;
                 }
             });
+            console.log(t);
+            user.time = t;
+            delete user['checkins'];
         }
-        console.log(t);
-        user.time = t;
-        console.log(user);
-        delete user['checkins'];
     });
 
     return (

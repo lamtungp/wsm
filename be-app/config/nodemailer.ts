@@ -9,7 +9,6 @@ const pass = auth.pass;
 const sendEmail = async (name: any, email: any, confirmationCode: any) => {
     // let testAccount = await nodemailer.createTestAccount();
 
-    console.log(user, ' ', pass);
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         service: 'gmail',
@@ -35,7 +34,7 @@ const sendEmail = async (name: any, email: any, confirmationCode: any) => {
                 html: `<h1>Email Confirmation</h1>
                           <h2>Hello ${name}</h2>
                           <p>Thank you for subscribing. Please confirm your email by clicking on the following link:</p>
-                          <a href=http://pm.local/confirm/${confirmationCode}> Click here</a>
+                          <a href=${process.env.API_CONFIRM_ENTRYPOINT}/${confirmationCode}> Click here</a>
                           </div>`,
             };
 

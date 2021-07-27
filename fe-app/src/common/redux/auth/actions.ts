@@ -22,9 +22,10 @@ export const loginSuccess = (response: LoginRespone): LoginSuccessAction => {
     };
 };
 
-export const loginFailure = (): LoginFailureAction => {
+export const loginFailure = (response: LoginRespone): LoginFailureAction => {
     return {
         type: AUTH_ACTIONS.LOGIN_FAILURE,
+        payload: response,
     };
 };
 

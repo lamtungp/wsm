@@ -1,20 +1,20 @@
 import React from 'react';
 
-const Departments = React.lazy(() => import('../views/pages/admin/departments/Departments'));
+const Login = React.lazy(() => import('../views/pages/login/Login'));
+const Dashboard = React.lazy(() => import('../views/pages/admin/dashboard/Dashboard'));
 const Users = React.lazy(() => import('../views/pages/admin/users/Users'));
 const FormUser = React.lazy(() => import('../views/pages/admin/users/FormUser'));
-
-const Login = React.lazy(() => import('../views/pages/login/Login'));
+const Departments = React.lazy(() => import('../views/pages/admin/departments/Departments'));
 const StaffsOfDepartment = React.lazy(() => import('../views/pages/admin/departments/StaffsOfDepartment'));
 const FormDepartment = React.lazy(() => import('../views/pages/admin/departments/FormDepartment'));
-const Requestings = React.lazy(() => import('../views/pages/admin/requestings/Requestings'));
 const Password = React.lazy(() => import('../views/pages/admin/password/Password'));
 const ResetPassword = React.lazy(() => import('../views/pages/admin/password/ResetPassword'));
+const Requestings = React.lazy(() => import('../views/pages/admin/requestings/Requestings'));
 const RequestingDetails = React.lazy(() => import('../views/pages/admin/requestings/RequestingDetails'));
 
 const routes = [
-    { path: '/admin', exact: true, name: 'Home', component: Users },
-    { path: '/admin/login', name: 'Home', component: Login },
+    { path: '/admin', name: 'Dashboard', component: Dashboard, exact: true },
+    { path: '/admin/login', name: 'Login', component: Login },
     { path: '/admin/users', name: 'Users', component: Users, exact: true },
     { path: '/admin/users/add-user', name: 'AddUser', component: FormUser },
     { path: '/admin/users/update-user/:id', name: 'UpdateUser', component: FormUser },

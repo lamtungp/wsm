@@ -18,10 +18,6 @@ export default class CheckinRepository {
         }
         return CheckinRepository.instance;
     }
-    public async getCheckins(): Promise<any> {
-        const checkins = await this.checkin.findAll({});
-        return checkins;
-    }
 
     public async getListCheckinById(userId: number): Promise<any> {
         const checkin = await this.checkin.findAll({

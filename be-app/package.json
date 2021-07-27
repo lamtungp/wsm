@@ -10,6 +10,7 @@
         "build": "tsc"
     },
     "dependencies": {
+        "bcrypt": "^5.0.1",
         "camelcase-keys": "^7.0.0",
         "compression": "^1.7.4",
         "cookie-parser": "~1.4.4",
@@ -32,6 +33,7 @@
         "winston": "^3.3.3"
     },
     "devDependencies": {
+        "@types/bcrypt": "^5.0.0",
         "@types/compression": "^1.7.1",
         "@types/cookie-parser": "^1.4.2",
         "@types/cors": "^2.8.11",

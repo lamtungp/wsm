@@ -1,49 +1,30 @@
 import AxiosClient from '../../utils/axiosClient';
+import API from '../../constants/api';
 
-const CheckinServices = {
-    getAllCheckin: (): Promise<any> => {
-        const results = AxiosClient.get('checkin/get-all-checkin');
-        return results;
-    },
-
+const checkinServices = {
     getListCheckin: (id: number): Promise<any> => {
-        const results = AxiosClient.get(`checkin/get-list-checkin/${id}`);
+        const results = AxiosClient.get(`${API.CHECKIN.GET_LIST_CHECKIN}/${id}`);
         return results;
     },
 
     getListCheckinWithDate: (userId: number, date: string): Promise<any> => {
-        const results = AxiosClient.get(`checkin/get-list-checkin-with-date/${userId}?date=${date}`);
+        const results = AxiosClient.get(`${API.CHECKIN.GET_LIST_CHECKIN_WITH_DATE}/${userId}?date=${date}`);
         return results;
     },
 
     getCheckinByUserId: (userId: number, date: string): Promise<any> => {
-        const results = AxiosClient.get(`checkin/find-checkin-by-userId/${userId}?date=${date}`);
+        const results = AxiosClient.get(`${API.CHECKIN.GET_CHECKIN_BY_USER_ID}/${userId}?date=${date}`);
         return results;
     },
 
     findCheckinById: (id: number): Promise<any> => {
-        const result = AxiosClient.get(`checkin/find-checkin-by-id/${id}`);
-        return result;
-    },
-
-    addCheckin: (param: object): Promise<any> => {
-        const result = AxiosClient.post('checkin/create-checkin', param);
-        return result;
-    },
-
-    deleteCheckin: (id: number): Promise<any> => {
-        const result = AxiosClient.delete(`checkin/delete-checkin/${id}`);
+        const result = AxiosClient.get(`${API.CHECKIN.FIND_CHECKIN_BY_ID}/${id}`);
         return result;
     },
 
     updateCheckin: (param: object, userId: number, date: string): Promise<any> => {
-        const result = AxiosClient.post(`checkin/update-checkin?userId=${userId}&date=${date}`, param);
-        return result;
-    },
-
-    searchCheckin: (param: any): Promise<any> => {
-        const result = AxiosClient.get(`checkin/search-checkin?search=${param}`);
+        const result = AxiosClient.post(`${API.CHECKIN.UPDATE_CHECKIN}?userId=${userId}&date=${date}`, param);
         return result;
     },
 };
-export default CheckinServices;
+export default checkinServices;

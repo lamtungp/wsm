@@ -14,24 +14,15 @@ const HeaderRequest: React.FunctionComponent<TabsProp> = ({ tabs }): React.React
     const history = useHistory();
     const param = useParams();
     const option = String(Object.values(param)[0]);
-    // const match = useRouteMatch();
 
-    // const select = (path: string) => {
-    //     history.push(path);
-    // };
+    const handleSelect = (path: any) => {
+        history.push(`/admin/requestings/${path}`);
+    };
 
     return (
-        <Tabs
-            transition={false}
-            defaultActiveKey={option !== 'undefined' ? option : 'pending'}
-            onSelect={(firstTab) => history.push(`/user/member/requests/${firstTab}`)}
-        >
+        <Tabs defaultActiveKey={option !== 'undefined' ? option : 'pending'} onSelect={(path) => handleSelect(path)}>
             {tabs.map((tab) => {
-                return (
-                    <Tab key={tab.title} eventKey={tab.eventKey} title={tab.title}>
-                        {/* <RequestingDetails /> */}
-                    </Tab>
-                );
+                return <Tab key={tab.title} eventKey={tab.eventKey} title={tab.title}></Tab>;
             })}
         </Tabs>
     );

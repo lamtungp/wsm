@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Checked = React.lazy(() => import('../views/pages/user/dashboard/Dashboard'));
+const Checked = React.lazy(() => import('../views/pages/user/checkin/Checkin'));
 const Requests = React.lazy(() => import('../views/pages/user/request/Requests'));
 const Login = React.lazy(() => import('../views/pages/login/Login'));
 const FormRequest = React.lazy(() => import('../views/pages/user/request/FormRequest'));

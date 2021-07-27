@@ -22,10 +22,10 @@ export default class DepartmentRepository {
         return departments;
     }
 
-    public async getListDepartment(id: number): Promise<any> {
-        const departments = await this.department.findAll({ where: { id } });
-        return departments;
-    }
+    // public async getListDepartment(id: number): Promise<any> {
+    //     const departments = await this.department.findAll({ where: { id } });
+    //     return departments;
+    // }
 
     public async getDepartmentById(id: number): Promise<any> {
         const department = await this.department.findOne({

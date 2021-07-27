@@ -10,21 +10,17 @@ function* loginSaga(action: LoginAction) {
 
     try {
         const response = yield call(authServices.login, { email, password });
-        console.log(response);
-        if (!!response) {
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('role', response.role);
-            localStorage.setItem('userId', response.id);
-            localStorage.setItem('email', action.payload.email);
-            localStorage.setItem('vacationDay', response.vacationDay);
-            yield put(loginSuccess({ email: action.payload.email, token: response.token }));
-            if (localStorage.getItem('role') === 'admin') window.location.pathname = '/admin';
-            else window.location.pathname = '';
-        } else {
-            alert(response.message);
-        }
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('role', response.role);
+        localStorage.setItem('userId', response.id);
+        localStorage.setItem('email', action.payload.email);
+        localStorage.setItem('vacationDay', response.vacationDay);
+        yield put(loginSuccess({ token: response.token, status: response.message }));
+        if (localStorage.getItem('role') === 'admin') window.location.pathname = '/admin';
+        else window.location.pathname = '';
     } catch (error) {
-        yield put(loginFailure());
+        // alert(error);
+        yield put(loginFailure({ token: '', status: 'failure' }));
     }
 }
 

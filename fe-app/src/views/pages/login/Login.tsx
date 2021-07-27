@@ -2,10 +2,11 @@ import React from 'react';
 import { Formik } from 'formik';
 import { Form } from 'react-bootstrap';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CLink, CRow } from '@coreui/react';
 
 import { login } from '../../../common/redux/auth/actions';
+import { GlobalState } from '../../../common/redux';
 
 const SignupSchema = Yup.object().shape({
     email: Yup.string().required('Required!').email('Invalid email'),
@@ -14,9 +15,20 @@ const SignupSchema = Yup.object().shape({
 
 const Login = () => {
     const dispatch = useDispatch();
+    const [err, setErr] = React.useState('');
+    const loginFail = useSelector((state: GlobalState) => state.auth.user);
+
+    // console.log(err);
     const handleLogin = (values: { email: string; password: string }) => {
         dispatch(login(values));
     };
+
+    React.useEffect(() => {
+        if (loginFail.status === 'failure') {
+            setErr('Tài khoản hoặc mật khẩu không đúng!');
+        }
+    });
+
     return (
         <div className="c-app c-default-layout flex-row align-items-center">
             <CContainer style={{ width: '40rem' }}>
@@ -34,7 +46,7 @@ const Login = () => {
                                 validateOnChange={true}
                                 // validateOnBlur={false}
                             >
-                                {({ handleChange, handleSubmit }) => (
+                                {({ handleChange, handleSubmit, errors, touched }) => (
                                     <Form
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') {
@@ -50,6 +62,9 @@ const Login = () => {
                                                 placeholder="Username or Email"
                                                 onChange={handleChange}
                                             />
+                                            {errors.email && touched.email ? (
+                                                <Form.Text className="text-danger">{errors.email}</Form.Text>
+                                            ) : null}
                                         </Form.Group>
                                         <Form.Group>
                                             <Form.Label>Password:</Form.Label>
@@ -59,8 +74,11 @@ const Login = () => {
                                                 placeholder="Password"
                                                 onChange={handleChange}
                                             />
+                                            {errors.password && touched.password ? (
+                                                <Form.Text className="text-danger">{errors.password}</Form.Text>
+                                            ) : null}
+                                            {/* <Form.Text>{error}</Form.Text> */}
                                         </Form.Group>
-                                        {/* <Form.Text>{error}</Form.Text> */}
                                         <CRow>
                                             <CCol xs="6">
                                                 <CButton
@@ -77,6 +95,7 @@ const Login = () => {
                                                 </CLink>
                                             </CCol>
                                         </CRow>
+                                        {!!err ? <Form.Text className="text-danger mt-3">{err}</Form.Text> : <></>}
                                     </Form>
                                 )}
                             </Formik>

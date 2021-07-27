@@ -1,7 +1,13 @@
 import React from 'react';
-import { FaShareSquare, FaWindowMaximize, FaCalendarCheck, FaClipboard } from 'react-icons/fa';
+import { FaShareSquare, FaWindowMaximize, FaCalendarCheck, FaClipboard, FaHome } from 'react-icons/fa';
 
 const _nav = [
+    {
+        _tag: 'CSidebarNavItem',
+        name: 'Dashboard',
+        to: '/admin',
+        icon: <FaHome style={{ marginRight: '1rem', color: 'lightgray' }} />,
+    },
     {
         _tag: 'CSidebarNavItem',
         name: 'Quản lý phòng ban',

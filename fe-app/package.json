@@ -9,7 +9,7 @@
     "@coreui/react": "^3.4.6",
     "axios": "^0.21.0",
     "classnames": "^2.3.1",
-    "dayjs": "^1.10.5",
+    "dayjs": "^1.10.6",
     "dotenv": "^10.0.0",
     "file-saver": "^2.0.5",
     "formik": "^2.2.9",

@@ -3,8 +3,9 @@ import InternalServerError from '../commons/http-errors/InternalServerError';
 import { generateToken } from '../lib/passports';
 import userModel from '../models/user.model';
 import UserRepository from '../repositories/user.repository';
-import sendEmail from '../../config/nodemailer.config';
+import sendEmail from '../../config/nodemailer';
 import nodemailer from 'nodemailer';
+import Bcrypt from '../lib/bcrypt';
 
 export default class UserController {
     private user: UserRepository;
@@ -62,15 +63,19 @@ export default class UserController {
     };
 
     public addUser = async (req: Request, res: Response, next: NextFunction) => {
+        const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
+        // console.log(hashPassword);
         const token = generateToken(req.body);
-        const user = await this.user.createUser({ ...req.body, confirmationCode: token });
+        const user = await this.user.createUser({
+            ...req.body,
+            password: hashPassword,
+            confirmationCode: token,
+        });
         if (!!user) {
-            console.log(user.email);
-
+            // console.log(user.email);
             const send = sendEmail(user.name, user.email, user.confirmationCode);
             if (!!send) {
-                console.log('send');
-
+                // console.log('send');
                 return res.status(200).send({
                     message: 'User was registered successfully! Please check your email',
                 });
@@ -93,6 +98,14 @@ export default class UserController {
     };
 
     public updateForUser = async (req: Request, res: Response, next: NextFunction) => {
+        if (!!req.body.password) {
+            const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
+            const user = await this.user.updateUser({ ...req.body, password: hashPassword }, Number(req.params.id));
+            if (!!user) {
+                return res.status(200).json(user);
+            }
+            next(new InternalServerError());
+        }
         const user = await this.user.updateUser(req.body, Number(req.params.id));
         if (!!user) {
             return res.status(200).json(user);
