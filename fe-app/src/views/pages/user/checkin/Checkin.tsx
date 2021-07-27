@@ -23,7 +23,6 @@ const Dashboard = () => {
     // console.log(checkin);
 
     const [listcheckin, setListCheckin] = useState([]);
-    // console.log(moment().toDate());
     const myEvent = [
         {
             start: moment().toDate(),

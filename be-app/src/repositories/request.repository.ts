@@ -57,4 +57,9 @@ export default class RequestRepository {
         const request = await this.request.update(value, { where: { id } });
         return request;
     }
+
+    public async deleteRequest(userId: number): Promise<any> {
+        const request = await this.request.destroy({ where: { userId } });
+        return request;
+    }
 }

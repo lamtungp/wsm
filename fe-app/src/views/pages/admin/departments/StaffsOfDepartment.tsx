@@ -40,10 +40,10 @@ const StaffsOfRoom = () => {
     const deparmentId = Number(Object.values(param)[0]);
 
     React.useEffect(() => {
-        getListTodo();
+        getUsersOfDepartment();
     }, []);
 
-    const getListTodo = async () => {
+    const getUsersOfDepartment = async () => {
         const res = await userService.getListUser(deparmentId);
         console.log(res);
         setListUser(res);
@@ -51,7 +51,7 @@ const StaffsOfRoom = () => {
 
     const deleteUser = async (id: number) => {
         await userService.deleteUser(id);
-        getListTodo();
+        getUsersOfDepartment();
     };
 
     return (

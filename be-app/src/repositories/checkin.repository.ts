@@ -60,4 +60,9 @@ export default class CheckinRepository {
         const checkin = await this.checkin.update(value, { where: { userId, date } });
         return checkin;
     }
+
+    public async deleteCheckin(userId: number): Promise<any> {
+        const checkin = await this.checkin.destroy({ where: { userId } });
+        return checkin;
+    }
 }

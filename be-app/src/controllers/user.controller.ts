@@ -1,17 +1,21 @@
 import { Request, Response, NextFunction } from 'express';
 import InternalServerError from '../commons/http-errors/InternalServerError';
 import { generateToken } from '../lib/passports';
-import userModel from '../models/user.model';
 import UserRepository from '../repositories/user.repository';
+import CheckinRepository from '../repositories/checkin.repository';
+import RequestRepository from '../repositories/request.repository';
 import sendEmail from '../../config/nodemailer';
-import nodemailer from 'nodemailer';
 import Bcrypt from '../lib/bcrypt';
 
 export default class UserController {
     private user: UserRepository;
+    private checkin: CheckinRepository;
+    private request: RequestRepository;
 
     constructor() {
         this.user = UserRepository.getInstance();
+        this.checkin = CheckinRepository.getInstance();
+        this.request = RequestRepository.getInstance();
     }
 
     public getAllUsers = async (_req: Request, res: Response, next: NextFunction) => {
@@ -114,9 +118,11 @@ export default class UserController {
     };
 
     public deleteOneUser = async (req: Request, res: Response, next: NextFunction) => {
-        const user = await this.user.deleteUser(Number(req.params.id));
-        if (!!user) {
-            return res.status(200).json(user);
+        await this.checkin.deleteCheckin(Number(req.params.id));
+        await this.request.deleteRequest(Number(req.params.id));
+        const deleteUser = await this.user.deleteUser(Number(req.params.id));
+        if (!!deleteUser) {
+            return res.status(200).json(deleteUser);
         }
         next(new InternalServerError());
     };

@@ -45,7 +45,7 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
 
     const handleTime = (s: string) => {
         const arr = s.split(':');
-        return +arr[0] * 3600 + +arr[1] * 60 + +arr[2];
+        return +arr[0] * 3600 + +arr[1] * 60;
     };
 
     const handleDate = (date: Date) => {
