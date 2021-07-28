@@ -1,24 +1,24 @@
 version: "3.5"
 
 services:
-  node:
-    build:
-      context: ./be-app
-    working_dir: /app
-    restart: always
-    tty: true
-    environment:
-      - NODE_ENV=development
-    volumes:
-      - ./be-app:/app
-      - ./be-app/src/migrations:/app/migrations
-      - /app/node_modules
-    env_file:
-      - ./be-app/.env
-    ports:
-      - "4000:4000"
-    depends_on:
-      - db
+  # node:
+  #   build:
+  #     context: ./be-app
+  #   working_dir: /app
+  #   restart: always
+  #   tty: true
+  #   environment:
+  #     - NODE_ENV=development
+  #   volumes:
+  #     - ./be-app:/app
+  #     - ./be-app/src/migrations:/app/migrations
+  #     - /app/node_modules
+  #   env_file:
+  #     - ./be-app/.env
+  #   ports:
+  #     - "4000:4000"
+  #   depends_on:
+  #     - db
 
   # react:
   #   build:
@@ -68,7 +68,8 @@ services:
       MYSQL_PASSWORD: secret
     volumes:
       - ./be-app/docker/services/db/data:/var/lib/mysql
-
+    cap_add:
+      - SYS_NICE
   # redis:
   #   image: redis:latest
   #   restart: always

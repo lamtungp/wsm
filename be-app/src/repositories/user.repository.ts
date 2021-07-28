@@ -62,6 +62,9 @@ export default class UserRepository {
     }
 
     public async getUserById(id: number): Promise<any> {
+        if (isNaN(id)) {
+            return undefined;
+        }
         const user = await this.user.findOne({
             attributes: { exclude: ['password'] },
             where: { id },

@@ -26,8 +26,6 @@ export default class AuthRepository {
 
     protected async checkAuthenticationData(email: string, password: string): Promise<UserAttributes | undefined> {
         const user = await this.findUserByEmail(email);
-        // console.log(user);
-        console.log('here');
         if (!user) {
             return undefined;
         }

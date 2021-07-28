@@ -13,7 +13,7 @@ router.get('/get-all-user', verifyAdminMiddleware, userController.getAllUsers);
 
 router.get('/get-list-user/:departmentId', userController.getListUsers);
 
-router.get('/get-list-staff/:userId', userController.getListStaffs);
+router.get('/get-list-staff/:managerId', userController.getListStaffs);
 
 router.get('/get-staff-with-checkin/:userId', userController.getStaffsWithCheckin);
 

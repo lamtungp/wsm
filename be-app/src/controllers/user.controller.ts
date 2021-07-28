@@ -6,6 +6,7 @@ import CheckinRepository from '../repositories/checkin.repository';
 import RequestRepository from '../repositories/request.repository';
 import sendEmail from '../../config/nodemailer';
 import Bcrypt from '../lib/bcrypt';
+import NotFoundError from '../commons/http-errors/NotFoundError';
 
 export default class UserController {
     private user: UserRepository;
@@ -35,13 +36,13 @@ export default class UserController {
     };
 
     public getListStaffs = async (req: Request, res: Response, next: NextFunction) => {
-        const manager = await this.user.getUserById(Number(req.params.userId));
+        const manager = await this.user.getUserById(Number(req.params.managerId));
         if (!!manager) {
             const users = await this.user.getListStaff(manager.dataValues.departmentId, String(req.query.role));
             if (!!users) {
                 return res.status(200).json(users);
             }
-            next(new InternalServerError());
+            next(new NotFoundError());
         }
         next(new InternalServerError());
     };
@@ -55,7 +56,7 @@ export default class UserController {
             }
             next(new InternalServerError());
         }
-        next(new InternalServerError());
+        next(new InternalServerError('Invalid useId'));
     };
 
     public findUserById = async (req: Request, res: Response, next: NextFunction) => {
@@ -63,7 +64,7 @@ export default class UserController {
         if (!!user) {
             return res.status(200).json(user);
         }
-        next(new InternalServerError());
+        next(new InternalServerError('Invalid ID'));
     };
 
     public addUser = async (req: Request, res: Response, next: NextFunction) => {
