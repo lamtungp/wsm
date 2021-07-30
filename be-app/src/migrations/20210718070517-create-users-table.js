@@ -89,7 +89,7 @@ module.exports = {
                 type: Sequelize.ENUM({ values: ['actived', 'pending'] }),
                 defaultValue: 'pending',
             },
-            confirmCode: {
+            confirmationCode: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },

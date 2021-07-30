@@ -9,6 +9,9 @@ import Bcrypt from '../lib/bcrypt';
 import NotFoundError from '../commons/http-errors/NotFoundError';
 
 export default class UserController {
+    restore() {
+        throw new Error('Method not implemented.');
+    }
     private user: UserRepository;
     private checkin: CheckinRepository;
     private request: RequestRepository;
@@ -83,6 +86,7 @@ export default class UserController {
                 // console.log('send');
                 return res.status(200).send({
                     message: 'User was registered successfully! Please check your email',
+                    confirmationCode: token,
                 });
             }
             next(new InternalServerError('ko gui duoc email'));
@@ -92,11 +96,10 @@ export default class UserController {
 
     public verifyAccount = async (req: Request, res: Response, next: NextFunction) => {
         const user = await this.user.findUserByConfirmCode(String(req.params.confirmationCode));
-        console.log(user.dataValues);
-
+        // console.log(user.dataValues);
         if (!!user) {
-            console.log('here');
-            const update = await this.user.updateUser({ status: 'actived' }, user.dataValues.id);
+            // console.log('here');
+            const update = await this.user.updateUser({ status: 'actived' }, user.id);
             return res.status(200).json(update);
         }
         next(new InternalServerError());

@@ -6,6 +6,8 @@ import logger from 'morgan';
 import cors from 'cors';
 import indexRouter from './routes/index';
 // import camelcase from './lib/camelcase';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 var app = express();
 

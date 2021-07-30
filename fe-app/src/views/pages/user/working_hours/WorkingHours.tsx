@@ -40,7 +40,9 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
 
     React.useEffect(() => {
         handleDate(new Date());
-        getUsers();
+        if (localStorage.getItem('role') === 'manager') {
+            getUsers();
+        }
     }, []);
 
     const handleTime = (s: string) => {
@@ -55,7 +57,6 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
     };
 
     const getUsers = async () => {
-        // const res = await userService.getListStaff(Number(localStorage.getItem('userId')));
         const res = await userService.getStaffWithCheckin(
             Number(localStorage.getItem('userId')),
             handleDate(new Date()),

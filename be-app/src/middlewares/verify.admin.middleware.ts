@@ -11,7 +11,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
         const verified = jwt.verify(token, process.env.JWT_SECRET);
         const decodedData = Object(verified);
         // console.log(decodedData.role);
-        if (decodedData.role == 'admin') next();
+        if (decodedData.role === 'admin') next();
         else return res.status(400).send('Not Permission');
     } catch (err) {
         return res.status(400).send('Invalid Token');

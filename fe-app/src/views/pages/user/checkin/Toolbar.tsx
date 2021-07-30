@@ -65,7 +65,6 @@ const CustomToolbar = (toolbar: any) => {
                 } else {
                     setShow(true);
                 }
-                console.log(res);
             } catch (error) {
                 console.log(error);
                 setShow(true);

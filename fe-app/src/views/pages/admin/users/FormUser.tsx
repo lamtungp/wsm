@@ -29,6 +29,7 @@ const FormUser = () => {
         role: 'admin',
         departmentId: 1,
     });
+
     const idUser = Number(Object.values(params)[0]);
     useEffect(() => {
         if (idUser) {

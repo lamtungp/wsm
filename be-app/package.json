@@ -5,11 +5,15 @@
     "private": true,
     "scripts": {
         "start": "npm run db:migrate && nodemon -L src/index.ts",
-        "db:migrate": "npm run build:migrations && sequelize db:migrate",
+        "db:migrate": "npm run build:migrations && sequelize db:migrate --migrations-path src/migrations",
         "build:migrations": "tsc -p tsconfig.migrations.json",
         "migration:generate": "sequelize migration:generate --migrations-path src/migrations --name",
         "build": "tsc",
-        "test": "nodemon --watch . --ext ts --exec \"mocha -r ts-node/register test/test.ts\""
+        "test": "nodemon . --ext ts --exec \"mocha -w -r ts-node/register test/e2e/**/*.test.ts\"",
+        "pretest": "cross-env NODE_ENV=test npm run db:reset",
+        "db:reset": "sequelize db:drop && sequelize db:create && sequelize db:migrate --migrations-path src/migrations",
+        "db:create:test": "cross-env NODE_ENV=test sequelize db:create",
+        "coverage": "\"nyc --reporter=lcov --reporter=text-summary mocha -r ts-node/register test/**/*.test.ts\""
     },
     "dependencies": {
         "bcrypt": "^5.0.1",
@@ -33,6 +37,7 @@
         "passport": "^0.4.1",
         "reflect-metadata": "^0.1.13",
         "sequelize-typescript": "^2.1.0",
+        "sinon": "^11.1.2",
         "winston": "^3.3.3"
     },
     "devDependencies": {
@@ -50,17 +55,20 @@
         "@types/node": "^15.12.5",
         "@types/nodemailer": "^6.4.4",
         "@types/passport": "^1.0.6",
+        "@types/sinon": "^10.0.2",
         "@types/supertest": "^2.0.11",
         "@typescript-eslint/eslint-plugin": "^4.28.5",
         "@typescript-eslint/parser": "^4.28.5",
         "chai": "^3.5.0",
         "chai-http": "^1.0.0",
+        "cross-env": "^7.0.3",
         "dotenv": "^10.0.0",
         "eslint": "^7.31.0",
         "eslint-config-airbnb-base": "^14.2.1",
         "eslint-plugin-import": "^2.23.4",
-        "jest": "^27.0.6",
+        "faker": "^5.5.3",
         "nodemon": "^2.0.7",
+        "nyc": "^15.1.0",
         "passport-jwt": "^4.0.0",
         "prettier": "2.3.2",
         "sequelize": "^6.6.4",

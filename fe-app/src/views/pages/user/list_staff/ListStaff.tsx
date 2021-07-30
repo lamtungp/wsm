@@ -75,7 +75,9 @@ const ListStaff = () => {
     const [listUser, setListUser] = useState([{}]);
 
     React.useEffect(() => {
-        getUsers();
+        if (localStorage.getItem('role') === 'manager') {
+            getUsers();
+        }
     }, []);
 
     const getUsers = async () => {

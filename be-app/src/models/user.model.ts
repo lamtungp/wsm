@@ -2,7 +2,6 @@ import { Sequelize, DataTypes } from 'sequelize';
 import { UserStatic } from './user.model.d';
 import sequelizeInstance from '../lib/sequelize';
 import departmentModel from './department.model';
-import { values } from 'sequelize/types/lib/operators';
 import checkinModel from './checkin.model';
 // import {
 //     Table,

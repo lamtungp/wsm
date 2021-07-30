@@ -22,11 +22,6 @@ export default class DepartmentRepository {
         return departments;
     }
 
-    // public async getListDepartment(id: number): Promise<any> {
-    //     const departments = await this.department.findAll({ where: { id } });
-    //     return departments;
-    // }
-
     public async getDepartmentById(id: number): Promise<any> {
         const department = await this.department.findOne({
             where: { id },
@@ -41,6 +36,11 @@ export default class DepartmentRepository {
 
     public async updateDepartment(value: any, id: number): Promise<any> {
         const department = await this.department.update(value, { where: { id } });
+        return department;
+    }
+
+    public async deleteDepartment(id: number): Promise<any> {
+        const department = await this.department.destroy({ where: { id } });
         return department;
     }
 }

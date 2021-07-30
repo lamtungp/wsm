@@ -14,11 +14,13 @@ export interface UserAttributes {
     dayIn: string;
     dayOfficial: string;
     contractTerm: string;
-    vacationsDay: string;
+    vacationsDay: number;
     role: string;
     departmentId: number;
     status: string;
     confirmationCode: string;
+    createdAt: string;
+    updatedAt: string;
 }
 export interface UserModel extends Model<UserAttributes>, UserAttributes {}
 

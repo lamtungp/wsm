@@ -1,9 +1,8 @@
-import { Op, where, Sequelize } from 'sequelize';
-import sequelize from 'sequelize/types/lib/sequelize';
+import { Sequelize } from 'sequelize';
 import checkinModel from '../models/checkin.model';
 import { CheckinStatic } from '../models/checkin.model.d';
 import userModel from '../models/user.model';
-import { UserStatic } from '../models/user.model.d';
+import { UserAttributes, UserStatic } from '../models/user.model.d';
 
 export default class UserRepository {
     private user: UserStatic;

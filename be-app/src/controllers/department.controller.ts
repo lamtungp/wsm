@@ -40,4 +40,12 @@ export default class DepartmentController {
         }
         next(new InternalServerError());
     };
+
+    public deleteOneDepartment = async (req: Request, res: Response, next: NextFunction) => {
+        const department = await this.department.deleteDepartment(Number(req.params.id));
+        if (!!department) {
+            return res.status(200).json(department);
+        }
+        next(new InternalServerError());
+    };
 }

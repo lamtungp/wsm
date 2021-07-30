@@ -3,6 +3,7 @@ dotenv.config();
 
 export const Environment = {
     QA: 'qa',
+    TEST: 'test',
     UAT: 'uat',
     Production: 'production',
     Development: 'development',
@@ -24,13 +25,13 @@ const poolConfig = {
 };
 
 const database = {
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD, // if blank then set null
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
+    username: process.env.DB_TEST_USERNAME,
+    password: process.env.DB_TEST_PASSWORD, // if blank then set null
+    database: process.env.DB_TEST_NAME,
+    host: process.env.DB_TEST_HOST,
     pool: process.env.enableConnectionPool ? poolConfig : null,
     dialect: 'mysql',
-    port: process.env.DB_PORT,
+    port: process.env.DB_TEST_PORT,
     timezone: '+00:00',
 };
 
