@@ -19,6 +19,6 @@ router.post('/create-department', verifyAdminMiddleware, departmentController.ad
 
 router.post('/update-department/:id', verifyAdminMiddleware, departmentController.updateForDepartment);
 
-router.post('/delete-department/:id', verifyAdminMiddleware, departmentController.updateForDepartment);
+router.delete('/delete-department/:id', verifyAdminMiddleware, departmentController.updateForDepartment);
 
 export default router;

@@ -17,18 +17,18 @@ router.get('/get-all-user', userController.getAllUsers);
 
 router.get('/get-list-user/:departmentId', verifyAdminManagerMiddleware, userController.getListUsers);
 
-router.get('/get-list-staff/:managerId', verifyManagerMiddleware, userController.getListStaffs);
+router.get('/get-list-staff', verifyManagerMiddleware, userController.getListStaffs);
 
-router.get('/get-staff-with-checkin/:userId', verifyAdminManagerMiddleware, userController.getStaffsWithCheckin);
+router.get('/get-staff-with-checkin', verifyAdminManagerMiddleware, userController.getStaffsWithCheckin);
 
-router.get('/find-user-by-id/:id', userController.findUserById);
+router.get('/find-user-by-email', userController.findUserByEmail);
 
 router.get('/confirm/:confirmationCode', userController.verifyAccount);
 
 router.post('/create-user', userController.addUser);
 
-router.post('/update-user/:id', userController.updateForUser);
+router.post('/update-user', userController.updateForUser);
 
-router.delete('/delete-user/:id', userController.deleteOneUser);
+router.delete('/delete-user', userController.deleteOneUser);
 
 export default router;

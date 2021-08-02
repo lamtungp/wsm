@@ -31,5 +31,10 @@ const requestServices = {
         const result = AxiosClient.post(`${API.REQUEST.UPDATE_REQUEST}/${id}`, param);
         return result;
     },
+
+    deleteRequest: (id: number): Promise<any> => {
+        const result = AxiosClient.delete(`${API.REQUEST.DELETE_REQUEST}/${id}`);
+        return result;
+    },
 };
 export default requestServices;

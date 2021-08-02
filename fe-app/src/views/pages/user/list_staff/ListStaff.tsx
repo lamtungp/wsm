@@ -81,7 +81,7 @@ const ListStaff = () => {
     }, []);
 
     const getUsers = async () => {
-        const res = await userService.getListStaff(Number(localStorage.getItem('userId')));
+        const res = await userService.getListStaff(String(localStorage.getItem('email')));
         setListUser(res);
     };
 

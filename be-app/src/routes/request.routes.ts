@@ -24,4 +24,6 @@ router.post('/update-request/:id', requestController.updateForRequest);
 
 router.get('/find-request-by-state', requestController.getListRequestByState);
 
+router.delete('/delete-request/:id', requestController.deleteOneRequest);
+
 export default router;

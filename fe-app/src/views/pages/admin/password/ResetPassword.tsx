@@ -15,7 +15,7 @@ const ResetPasswordSchema = Yup.object().shape({
 const ResetPassword: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();
     const param = useParams();
-    const userId = Number(Object.values(param)[0]);
+    const email = String(Object.values(param)[0]);
 
     const [user, setUser] = useState({
         email: '',
@@ -26,12 +26,12 @@ const ResetPassword: React.FunctionComponent = (): React.ReactElement => {
     }, []);
 
     const getUser = async () => {
-        const res = await userServices.getUserById(userId);
+        const res = await userServices.getUserByEmail(email);
         setUser(res);
     };
 
     const handle = async (values: any) => {
-        await userServices.updateUser(values, userId);
+        await userServices.updateUser(values, email);
         await userServices.getAllUser();
         history.push('/admin/resetpassword');
     };

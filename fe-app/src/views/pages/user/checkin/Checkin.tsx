@@ -38,14 +38,16 @@ const Dashboard = () => {
     const getListCheckin = async () => {
         try {
             const list = await checkinServices.getListCheckin(Number(localStorage.getItem('userId')));
+            myEvent.splice(0, myEvent.length - 1);
+            console.log(list);
             setListCheckin(list);
         } catch (err) {
             // console.log(err);
         }
     };
-    console.log(myEvent);
+
+    // console.log(myEvent);
     if (listcheckin.length > 0) {
-        myEvent.pop();
         listcheckin.map((item: any) => {
             myEvent.push({
                 start: new Date(`${item.date} ${item.checkin}`),

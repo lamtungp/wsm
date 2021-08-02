@@ -84,7 +84,7 @@ const Users = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            history.push(`/admin/resetpassword/${item.id}`);
+                                                            history.push(`/admin/resetpassword/${item.email}`);
                                                         }}
                                                     >
                                                         Đổi mật khẩu

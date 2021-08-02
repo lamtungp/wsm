@@ -58,8 +58,8 @@ export default class RequestRepository {
         return request;
     }
 
-    public async deleteRequest(userId: number): Promise<any> {
-        const request = await this.request.destroy({ where: { userId } });
+    public async deleteRequest(id: number): Promise<any> {
+        const request = await this.request.destroy({ where: { id } });
         return request;
     }
 }

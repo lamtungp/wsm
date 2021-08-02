@@ -12,10 +12,12 @@ export default class CheckinController {
 
     public getListCheckin = async (req: Request, res: Response, next: NextFunction) => {
         const checkins = await this.checkin.getListCheckinById(Number(req.params.userId));
+        console.log(checkins);
         if (!!checkins) {
             return res.status(200).json(checkins);
+        } else {
+            return res.status(200).json({ message: 'Not found' });
         }
-        next(new InternalServerError());
     };
 
     public getListCheckinWithDate = async (req: Request, res: Response, next: NextFunction) => {
@@ -23,8 +25,9 @@ export default class CheckinController {
         // console.log(checkins);
         if (!!checkins) {
             return res.status(200).json(checkins);
+        } else {
+            return res.status(200).json({ message: 'Not found' });
         }
-        next(new InternalServerError());
     };
 
     public findCheckinByUserIdDate = async (req: Request, res: Response, next: NextFunction) => {
@@ -32,8 +35,9 @@ export default class CheckinController {
         // console.log(checkin);
         if (!!checkin) {
             return res.status(200).json(checkin);
+        } else {
+            return res.status(200).json({ message: 'Not found' });
         }
-        next(new InternalServerError());
     };
 
     // public addCheckin = async (req: Request, res: Response, next: NextFunction) => {
@@ -56,12 +60,12 @@ export default class CheckinController {
                     req.body,
                 );
                 return res.status(200).json(checkin);
+            } else {
+                return res.status(200).json({ message: 'Availabled checkin' });
             }
-            next(new InternalServerError('Ngay da checkin'));
         } else {
             const checkin = await this.checkin.createCheckin(req.body);
             return res.status(200).json(checkin);
         }
-        next(new InternalServerError());
     };
 }

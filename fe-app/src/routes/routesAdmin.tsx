@@ -17,7 +17,7 @@ const routes = [
     { path: '/admin/login', name: 'Login', component: Login },
     { path: '/admin/users', name: 'Users', component: Users, exact: true },
     { path: '/admin/users/add-user', name: 'AddUser', component: FormUser },
-    { path: '/admin/users/update-user/:id', name: 'UpdateUser', component: FormUser },
+    { path: '/admin/users/update-user/:email', name: 'UpdateUser', component: FormUser },
     { path: '/admin/departments', name: 'Departments', component: Departments, exact: true },
     { path: '/admin/staffs-department/:departmentId', name: 'StaffsOfDepartment', component: StaffsOfDepartment },
     { path: '/admin/departments/add-department', name: 'AddDepartment', component: FormDepartment },

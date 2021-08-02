@@ -90,8 +90,8 @@ const Users = () => {
         setListUser(res);
     };
 
-    const deleteUser = async (id: number) => {
-        await userService.deleteUser(id);
+    const deleteUser = async (email: string) => {
+        await userService.deleteUser(email);
         getUsers();
     };
 
@@ -142,7 +142,7 @@ const Users = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            history.push(`/admin/users/update-user/${item.id}`);
+                                                            history.push(`/admin/users/update-user/${item.email}`);
                                                         }}
                                                     >
                                                         Sửa
@@ -153,7 +153,7 @@ const Users = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            deleteUser(item.id);
+                                                            deleteUser(item.email);
                                                         }}
                                                     >
                                                         Xóa

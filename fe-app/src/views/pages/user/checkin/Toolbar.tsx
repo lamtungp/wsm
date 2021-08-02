@@ -58,15 +58,14 @@ const CustomToolbar = (toolbar: any) => {
 
     React.useEffect(() => {
         const getCheckin = async () => {
-            try {
-                const res = await checkinServices.getCheckinByUserId(userId, date);
+            const res = await checkinServices.getCheckinByUserId(userId, date);
+            if (res.message) {
                 if (!!res.checkin && !!!res.checkout) {
                     setShow(false);
                 } else {
                     setShow(true);
                 }
-            } catch (error) {
-                console.log(error);
+            } else {
                 setShow(true);
             }
         };
@@ -76,16 +75,16 @@ const CustomToolbar = (toolbar: any) => {
     // const d = dayjs(new Date().toUTCString()).format('YYYY-MM-DD H:mm');
 
     const handleCheckin = async (values: object, type: string) => {
-        console.log(values);
-        try {
-            await checkinServices.updateCheckin(values, userId, date);
+        // console.log(values);
+        const check = await checkinServices.updateCheckin(values, userId, date);
+        if (!!!check.message) {
             dispatch(SetCheckin(handleTime(new Date().toUTCString())));
             if (type === 'checkin') {
                 setShow(false);
             } else {
                 setShow(true);
             }
-        } catch (error) {
+        } else {
             if (type === 'checkin') {
                 setShow(true);
                 window.alert('Bạn đã checkin rồi');

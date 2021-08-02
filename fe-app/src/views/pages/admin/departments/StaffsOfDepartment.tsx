@@ -49,8 +49,8 @@ const StaffsOfRoom = () => {
         setListUser(res);
     };
 
-    const deleteUser = async (id: number) => {
-        await userService.deleteUser(id);
+    const deleteUser = async (email: string) => {
+        await userService.deleteUser(email);
         getUsersOfDepartment();
     };
 
@@ -92,7 +92,7 @@ const StaffsOfRoom = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            history.push(`/admin/rooms/update-room/${item.id}`);
+                                                            history.push(`/admin/users/update-user/${item.email}`);
                                                         }}
                                                     >
                                                         Update
@@ -103,7 +103,7 @@ const StaffsOfRoom = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            deleteUser(item.id);
+                                                            deleteUser(item.email);
                                                         }}
                                                     >
                                                         Delete

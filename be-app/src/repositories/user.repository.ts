@@ -60,13 +60,13 @@ export default class UserRepository {
         return users;
     }
 
-    public async getUserById(id: number): Promise<any> {
-        if (isNaN(id)) {
+    public async getUserByEmail(email: string): Promise<any> {
+        if (!!!email) {
             return undefined;
         }
         const user = await this.user.findOne({
             attributes: { exclude: ['password'] },
-            where: { id },
+            where: { email },
         });
         return user;
     }
@@ -83,13 +83,13 @@ export default class UserRepository {
         return user;
     }
 
-    public async updateUser(value: any, id: number): Promise<any> {
-        const user = await this.user.update(value, { where: { id } });
+    public async updateUser(value: any, email: string): Promise<any> {
+        const user = await this.user.update(value, { where: { email } });
         return user;
     }
 
-    public async deleteUser(id: number): Promise<any> {
-        const user = await this.user.destroy({ where: { id } });
+    public async deleteUser(email: string): Promise<any> {
+        const user = await this.user.destroy({ where: { email } });
         return user;
     }
 }

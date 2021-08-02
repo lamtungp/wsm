@@ -8,7 +8,7 @@ const API = {
         GET_LIST_USER: 'user/get-list-user',
         GET_LIST_STAFF: 'user/get-list-staff',
         GET_STAFF_WITH_CHECKIN: 'user/get-staff-with-checkin',
-        GET_USER_BY_ID: 'user/find-user-by-id',
+        GET_USER_BY_EMAIL: 'user/find-user-by-email',
         ADD_USER: 'user/create-user',
         UPDATE_USER: 'user/update-user',
         DELETE_USER: 'user/delete-user',
@@ -30,6 +30,7 @@ const API = {
         FIND_REQUEST_BY_SATE: 'request/find-request-by-state',
         ADD_REQUEST: 'request/create-request',
         UPDATE_REQUEST: 'request/update-request',
+        DELETE_REQUEST: 'request/delete-request',
     },
 
     DEPARTMENT: {

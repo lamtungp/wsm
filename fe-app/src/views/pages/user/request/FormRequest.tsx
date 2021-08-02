@@ -25,6 +25,7 @@ const FormRequest = () => {
     const history = useHistory();
     const params = useParams();
 
+    const [cancle, setCancle] = useState(false);
     const [dateStart, setDateStart] = useState(new Date());
     const [dateEnd, setDateEnd] = useState(new Date());
 
@@ -33,7 +34,7 @@ const FormRequest = () => {
     };
 
     const [request, setRequest] = useState({
-        id: '',
+        id: 0,
         nameRequest: 'Nghỉ phép có lương',
         state: 'Pending',
         startDay: handleDate(new Date().toUTCString()),
@@ -74,6 +75,11 @@ const FormRequest = () => {
         }
     };
 
+    const deleteRequest = async (id: number) => {
+        await requestService.deleteRequest(id);
+        history.push('/user/requests');
+    };
+
     return (
         <CCard className="w3-margin-top login" style={{ backgroundColor: '#fff' }}>
             <CCardHeader>
@@ -111,7 +117,12 @@ const FormRequest = () => {
                                         onSubmit={(values) => {
                                             values.timeout = `${values.startDay} ~ ${values.endDay}`;
                                             console.log(values);
-                                            handle(values);
+                                            // console.log(cancle);
+                                            if (cancle) {
+                                                deleteRequest(Number(values.id));
+                                            } else {
+                                                handle(values);
+                                            }
                                         }}
                                         validateOnChange={true}
                                         // validateOnBlur={false}
@@ -250,6 +261,14 @@ const FormRequest = () => {
                                                             ) : null}
                                                         </CCol>
                                                     </CRow>
+                                                </Form.Group>
+                                                <Form.Group>
+                                                    <Form.Check
+                                                        type="switch"
+                                                        id="custom-switch"
+                                                        label="Hủy yêu cầu"
+                                                        onClick={() => setCancle(true)}
+                                                    />
                                                 </Form.Group>
                                                 <Button onClick={() => handleSubmit()}>
                                                     <FaSave className="mb-1 mr-1" />

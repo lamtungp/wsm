@@ -12,18 +12,18 @@ const userServices = {
         return results;
     },
 
-    getListStaff: (userId: number): Promise<any> => {
-        const results = AxiosClient.get(`${API.USER.GET_LIST_STAFF}/${userId}?role=user`);
+    getListStaff: (email: string): Promise<any> => {
+        const results = AxiosClient.get(`${API.USER.GET_LIST_STAFF}?email=${email}&role=user`);
         return results;
     },
 
-    getStaffWithCheckin: (userId: number, date: string): Promise<any> => {
-        const results = AxiosClient.get(`${API.USER.GET_STAFF_WITH_CHECKIN}/${userId}?date=${date}`);
+    getStaffWithCheckin: (email: string, date: string): Promise<any> => {
+        const results = AxiosClient.get(`${API.USER.GET_STAFF_WITH_CHECKIN}?email=${email}&date=${date}`);
         return results;
     },
 
-    getUserById: (id: number): Promise<any> => {
-        const result = AxiosClient.get(`${API.USER.GET_USER_BY_ID}/${id}`);
+    getUserByEmail: (email: string): Promise<any> => {
+        const result = AxiosClient.get(`${API.USER.GET_USER_BY_EMAIL}?email=${email}`);
         return result;
     },
 
@@ -32,13 +32,13 @@ const userServices = {
         return result;
     },
 
-    deleteUser: (id: number): Promise<any> => {
-        const result = AxiosClient.delete(`${API.USER.DELETE_USER}/${id}`);
+    deleteUser: (email: string): Promise<any> => {
+        const result = AxiosClient.delete(`${API.USER.DELETE_USER}?email=${email}`);
         return result;
     },
 
-    updateUser: (param: object, id: number): Promise<any> => {
-        const result = AxiosClient.post(`${API.USER.UPDATE_USER}/${id}`, param);
+    updateUser: (param: object, email: string): Promise<any> => {
+        const result = AxiosClient.post(`${API.USER.UPDATE_USER}?email=${email}`, param);
         return result;
     },
 

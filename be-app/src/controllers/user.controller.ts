@@ -39,7 +39,7 @@ export default class UserController {
     };
 
     public getListStaffs = async (req: Request, res: Response, next: NextFunction) => {
-        const manager = await this.user.getUserById(Number(req.params.managerId));
+        const manager = await this.user.getUserByEmail(String(req.query.email));
         if (!!manager) {
             const users = await this.user.getListStaff(manager.dataValues.departmentId, String(req.query.role));
             if (!!users) {
@@ -51,7 +51,7 @@ export default class UserController {
     };
 
     public getStaffsWithCheckin = async (req: Request, res: Response, next: NextFunction) => {
-        const manager = await this.user.getUserById(Number(req.params.userId));
+        const manager = await this.user.getUserByEmail(String(req.query.email));
         if (!!manager) {
             const users = await this.user.getStaffWithCheckin(manager.dataValues.departmentId, String(req.query.date));
             if (!!users) {
@@ -62,8 +62,8 @@ export default class UserController {
         next(new InternalServerError('Invalid useId'));
     };
 
-    public findUserById = async (req: Request, res: Response, next: NextFunction) => {
-        const user = await this.user.getUserById(Number(req.params.id));
+    public findUserByEmail = async (req: Request, res: Response, next: NextFunction) => {
+        const user = await this.user.getUserByEmail(String(req.query.email));
         if (!!user) {
             return res.status(200).json(user);
         }
@@ -108,13 +108,13 @@ export default class UserController {
     public updateForUser = async (req: Request, res: Response, next: NextFunction) => {
         if (!!req.body.password) {
             const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
-            const user = await this.user.updateUser({ ...req.body, password: hashPassword }, Number(req.params.id));
+            const user = await this.user.updateUser({ ...req.body, password: hashPassword }, String(req.query.email));
             if (!!user) {
                 return res.status(200).json(user);
             }
             next(new InternalServerError());
         }
-        const user = await this.user.updateUser(req.body, Number(req.params.id));
+        const user = await this.user.updateUser(req.body, String(req.query.email));
         if (!!user) {
             return res.status(200).json(user);
         }
@@ -122,12 +122,16 @@ export default class UserController {
     };
 
     public deleteOneUser = async (req: Request, res: Response, next: NextFunction) => {
-        await this.checkin.deleteCheckin(Number(req.params.id));
-        await this.request.deleteRequest(Number(req.params.id));
-        const deleteUser = await this.user.deleteUser(Number(req.params.id));
-        if (!!deleteUser) {
-            return res.status(200).json(deleteUser);
+        const user = await this.user.getUserByEmail(String(req.query.email));
+        if (!!user) {
+            await this.checkin.deleteCheckin(user.id);
+            await this.request.deleteRequest(user.id);
+            const deleteUser = await this.user.deleteUser(String(req.query.email));
+            if (!!deleteUser) {
+                return res.status(200).json(deleteUser);
+            }
         }
+
         next(new InternalServerError());
     };
 }

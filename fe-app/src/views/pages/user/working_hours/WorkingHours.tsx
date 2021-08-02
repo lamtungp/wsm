@@ -58,7 +58,7 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
 
     const getUsers = async () => {
         const res = await userService.getStaffWithCheckin(
-            Number(localStorage.getItem('userId')),
+            String(localStorage.getItem('email')),
             handleDate(new Date()),
         );
         setListUser(res);

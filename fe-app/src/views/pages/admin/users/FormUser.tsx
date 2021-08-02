@@ -15,6 +15,7 @@ const UserSchema = Yup.object().shape({
 const FormUser = () => {
     const history = useHistory();
     const params = useParams();
+    const email = String(Object.values(params)[0]);
 
     const [user, setUser] = useState({
         email: '',
@@ -30,11 +31,10 @@ const FormUser = () => {
         departmentId: 1,
     });
 
-    const idUser = Number(Object.values(params)[0]);
     useEffect(() => {
-        if (idUser) {
+        if (email) {
             const getItem = async () => {
-                const _user = await userService.getUserById(idUser);
+                const _user = await userService.getUserByEmail(email);
                 console.log(_user);
                 setUser(_user);
             };
@@ -44,7 +44,7 @@ const FormUser = () => {
 
     const handle = async (values: any) => {
         if (values.id) {
-            await userService.updateUser(values, idUser);
+            await userService.updateUser(values, email);
             await userService.getAllUser();
             history.push('/admin/users');
         } else {
@@ -98,20 +98,7 @@ const FormUser = () => {
                                         </CCol>
                                     </CRow>
                                 </Form.Group>
-                                <Form.Group>
-                                    <CRow>
-                                        <CCol lg="5">
-                                            <Form.Label className="font-weight-bold">Email:</Form.Label>
-                                            <Form.Control
-                                                name="email"
-                                                type="email"
-                                                value={values.email}
-                                                onChange={handleChange}
-                                            />
-                                        </CCol>
-                                    </CRow>
-                                </Form.Group>
-                                {!!!idUser ? (
+                                {!!!email ? (
                                     <Form.Group>
                                         <CRow>
                                             <CCol lg="5">

@@ -16,7 +16,7 @@ const HeaderRequest: React.FunctionComponent<TabsProp> = ({ tabs }): React.React
     const option = String(Object.values(param)[0]);
 
     const handleSelect = (path: any) => {
-        history.push(`/admin/requestings/${path}`);
+        history.push(`/user/member/requests/${path}`);
     };
 
     return (

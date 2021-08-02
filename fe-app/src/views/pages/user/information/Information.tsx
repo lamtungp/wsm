@@ -30,7 +30,7 @@ const Infomation: React.FunctionComponent = (): React.ReactElement => {
     }, []);
 
     const getListTodo = async () => {
-        const res = await userService.getUserById(Number(localStorage.getItem('userId')));
+        const res = await userService.getUserByEmail(String(localStorage.getItem('email')));
         // console.log(res);
         setUser(res);
     };

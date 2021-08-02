@@ -3,10 +3,15 @@ process.env.NODE_ENV = 'test';
 import { expect } from 'chai';
 import app from '../../../src/index';
 import { agent as request } from 'supertest';
+import userModel from '../../../src/models/user.model';
 
 const userValue = require('../../mocks/user/user.json');
 
 describe('Test User', async () => {
+    beforeEach(async () => {
+        await userModel.truncate();
+    });
+
     it('should always pass', () => {
         expect(true).to.equal(true);
     });

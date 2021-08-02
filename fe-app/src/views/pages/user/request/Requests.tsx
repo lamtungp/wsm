@@ -84,7 +84,7 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
                                                             <></>
                                                         )}
                                                         {item.state === 'Declined' ? (
-                                                            <span className="badge badge-pill badge-warning text-white">
+                                                            <span className="badge badge-pill badge-danger text-white">
                                                                 Từ chối
                                                             </span>
                                                         ) : (
