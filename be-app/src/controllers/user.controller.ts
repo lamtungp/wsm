@@ -9,9 +9,6 @@ import Bcrypt from '../lib/bcrypt';
 import NotFoundError from '../commons/http-errors/NotFoundError';
 
 export default class UserController {
-    restore() {
-        throw new Error('Method not implemented.');
-    }
     private user: UserRepository;
     private checkin: CheckinRepository;
     private request: RequestRepository;
@@ -99,7 +96,8 @@ export default class UserController {
         // console.log(user.dataValues);
         if (!!user) {
             // console.log('here');
-            const update = await this.user.updateUser({ status: 'actived' }, user.id);
+            const update = await this.user.updateUser({ status: 'actived' }, user.email);
+            console.log(update);
             return res.status(200).json(update);
         }
         next(new InternalServerError());

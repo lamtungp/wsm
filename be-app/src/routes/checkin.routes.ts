@@ -16,7 +16,7 @@ router.get('/get-list-checkin/:userId', checkinController.getListCheckin);
 
 router.get('/get-list-checkin-with-date/:userId', checkinController.getListCheckinWithDate);
 
-router.get('/find-checkin-by-userId/:userId', checkinController.findCheckinByUserIdDate);
+router.get('/find-checkin/:userId', checkinController.findCheckinByUserIdDate);
 
 router.post('/update-checkin', checkinController.updateCheckins);
 

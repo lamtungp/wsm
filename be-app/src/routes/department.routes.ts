@@ -15,10 +15,10 @@ router.get('/get-all-department', verifyAdminMiddleware, departmentController.ge
 
 router.get('/find-department-by-id/:id', verifyAdminMiddleware, departmentController.findDepartmentById);
 
-router.post('/create-department', verifyAdminMiddleware, departmentController.addDepartment);
+router.post('/create-department', departmentController.addDepartment);
 
 router.post('/update-department/:id', verifyAdminMiddleware, departmentController.updateForDepartment);
 
-router.delete('/delete-department/:id', verifyAdminMiddleware, departmentController.updateForDepartment);
+router.delete('/delete-department/:id', verifyAdminMiddleware, departmentController.deleteOneDepartment);
 
 export default router;

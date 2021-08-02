@@ -95,7 +95,7 @@ describe('UserRepository', function () {
         it('should delete user from db', async () => {
             const stub = sinon.stub(userModel, 'destroy').resolves(1);
             const userRepository = new UserRepository(userModel);
-            const deleteUser = await userRepository.deleteUser(1);
+            const deleteUser = await userRepository.deleteUser('1');
             expect(stub.calledOnce).to.be.true;
             expect(deleteUser).to.equal(1);
         });
@@ -108,7 +108,7 @@ describe('UserRepository', function () {
             };
             const stub = sinon.stub(userModel, 'update').resolves(userMock);
             const userRepository = new UserRepository(userModel);
-            const user = await userRepository.updateUser(updateValue, 1);
+            const user = await userRepository.updateUser(updateValue, '1');
             expect(stub.calledOnce).to.be.true;
             expect(user.id).to.equal(1);
             expect(user.name).to.equal(updateValue.name);

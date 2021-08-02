@@ -1,10 +1,34 @@
 {
-    "email": "lampt2404@gmail.com",
-    "password": "123456",
-    "name": "Pham Tung Lam",
-    "gender": "male",
-    "dayIn": "2021-07-05",
-    "vacationsDay": 0,
-    "role": "admin",
-    "departmentId": 1
+    "admin": {
+        "email": "lampt2404@gmail.com",
+        "password": "123456",
+        "name": "Pham Tung Lam",
+        "gender": "male",
+        "dayIn": "2021-07-05",
+        "vacationsDay": 0,
+        "role": "admin",
+        "status": "actived",
+        "departmentId": 1,
+        "confirmationCode": "abcd"
+    },
+
+    "manager": {
+        "email": "lampt2404@gmail.com",
+        "password": "123456",
+        "name": "Pham Tung Lam",
+        "gender": "male",
+        "dayIn": "2021-07-05",
+        "vacationsDay": 0,
+        "role": "manager"
+    },
+
+    "user": {
+        "email": "tunglam@gmail.com",
+        "password": "123456",
+        "name": "Pham Tung Lam",
+        "gender": "male",
+        "dayIn": "2021-07-05",
+        "vacationsDay": 0,
+        "role": "user"
+    }
 }

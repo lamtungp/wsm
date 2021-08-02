@@ -1,4 +1,5 @@
 {
-    "nameDepartment": "Division 1",
-    "description": "hello"
+    "initial": { "nameDepartment": "Division 1", "description": "hello" },
+    "create": { "nameDepartment": "Suppport", "description": "hello" },
+    "update": { "description": "hello everyone" }
 }

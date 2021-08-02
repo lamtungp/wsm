@@ -12,7 +12,7 @@ export default class CheckinController {
 
     public getListCheckin = async (req: Request, res: Response, next: NextFunction) => {
         const checkins = await this.checkin.getListCheckinById(Number(req.params.userId));
-        console.log(checkins);
+        // console.log(checkins);
         if (!!checkins) {
             return res.status(200).json(checkins);
         } else {
