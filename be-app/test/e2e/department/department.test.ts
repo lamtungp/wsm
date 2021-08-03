@@ -20,6 +20,14 @@ describe('Test Department', async () => {
         }
     });
 
+    afterEach(async () => {
+        try {
+            await departmentModel.destroy({ where: {}, truncate: false });
+        } catch (error) {
+            console.log(error);
+        }
+    });
+
     it('should always pass', () => {
         expect(true).to.equal(true);
     });
@@ -81,17 +89,8 @@ describe('Test Department', async () => {
             const res = await request(app)
                 .delete(`/api/v1/department/delete-department/${id}`)
                 .set('auth-token', token.tokenAdmin);
-            console.log(res.body);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.deep.equal(1);
         });
-    });
-
-    afterEach(async () => {
-        try {
-            await departmentModel.destroy({ where: {}, truncate: false });
-        } catch (error) {
-            console.log(error);
-        }
     });
 });

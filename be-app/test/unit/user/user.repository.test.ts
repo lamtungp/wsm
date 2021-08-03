@@ -5,14 +5,10 @@ import sinon from 'sinon';
 import UserRepository from '../../../src/repositories/user.repository';
 import userModel from '../../../src/models/user.model';
 
-const userAllMock = require('../../mocks/user/user_all.json');
-const staffListMock = require('../../mocks/user/staff_list.json');
 const userListMock = require('../../mocks/user/user_list.json');
-const userMock = require('../../mocks/user/user_update.json');
+const userValue = require('../../mocks/user/user.json');
 
-console.log(typeof userListMock);
-
-describe('UserRepository', function () {
+describe('UserRepository', () => {
     let sandbox: sinon.SinonSandbox;
     beforeEach(() => {
         sandbox = sinon.createSandbox();
@@ -26,7 +22,15 @@ describe('UserRepository', function () {
         expect(true).to.equal(true);
     });
 
-    describe('createUser', function () {
+    describe('get instance', () => {
+        it('UserRepository.instance exist', () => {
+            const user = new UserRepository(userModel);
+            const instance = UserRepository.getInstance();
+            expect(user).to.deep.equal(instance);
+        });
+    });
+
+    describe('createUser', () => {
         it('should add a new user to the db', async () => {
             const stubValue = {
                 id: 1,
@@ -62,56 +66,131 @@ describe('UserRepository', function () {
         });
     });
 
-    describe('getUser', () => {
+    describe('get all user', () => {
         it('should get all user from the db', async () => {
-            const stub = sandbox.stub(userModel, 'findAll').resolves(userAllMock);
+            const allUser = userListMock.userList;
+            const stub = sandbox.stub(userModel, 'findAll').resolves(allUser);
             const userRepository = new UserRepository(userModel);
             const users = await userRepository.getUsers();
             expect(stub.calledOnce).to.be.true;
             expect(users).to.be.an('array');
             expect(users.length).to.equal(1);
         });
+    });
 
-        it('should get list user of Division 1 for admin from the db', async () => {
-            const stub = sandbox.stub(userModel, 'findAll').resolves(userListMock);
+    describe('get list user', () => {
+        it('should get list user', async () => {
+            const listUser = userListMock.userList;
+            const stub = sandbox.stub(userModel, 'findAll').resolves(listUser);
             const userRepository = new UserRepository(userModel);
             const users = await userRepository.getListUser(1);
             expect(stub.calledOnce).to.be.true;
             expect(users).to.be.an('array');
-            expect(users.length).not.to.equal(0);
-        });
-
-        it('should get list staff of Division 1 for manager from the db', async () => {
-            const stub = sandbox.stub(userModel, 'findAll').resolves(staffListMock);
-            const userRepository = new UserRepository(userModel);
-            const user = await userRepository.getListStaff(1, 'user');
-            expect(stub.calledOnce).to.be.true;
-            expect(user).to.be.an('array');
-            expect(user.length).not.to.equal(0);
+            expect(users.length).to.deep.equal(1);
         });
     });
 
-    describe('deleteUser', () => {
-        it('should delete user from db', async () => {
-            const stub = sinon.stub(userModel, 'destroy').resolves(1);
+    describe('get list staff', () => {
+        it('should get list staff', async () => {
+            const listStaff = userListMock.userList;
+            const stub = sandbox.stub(userModel, 'findAll').resolves(listStaff);
             const userRepository = new UserRepository(userModel);
-            const deleteUser = await userRepository.deleteUser('1');
+            const users = await userRepository.getListStaff(1, 'user');
             expect(stub.calledOnce).to.be.true;
-            expect(deleteUser).to.equal(1);
+            expect(users).to.be.an('array');
+            expect(users.length).to.deep.equal(1);
         });
     });
 
-    describe('updateUser', () => {
+    describe('get list staff with checkin', () => {
+        it('should get list staff with checkin ', async () => {
+            const listStaff = userListMock.listStaffCheckin;
+            const stub = sandbox.stub(userModel, 'findAll').resolves(listStaff);
+            const userRepository = new UserRepository(userModel);
+            const users = await userRepository.getStaffWithCheckin(1, '8-2021');
+            expect(stub.calledOnce).to.be.true;
+            expect(users).to.be.an('array');
+            expect(users.length).to.deep.equal(1);
+            expect(users[0].checkin.length).to.deep.equal(1);
+            expect(users[0].checkin[0].checkin).to.deep.equal('9:00');
+            expect(users[0].checkin[0].checkout).to.deep.equal('18:00');
+            expect(users[0].checkin[0].date).to.deep.equal('2021-08-02');
+        });
+    });
+
+    describe('get user by email', () => {
+        it('email valid', async () => {
+            const userMock = userValue.update;
+            const stub = sandbox.stub(userModel, 'findOne').resolves(userMock);
+            const userRepository = new UserRepository(userModel);
+            const user = await userRepository.getUserByEmail('lampt2404@gmail.com');
+            expect(stub.calledOnce).to.be.true;
+            expect(user.id).to.equal(userMock.id);
+            expect(user.email).to.equal(userMock.email);
+            expect(user.password).to.equal(userMock.password);
+            expect(user.name).to.equal(userMock.name);
+            expect(user.gender).to.equal(userMock.gender);
+            expect(user.dob).to.equal(userMock.dob);
+            expect(user.dayIn).to.equal(userMock.dayIn);
+            expect(user.vacationsDay).to.equal(userMock.vacationsDay);
+            expect(user.role).to.equal(userMock.role);
+            expect(user.departmentId).to.equal(userMock.departmentId);
+            expect(user.createdAt).to.equal(userMock.createdAt);
+            expect(user.updatedAt).to.equal(userMock.updatedAt);
+        });
+
+        it('email invalid', async () => {
+            const stub = sandbox.stub(userModel, 'findOne').resolves(undefined);
+            const userRepository = new UserRepository(userModel);
+            const user = await userRepository.getUserByEmail('');
+            expect(stub.calledOnce).to.be.false;
+            expect(user).to.equal(undefined);
+        });
+    });
+
+    describe('find user by confirm code', () => {
+        it('should get user by confirm code', async () => {
+            const userMock = userValue.update;
+            const stub = sandbox.stub(userModel, 'findOne').resolves(userMock);
+            const userRepository = new UserRepository(userModel);
+            const user = await userRepository.findUserByConfirmCode('abcd');
+            expect(stub.calledOnce).to.be.true;
+            expect(user.id).to.equal(userMock.id);
+            expect(user.email).to.equal(userMock.email);
+            expect(user.password).to.equal(userMock.password);
+            expect(user.name).to.equal(userMock.name);
+            expect(user.gender).to.equal(userMock.gender);
+            expect(user.dob).to.equal(userMock.dob);
+            expect(user.dayIn).to.equal(userMock.dayIn);
+            expect(user.vacationsDay).to.equal(userMock.vacationsDay);
+            expect(user.role).to.equal(userMock.role);
+            expect(user.departmentId).to.equal(userMock.departmentId);
+            expect(user.createdAt).to.equal(userMock.createdAt);
+            expect(user.updatedAt).to.equal(userMock.updatedAt);
+        });
+    });
+
+    describe('update user', () => {
         it('should update user to db', async () => {
             const updateValue = {
                 name: 'Lam',
             };
-            const stub = sinon.stub(userModel, 'update').resolves(userMock);
+            const stub = sinon.stub(userModel, 'update').resolves(userValue.update);
             const userRepository = new UserRepository(userModel);
-            const user = await userRepository.updateUser(updateValue, '1');
+            const user = await userRepository.updateUser(updateValue, userValue.update.email);
             expect(stub.calledOnce).to.be.true;
             expect(user.id).to.equal(1);
             expect(user.name).to.equal(updateValue.name);
+        });
+    });
+
+    describe('delete user', () => {
+        it('should delete user from db', async () => {
+            const stub = sinon.stub(userModel, 'destroy').resolves(1);
+            const userRepository = new UserRepository(userModel);
+            const deleteUser = await userRepository.deleteUser(userValue.update.email);
+            expect(stub.calledOnce).to.be.true;
+            expect(deleteUser).to.equal(1);
         });
     });
 });

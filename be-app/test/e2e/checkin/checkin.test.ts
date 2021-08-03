@@ -22,6 +22,15 @@ describe('Test Checkin', async () => {
         }
     });
 
+    afterEach(async () => {
+        try {
+            await checkinModel.destroy({ where: {}, truncate: false });
+            await userModel.destroy({ where: {}, truncate: false });
+        } catch (error) {
+            console.log(error);
+        }
+    });
+
     it('should always pass', () => {
         expect(true).to.equal(true);
     });
@@ -70,14 +79,5 @@ describe('Test Checkin', async () => {
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.deep.equal([1]);
         });
-    });
-
-    afterEach(async () => {
-        try {
-            await checkinModel.destroy({ where: {}, truncate: false });
-            await userModel.destroy({ where: {}, truncate: false });
-        } catch (error) {
-            console.log(error);
-        }
     });
 });

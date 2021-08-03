@@ -14,7 +14,7 @@ export default class UserRepository {
     }
 
     static getInstance() {
-        if (!UserRepository.instance) {
+        if (!!!UserRepository.instance) {
             this.instance = new UserRepository(userModel);
         }
         return UserRepository.instance;

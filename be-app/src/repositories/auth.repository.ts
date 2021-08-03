@@ -14,7 +14,7 @@ export default class AuthRepository {
      * @returns Promise
      */
 
-    protected async findUserByEmail(email: string): Promise<UserAttributes> {
+    public async findUserByEmail(email: string): Promise<UserAttributes> {
         const user = await this.user.findOne({
             where: {
                 email: email,
@@ -23,7 +23,7 @@ export default class AuthRepository {
         return user;
     }
 
-    protected async checkAuthenticationData(email: string, password: string): Promise<UserAttributes | undefined> {
+    public async checkAuthenticationData(email: string, password: string): Promise<UserAttributes | undefined> {
         const user = await this.findUserByEmail(email);
         if (!!!user) {
             return undefined;

@@ -25,6 +25,15 @@ describe('Test Request', async () => {
         }
     });
 
+    afterEach(async () => {
+        try {
+            await requestModel.destroy({ where: {}, truncate: false });
+            await userModel.destroy({ where: {}, truncate: false });
+        } catch (error) {
+            console.log(error);
+        }
+    });
+
     it('should always pass', () => {
         expect(true).to.equal(true);
     });
@@ -108,14 +117,5 @@ describe('Test Request', async () => {
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.deep.equal(1);
         });
-    });
-
-    afterEach(async () => {
-        try {
-            await requestModel.destroy({ where: {}, truncate: false });
-            await userModel.destroy({ where: {}, truncate: false });
-        } catch (error) {
-            console.log(error);
-        }
     });
 });

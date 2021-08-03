@@ -1,24 +1,58 @@
-[
-    {
-        "id": 1,
-        "email": "lampt2404@gmail.com",
-        "password": "$2b$10$WmF.FcD9tBeuWGXW31eULOxzHGaTO6Fc.0ObvXLUce3MtZCNzu25W",
-        "avatar": "",
-        "name": "Pham Tung Lam",
-        "gender": "male",
-        "dob": "2000-04-24",
-        "phoneNumber": "123456",
-        "senority": "",
-        "address": "",
-        "dayIn": "2021-07-05",
-        "dayOfficial": "",
-        "contractTerm": "",
-        "vacationsDay": 0,
-        "role": "admin",
-        "departmentId": 1,
-        "status": "actived",
-        "confirmationCode": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxhbXB0MjQwNEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MjczMTk1MjcsImV4cCI6MTYyOTA0NzUyN30.PRrMv3uszhU3JVqKp8LrGTPMgKcMKBapHHmaGFm-fdg",
-        "createdAt": "2021-07-26T17:12:07.000Z",
-        "updatedAt": "2021-07-27T03:38:53.000Z"
-    }
-]
+{
+    "userList": [
+        {
+            "id": 1,
+            "email": "lampt2404@gmail.com",
+            "password": "$2b$10$WmF.FcD9tBeuWGXW31eULOxzHGaTO6Fc.0ObvXLUce3MtZCNzu25W",
+            "avatar": "",
+            "name": "Pham Tung Lam",
+            "gender": "male",
+            "dob": "2000-04-24",
+            "phoneNumber": "123456",
+            "senority": "",
+            "address": "",
+            "dayIn": "2021-07-05",
+            "dayOfficial": "",
+            "contractTerm": "",
+            "vacationsDay": 0,
+            "role": "admin",
+            "departmentId": 1,
+            "status": "actived",
+            "confirmationCode": "abcd",
+            "createdAt": "2021-07-26T17:12:07.000Z",
+            "updatedAt": "2021-07-27T03:38:53.000Z"
+        }
+    ],
+
+    "listStaffCheckin": [
+        {
+            "id": 1,
+            "email": "lampt2404@gmail.com",
+            "password": "$2b$10$WmF.FcD9tBeuWGXW31eULOxzHGaTO6Fc.0ObvXLUce3MtZCNzu25W",
+            "avatar": "",
+            "name": "Pham Tung Lam",
+            "gender": "male",
+            "dob": "2000-04-24",
+            "phoneNumber": "123456",
+            "senority": "",
+            "address": "",
+            "dayIn": "2021-07-05",
+            "dayOfficial": "",
+            "contractTerm": "",
+            "vacationsDay": 0,
+            "role": "admin",
+            "departmentId": 1,
+            "status": "actived",
+            "confirmationCode": "abcd",
+            "createdAt": "2021-07-26T17:12:07.000Z",
+            "updatedAt": "2021-07-27T03:38:53.000Z",
+            "checkin": [
+                {
+                    "checkin": "9:00",
+                    "checkout": "18:00",
+                    "date": "2021-08-02"
+                }
+            ]
+        }
+    ]
+}
