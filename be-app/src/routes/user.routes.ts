@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import UserController from '../controllers/user.controller';
-import verifyAdminMiddleware from '../middlewares/verify.admin.middleware';
 import verifyAdminManagerMiddleware from '../middlewares/verify.admin.manager.middleware';
 import verifyManagerMiddleware from '../middlewares/verify.manager.middleware';
 

@@ -81,10 +81,6 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-// db.sync().then(function () {
-//     console.log('Every thing is synced');
-// });
-
 function onListening() {
     const addr = server.address();
     const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;

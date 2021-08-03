@@ -6,7 +6,6 @@ import { UserStatic } from '../models/user.model.d';
 import userModel from '../models/user.model';
 export default class CheckinRepository {
     private checkin: CheckinStatic;
-    private user: UserStatic = userModel;
     static instance: CheckinRepository;
 
     constructor(checkin: CheckinStatic) {
@@ -56,7 +55,6 @@ export default class CheckinRepository {
     }
 
     public async updateCheckin(userId: number, date: string, value: any): Promise<any> {
-        // console.log(userId, ' ', date, ' ', value);
         const checkin = await this.checkin.update(value, { where: { userId, date } });
         return checkin;
     }

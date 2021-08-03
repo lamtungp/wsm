@@ -7,7 +7,6 @@ export default class AuthController extends AuthRepository {
         const { email, password } = req.body;
         const userData = await this.checkAuthenticationData(email, password);
         if (!!userData) {
-            // console.log(userData.status);
             if (userData.status === 'actived') {
                 const token = generateToken(userData);
                 return res.status(200).json({

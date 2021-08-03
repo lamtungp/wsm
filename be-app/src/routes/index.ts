@@ -7,7 +7,6 @@ import departmentRoute from './department.routes';
 
 const router = Router();
 
-/* GET users listing. */
 router.get('/health-check', (_req, res) => {
     res.send('APIs OK !!');
 });

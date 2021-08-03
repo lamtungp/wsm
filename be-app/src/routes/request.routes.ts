@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import RequestController from '../controllers/request.controller';
-// import requestModel from '../models/request.model';
 import verifyAdminManagerMiddleware from '../middlewares/verify.admin.manager.middleware';
 
 const router = Router();

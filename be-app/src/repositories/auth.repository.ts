@@ -1,4 +1,3 @@
-// import bcrypt from '../lib/bcrypt';
 import { UserAttributes, UserStatic } from '../models/user.model.d';
 import Bcrypt from '../lib/bcrypt';
 export default class AuthRepository {
@@ -26,7 +25,7 @@ export default class AuthRepository {
 
     protected async checkAuthenticationData(email: string, password: string): Promise<UserAttributes | undefined> {
         const user = await this.findUserByEmail(email);
-        if (!user) {
+        if (!!!user) {
             return undefined;
         }
         const compare = await Bcrypt.comparePassword(password, user.password);

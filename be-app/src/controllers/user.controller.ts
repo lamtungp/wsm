@@ -69,7 +69,6 @@ export default class UserController {
 
     public addUser = async (req: Request, res: Response, next: NextFunction) => {
         const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
-        // console.log(hashPassword);
         const token = generateToken(req.body);
         const user = await this.user.createUser({
             ...req.body,
@@ -77,10 +76,8 @@ export default class UserController {
             confirmationCode: token,
         });
         if (!!user) {
-            // console.log(user.email);
             const send = sendEmail(user.name, user.email, user.confirmationCode);
             if (!!send) {
-                // console.log('send');
                 return res.status(200).send({
                     message: 'User was registered successfully! Please check your email',
                     confirmationCode: token,
@@ -93,11 +90,8 @@ export default class UserController {
 
     public verifyAccount = async (req: Request, res: Response, next: NextFunction) => {
         const user = await this.user.findUserByConfirmCode(String(req.params.confirmationCode));
-        // console.log(user.dataValues);
         if (!!user) {
-            // console.log('here');
             const update = await this.user.updateUser({ status: 'actived' }, user.email);
-            console.log(update);
             return res.status(200).json(update);
         }
         next(new InternalServerError());

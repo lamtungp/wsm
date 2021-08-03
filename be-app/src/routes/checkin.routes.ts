@@ -1,7 +1,5 @@
 import { Router } from 'express';
 import CheckinController from '../controllers/checkin.controller';
-// import wrap from '../helpers/wrap';
-// import verifyAdminManagerMiddleware from '../middlewares/verify.admin.middleware';
 
 const router = Router();
 
