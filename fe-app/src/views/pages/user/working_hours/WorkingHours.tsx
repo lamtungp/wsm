@@ -66,7 +66,7 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
 
     listUser.map((user: any) => {
         let t = 0;
-        console.log(user);
+        // console.log(user);
         if (!!user.checkins) {
             user.checkins.map((item: any) => {
                 if (!!!item.checkout) {
@@ -77,7 +77,6 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
                     t += h;
                 }
             });
-            console.log(t);
             user.time = t;
             delete user['checkins'];
         }

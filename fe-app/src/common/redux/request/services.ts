@@ -12,6 +12,11 @@ const requestServices = {
         return results;
     },
 
+    getListRequestOfStaff: (email: string): Promise<any> => {
+        const results = AxiosClient.get(`${API.REQUEST.GET_LIST_REQUEST_STAFF}?emailManager=${email}`);
+        return results;
+    },
+
     findRequestById: (id: number): Promise<any> => {
         const result = AxiosClient.get(`${API.REQUEST.FIND_REQUEST_BY_ID}/${id}`);
         return result;

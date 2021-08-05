@@ -1,9 +1,6 @@
-import { Op, Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize';
 import checkinModel from '../models/checkin.model';
-import { CheckinStatic } from '../models/checkin.model.d';
-import moment from 'moment';
-import { UserStatic } from '../models/user.model.d';
-import userModel from '../models/user.model';
+import { CheckinAttributes, CheckinStatic } from '../models/checkin.model.d';
 export default class CheckinRepository {
     private checkin: CheckinStatic;
     static instance: CheckinRepository;
@@ -18,14 +15,14 @@ export default class CheckinRepository {
         return CheckinRepository.instance;
     }
 
-    public async getListCheckinById(userId: number): Promise<any> {
+    public async getListCheckinById(userId: number): Promise<CheckinAttributes[]> {
         const checkin = await this.checkin.findAll({
             where: { userId },
         });
         return checkin;
     }
 
-    public async getCheckinWithDate(userId: number, date: string): Promise<any> {
+    public async getCheckinWithDate(userId: number, date: string): Promise<CheckinAttributes[]> {
         const users = await this.checkin.findAll({
             where:
                 (Sequelize.where(
@@ -42,19 +39,19 @@ export default class CheckinRepository {
         return users;
     }
 
-    public async getCheckinByUserIdDate(userId: number, date: string): Promise<any> {
+    public async getCheckinByUserIdDate(userId: number, date: string): Promise<CheckinAttributes> {
         const checkin = await this.checkin.findOne({
             where: { userId, date },
         });
         return checkin;
     }
 
-    public async createCheckin(value: any): Promise<any> {
+    public async createCheckin(value: any): Promise<CheckinAttributes> {
         const checkin = await this.checkin.create(value);
         return checkin;
     }
 
-    public async updateCheckin(userId: number, date: string, value: any): Promise<any> {
+    public async updateCheckin(userId: number, date: string, value: object): Promise<any> {
         const checkin = await this.checkin.update(value, { where: { userId, date } });
         return checkin;
     }

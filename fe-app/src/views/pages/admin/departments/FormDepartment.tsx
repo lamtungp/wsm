@@ -36,11 +36,11 @@ const FormRoom = () => {
     const handle = async (values: any) => {
         if (!!values.id) {
             await departmentService.updateDepartment(values, values.id);
-            await departmentService.getList();
+            await departmentService.getAllDepartment();
             history.push('/admin/departments');
         } else {
             await departmentService.addDepartment(values);
-            await departmentService.getList();
+            await departmentService.getAllDepartment();
             history.push('/admin/departments');
         }
     };

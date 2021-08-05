@@ -1,6 +1,6 @@
-import { Op } from 'sequelize';
 import requestModel from '../models/request.model';
-import { RequestStatic } from '../models/request.model.d';
+import { RequestAttributes, RequestStatic } from '../models/request.model.d';
+import userModel from '../models/user.model';
 
 export default class RequestRepository {
     private request: RequestStatic;
@@ -22,26 +22,36 @@ export default class RequestRepository {
         return requests;
     }
 
-    public async getRequestsAccount(userId: number): Promise<any> {
+    public async getRequestsAccount(userId: number): Promise<RequestAttributes[]> {
         const requests = await this.request.findAll({ where: { userId } });
         return requests;
     }
 
-    public async getRequestById(id: number): Promise<any> {
+    public async getRequestsStaff(departmentId: number, role: string): Promise<any[]> {
+        const requests = await this.request.findAll({
+            include: {
+                model: userModel,
+                where: { departmentId, role },
+            },
+        });
+        return requests;
+    }
+
+    public async getRequestById(id: number): Promise<RequestAttributes> {
         const request = await this.request.findOne({
             where: { id },
         });
         return request;
     }
 
-    public async getRequestByState(state: string): Promise<any> {
+    public async getRequestByState(state: string): Promise<RequestAttributes[]> {
         const request = await this.request.findAll({
             where: { state },
         });
         return request;
     }
 
-    public async createRequest(value: any): Promise<any> {
+    public async createRequest(value: any): Promise<RequestAttributes> {
         const request = await this.request.create(value);
         return request;
     }

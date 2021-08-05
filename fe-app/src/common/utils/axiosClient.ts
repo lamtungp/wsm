@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:4000/api/v1';
-
-console.log(baseURL);
+const baseURL = 'http://api.pm.local/api/v1';
 
 const AxiosClient = axios.create({
     baseURL,

@@ -1,12 +1,10 @@
 import { Sequelize } from 'sequelize';
 import checkinModel from '../models/checkin.model';
-import { CheckinStatic } from '../models/checkin.model.d';
 import userModel from '../models/user.model';
 import { UserAttributes, UserStatic } from '../models/user.model.d';
 
 export default class UserRepository {
     private user: UserStatic;
-    private checkin: CheckinStatic = checkinModel;
     static instance: UserRepository;
 
     constructor(user: UserStatic) {
@@ -25,12 +23,12 @@ export default class UserRepository {
         return users;
     }
 
-    public async getListUser(departmentId: number): Promise<any> {
+    public async getListUser(departmentId: number): Promise<UserAttributes[]> {
         const users = await this.user.findAll({ where: { departmentId } });
         return users;
     }
 
-    public async getListStaff(departmentId: number, role: string): Promise<any> {
+    public async getListStaff(departmentId: number, role: string): Promise<UserAttributes[]> {
         const users = await this.user.findAll({
             attributes: { exclude: ['createdAt', 'updatedAt', 'confirmationCode'] },
             where: { departmentId, role },
@@ -38,13 +36,13 @@ export default class UserRepository {
         return users;
     }
 
-    public async getStaffWithCheckin(departmentId: number, date: string): Promise<any> {
+    public async getStaffWithCheckin(departmentId: number, date: string): Promise<any[]> {
         const users = await this.user.findAll({
             attributes: ['id', 'email', 'name', 'gender'],
             where: { departmentId },
             include: [
                 {
-                    model: this.checkin,
+                    model: checkinModel,
                     where: Sequelize.where(
                         Sequelize.fn(
                             'CONCAT',
@@ -60,7 +58,7 @@ export default class UserRepository {
         return users;
     }
 
-    public async getUserByEmail(email: string): Promise<any> {
+    public async getUserByEmail(email: string): Promise<UserAttributes> {
         if (!!!email) {
             return undefined;
         }
@@ -71,19 +69,19 @@ export default class UserRepository {
         return user;
     }
 
-    public async findUserByConfirmCode(confirmationCode: string): Promise<any> {
+    public async findUserByConfirmCode(confirmationCode: string): Promise<UserAttributes> {
         const user = await this.user.findOne({
             where: { confirmationCode },
         });
         return user;
     }
 
-    public async createUser(value: any): Promise<any> {
+    public async createUser(value: any): Promise<UserAttributes> {
         const user = await this.user.create(value);
         return user;
     }
 
-    public async updateUser(value: any, email: string): Promise<any> {
+    public async updateUser(value: object, email: string): Promise<any> {
         const user = await this.user.update(value, { where: { email } });
         return user;
     }

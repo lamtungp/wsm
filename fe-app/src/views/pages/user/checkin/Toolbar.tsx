@@ -32,9 +32,6 @@ const CustomToolbar = (toolbar: any) => {
         toolbar.onNavigate('current');
     };
 
-    // const d = new Date();
-    // console.log(d.toLocaleTimeString());
-
     const label = () => {
         const date = moment(toolbar.date);
         return (
@@ -54,12 +51,12 @@ const CustomToolbar = (toolbar: any) => {
 
     const userId = Number(localStorage.getItem('userId'));
     const date = handleDate(new Date().toUTCString());
-    // console.log(date);
+    const nowDay = new Date().getDay();
 
     React.useEffect(() => {
         const getCheckin = async () => {
             const res = await checkinServices.getCheckinByUserId(userId, date);
-            if (res.message) {
+            if (!!!res.message) {
                 if (!!res.checkin && !!!res.checkout) {
                     setShow(false);
                 } else {
@@ -78,12 +75,15 @@ const CustomToolbar = (toolbar: any) => {
         // console.log(values);
         const check = await checkinServices.updateCheckin(values, userId, date);
         if (!!!check.message) {
-            dispatch(SetCheckin(handleTime(new Date().toUTCString())));
-            if (type === 'checkin') {
-                setShow(false);
-            } else {
-                setShow(true);
-            }
+            try {
+                const checkin = await checkinServices.getCheckinByUserId(Number(localStorage.getItem('userId')), date);
+                dispatch(SetCheckin([checkin.checkin, checkin.checkout]));
+                if (type === 'checkin') {
+                    setShow(false);
+                } else {
+                    setShow(true);
+                }
+            } catch (error) {}
         } else {
             if (type === 'checkin') {
                 setShow(true);
@@ -112,38 +112,44 @@ const CustomToolbar = (toolbar: any) => {
                 </CCol>
                 <CCol lg="4">
                     <div className="rbc-btn-group float-right">
-                        <button
-                            className={show ? 'btn btn-primary mr-1' : 'd-none'}
-                            onClick={() =>
-                                handleClick(
-                                    {
-                                        checkin: handleTime(new Date().toUTCString()),
-                                        date: date,
-                                        userId: localStorage.getItem('userId'),
-                                    },
-                                    'checkin',
-                                )
-                            }
-                            style={{ borderRadius: '4px' }}
-                        >
-                            <FaSignInAlt className="mr-1" />
-                            <span>Checkin</span>
-                        </button>
-                        <button
-                            className={!show ? 'btn btn-primary mr-1' : 'd-none'}
-                            onClick={() =>
-                                handleClick(
-                                    {
-                                        checkout: handleTime(new Date().toUTCString()),
-                                    },
-                                    'checkout',
-                                )
-                            }
-                            style={{ borderRadius: '4px' }}
-                        >
-                            <FaSignOutAlt className="mr-1" />
-                            <span>Checkout</span>
-                        </button>
+                        {nowDay !== 0 && nowDay !== 6 ? (
+                            <>
+                                <button
+                                    className={show ? 'btn btn-primary mr-1' : 'd-none'}
+                                    onClick={() =>
+                                        handleClick(
+                                            {
+                                                checkin: handleTime(new Date().toUTCString()),
+                                                date: date,
+                                                userId: localStorage.getItem('userId'),
+                                            },
+                                            'checkin',
+                                        )
+                                    }
+                                    style={{ borderRadius: '4px' }}
+                                >
+                                    <FaSignInAlt className="mr-1" />
+                                    <span>Checkin</span>
+                                </button>
+                                <button
+                                    className={!show ? 'btn btn-primary mr-1' : 'd-none'}
+                                    onClick={() =>
+                                        handleClick(
+                                            {
+                                                checkout: handleTime(new Date().toUTCString()),
+                                            },
+                                            'checkout',
+                                        )
+                                    }
+                                    style={{ borderRadius: '4px' }}
+                                >
+                                    <FaSignOutAlt className="mr-1" />
+                                    <span>Checkout</span>
+                                </button>
+                            </>
+                        ) : (
+                            <></>
+                        )}
                         <button className="btn btn-primary mr-1" style={{ borderRadius: '4px' }} onClick={goToCurrent}>
                             Hôm nay
                         </button>

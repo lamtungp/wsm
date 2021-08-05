@@ -7,9 +7,13 @@ import { CRow, CCol, CCard, CCardHeader, CCardBody } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
 
 import userService from '../../../../common/redux/user/services';
+import departmentServices from '../../../../common/redux/department/services';
 
 const UserSchema = Yup.object().shape({
+    name: Yup.string().min(1, 'Too short!').required('Required!'),
     email: Yup.string().min(2, 'Too short!').required('Required!').email('Invalid email'),
+    password: Yup.string().min(7, 'Too short!').required('Required!'),
+    dayIn: Yup.string().required('Required!'),
 });
 
 const FormUser = () => {
@@ -27,19 +31,33 @@ const FormUser = () => {
         dob: '',
         phoneNumber: '',
         gender: 'male',
-        role: 'admin',
+        role: 'user',
         departmentId: 1,
     });
 
+    const [departments, setDepartments] = useState([
+        {
+            id: '',
+            nameDepartment: '',
+        },
+    ]);
+
+    const getUser = async () => {
+        const _user = await userService.getUserByEmail(email);
+        console.log(_user);
+        setUser(_user);
+    };
+
+    const getDepartment = async () => {
+        const department = await departmentServices.getAllDepartment();
+        setDepartments(department);
+    };
+
     useEffect(() => {
-        if (email) {
-            const getItem = async () => {
-                const _user = await userService.getUserByEmail(email);
-                console.log(_user);
-                setUser(_user);
-            };
-            getItem();
+        if (email !== 'undefined') {
+            getUser();
         }
+        getDepartment();
     }, []);
 
     const handle = async (values: any) => {
@@ -77,7 +95,7 @@ const FormUser = () => {
                         validateOnChange={true}
                         // validateOnBlur={false}
                     >
-                        {({ handleChange, handleSubmit, values }) => (
+                        {({ handleChange, handleSubmit, values, errors, touched }) => (
                             <Form
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') {
@@ -88,7 +106,9 @@ const FormUser = () => {
                                 <Form.Group>
                                     <CRow>
                                         <CCol lg="5">
-                                            <Form.Label className="font-weight-bold">Họ tên:</Form.Label>
+                                            <Form.Label className="font-weight-bold">
+                                                Họ tên <span className="text-danger">(*)</span>
+                                            </Form.Label>
                                             <Form.Control
                                                 name="name"
                                                 type="name"
@@ -97,26 +117,56 @@ const FormUser = () => {
                                             />
                                         </CCol>
                                     </CRow>
+                                    {errors.name && touched.name ? (
+                                        <Form.Text className="text-danger">{errors.name}</Form.Text>
+                                    ) : null}
                                 </Form.Group>
-                                {!!!email ? (
-                                    <Form.Group>
-                                        <CRow>
-                                            <CCol lg="5">
-                                                <Form.Label className="font-weight-bold">Password:</Form.Label>
-                                                <Form.Control
-                                                    name="password"
-                                                    type="password"
-                                                    value={values.password}
-                                                    onChange={handleChange}
-                                                />
-                                            </CCol>
-                                        </CRow>
-                                    </Form.Group>
+                                {email === 'undefined' ? (
+                                    <>
+                                        <Form.Group>
+                                            <CRow>
+                                                <CCol lg="5">
+                                                    <Form.Label className="font-weight-bold">
+                                                        Email <span className="text-danger">(*)</span>
+                                                    </Form.Label>
+                                                    <Form.Control
+                                                        name="email"
+                                                        type="email"
+                                                        value={values.email}
+                                                        onChange={handleChange}
+                                                    />
+                                                </CCol>
+                                            </CRow>
+                                            {errors.email && touched.email ? (
+                                                <Form.Text className="text-danger">{errors.email}</Form.Text>
+                                            ) : null}
+                                        </Form.Group>
+                                        <Form.Group>
+                                            <CRow>
+                                                <CCol lg="5">
+                                                    <Form.Label className="font-weight-bold">
+                                                        Password <span className="text-danger">(*)</span>
+                                                    </Form.Label>
+                                                    <Form.Control
+                                                        name="password"
+                                                        type="password"
+                                                        value={values.password}
+                                                        onChange={handleChange}
+                                                    />
+                                                </CCol>
+                                            </CRow>
+                                            {errors.password && touched.password ? (
+                                                <Form.Text className="text-danger">{errors.password}</Form.Text>
+                                            ) : null}
+                                        </Form.Group>
+                                    </>
                                 ) : (
                                     <></>
                                 )}
                                 <Form.Group>
-                                    <Form.Label className="font-weight-bold">Giới tính</Form.Label>
+                                    <Form.Label className="font-weight-bold">
+                                        Giới tính <span className="text-danger">(*)</span>
+                                    </Form.Label>
                                     <CRow>
                                         <CCol lg="2" className="pr-1">
                                             <label className="m-0">
@@ -174,7 +224,9 @@ const FormUser = () => {
                                 <Form.Group>
                                     <CRow>
                                         <CCol lg="4">
-                                            <Form.Label className="font-weight-bold">Ngày vào:</Form.Label>
+                                            <Form.Label className="font-weight-bold">
+                                                Ngày vào <span className="text-danger">(*)</span>
+                                            </Form.Label>
                                             <Form.Control
                                                 name="dayIn"
                                                 type="date"
@@ -183,6 +235,9 @@ const FormUser = () => {
                                             />
                                         </CCol>
                                     </CRow>
+                                    {errors.dayIn && touched.dayIn ? (
+                                        <Form.Text className="text-danger">{errors.dayIn}</Form.Text>
+                                    ) : null}
                                 </Form.Group>
                                 <Form.Group>
                                     <CRow>
@@ -211,8 +266,19 @@ const FormUser = () => {
                                                 value={values.departmentId}
                                                 onChange={handleChange}
                                             >
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
+                                                {!!departments ? (
+                                                    <>
+                                                        {departments.map((item, index) => {
+                                                            return (
+                                                                <option key={index} value={item.id}>
+                                                                    {item.nameDepartment}
+                                                                </option>
+                                                            );
+                                                        })}
+                                                    </>
+                                                ) : (
+                                                    <option>Không có dữ liệu</option>
+                                                )}
                                             </Form.Control>
                                         </CCol>
                                     </CRow>

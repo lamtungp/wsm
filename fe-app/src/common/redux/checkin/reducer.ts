@@ -14,7 +14,7 @@ const reducer = (state = initialState, action: any): CheckinState | undefined =>
         case CHECKIN_ACTION.SET_CHECKINS:
             return {
                 ...state,
-                checkins: [...state.checkins, action.payload],
+                checkins: action.payload,
             };
     }
     return state;

@@ -38,7 +38,7 @@ export default class UserController {
     public getListStaffs = async (req: Request, res: Response, next: NextFunction) => {
         const manager = await this.user.getUserByEmail(String(req.query.email));
         if (!!manager) {
-            const users = await this.user.getListStaff(manager.dataValues.departmentId, String(req.query.role));
+            const users = await this.user.getListStaff(manager.departmentId, String(req.query.role));
             if (!!users) {
                 return res.status(200).json(users);
             }
@@ -50,7 +50,7 @@ export default class UserController {
     public getStaffsWithCheckin = async (req: Request, res: Response, next: NextFunction) => {
         const manager = await this.user.getUserByEmail(String(req.query.email));
         if (!!manager) {
-            const users = await this.user.getStaffWithCheckin(manager.dataValues.departmentId, String(req.query.date));
+            const users = await this.user.getStaffWithCheckin(manager.departmentId, String(req.query.date));
             if (!!users) {
                 return res.status(200).json(users);
             }

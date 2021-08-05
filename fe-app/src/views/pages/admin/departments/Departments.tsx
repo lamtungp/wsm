@@ -43,7 +43,7 @@ const Rooms = () => {
     }, []);
 
     const getListTodo = async () => {
-        const res = await departmentService.getList();
+        const res = await departmentService.getAllDepartment();
         console.log(res);
         setListdepartment(res);
     };

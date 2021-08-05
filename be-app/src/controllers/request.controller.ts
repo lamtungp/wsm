@@ -1,12 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
 import InternalServerError from '../commons/http-errors/InternalServerError';
+import NotFoundError from '../commons/http-errors/NotFoundError';
 import RequestRepository from '../repositories/request.repository';
+import UserRepository from '../repositories/user.repository';
 
 export default class RequestController {
     private request: RequestRepository;
+    private user: UserRepository;
 
     constructor() {
         this.request = RequestRepository.getInstance();
+        this.user = UserRepository.getInstance();
     }
 
     public getAllRequest = async (_req: Request, res: Response, next: NextFunction) => {
@@ -21,6 +25,18 @@ export default class RequestController {
         const requests = await this.request.getRequestsAccount(Number(req.params.userId));
         if (!!requests) {
             return res.status(200).json(requests);
+        }
+        next(new InternalServerError());
+    };
+
+    public getListRequestOfStaff = async (req: Request, res: Response, next: NextFunction) => {
+        const manager = await this.user.getUserByEmail(String(req.query.emailManager));
+        if (!!manager) {
+            const requests = await this.request.getRequestsStaff(manager.departmentId, 'user');
+            if (!!requests) {
+                return res.status(200).json(requests);
+            }
+            next(new NotFoundError());
         }
         next(new InternalServerError());
     };

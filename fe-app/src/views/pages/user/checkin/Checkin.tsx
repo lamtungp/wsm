@@ -12,17 +12,17 @@ import CustomEvents from './Event';
 
 const localizer = momentLocalizer(moment);
 
-// const CustomHeader = () => (
-//     <div>
-//         <div>2</div>
-//     </div>
-// );
-
 const Dashboard = () => {
     const checkin = useSelector((state: GlobalState) => state.checkin.checkins);
     // console.log(checkin);
+    const [listcheckin, setListCheckin] = useState([
+        {
+            date: '',
+            checkin: '',
+            checkout: '',
+        },
+    ]);
 
-    const [listcheckin, setListCheckin] = useState([]);
     const myEvent = [
         {
             start: moment().toDate(),
@@ -30,6 +30,7 @@ const Dashboard = () => {
             title: checkin,
         },
     ];
+    // console.log(myEvent);
 
     React.useEffect(() => {
         getListCheckin();
@@ -38,15 +39,12 @@ const Dashboard = () => {
     const getListCheckin = async () => {
         try {
             const list = await checkinServices.getListCheckin(Number(localStorage.getItem('userId')));
-            myEvent.splice(0, myEvent.length - 1);
-            console.log(list);
             setListCheckin(list);
         } catch (err) {
-            // console.log(err);
+            console.log(err.message);
         }
     };
 
-    // console.log(myEvent);
     if (listcheckin.length > 0) {
         listcheckin.map((item: any) => {
             myEvent.push({
@@ -57,6 +55,13 @@ const Dashboard = () => {
                 title: [item.checkin, item.checkout],
             });
         });
+        if (
+            myEvent.length > 1 &&
+            myEvent[0].start.toLocaleDateString() == myEvent[myEvent.length - 1].start.toLocaleDateString() &&
+            myEvent[0].title.length > 0
+        ) {
+            myEvent.pop();
+        }
     }
 
     return (
@@ -65,7 +70,7 @@ const Dashboard = () => {
                 localizer={localizer}
                 events={myEvent}
                 startAccessor="start"
-                // endAccessor="end"
+                endAccessor="end"
                 style={{ height: 700 }}
                 views={{ month: true }}
                 culture="ar-AE"

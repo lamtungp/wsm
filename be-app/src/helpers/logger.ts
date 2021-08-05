@@ -28,7 +28,7 @@ const createLoggerForEnv = (environment: string) => {
                 new winston.transports.Console({
                     format: simple(),
                     silent: process.env.ENABLE_TEST_LOGGING !== 'true',
-                })
+                }),
             );
             break;
         case Environment.UAT:
@@ -38,7 +38,7 @@ const createLoggerForEnv = (environment: string) => {
                 new winston.transports.Console({
                     format: simple(),
                     silent: process.env.ENABLE_TEST_LOGGING !== 'true',
-                })
+                }),
             );
             break;
         case Environment.Production:
@@ -47,7 +47,7 @@ const createLoggerForEnv = (environment: string) => {
             logger.add(
                 new winston.transports.Console({
                     format: combine(timestamp(), simple(), align()),
-                })
+                }),
             );
             break;
     }

@@ -1,6 +1,5 @@
-import { Op, where } from 'sequelize';
 import departmentModel from '../models/department.model';
-import { DepartmentStatic } from '../models/department.model.d';
+import { DepartmentAttributes, DepartmentStatic } from '../models/department.model.d';
 
 export default class DepartmentRepository {
     private department: DepartmentStatic;
@@ -17,24 +16,24 @@ export default class DepartmentRepository {
         return DepartmentRepository.instance;
     }
 
-    public async getDepartments(): Promise<any> {
+    public async getDepartments(): Promise<DepartmentAttributes[]> {
         const departments = await this.department.findAll({});
         return departments;
     }
 
-    public async getDepartmentById(id: number): Promise<any> {
+    public async getDepartmentById(id: number): Promise<DepartmentAttributes> {
         const department = await this.department.findOne({
             where: { id },
         });
         return department;
     }
 
-    public async createDepartment(value: any): Promise<any> {
+    public async createDepartment(value: any): Promise<DepartmentAttributes> {
         const department = await this.department.create(value);
         return department;
     }
 
-    public async updateDepartment(value: any, id: number): Promise<any> {
+    public async updateDepartment(value: object, id: number): Promise<any> {
         const department = await this.department.update(value, { where: { id } });
         return department;
     }

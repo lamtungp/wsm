@@ -17,11 +17,6 @@ const checkinServices = {
         return results;
     },
 
-    findCheckinById: (id: number): Promise<any> => {
-        const result = AxiosClient.get(`${API.CHECKIN.FIND_CHECKIN_BY_ID}/${id}`);
-        return result;
-    },
-
     updateCheckin: (param: object, userId: number, date: string): Promise<any> => {
         const result = AxiosClient.post(`${API.CHECKIN.UPDATE_CHECKIN}?userId=${userId}&date=${date}`, param);
         return result;

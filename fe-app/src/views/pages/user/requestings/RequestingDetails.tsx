@@ -25,12 +25,14 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
     const [status, setStatus] = React.useState<tplotOptions>({});
 
     React.useEffect(() => {
-        getRequests();
+        if (localStorage.getItem('role') === 'manager') {
+            getRequests();
+        }
     }, []);
     const str = option.replace(/(^\w{1})|(\s{1}\w{1})/g, (match) => match.toUpperCase());
 
     const getRequests = async () => {
-        const requests = await requestServices.getAllRequest();
+        const requests = await requestServices.getListRequestOfStaff(String(localStorage.getItem('email')));
         setListRequests(requests);
         const arr = { pending: false, confirmed: false, declined: false };
         requests.map((item: any) => {

@@ -7,8 +7,6 @@ const user = auth.user;
 const pass = auth.pass;
 
 const sendEmail = async (name: any, email: any, confirmationCode: any) => {
-    // let testAccount = await nodemailer.createTestAccount();
-
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         service: 'gmail',
@@ -21,11 +19,9 @@ const sendEmail = async (name: any, email: any, confirmationCode: any) => {
     });
 
     transporter.verify(function (error) {
-        // Nếu có lỗi.
         if (error) {
             console.log(error);
         } else {
-            //Nếu thành công.
             console.log('Kết nối thành công!');
             const options = {
                 from: user,
@@ -40,10 +36,8 @@ const sendEmail = async (name: any, email: any, confirmationCode: any) => {
 
             transporter.sendMail(options, function (error, info) {
                 if (error) {
-                    // nếu có lỗi
                     console.log(error);
                 } else {
-                    //nếu thành công
                     console.log('Email sent: ' + info.response);
                 }
             });

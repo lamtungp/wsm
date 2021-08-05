@@ -2,7 +2,7 @@ import AxiosClient from '../../utils/axiosClient';
 import API from '../../constants/api';
 
 const departmentServices = {
-    getList: (): Promise<any> => {
+    getAllDepartment: (): Promise<any> => {
         const results = AxiosClient.get(API.DEPARTMENT.GET_ALL_DEPARTMENT);
         return results;
     },

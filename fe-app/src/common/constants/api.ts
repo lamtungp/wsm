@@ -18,14 +18,14 @@ const API = {
     CHECKIN: {
         GET_LIST_CHECKIN: 'checkin/get-list-checkin',
         GET_LIST_CHECKIN_WITH_DATE: 'checkin/get-list-checkin-with-date',
-        GET_CHECKIN_BY_USER_ID: 'checkin/find-checkin-by-userId',
-        FIND_CHECKIN_BY_ID: 'checkin/find-checkin-by-id',
+        GET_CHECKIN_BY_USER_ID: 'checkin/find-checkin',
         UPDATE_CHECKIN: 'checkin/update-checkin',
     },
 
     REQUEST: {
         GET_ALL_REQUEST: 'request/get-all-request',
         GET_LIST_REQUEST: 'request/get-list-request',
+        GET_LIST_REQUEST_STAFF: 'request/get-list-request-of-staff',
         FIND_REQUEST_BY_ID: 'request/find-request-by-id',
         FIND_REQUEST_BY_SATE: 'request/find-request-by-state',
         ADD_REQUEST: 'request/create-request',

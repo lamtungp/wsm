@@ -25,11 +25,13 @@ export default class AuthRepository {
 
     public async checkAuthenticationData(email: string, password: string): Promise<UserAttributes | undefined> {
         const user = await this.findUserByEmail(email);
+
         if (!!!user) {
             return undefined;
         }
         const compare = await Bcrypt.comparePassword(password, user.password);
-        if (!!!compare) return undefined;
+
+        if (!compare) return undefined;
         return user;
     }
 }
