@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
-// import { Form } from 'react-bootstrap';
 
 import userService from '../../../../common/redux/user/services';
 
@@ -57,11 +56,13 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
     };
 
     const getUsers = async () => {
-        const res = await userService.getStaffWithCheckin(
-            String(localStorage.getItem('email')),
-            handleDate(new Date()),
-        );
-        setListUser(res);
+        try {
+            const res = await userService.getStaffWithCheckin(
+                String(localStorage.getItem('email')),
+                handleDate(new Date()),
+            );
+            setListUser(res);
+        } catch (error) {}
     };
 
     listUser.map((user: any) => {

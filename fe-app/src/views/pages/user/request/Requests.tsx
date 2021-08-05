@@ -17,9 +17,11 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
     }, []);
 
     const getListTodo = async () => {
-        const res = await requestService.getListRequest(Number(localStorage.getItem('userId')));
-        // console.log(res);
-        setListRequest(res);
+        try {
+            const res = await requestService.getListRequest(Number(localStorage.getItem('userId')));
+            // console.log(res);
+            setListRequest(res);
+        } catch (error) {}
     };
 
     return (

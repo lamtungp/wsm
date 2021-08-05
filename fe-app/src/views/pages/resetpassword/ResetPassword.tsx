@@ -11,10 +11,6 @@ const SignupSchema = Yup.object().shape({
 });
 
 const ResetPassword: React.FunctionComponent = (): React.ReactElement => {
-    // const dispatch = useDispatch();
-    // const handleLogin = (values: { email: string; newPassword: string }) => {
-    //     dispatch(login(values));
-    // };
     return (
         <div className="c-app c-default-layout flex-row align-items-center">
             <CContainer style={{ width: '40rem' }}>

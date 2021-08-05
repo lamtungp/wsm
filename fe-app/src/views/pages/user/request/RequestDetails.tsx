@@ -22,13 +22,15 @@ const RequestDetails: React.FunctionComponent = (): React.ReactElement => {
     });
 
     React.useEffect(() => {
-        getListTodo();
+        getListRequest();
     }, []);
 
-    const getListTodo = async () => {
-        const res = await requestService.findRequestById(id);
-        console.log(res);
-        setRequest(res);
+    const getListRequest = async () => {
+        try {
+            const res = await requestService.findRequestById(id);
+            // console.log(res);
+            setRequest(res);
+        } catch (error) {}
     };
 
     return (

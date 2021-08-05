@@ -31,18 +31,24 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
     const str = option.replace(/(^\w{1})|(\s{1}\w{1})/g, (match) => match.toUpperCase());
 
     const getRequests = async () => {
-        const requests = await requestServices.getAllRequest();
-        requests.map((item: any) => {
-            if (item.state == 'Pending') setStatus({ ...status, pending: true });
-            else if (item.state == 'Confirmed') setStatus({ ...status, confirmed: true });
-            else setStatus({ ...status, declined: true });
-        });
-        setRequests(requests);
+        try {
+            const requests = await requestServices.getAllRequest();
+            requests.map((item: any) => {
+                if (item.state == 'Pending') setStatus({ ...status, pending: true });
+                else if (item.state == 'Confirmed') setStatus({ ...status, confirmed: true });
+                else setStatus({ ...status, declined: true });
+            });
+            setRequests(requests);
+        } catch (error) {}
     };
 
     const handleRequest = async (values: object, id: number) => {
-        await requestServices.updateRequest(values, id);
-        getRequests();
+        try {
+            await requestServices.updateRequest(values, id);
+            getRequests();
+        } catch (error) {
+            window.alert('Xảy ra lỗi khi xác nhận');
+        }
     };
 
     return (

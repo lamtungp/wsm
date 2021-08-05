@@ -32,24 +32,30 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
     const str = option.replace(/(^\w{1})|(\s{1}\w{1})/g, (match) => match.toUpperCase());
 
     const getRequests = async () => {
-        const requests = await requestServices.getListRequestOfStaff(String(localStorage.getItem('email')));
-        setListRequests(requests);
-        const arr = { pending: false, confirmed: false, declined: false };
-        requests.map((item: any) => {
-            if (item.state === 'Pending') {
-                arr.pending = true;
-            } else if (item.state === 'Confirmed') {
-                arr.confirmed = true;
-            } else {
-                arr.declined = true;
-            }
-        });
-        setStatus(arr);
+        try {
+            const requests = await requestServices.getListRequestOfStaff(String(localStorage.getItem('email')));
+            setListRequests(requests);
+            const arr = { pending: false, confirmed: false, declined: false };
+            requests.map((item: any) => {
+                if (item.state === 'Pending') {
+                    arr.pending = true;
+                } else if (item.state === 'Confirmed') {
+                    arr.confirmed = true;
+                } else {
+                    arr.declined = true;
+                }
+            });
+            setStatus(arr);
+        } catch (error) {}
     };
 
     const handleRequest = async (values: object, id: number) => {
-        await requestServices.updateRequest(values, id);
-        getRequests();
+        try {
+            await requestServices.updateRequest(values, id);
+            getRequests();
+        } catch (error) {
+            window.alert('Xảy ra lỗi khi cập nhật');
+        }
     };
 
     return (

@@ -39,18 +39,24 @@ const Rooms = () => {
     const [listdepartment, setListdepartment] = useState([{ id: '', nameDepartment: '', description: '' }]);
 
     React.useEffect(() => {
-        getListTodo();
+        getListDepartment();
     }, []);
 
-    const getListTodo = async () => {
-        const res = await departmentService.getAllDepartment();
-        console.log(res);
-        setListdepartment(res);
+    const getListDepartment = async () => {
+        try {
+            const res = await departmentService.getAllDepartment();
+            console.log(res);
+            setListdepartment(res);
+        } catch (error) {}
     };
 
     const deletedepartment = async (id: number) => {
-        await departmentService.deleteDepartment(id);
-        getListTodo();
+        try {
+            await departmentService.deleteDepartment(id);
+            getListDepartment();
+        } catch (error) {
+            window.alert('Xảy ra lỗi khi xóa');
+        }
     };
 
     return (

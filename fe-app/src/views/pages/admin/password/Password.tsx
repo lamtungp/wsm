@@ -37,13 +37,15 @@ const Users = () => {
     const [listUser, setListUser] = useState([{ id: '', name: '', email: '', password: '' }]);
 
     React.useEffect(() => {
-        getListTodo();
+        getListUser();
     }, []);
 
-    const getListTodo = async () => {
-        const res = await userService.getAllUser();
-        console.log(res);
-        setListUser(res);
+    const getListUser = async () => {
+        try {
+            const res = await userService.getAllUser();
+            // console.log(res);
+            setListUser(res);
+        } catch (error) {}
     };
 
     return (

@@ -81,14 +81,16 @@ const ListStaff = () => {
     }, []);
 
     const getUsers = async () => {
-        const res = await userService.getListStaff(String(localStorage.getItem('email')));
-        setListUser(res);
+        try {
+            const res = await userService.getListStaff(String(localStorage.getItem('email')));
+            setListUser(res);
+        } catch (error) {}
     };
 
     listUser.map((user: any) => {
         delete user['password'];
     });
-    console.log(listUser);
+    // console.log(listUser);
 
     return (
         <>

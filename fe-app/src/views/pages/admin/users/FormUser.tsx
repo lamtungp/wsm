@@ -62,13 +62,21 @@ const FormUser = () => {
 
     const handle = async (values: any) => {
         if (values.id) {
-            await userService.updateUser(values, email);
-            await userService.getAllUser();
-            history.push('/admin/users');
+            try {
+                await userService.updateUser(values, email);
+                await userService.getAllUser();
+                history.push('/admin/users');
+            } catch (error) {
+                window.alert('Xảy ra lỗi khi cập nhật');
+            }
         } else {
-            await userService.addUser(values);
-            await userService.getAllUser();
-            history.push('/admin/users');
+            try {
+                await userService.addUser(values);
+                await userService.getAllUser();
+                history.push('/admin/users');
+            } catch (error) {
+                window.alert('Xảy ra lỗi khi tạo mới');
+            }
         }
     };
 

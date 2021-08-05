@@ -25,23 +25,34 @@ const FormRoom = () => {
     const idDepartment = Number(Object.values(params)[0]);
     useEffect(() => {
         if (idDepartment) {
-            const getItem = async () => {
-                const _department = await departmentService.findDepartmentById(idDepartment);
-                setDepartment(_department);
-            };
             getItem();
         }
     }, []);
 
+    const getItem = async () => {
+        try {
+            const _department = await departmentService.findDepartmentById(idDepartment);
+            setDepartment(_department);
+        } catch (error) {}
+    };
+
     const handle = async (values: any) => {
         if (!!values.id) {
-            await departmentService.updateDepartment(values, values.id);
-            await departmentService.getAllDepartment();
-            history.push('/admin/departments');
+            try {
+                await departmentService.updateDepartment(values, values.id);
+                await departmentService.getAllDepartment();
+                history.push('/admin/departments');
+            } catch (error) {
+                window.alert('Xảy ra lỗi khi cập nhật');
+            }
         } else {
-            await departmentService.addDepartment(values);
-            await departmentService.getAllDepartment();
-            history.push('/admin/departments');
+            try {
+                await departmentService.addDepartment(values);
+                await departmentService.getAllDepartment();
+                history.push('/admin/departments');
+            } catch (error) {
+                window.alert('Xảy ra lỗi khi tạo mới');
+            }
         }
     };
 

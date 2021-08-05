@@ -85,14 +85,20 @@ const Users = () => {
     }, []);
 
     const getUsers = async () => {
-        const res = await userService.getAllUser();
-        console.log(res);
-        setListUser(res);
+        try {
+            const res = await userService.getAllUser();
+            // console.log(res);
+            setListUser(res);
+        } catch (error) {}
     };
 
     const deleteUser = async (email: string) => {
-        await userService.deleteUser(email);
-        getUsers();
+        try {
+            await userService.deleteUser(email);
+            getUsers();
+        } catch (error) {
+            console.log('Xayr ra lỗi khi xóa');
+        }
     };
 
     return (

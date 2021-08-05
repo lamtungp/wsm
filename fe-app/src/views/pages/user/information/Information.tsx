@@ -26,13 +26,15 @@ const Infomation: React.FunctionComponent = (): React.ReactElement => {
     });
 
     React.useEffect(() => {
-        getListTodo();
+        getListUser();
     }, []);
 
-    const getListTodo = async () => {
-        const res = await userService.getUserByEmail(String(localStorage.getItem('email')));
-        // console.log(res);
-        setUser(res);
+    const getListUser = async () => {
+        try {
+            const res = await userService.getUserByEmail(String(localStorage.getItem('email')));
+            // console.log(res);
+            setUser(res);
+        } catch (error) {}
     };
 
     console.log(user);

@@ -54,21 +54,21 @@ const CustomToolbar = (toolbar: any) => {
     const nowDay = new Date().getDay();
 
     React.useEffect(() => {
-        const getCheckin = async () => {
-            const res = await checkinServices.getCheckinByUserId(userId, date);
-            if (!!!res.message) {
-                if (!!res.checkin && !!!res.checkout) {
-                    setShow(false);
-                } else {
-                    setShow(true);
-                }
-            } else {
-                setShow(true);
-            }
-        };
         getCheckin();
     }, []);
 
+    const getCheckin = async () => {
+        const res = await checkinServices.getCheckinByUserId(userId, date);
+        if (!!!res.message) {
+            if (!!res.checkin && !!!res.checkout) {
+                setShow(false);
+            } else {
+                setShow(true);
+            }
+        } else {
+            setShow(true);
+        }
+    };
     // const d = dayjs(new Date().toUTCString()).format('YYYY-MM-DD H:mm');
 
     const handleCheckin = async (values: object, type: string) => {

@@ -8,7 +8,7 @@ import { FaSave } from 'react-icons/fa';
 import 'flatpickr/dist/themes/airbnb.css';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/flatpickr.css';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useRouteMatch } from 'react-router-dom';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
@@ -24,6 +24,9 @@ dayjs.extend(customParseFormat);
 const FormRequest = () => {
     const history = useHistory();
     const params = useParams();
+    const match = useRouteMatch().path.split('/');
+
+    const lastPath = match[match.length - 1];
 
     const [cancle, setCancle] = useState(false);
     const [dateStart, setDateStart] = useState(new Date());
@@ -49,35 +52,47 @@ const FormRequest = () => {
 
     useEffect(() => {
         if (idRequest) {
-            const getItem = async () => {
-                const _request = await requestService.findRequestById(idRequest);
-                console.log(_request);
-                setRequest(_request);
-                setDateStart(new Date(_request.startDay));
-                setDateEnd(new Date(_request.endDay));
-            };
-            getItem();
+            getRequest();
         }
     }, []);
-    // console.log(request);
-    // const d = new Date().toLocaleString();
-    // console.log(d);
+
+    const getRequest = async () => {
+        try {
+            const _request = await requestService.findRequestById(idRequest);
+            console.log(_request);
+            setRequest(_request);
+            setDateStart(new Date(_request.startDay));
+            setDateEnd(new Date(_request.endDay));
+        } catch (error) {}
+    };
 
     const handle = async (values: any) => {
         if (values.id) {
-            await requestService.updateRequest(values, values.id);
-            await requestService.getListRequest(Number(localStorage.getItem('userId')));
-            history.push('/user/requests');
+            try {
+                await requestService.updateRequest(values, values.id);
+                await requestService.getListRequest(Number(localStorage.getItem('userId')));
+                history.push('/user/requests');
+            } catch (error) {
+                window.alert('Gặp lỗi khi cập nhật yêu cầu');
+            }
         } else {
-            await requestService.addRequest(values);
-            await requestService.getListRequest(Number(localStorage.getItem('userId')));
-            history.push('/user/requests');
+            try {
+                await requestService.addRequest(values);
+                await requestService.getListRequest(Number(localStorage.getItem('userId')));
+                history.push('/user/requests');
+            } catch (error) {
+                window.alert('Gặp lỗi khi tạo mới yêu cầu');
+            }
         }
     };
 
     const deleteRequest = async (id: number) => {
-        await requestService.deleteRequest(id);
-        history.push('/user/requests');
+        try {
+            await requestService.deleteRequest(id);
+            history.push('/user/requests');
+        } catch (error) {
+            window.alert('Gặp lỗi khi xóa yêu cầu');
+        }
     };
 
     return (
@@ -262,14 +277,19 @@ const FormRequest = () => {
                                                         </CCol>
                                                     </CRow>
                                                 </Form.Group>
-                                                <Form.Group>
-                                                    <Form.Check
-                                                        type="switch"
-                                                        id="custom-switch"
-                                                        label="Hủy yêu cầu"
-                                                        onClick={() => setCancle(true)}
-                                                    />
-                                                </Form.Group>
+                                                {lastPath === 'new' ? (
+                                                    <></>
+                                                ) : (
+                                                    <Form.Group>
+                                                        <Form.Check
+                                                            type="switch"
+                                                            id="custom-switch"
+                                                            label="Hủy yêu cầu"
+                                                            onClick={() => setCancle(true)}
+                                                        />
+                                                    </Form.Group>
+                                                )}
+
                                                 <Button onClick={() => handleSubmit()}>
                                                     <FaSave className="mb-1 mr-1" />
                                                     <span>Lưu</span>

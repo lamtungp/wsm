@@ -26,14 +26,20 @@ const ResetPassword: React.FunctionComponent = (): React.ReactElement => {
     }, []);
 
     const getUser = async () => {
-        const res = await userServices.getUserByEmail(email);
-        setUser(res);
+        try {
+            const res = await userServices.getUserByEmail(email);
+            setUser(res);
+        } catch (error) {}
     };
 
     const handle = async (values: any) => {
-        await userServices.updateUser(values, email);
-        await userServices.getAllUser();
-        history.push('/admin/resetpassword');
+        try {
+            await userServices.updateUser(values, email);
+            await userServices.getAllUser();
+            history.push('/admin/resetpassword');
+        } catch (error) {
+            window.alert('Xảy ra lỗi khi xóa');
+        }
     };
 
     return (

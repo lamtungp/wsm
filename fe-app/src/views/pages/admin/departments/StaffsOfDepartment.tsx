@@ -44,14 +44,20 @@ const StaffsOfRoom = () => {
     }, []);
 
     const getUsersOfDepartment = async () => {
-        const res = await userService.getListUser(deparmentId);
-        console.log(res);
-        setListUser(res);
+        try {
+            const res = await userService.getListUser(deparmentId);
+            // console.log(res);
+            setListUser(res);
+        } catch (error) {}
     };
 
     const deleteUser = async (email: string) => {
-        await userService.deleteUser(email);
-        getUsersOfDepartment();
+        try {
+            await userService.deleteUser(email);
+            getUsersOfDepartment();
+        } catch (error) {
+            window.alert('Xảy ra lỗi khi xóa');
+        }
     };
 
     return (

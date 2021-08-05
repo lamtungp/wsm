@@ -7,13 +7,15 @@ import userServices from '../../../common/redux/user/services';
 const ConfirmAccount: React.FunctionComponent = (): React.ReactElement => {
     const param = useParams();
     const confirmationCode = String(Object.values(param)[0]);
-    console.log(confirmationCode);
+    // console.log(confirmationCode);
     React.useEffect(() => {
         confirm();
     }, []);
 
     const confirm = async () => {
-        await userServices.verifyUser(confirmationCode);
+        try {
+            await userServices.verifyUser(confirmationCode);
+        } catch (error) {}
     };
 
     return (
