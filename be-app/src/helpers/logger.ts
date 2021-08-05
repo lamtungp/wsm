@@ -21,26 +21,26 @@ const createLoggerForEnv = (environment: string) => {
 
             break;
 
-        case Environment.QA:
-            logger = winston.createLogger({});
-            logger.level = 'debug';
-            logger.add(
-                new winston.transports.Console({
-                    format: simple(),
-                    silent: process.env.ENABLE_TEST_LOGGING !== 'true',
-                }),
-            );
-            break;
-        case Environment.UAT:
-            logger = winston.createLogger({});
-            logger.level = 'debug';
-            logger.add(
-                new winston.transports.Console({
-                    format: simple(),
-                    silent: process.env.ENABLE_TEST_LOGGING !== 'true',
-                }),
-            );
-            break;
+        // case Environment.QA:
+        //     logger = winston.createLogger({});
+        //     logger.level = 'debug';
+        //     logger.add(
+        //         new winston.transports.Console({
+        //             format: simple(),
+        //             silent: process.env.ENABLE_TEST_LOGGING !== 'true',
+        //         }),
+        //     );
+        //     break;
+        // case Environment.UAT:
+        //     logger = winston.createLogger({});
+        //     logger.level = 'debug';
+        //     logger.add(
+        //         new winston.transports.Console({
+        //             format: simple(),
+        //             silent: process.env.ENABLE_TEST_LOGGING !== 'true',
+        //         }),
+        //     );
+        //     break;
         case Environment.Production:
             logger = winston.createLogger({});
             logger.level = 'info';

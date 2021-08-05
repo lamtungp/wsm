@@ -10,7 +10,7 @@
         "username": "user",
         "password": "secret",
         "database": "project_test",
-        "host": "db",
+        "host": "localhost",
         "dialect": "mysql"
     },
     "production": {

@@ -56,7 +56,7 @@ export default class CheckinRepository {
         return checkin;
     }
 
-    public async deleteCheckin(userId: number): Promise<any> {
+    public async deleteCheckinByUserId(userId: number): Promise<any> {
         const checkin = await this.checkin.destroy({ where: { userId } });
         return checkin;
     }

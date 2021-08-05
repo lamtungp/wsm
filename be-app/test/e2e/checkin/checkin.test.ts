@@ -6,6 +6,8 @@ import { agent as request } from 'supertest';
 import userModel from '../../../src/models/user.model';
 import checkinModel from '../../../src/models/checkin.model';
 
+const token = require('../../mocks/user/token.json');
+
 const userValue = require('../../mocks/user/user.json');
 const checkinValue = require('../../mocks/checkin/checkin.json');
 
@@ -42,7 +44,9 @@ describe('Test Checkin', async () => {
 
     describe('get list checkin', async () => {
         it('should GET /api/v1/checkin/get-list-checkin', async () => {
-            const res = await request(app).get(`/api/v1/checkin/get-list-checkin/${userId}`);
+            const res = await request(app)
+                .get(`/api/v1/checkin/get-list-checkin/${userId}`)
+                .set('auth-token', token.tokenManager);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.be.an('array');
             expect(res.body.length).to.deep.equal(1);
@@ -51,7 +55,9 @@ describe('Test Checkin', async () => {
 
     describe('get list checkin with date', async () => {
         it('should GET /api/v1/checkin/get-list-checkin-with-date', async () => {
-            const res = await request(app).get(`/api/v1/checkin/get-list-checkin-with-date/${userId}?date=2021-08-02`);
+            const res = await request(app)
+                .get(`/api/v1/checkin/get-list-checkin-with-date/${userId}?date=2021-08-02`)
+                .set('auth-token', token.tokenManager);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.be.an('array');
             expect(res.body.length).to.deep.equal(1);
@@ -61,7 +67,9 @@ describe('Test Checkin', async () => {
     describe('find checkin', async () => {
         it('should GET /api/v1/checkin/find-checkin', async () => {
             const initial = checkinValue.initial;
-            const res = await request(app).get(`/api/v1/checkin/find-checkin/${userId}?date=${initial.date}`);
+            const res = await request(app)
+                .get(`/api/v1/checkin/find-checkin/${userId}?date=${initial.date}`)
+                .set('auth-token', token.tokenManager);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body.checkin).to.deep.equal(initial.checkin);
             expect(res.body.checkout).to.deep.equal(initial.checkout);
@@ -75,7 +83,8 @@ describe('Test Checkin', async () => {
             const update = checkinValue.update;
             const res = await request(app)
                 .post(`/api/v1/checkin/update-checkin?userId=${userId}&date=${initial.date}`)
-                .send(update);
+                .send(update)
+                .set('auth-token', token.tokenManager);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.deep.equal([1]);
         });

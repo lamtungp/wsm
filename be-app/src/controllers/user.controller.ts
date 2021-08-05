@@ -116,14 +116,14 @@ export default class UserController {
     public deleteOneUser = async (req: Request, res: Response, next: NextFunction) => {
         const user = await this.user.getUserByEmail(String(req.query.email));
         if (!!user) {
-            await this.checkin.deleteCheckin(user.id);
-            await this.request.deleteRequest(user.id);
+            await this.checkin.deleteCheckinByUserId(user.id);
+            await this.request.deleteRequestByUserId(user.id);
             const deleteUser = await this.user.deleteUser(String(req.query.email));
             if (!!deleteUser) {
                 return res.status(200).json(deleteUser);
             }
+            next(new InternalServerError());
         }
-
         next(new InternalServerError());
     };
 }

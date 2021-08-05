@@ -175,7 +175,7 @@ describe('UserRepository', () => {
             const updateValue = {
                 name: 'Lam',
             };
-            const stub = sinon.stub(userModel, 'update').resolves(userValue.update);
+            const stub = sandbox.stub(userModel, 'update').resolves(userValue.update);
             const userRepository = new UserRepository(userModel);
             const user = await userRepository.updateUser(updateValue, userValue.update.email);
             expect(stub.calledOnce).to.be.true;
@@ -186,7 +186,7 @@ describe('UserRepository', () => {
 
     describe('delete user', () => {
         it('should delete user from db', async () => {
-            const stub = sinon.stub(userModel, 'destroy').resolves(1);
+            const stub = sandbox.stub(userModel, 'destroy').resolves(1);
             const userRepository = new UserRepository(userModel);
             const deleteUser = await userRepository.deleteUser(userValue.update.email);
             expect(stub.calledOnce).to.be.true;

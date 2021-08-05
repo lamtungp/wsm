@@ -74,7 +74,7 @@ export default class RequestController {
     };
 
     public deleteOneRequest = async (req: Request, res: Response, next: NextFunction) => {
-        const request = await this.request.deleteRequest(Number(req.params.id));
+        const request = await this.request.deleteRequestById(Number(req.params.id));
         if (!!request) {
             return res.status(200).json(request);
         }

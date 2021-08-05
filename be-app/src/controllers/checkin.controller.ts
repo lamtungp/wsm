@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import CheckinRepository from '../repositories/checkin.repository';
-import HttpError from '../commons/http-errors/InternalServerError';
-import InternalServerError from '../commons/http-errors/InternalServerError';
 
 export default class CheckinController {
     private checkin: CheckinRepository;
@@ -14,27 +12,24 @@ export default class CheckinController {
         const checkins = await this.checkin.getListCheckinById(Number(req.params.userId));
         if (!!checkins) {
             return res.status(200).json(checkins);
-        } else {
-            return res.status(200).json({ message: 'Not found' });
         }
+        return res.status(200).json({ message: 'Not found' });
     };
 
     public getListCheckinWithDate = async (req: Request, res: Response, next: NextFunction) => {
         const checkins = await this.checkin.getCheckinWithDate(Number(req.params.userId), String(req.query.date));
         if (!!checkins) {
             return res.status(200).json(checkins);
-        } else {
-            return res.status(200).json({ message: 'Not found' });
         }
+        return res.status(200).json({ message: 'Not found' });
     };
 
     public findCheckinByUserIdDate = async (req: Request, res: Response, next: NextFunction) => {
         const checkin = await this.checkin.getCheckinByUserIdDate(Number(req.params.userId), String(req.query.date));
         if (!!checkin) {
             return res.status(200).json(checkin);
-        } else {
-            return res.status(200).json({ message: 'Not found' });
         }
+        return res.status(200).json({ message: 'Not found' });
     };
 
     public updateCheckins = async (req: Request, res: Response, next: NextFunction) => {
@@ -47,9 +42,8 @@ export default class CheckinController {
                     req.body,
                 );
                 return res.status(200).json(checkin);
-            } else {
-                return res.status(200).json({ message: 'Availabled checkin' });
             }
+            return res.status(200).json({ message: 'Availabled checkin' });
         } else {
             const checkin = await this.checkin.createCheckin(req.body);
             return res.status(200).json(checkin);

@@ -54,7 +54,9 @@ describe('Test Request', async () => {
 
     describe('get list request', async () => {
         it('should GET /api/v1/request/get-list-request', async () => {
-            const res = await request(app).get(`/api/v1/request/get-list-request/${userId}`);
+            const res = await request(app)
+                .get(`/api/v1/request/get-list-request/${userId}`)
+                .set('auth-token', token.tokenManager);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.be.an('array');
             expect(res.body.length).to.deep.equal(1);
@@ -64,7 +66,9 @@ describe('Test Request', async () => {
     describe('find request by id', async () => {
         it('should GET /api/v1/request/find-request-by-id', async () => {
             const value = requestValue.initial;
-            const res = await request(app).get(`/api/v1/request/find-request-by-id/${id}`);
+            const res = await request(app)
+                .get(`/api/v1/request/find-request-by-id/${id}`)
+                .set('auth-token', token.tokenManager);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body.nameRequest).to.deep.equal(value.nameRequest);
             expect(res.body.state).to.deep.equal(value.state);
@@ -78,7 +82,9 @@ describe('Test Request', async () => {
 
     describe('find request by state', async () => {
         it('should GET /api/v1/request/find-request-by-state', async () => {
-            const res = await request(app).get('/api/v1/request/find-request-by-state?state=Pending');
+            const res = await request(app)
+                .get('/api/v1/request/find-request-by-state?state=Pending')
+                .set('auth-token', token.tokenManager);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.be.an('array');
             expect(res.body.length).to.deep.equal(1);
@@ -90,7 +96,8 @@ describe('Test Request', async () => {
             const value = requestValue.create;
             const res = await request(app)
                 .post('/api/v1/request/create-request')
-                .send({ ...value, userId: userId });
+                .send({ ...value, userId: userId })
+                .set('auth-token', token.tokenManager);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body.nameRequest).to.deep.equal(value.nameRequest);
             expect(res.body.state).to.deep.equal(value.state);
@@ -105,7 +112,10 @@ describe('Test Request', async () => {
     describe('update request', async () => {
         it('should POST /api/v1/request/update-request', async () => {
             const update = requestValue.update;
-            const res = await request(app).post(`/api/v1/request/update-request/${id}`).send(update);
+            const res = await request(app)
+                .post(`/api/v1/request/update-request/${id}`)
+                .send(update)
+                .set('auth-token', token.tokenManager);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.deep.equal([1]);
         });
@@ -113,7 +123,9 @@ describe('Test Request', async () => {
 
     describe('delete request', async () => {
         it('should POST /api/v1/request/delete-request', async () => {
-            const res = await request(app).delete(`/api/v1/request/delete-request/${id}`);
+            const res = await request(app)
+                .delete(`/api/v1/request/delete-request/${id}`)
+                .set('auth-token', token.tokenManager);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.deep.equal(1);
         });

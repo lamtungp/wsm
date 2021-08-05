@@ -11,11 +11,11 @@ import checkinModel from '../../../src/models/checkin.model';
 const userValue = require('../../mocks/user/user.json');
 const checkinValue = require('../../mocks/checkin/checkin.json');
 const departmentValue = require('../../mocks/department/department.json');
-const tokenAdmin = require('../../mocks/user/token.json').tokenAdmin;
+const token = require('../../mocks/user/token.json');
 
 describe('Test User', async () => {
     let departmentId: number = 0;
-    let managerId: number = 0;
+    let managerEmail: string = '';
 
     beforeEach(async () => {
         try {
@@ -36,7 +36,7 @@ describe('Test User', async () => {
             await checkinModel.create({ ...checkinValue.create, userId: manager.id });
 
             departmentId = department.id;
-            managerId = manager.id;
+            managerEmail = manager.email;
         } catch (error) {
             console.log(error.message);
         }
@@ -53,7 +53,7 @@ describe('Test User', async () => {
 
     describe('get all user', async () => {
         it('should GET /api/v1/user/get-all-user', async () => {
-            const res = await request(app).get('/api/v1/user/get-all-user').set('auth-token', tokenAdmin);
+            const res = await request(app).get('/api/v1/user/get-all-user').set('auth-token', token.tokenAdmin);
             expect(res.statusCode).to.equal(200);
             expect(res.body).not.to.be.empty;
             expect(res.body).to.be.an('array');
@@ -65,7 +65,7 @@ describe('Test User', async () => {
         it('should GET /api/v1/user/get-list-user', async () => {
             const res = await request(app)
                 .get(`/api/v1/user/get-list-user/${departmentId}`)
-                .set('auth-token', tokenAdmin);
+                .set('auth-token', token.tokenAdmin);
             expect(res.statusCode).to.equal(200);
             expect(res.body).not.to.be.empty;
             expect(res.body).to.be.an('array');
@@ -76,15 +76,24 @@ describe('Test User', async () => {
 
     describe('get list staff', async () => {
         it('get list staff with not token', async () => {
-            const res = await request(app).get(`/api/v1/user/get-list-staff?email=${managerId}`);
+            const res = await request(app).get(`/api/v1/user/get-list-staff?email=${managerEmail}`);
             expect(res.statusCode).to.equal(401);
         });
 
         it('get list staff with token admin', async () => {
             const res = await request(app)
-                .get(`/api/v1/user/get-list-staff?email=${managerId}`)
-                .set('auth-token', tokenAdmin);
+                .get(`/api/v1/user/get-list-staff?email=${managerEmail}`)
+                .set('auth-token', token.tokenAdmin);
             expect(res.statusCode).to.equal(400);
+        });
+
+        it('get list staff with token manager', async () => {
+            const res = await request(app)
+                .get(`/api/v1/user/get-list-staff?email=${managerEmail}`)
+                .set('auth-token', token.tokenManager);
+            expect(res.statusCode).to.equal(200);
+            expect(res.body).to.be.an('array');
+            expect(res.body.length).to.deep.equal(0);
         });
     });
 
@@ -93,7 +102,7 @@ describe('Test User', async () => {
             const date = '8-2021';
             const res = await request(app)
                 .get(`/api/v1/user/get-staff-with-checkin?email=${userValue.manager.email}&date=${date}`)
-                .set('auth-token', tokenAdmin);
+                .set('auth-token', token.tokenAdmin);
             expect(res.statusCode).to.equal(200);
             expect(res.body).not.to.be.empty;
             expect(res.body).to.be.an('array');
@@ -106,7 +115,7 @@ describe('Test User', async () => {
         it('should GET /api/v1/user/find-user-by-email', async () => {
             const res = await request(app)
                 .get(`/api/v1/user/find-user-by-email?email=${userValue.admin.email}`)
-                .set('auth-token', tokenAdmin);
+                .set('auth-token', token.tokenAdmin);
             expect(res.statusCode).to.equal(200);
             expect(res.body).to.be.an('object');
             expect(res.body.error).to.be.empty;
@@ -115,9 +124,12 @@ describe('Test User', async () => {
 
     describe('update user', async () => {
         it('should post /api/v1/user/update-user', async () => {
-            const res = await request(app).post(`/api/v1/user/update-user?email=${userValue.admin.email}`).send({
-                name: 'Lam',
-            });
+            const res = await request(app)
+                .post(`/api/v1/user/update-user?email=${userValue.admin.email}`)
+                .send({
+                    name: 'Lam',
+                })
+                .set('auth-token', token.tokenManager);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.deep.equal([1]);
         });
@@ -125,7 +137,9 @@ describe('Test User', async () => {
 
     describe('delete user', async () => {
         it('should delete /api/v1/user/delete-user', async () => {
-            const res = await request(app).delete(`/api/v1/user/delete-user?email=${userValue.admin.email}`);
+            const res = await request(app)
+                .delete(`/api/v1/user/delete-user?email=${userValue.admin.email}`)
+                .set('auth-token', token.tokenAdmin);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.deep.equal(1);
         });
@@ -135,7 +149,8 @@ describe('Test User', async () => {
         it('should POST /api/v1/user/create-user', async () => {
             const res = await request(app)
                 .post('/api/v1/user/create-user')
-                .send({ ...userValue.user, departmentId: departmentId });
+                .send({ ...userValue.user, departmentId: departmentId })
+                .set('auth-token', token.tokenAdmin);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body.message).to.deep.equal('User was registered successfully! Please check your email');
         });
@@ -152,7 +167,9 @@ describe('Test User', async () => {
             }
         });
         it('should GET /api/v1/user/confirm/:confirmationCode', async () => {
-            const res = await request(app).get(`/api/v1/user/confirm/${confirmationCode}`);
+            const res = await request(app)
+                .get(`/api/v1/user/confirm/${confirmationCode}`)
+                .set('auth-token', token.tokenManager);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.deep.equal([1]);
         });

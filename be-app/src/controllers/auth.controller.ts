@@ -19,11 +19,9 @@ export default class AuthController extends AuthRepository {
                     id: userData.id,
                     vacationDay: userData.vacationsDay,
                 });
-            } else {
-                return res.status(500).json({ token: null });
             }
-        } else {
             return res.status(500).json({ token: null });
         }
+        return res.status(500).json({ token: null });
     };
 }
