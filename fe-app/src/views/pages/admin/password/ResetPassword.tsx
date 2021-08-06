@@ -29,7 +29,9 @@ const ResetPassword: React.FunctionComponent = (): React.ReactElement => {
         try {
             const res = await userServices.getUserByEmail(email);
             setUser(res);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     const handle = async (values: any) => {

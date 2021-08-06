@@ -8,8 +8,8 @@ const router = Router();
 const checkinController = new CheckinController();
 
 router.get('/', (_req, res) => {
-    res.send('Go to checkin APIs !!');
-    res.json({ message: 'Go to checkin APIs !!' });
+    res.setHeader('Content-Type', 'text/html');
+    res.status(200).send('Go to checkin APIs !!');
 });
 
 router.get('/get-list-checkin/:userId', verifyUserManagerMiddleware, checkinController.getListCheckin);

@@ -30,7 +30,9 @@ const RequestDetails: React.FunctionComponent = (): React.ReactElement => {
             const res = await requestService.findRequestById(id);
             // console.log(res);
             setRequest(res);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     return (

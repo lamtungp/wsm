@@ -1,6 +1,7 @@
 import { CRow, CCol } from '@coreui/react';
 import React, { useState } from 'react';
 import { FaBusinessTime, FaCalendarCheck, FaUserPlus, FaUsers } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
 import departmentServices from '../../../../common/redux/department/services';
 import requestServices from '../../../../common/redux/request/services';
@@ -9,6 +10,8 @@ import userServices from '../../../../common/redux/user/services';
 import WidgetDropdown from './WidgetDropdown';
 
 const Dashboard: React.FunctionComponent = (): React.ReactElement => {
+    const history = useHistory();
+
     const [numberUser, setNumberUser] = useState(0);
     const [numberDepartment, setNumberDepartment] = useState(0);
     const [numberRequest, setNumberRequest] = useState(0);
@@ -25,7 +28,9 @@ const Dashboard: React.FunctionComponent = (): React.ReactElement => {
             setNumberUser(number_users);
             setNumberDepartment(number_departments);
             setNumberRequest(number_requests);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     return (

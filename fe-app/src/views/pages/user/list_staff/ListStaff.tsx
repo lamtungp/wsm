@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
+import { useHistory } from 'react-router-dom';
 
 import userService from '../../../../common/redux/user/services';
 
@@ -72,6 +73,7 @@ const fields = [
 ];
 
 const ListStaff = () => {
+    const history = useHistory();
     const [listUser, setListUser] = useState([{}]);
 
     React.useEffect(() => {
@@ -84,7 +86,9 @@ const ListStaff = () => {
         try {
             const res = await userService.getListStaff(String(localStorage.getItem('email')));
             setListUser(res);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     listUser.map((user: any) => {

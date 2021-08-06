@@ -45,7 +45,9 @@ const Users = () => {
             const res = await userService.getAllUser();
             // console.log(res);
             setListUser(res);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     return (

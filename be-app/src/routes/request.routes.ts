@@ -11,8 +11,8 @@ const router = Router();
 const requestController = new RequestController();
 
 router.get('/', (_req, res) => {
-    res.send('Go to request APIs !!');
-    res.json({ message: 'Go to request APIs !!' });
+    res.setHeader('Content-Type', 'text/html');
+    res.status(200).send('Go to request APIs !!');
 });
 
 router.get('/get-all-request', verifyAdminManagerMiddleware, requestController.getAllRequest);

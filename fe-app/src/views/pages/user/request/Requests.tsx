@@ -21,7 +21,9 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
             const res = await requestService.getListRequest(Number(localStorage.getItem('userId')));
             // console.log(res);
             setListRequest(res);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     return (

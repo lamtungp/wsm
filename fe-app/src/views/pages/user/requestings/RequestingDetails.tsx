@@ -46,7 +46,9 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
                 }
             });
             setStatus(arr);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     const handleRequest = async (values: object, id: number) => {

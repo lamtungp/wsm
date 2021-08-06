@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
+import { useHistory } from 'react-router-dom';
 
 import userService from '../../../../common/redux/user/services';
 
@@ -33,6 +34,7 @@ const fields = [
 ];
 
 const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
+    const history = useHistory();
     const [listUser, setListUser] = useState([
         { id: '', checkin: '', checkout: '', time: 0, checkins: [{}], gender: '' },
     ]);
@@ -62,7 +64,9 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
                 handleDate(new Date()),
             );
             setListUser(res);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     listUser.map((user: any) => {

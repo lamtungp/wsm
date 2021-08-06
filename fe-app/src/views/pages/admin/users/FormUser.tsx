@@ -43,14 +43,22 @@ const FormUser = () => {
     ]);
 
     const getUser = async () => {
-        const _user = await userService.getUserByEmail(email);
-        console.log(_user);
-        setUser(_user);
+        try {
+            const _user = await userService.getUserByEmail(email);
+            // console.log(_user);
+            setUser(_user);
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     const getDepartment = async () => {
-        const department = await departmentServices.getAllDepartment();
-        setDepartments(department);
+        try {
+            const department = await departmentServices.getAllDepartment();
+            setDepartments(department);
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     useEffect(() => {

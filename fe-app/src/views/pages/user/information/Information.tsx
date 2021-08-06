@@ -34,7 +34,9 @@ const Infomation: React.FunctionComponent = (): React.ReactElement => {
             const res = await userService.getUserByEmail(String(localStorage.getItem('email')));
             // console.log(res);
             setUser(res);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     console.log(user);

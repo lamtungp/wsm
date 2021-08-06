@@ -48,7 +48,9 @@ const StaffsOfRoom = () => {
             const res = await userService.getListUser(deparmentId);
             // console.log(res);
             setListUser(res);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     const deleteUser = async (email: string) => {

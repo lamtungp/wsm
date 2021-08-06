@@ -42,7 +42,9 @@ const FormInformation = () => {
             const res = await userService.getUserByEmail(String(localStorage.getItem('email')));
             // console.log(res);
             setUser(res);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     const handle = async (values: any) => {

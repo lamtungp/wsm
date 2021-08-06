@@ -63,7 +63,9 @@ const FormRequest = () => {
             setRequest(_request);
             setDateStart(new Date(_request.startDay));
             setDateEnd(new Date(_request.endDay));
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     const handle = async (values: any) => {

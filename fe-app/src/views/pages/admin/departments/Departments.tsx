@@ -47,7 +47,9 @@ const Rooms = () => {
             const res = await departmentService.getAllDepartment();
             console.log(res);
             setListdepartment(res);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     const deletedepartment = async (id: number) => {

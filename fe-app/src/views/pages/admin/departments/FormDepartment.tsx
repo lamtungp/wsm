@@ -33,7 +33,9 @@ const FormRoom = () => {
         try {
             const _department = await departmentService.findDepartmentById(idDepartment);
             setDepartment(_department);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     const handle = async (values: any) => {

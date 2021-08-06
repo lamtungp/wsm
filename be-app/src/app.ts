@@ -4,6 +4,8 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
+import passport from 'passport';
+import { passportConfiguration } from './lib/passports';
 import indexRouter from './routes/index';
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -16,6 +18,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+passportConfiguration(passport);
+app.use(passport.initialize());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1', indexRouter);

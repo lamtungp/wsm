@@ -1,10 +1,11 @@
 import { CContainer, CLink } from '@coreui/react';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import userServices from '../../../common/redux/user/services';
 
 const ConfirmAccount: React.FunctionComponent = (): React.ReactElement => {
+    const history = useHistory();
     const param = useParams();
     const confirmationCode = String(Object.values(param)[0]);
     // console.log(confirmationCode);
@@ -15,7 +16,9 @@ const ConfirmAccount: React.FunctionComponent = (): React.ReactElement => {
     const confirm = async () => {
         try {
             await userServices.verifyUser(confirmationCode);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     return (

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://api.pm.local/api/v1';
+const baseURL = process.env.REACT_APP_API_ENDPOINT;
 
 const AxiosClient = axios.create({
     baseURL,

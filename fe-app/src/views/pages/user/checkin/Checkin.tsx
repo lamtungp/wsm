@@ -3,6 +3,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { GlobalState } from '../../../../common/redux/index';
 import checkinServices from '../../../../common/redux/checkin/services';
@@ -13,6 +14,7 @@ import CustomEvents from './Event';
 const localizer = momentLocalizer(moment);
 
 const Dashboard = () => {
+    const history = useHistory();
     const checkin = useSelector((state: GlobalState) => state.checkin.checkins);
     // console.log(checkin);
     const [listcheckin, setListCheckin] = useState([
@@ -41,7 +43,7 @@ const Dashboard = () => {
             const list = await checkinServices.getListCheckin(Number(localStorage.getItem('userId')));
             setListCheckin(list);
         } catch (err) {
-            console.log(err.message);
+            history.push('/error/500');
         }
     };
 
