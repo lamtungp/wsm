@@ -1,10 +1,10 @@
 import passport from 'passport';
 import { Request, Response, NextFunction } from 'express';
+import UnauthorizedError from '../commons/http-errors/UnauthorizedError';
 
 export default (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate('jwt', {}, (error, user, info) => {
         if (error) {
-            console.log('err =====>', error.message);
             return next();
         }
 

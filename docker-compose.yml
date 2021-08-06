@@ -59,18 +59,6 @@ services:
     cap_add:
       - SYS_NICE
 
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin:4.6
-  #   restart: always
-  #   ports:
-  #     - "8181:80"
-  #   environment:
-  #     - PMA_HOST=db
-  #     - PMA_USER=root
-  #     - PMA_PASSWORD=root
-  #   depends_on:
-  #     - db
-
   # db:
   #   image: mysql:8.0
   #   restart: always
@@ -84,6 +72,18 @@ services:
   #     MYSQL_PASSWORD: secret
   #   cap_add:
   #     - SYS_NICE
+
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:4.6
+  #   restart: always
+  #   ports:
+  #     - "8181:80"
+  #   environment:
+  #     - PMA_HOST=db
+  #     - PMA_USER=root
+  #     - PMA_PASSWORD=root
+  #   depends_on:
+  #     - db
 
   # redis:
   #   image: redis:latest

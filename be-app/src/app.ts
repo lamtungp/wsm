@@ -40,7 +40,10 @@ app.use(function (err, req, res, _next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     // render the error page
-    res.status(err.status || 500);
+    console.log(err.message);
+    console.log(err.statusCode);
+
+    res.statusCode(err.statusCode || 500);
     return res.json(err);
 });
 
