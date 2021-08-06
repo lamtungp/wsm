@@ -42,41 +42,41 @@ describe('Test User', async () => {
         }
     });
 
-    // it('should always pass', () => {
-    //     expect(true).to.equal(true);
-    // });
+    it('should always pass', () => {
+        expect(true).to.equal(true);
+    });
 
-    // it('API health-check', async () => {
-    //     const res = await request(app).get('/api/v1/health-check');
-    //     expect(res.text).to.equal('APIs OK !!');
-    // });
+    it('API health-check', async () => {
+        const res = await request(app).get('/api/v1/health-check');
+        expect(res.text).to.equal('APIs OK !!');
+    });
 
-    // describe('get all user', async () => {
-    //     it('should GET /api/v1/user/get-all-user', async () => {
-    //         const res = await request(app)
-    //             .get('/api/v1/user/get-all-user')
-    //             .set('auth-token', token.tokenAdmin)
-    //             .set('Authorization', `Bearer ${token.tokenAdmin}`);
-    //         expect(res.statusCode).to.equal(200);
-    //         expect(res.body).not.to.be.empty;
-    //         expect(res.body).to.be.an('array');
-    //         expect(res.body.length).to.deep.equal(2);
-    //     });
-    // });
+    describe('get all user', async () => {
+        it('should GET /api/v1/user/get-all-user', async () => {
+            const res = await request(app)
+                .get('/api/v1/user/get-all-user')
+                .set('auth-token', token.tokenAdmin)
+                .set('Authorization', `Bearer ${token.tokenAdmin}`);
+            expect(res.statusCode).to.equal(200);
+            expect(res.body).not.to.be.empty;
+            expect(res.body).to.be.an('array');
+            expect(res.body.length).to.deep.equal(2);
+        });
+    });
 
-    // describe('get list user', async () => {
-    //     it('should GET /api/v1/user/get-list-user', async () => {
-    //         const res = await request(app)
-    //             .get(`/api/v1/user/get-list-user/${departmentId}`)
-    //             .set('auth-token', token.tokenAdmin)
-    //             .set('Authorization', `Bearer ${token.tokenAdmin}`);
-    //         expect(res.statusCode).to.equal(200);
-    //         expect(res.body).not.to.be.empty;
-    //         expect(res.body).to.be.an('array');
-    //         expect(res.body.length).to.deep.equal(2);
-    //         expect(res.body.error).to.be.empty;
-    //     });
-    // });
+    describe('get list user', async () => {
+        it('should GET /api/v1/user/get-list-user', async () => {
+            const res = await request(app)
+                .get(`/api/v1/user/get-list-user/${departmentId}`)
+                .set('auth-token', token.tokenAdmin)
+                .set('Authorization', `Bearer ${token.tokenAdmin}`);
+            expect(res.statusCode).to.equal(200);
+            expect(res.body).not.to.be.empty;
+            expect(res.body).to.be.an('array');
+            expect(res.body.length).to.deep.equal(2);
+            expect(res.body.error).to.be.empty;
+        });
+    });
 
     describe('get list staff', async () => {
         it('get list staff with token wrong', async () => {
