@@ -43,6 +43,7 @@ describe('Test Department', async () => {
             const res = await request(app)
                 .post('/api/v1/department/create-department')
                 .set('auth-token', token.tokenAdmin)
+                .set('Authorization', `Bearer ${token.tokenAdmin}`)
                 .send(createValue);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body.name).to.deep.equal(createValue.name);
@@ -54,7 +55,8 @@ describe('Test Department', async () => {
         it('should GET /api/v1/department/find-department-by-id/:id', async () => {
             const res = await request(app)
                 .get(`/api/v1/department/find-department-by-id/${id}`)
-                .set('auth-token', token.tokenAdmin);
+                .set('auth-token', token.tokenAdmin)
+                .set('Authorization', `Bearer ${token.tokenAdmin}`);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body.name).to.deep.equal(departmentValue.create.name);
             expect(res.body.description).to.deep.equal(departmentValue.create.description);
@@ -65,7 +67,8 @@ describe('Test Department', async () => {
         it('should GET /api/v1/department/get-all-department', async () => {
             const res = await request(app)
                 .get('/api/v1/department/get-all-department')
-                .set('auth-token', token.tokenAdmin);
+                .set('auth-token', token.tokenAdmin)
+                .set('Authorization', `Bearer ${token.tokenAdmin}`);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.be.an('array');
             expect(res.body.length).to.deep.equal(1);
@@ -78,6 +81,7 @@ describe('Test Department', async () => {
             const res = await request(app)
                 .post(`/api/v1/department/update-department/${id}`)
                 .set('auth-token', token.tokenAdmin)
+                .set('Authorization', `Bearer ${token.tokenAdmin}`)
                 .send(updateValue);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.deep.equal([1]);
@@ -88,7 +92,8 @@ describe('Test Department', async () => {
         it('should POST /api/v1/department/delete-department/:id', async () => {
             const res = await request(app)
                 .delete(`/api/v1/department/delete-department/${id}`)
-                .set('auth-token', token.tokenAdmin);
+                .set('auth-token', token.tokenAdmin)
+                .set('Authorization', `Bearer ${token.tokenAdmin}`);
             expect(res.statusCode).to.deep.equal(200);
             expect(res.body).to.deep.equal(1);
         });

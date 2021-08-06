@@ -17,10 +17,9 @@ export function passportConfiguration(passport: PassportStatic) {
     passport.use(
         new JwtStrategy(opts, async (jwtPayload: any, cb: any) => {
             const user = await userModel.findOne({
-                where: { id: jwtPayload.id },
+                where: { email: jwtPayload.email },
             });
-
-            if (user) {
+            if (!!user) {
                 cb(null, user);
             } else {
                 cb(new Error('Something wrong in token'), false);
