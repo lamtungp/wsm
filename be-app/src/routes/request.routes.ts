@@ -12,7 +12,7 @@ const requestController = new RequestController();
 
 router.get('/', (_req, res) => {
     res.setHeader('Content-Type', 'text/html');
-    res.status(200).send('Go to request APIs !!');
+    res.send('Go to request APIs !!');
 });
 
 router.get('/get-all-request', verifyAdminManagerMiddleware, requestController.getAllRequest);

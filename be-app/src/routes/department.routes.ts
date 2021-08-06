@@ -7,8 +7,8 @@ const router = Router();
 const departmentController = new DepartmentController();
 
 router.get('/', (_req, res) => {
+    res.setHeader('Content-Type', 'text/html');
     res.send('Go to department APIs !!');
-    res.json({ message: 'Go to department APIs !!' });
 });
 
 router.get('/get-all-department', verifyAdminMiddleware, departmentController.getAllDepartment);

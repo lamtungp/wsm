@@ -9,7 +9,7 @@ const checkinController = new CheckinController();
 
 router.get('/', (_req, res) => {
     res.setHeader('Content-Type', 'text/html');
-    res.status(200).send('Go to checkin APIs !!');
+    res.send('Go to checkin APIs !!');
 });
 
 router.get('/get-list-checkin/:userId', verifyUserManagerMiddleware, checkinController.getListCheckin);

@@ -11,7 +11,7 @@ const userController = new UserController();
 
 router.get('/', (_req, res) => {
     res.setHeader('Content-Type', 'text/html');
-    res.status(200).send('Go to user APIs !!');
+    res.send('Go to user APIs !!');
 });
 
 router.get('/get-all-user', verifyAdminMiddleware, userController.getAllUsers);
