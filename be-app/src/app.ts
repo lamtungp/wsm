@@ -29,6 +29,10 @@ app.use('/api/v1', indexRouter);
 app.get('/', function (_req, res) {
     res.send('Hello!');
 });
+
+// automatically update senority user after 1 day
+// app.get('/api/v1/');
+
 // catch 404 and forward to error handler
 app.use(function (req, _res, next) {
     next(createError(404));

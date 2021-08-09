@@ -17,6 +17,7 @@ const LayoutAdmin = React.lazy(() => import('./components/admin/Layout'));
 const Login = React.lazy(() => import('./views/pages/login/Login'));
 const ResetPassword = React.lazy(() => import('./views/pages/resetpassword/ResetPassword'));
 const ConfirmAccount = React.lazy(() => import('./views/pages/confirmAccount/ConfirmAccount'));
+
 const Error500 = React.lazy(() => import('./views/pages/error/Error500'));
 
 const App: React.FunctionComponent = (): React.ReactElement => {
@@ -26,7 +27,8 @@ const App: React.FunctionComponent = (): React.ReactElement => {
             <React.Suspense fallback={loading}>
                 <BrowserRouter>
                     <Switch>
-                        <Route path="/confirm/:confirmationCode" component={ConfirmAccount} />
+                        <Route path="/confirm/account/:confirmationCode" component={ConfirmAccount} />
+                        <Route path="/confirm/resetpassword/:confirmationCode" component={ResetPassword} />
                         <Route path="/error/500" component={Error500} />
                         <Route
                             path="/admin"
@@ -49,7 +51,6 @@ const App: React.FunctionComponent = (): React.ReactElement => {
                                 return <Login />;
                             }}
                         />
-                        <Route path="/forgot-password" component={ResetPassword} />
                         <Route
                             path="/"
                             render={() => {

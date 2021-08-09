@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import InternalServerError from '../commons/http-errors/InternalServerError';
-import { generateToken } from '../lib/passports';
+import { generateTokenConfirm } from '../lib/passports';
 import UserRepository from '../repositories/user.repository';
 import CheckinRepository from '../repositories/checkin.repository';
 import RequestRepository from '../repositories/request.repository';
-import sendEmail from '../../config/nodemailer';
+import sendEmail from '../lib/nodemailer';
 import Bcrypt from '../lib/bcrypt';
 import NotFoundError from '../commons/http-errors/NotFoundError';
 
@@ -69,14 +69,20 @@ export default class UserController {
 
     public addUser = async (req: Request, res: Response, next: NextFunction) => {
         const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
-        const token = generateToken(req.body);
+        const token = generateTokenConfirm(req.body);
         const user = await this.user.createUser({
             ...req.body,
             password: hashPassword,
             confirmationCode: token,
         });
         if (!!user) {
-            const send = sendEmail(user.name, user.email, user.confirmationCode);
+            const send = sendEmail(
+                user.name,
+                user.email,
+                req.body.password,
+                user.confirmationCode,
+                process.env.API_CONFIRM_ACCOUNT_ENTRYPOINT,
+            );
             if (!!send) {
                 return res.status(200).send({
                     message: 'User was registered successfully! Please check your email',
@@ -84,6 +90,33 @@ export default class UserController {
                 });
             }
             next(new InternalServerError('ko gui duoc email'));
+        }
+        next(new InternalServerError());
+    };
+
+    public resetPassword = async (req: Request, res: Response, next: NextFunction) => {
+        const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
+        const token = generateTokenConfirm(req.body);
+        const user = await this.user.getUserByEmail(req.body.email);
+        if (!!user) {
+            const update = await this.user.updateUser({ passowrd: hashPassword }, req.body.email);
+            if (!!update) {
+                const send = sendEmail(
+                    user.name,
+                    user.email,
+                    req.body.password,
+                    token,
+                    process.env.API_CONFIRM_RESETPASS_ENTRYPOINT,
+                );
+                if (!!send) {
+                    return res.status(200).send({
+                        message: 'Successfully! Please check your email',
+                        confirmationCode: token,
+                    });
+                }
+                next(new InternalServerError('ko gui duoc email'));
+            }
+            next(new InternalServerError());
         }
         next(new InternalServerError());
     };

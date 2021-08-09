@@ -46,6 +46,11 @@ const userServices = {
         const result = AxiosClient.get(`${API.USER.VERIFY_USER}/${confirmationCode}`);
         return result;
     },
+
+    resetPassword: (value: object): Promise<any> => {
+        const result = AxiosClient.post(API.USER.RESET_PASSWORD, value);
+        return result;
+    },
 };
 
 export default userServices;

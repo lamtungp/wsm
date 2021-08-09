@@ -8,7 +8,6 @@ const ConfirmAccount: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();
     const param = useParams();
     const confirmationCode = String(Object.values(param)[0]);
-    // console.log(confirmationCode);
     React.useEffect(() => {
         confirm();
     }, []);
@@ -26,8 +25,20 @@ const ConfirmAccount: React.FunctionComponent = (): React.ReactElement => {
             <CContainer className="text-center">
                 <div className="bg-success text-light p-5">
                     <h3>Tài khoản được kích hoạt thành công!!</h3>
+                    <p>Vui lòng đổi mật khẩu trong lần đầu đăng nhập</p>
                     <p>Quay lại đăng nhập</p>
-                    <CLink to="/">Login</CLink>
+                    <CLink
+                        to="/"
+                        onClick={() => {
+                            localStorage.removeItem('email');
+                            localStorage.removeItem('userId');
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('vacationDay');
+                            localStorage.removeItem('role');
+                        }}
+                    >
+                        Login
+                    </CLink>
                 </div>
             </CContainer>
         </div>

@@ -12,7 +12,8 @@ const API = {
         ADD_USER: 'user/create-user',
         UPDATE_USER: 'user/update-user',
         DELETE_USER: 'user/delete-user',
-        VERIFY_USER: 'user/confirm',
+        VERIFY_USER: 'confirm/account',
+        RESET_PASSWORD: 'confirm/reset-password',
     },
 
     CHECKIN: {

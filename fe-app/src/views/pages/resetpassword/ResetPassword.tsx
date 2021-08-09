@@ -1,85 +1,27 @@
 import React from 'react';
-import { Formik } from 'formik';
-import { Form } from 'react-bootstrap';
-import * as Yup from 'yup';
-// import { useDispatch } from 'react-redux';
-import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CRow } from '@coreui/react';
-
-const SignupSchema = Yup.object().shape({
-    email: Yup.string().required('Required!').email('Invalid email'),
-    newPassword: Yup.string().required('Required!'),
-});
+import { CContainer, CLink } from '@coreui/react';
 
 const ResetPassword: React.FunctionComponent = (): React.ReactElement => {
     return (
-        <div className="c-app c-default-layout flex-row align-items-center">
-            <CContainer style={{ width: '40rem' }}>
-                <CCardGroup>
-                    <CCard className="p-4">
-                        <CCardBody>
-                            <h1>Forgot Password?</h1>
-                            <Formik
-                                initialValues={{ email: '', newPassword: '' }}
-                                validationSchema={SignupSchema}
-                                onSubmit={() => {
-                                    // handleLogin(values);
-                                }}
-                                validateOnChange={true}
-                                // validateOnBlur={false}
-                            >
-                                {({ handleChange, handleSubmit }) => (
-                                    <Form
-                                        onKeyDown={(e) => {
-                                            if (e.key === 'Enter') {
-                                                handleSubmit();
-                                            }
-                                        }}
-                                    >
-                                        <Form.Group>
-                                            <Form.Label>Email:</Form.Label>
-                                            <Form.Control
-                                                className="form-control"
-                                                name="email"
-                                                placeholder="Username or Email"
-                                                onChange={handleChange}
-                                            />
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <Form.Label>New Password:</Form.Label>
-                                            <Form.Control
-                                                name="newPassword"
-                                                type="newPassword"
-                                                placeholder="Password"
-                                                onChange={handleChange}
-                                            />
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <Form.Label>Confirm Password:</Form.Label>
-                                            <Form.Control
-                                                name="confirmPassword"
-                                                type="confirmPassword"
-                                                placeholder="Password"
-                                                onChange={handleChange}
-                                            />
-                                        </Form.Group>
-                                        {/* <Form.Text>{error}</Form.Text> */}
-                                        <CRow>
-                                            <CCol xs="6">
-                                                <CButton
-                                                    color="primary"
-                                                    className="px-4"
-                                                    onClick={() => handleSubmit()}
-                                                >
-                                                    Save
-                                                </CButton>
-                                            </CCol>
-                                        </CRow>
-                                    </Form>
-                                )}
-                            </Formik>
-                        </CCardBody>
-                    </CCard>
-                </CCardGroup>
+        <div className="align-items-center p-5">
+            <CContainer className="text-center">
+                <div className="bg-success text-light p-5">
+                    <h3>Tài khoản được reset mật khẩu thành công!!</h3>
+                    <p>Vui lòng đổi mật khẩu ngay sau khi đăng nhập</p>
+                    <p>Quay lại đăng nhập</p>
+                    <CLink
+                        to="/"
+                        onClick={() => {
+                            localStorage.removeItem('email');
+                            localStorage.removeItem('userId');
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('vacationDay');
+                            localStorage.removeItem('role');
+                        }}
+                    >
+                        Login
+                    </CLink>
+                </div>
             </CContainer>
         </div>
     );

@@ -67,7 +67,7 @@ describe('UserController', () => {
         const stub2 = sandbox.stub(userModel, 'findAll').resolves(userListMock.userList);
 
         await new UserController().getListStaffs(req, res, next);
-        console.log(json.args[0][0]);
+        // console.log(json.args[0][0]);
         expect(stub1.calledOnce).to.be.true;
         expect(stub2.calledOnce).to.be.true;
         expect(status.calledOnce).to.be.true;

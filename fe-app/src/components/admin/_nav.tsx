@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaShareSquare, FaWindowMaximize, FaCalendarCheck, FaClipboard, FaHome } from 'react-icons/fa';
+import { FaShareSquare, FaWindowMaximize, FaCalendarCheck, FaUsers, FaHome } from 'react-icons/fa';
 
 const _nav = [
     {
@@ -18,11 +18,11 @@ const _nav = [
         _tag: 'CSidebarNavItem',
         name: 'Quản lý nhân viên',
         to: '/admin/users',
-        icon: <FaShareSquare style={{ marginRight: '1rem' }} />,
+        icon: <FaUsers style={{ marginRight: '1rem' }} />,
     },
     {
         _tag: 'CSidebarNavItem',
-        name: 'Thay đổi mật khẩu',
+        name: 'Reset mật khẩu',
         to: '/admin/resetpassword',
         icon: <FaCalendarCheck style={{ marginRight: '1rem' }} />,
     },
@@ -30,7 +30,7 @@ const _nav = [
         _tag: 'CSidebarNavItem',
         name: 'Yêu cầu cần duyệt',
         to: '/admin/requestings',
-        icon: <FaClipboard style={{ marginRight: '1rem' }} />,
+        icon: <FaShareSquare style={{ marginRight: '1rem' }} />,
     },
 ];
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
 
-import userService from '../../../../common/redux/user/services';
+import userServices from '../../../../common/redux/user/services';
 
 const fields = [
     {
@@ -42,9 +42,29 @@ const Users = () => {
 
     const getListUser = async () => {
         try {
-            const res = await userService.getAllUser();
+            const res = await userServices.getAllUser();
             // console.log(res);
             setListUser(res);
+        } catch (error) {
+            history.push('/error/500');
+        }
+    };
+
+    const handlePassword = (length: number) => {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    };
+
+    const resetPassword = async (email: string) => {
+        try {
+            await userServices.resetPassword({ email: email, password: handlePassword(8) });
+            getListUser();
+            window.alert('Reset mật khẩu thành công');
         } catch (error) {
             history.push('/error/500');
         }
@@ -88,10 +108,10 @@ const Users = () => {
                                                         shape="square"
                                                         size="sm"
                                                         onClick={() => {
-                                                            history.push(`/admin/resetpassword/${item.email}`);
+                                                            resetPassword(String(item.email));
                                                         }}
                                                     >
-                                                        Đổi mật khẩu
+                                                        Reset mật khẩu
                                                     </CButton>
                                                 </div>
                                             </td>

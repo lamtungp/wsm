@@ -28,8 +28,14 @@ export function passportConfiguration(passport: PassportStatic) {
     );
 }
 
-export function generateToken(user: UserAttributes) {
+export function generateTokenAuth(user: UserAttributes) {
     return jwt.sign({ id: user.id, email: user.email, role: user.role }, env.jwtSecret, {
         expiresIn: env.jwtExpiresIn,
+    });
+}
+
+export function generateTokenConfirm(user: UserAttributes) {
+    return jwt.sign({ id: user.id, email: user.email }, env.jwtSecret, {
+        expiresIn: 600,
     });
 }

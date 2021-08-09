@@ -1,12 +1,12 @@
 import nodemailer from 'nodemailer';
-import env from './env';
+import env from '../../config/env';
 
 const { auth } = env;
 
 const user = auth.user;
 const pass = auth.pass;
 
-const sendEmail = async (name: any, email: any, confirmationCode: any) => {
+const sendEmail = async (name: string, email: string, password: string, confirmationCode: any, path: any) => {
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         service: 'gmail',
@@ -27,11 +27,15 @@ const sendEmail = async (name: any, email: any, confirmationCode: any) => {
                 from: user,
                 to: email,
                 subject: 'Please confirm your account',
-                html: `<h1>Email Confirmation</h1>
-                          <h2>Hello ${name}</h2>
-                          <p>Thank you for subscribing. Please confirm your email by clicking on the following link:</p>
-                          <a href=${process.env.API_CONFIRM_ENTRYPOINT}/${confirmationCode}> Click here</a>
-                          </div>`,
+                html: `<div>
+                            <h1>Email Confirmation</h1>
+                            <h2>Hello ${name}</h2>
+                            <p>Thank you for subscribing.</p>
+                            <p>Email: ${email}</p>
+                            <p>Password: ${password}</p>
+                            <p>Please confirm your email by clicking on the following link:</p>
+                            <a href=${path}/${confirmationCode}> Click here</a>
+                        </div>`,
             };
 
             transporter.sendMail(options, function (error, info) {
@@ -43,12 +47,6 @@ const sendEmail = async (name: any, email: any, confirmationCode: any) => {
             });
         }
     });
-
-    // console.log('Message sent: %s', info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-    // Preview only available when sending through an Ethereal account
-    // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 };
 
 export default sendEmail;

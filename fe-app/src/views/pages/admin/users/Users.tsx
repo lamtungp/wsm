@@ -137,7 +137,7 @@ const Users = () => {
                                 hover
                                 striped
                                 border
-                                size="md"
+                                size="sm"
                                 fields={fields}
                                 itemsPerPage={10}
                                 tableFilter

@@ -31,11 +31,22 @@ const FormUser = () => {
                   dayIn: Yup.string().required('Required!'),
               });
 
+    const handlePassword = (length: number) => {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    };
+
     const [senority, setSenority] = useState('');
+
     const [user, setUser] = useState({
         name: '',
         email: '',
-        password: '',
+        password: handlePassword(8),
         avatar: 'no-avatar.jpg',
         address: '',
         dayIn: '',
@@ -177,24 +188,6 @@ const FormUser = () => {
                                             </CRow>
                                             {errors.email && touched.email ? (
                                                 <Form.Text className="text-danger">{errors.email}</Form.Text>
-                                            ) : null}
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <CRow>
-                                                <CCol lg="5">
-                                                    <Form.Label className="font-weight-bold">
-                                                        Password <span className="text-danger">(*)</span>
-                                                    </Form.Label>
-                                                    <Form.Control
-                                                        name="password"
-                                                        type="password"
-                                                        value={values.password}
-                                                        onChange={handleChange}
-                                                    />
-                                                </CCol>
-                                            </CRow>
-                                            {errors.password && touched.password ? (
-                                                <Form.Text className="text-danger">{errors.password}</Form.Text>
                                             ) : null}
                                         </Form.Group>
                                     </>

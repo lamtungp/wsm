@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { generateToken } from '../lib/passports';
+import { generateTokenAuth } from '../lib/passports';
 import AuthRepository from '../repositories/auth.repository';
 
 export default class AuthController extends AuthRepository {
@@ -12,7 +12,7 @@ export default class AuthController extends AuthRepository {
         const userData = await this.checkAuthenticationData(email, password);
         if (!!userData) {
             if (userData.status === 'actived') {
-                const token = generateToken(userData);
+                const token = generateTokenAuth(userData);
                 return res.status(200).json({
                     token: token,
                     role: userData.role,

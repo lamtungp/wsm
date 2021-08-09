@@ -24,8 +24,6 @@ router.get('/get-staff-with-checkin', verifyAdminManagerMiddleware, userControll
 
 router.get('/find-user-by-email', verifyAllMiddleware, userController.findUserByEmail);
 
-router.get('/confirm/:confirmationCode', verifyAllMiddleware, userController.verifyAccount);
-
 router.post('/create-user', verifyAdminMiddleware, userController.addUser);
 
 router.post('/update-user', verifyAllMiddleware, userController.updateForUser);

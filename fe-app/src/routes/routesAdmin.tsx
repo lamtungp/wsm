@@ -8,7 +8,6 @@ const Departments = React.lazy(() => import('../views/pages/admin/departments/De
 const StaffsOfDepartment = React.lazy(() => import('../views/pages/admin/departments/StaffsOfDepartment'));
 const FormDepartment = React.lazy(() => import('../views/pages/admin/departments/FormDepartment'));
 const Password = React.lazy(() => import('../views/pages/admin/password/Password'));
-const ResetPassword = React.lazy(() => import('../views/pages/admin/password/ResetPassword'));
 const Requestings = React.lazy(() => import('../views/pages/admin/requestings/Requestings'));
 const RequestingDetails = React.lazy(() => import('../views/pages/admin/requestings/RequestingDetails'));
 const Information = React.lazy(() => import('../views/pages/admin/information/Information'));
@@ -27,7 +26,6 @@ const routes = [
     { path: '/admin/departments/add-department', name: 'AddDepartment', component: FormDepartment },
     { path: '/admin/departments/update-department/:id', name: 'FormDepartment', component: FormDepartment },
     { path: '/admin/resetpassword', name: 'Password', component: Password, exact: true },
-    { path: '/admin/resetpassword/:id', name: 'ResetPassword', component: ResetPassword },
     { path: '/admin/requestings', name: 'Requestings', component: Requestings, exact: true },
     { path: '/admin/requestings/:option', name: 'RequestingDetails', component: RequestingDetails },
 ];
