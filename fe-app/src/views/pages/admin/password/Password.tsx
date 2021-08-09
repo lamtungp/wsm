@@ -71,7 +71,7 @@ const Users = () => {
                                 border
                                 size="md"
                                 fields={fields}
-                                itemsPerPage={5}
+                                itemsPerPage={10}
                                 tableFilter
                                 sorter
                                 pagination

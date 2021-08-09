@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
 
 import departmentService from '../../../../common/redux/department/services';
+import userService from '../../../../common/redux/user/services';
+import { department } from '../../../../interfaces/deparment.d';
 
 const fields = [
     {
@@ -36,7 +38,7 @@ const fields = [
 
 const Rooms = () => {
     const history = useHistory();
-    const [listdepartment, setListdepartment] = useState([{ id: '', nameDepartment: '', description: '' }]);
+    const [listdepartment, setListdepartment] = useState<department[]>([]);
 
     React.useEffect(() => {
         getListDepartment();
@@ -45,6 +47,10 @@ const Rooms = () => {
     const getListDepartment = async () => {
         try {
             const res = await departmentService.getAllDepartment();
+            res.map(async (item: any) => {
+                const users = await userService.getListUser(item.id);
+                item.countStaff = users.length;
+            });
             console.log(res);
             setListdepartment(res);
         } catch (error) {
@@ -60,6 +66,8 @@ const Rooms = () => {
             window.alert('Xảy ra lỗi khi xóa');
         }
     };
+
+    console.log(listdepartment);
 
     return (
         <div>
@@ -134,7 +142,7 @@ const Rooms = () => {
                                                             );
                                                         }}
                                                     >
-                                                        Update
+                                                        Sửa
                                                     </CButton>
                                                     <CButton
                                                         color="primary"
@@ -145,7 +153,7 @@ const Rooms = () => {
                                                             deletedepartment(item.id);
                                                         }}
                                                     >
-                                                        Delete
+                                                        Xóa
                                                     </CButton>
                                                 </div>
                                             </td>

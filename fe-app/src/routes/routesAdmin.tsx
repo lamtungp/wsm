@@ -11,10 +11,14 @@ const Password = React.lazy(() => import('../views/pages/admin/password/Password
 const ResetPassword = React.lazy(() => import('../views/pages/admin/password/ResetPassword'));
 const Requestings = React.lazy(() => import('../views/pages/admin/requestings/Requestings'));
 const RequestingDetails = React.lazy(() => import('../views/pages/admin/requestings/RequestingDetails'));
+const Information = React.lazy(() => import('../views/pages/admin/information/Information'));
+const FormInformation = React.lazy(() => import('../views/pages/admin/information/FormInformation'));
 
 const routes = [
     { path: '/admin', name: 'Dashboard', component: Dashboard, exact: true },
     { path: '/admin/login', name: 'Login', component: Login },
+    { path: '/admin/profile', name: 'Information', component: Information, exact: true },
+    { path: '/admin/profile', name: 'FormInformation', component: FormInformation },
     { path: '/admin/users', name: 'Users', component: Users, exact: true },
     { path: '/admin/users/add-user', name: 'AddUser', component: FormUser },
     { path: '/admin/users/update-user/:email', name: 'UpdateUser', component: FormUser },

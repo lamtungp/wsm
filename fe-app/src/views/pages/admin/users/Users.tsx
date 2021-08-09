@@ -69,6 +69,11 @@ const fields = [
         sorter: false,
     },
     {
+        key: 'role',
+        label: 'Chức vụ',
+        sorter: false,
+    },
+    {
         key: 'show_details',
         label: '',
         sorter: false,
@@ -136,6 +141,18 @@ const Users = () => {
                                 tableFilter
                                 pagination
                                 scopedSlots={{
+                                    // eslint-disable-next-line react/display-name
+                                    id: (item: any, index: any) => {
+                                        return <td>{index}</td>;
+                                    },
+                                    // eslint-disable-next-line react/display-name
+                                    role: (item: any) => {
+                                        return (
+                                            <td>
+                                                {item.role} division {item.departmentId}
+                                            </td>
+                                        );
+                                    },
                                     // eslint-disable-next-line react/display-name
                                     show_details: (item: any) => {
                                         return (

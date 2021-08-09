@@ -7,27 +7,75 @@ import userService from '../../../../common/redux/user/services';
 const fields = [
     {
         key: 'id',
-        label: 'id',
+        label: 'Id',
     },
     {
         key: 'name',
-        label: 'name',
-        sorter: false,
+        label: 'Họ tên',
     },
     {
         key: 'email',
-        label: 'email',
+        label: 'Email',
         sorter: false,
     },
     {
-        key: 'password',
-        label: 'password',
+        key: 'gender',
+        label: 'Giới tính',
+        sorter: false,
+    },
+    {
+        key: 'dob',
+        label: 'Ngày sinh',
+        sorter: false,
+    },
+    {
+        key: 'phoneNumber',
+        label: 'SĐT',
+        sorter: false,
+    },
+    {
+        key: 'address',
+        label: 'Địa chỉ',
+        sorter: false,
+    },
+    {
+        key: 'dayIn',
+        label: 'Ngày vào',
+        sorter: false,
+    },
+    {
+        key: 'dayIn',
+        label: 'Ngày vào',
+        sorter: false,
+    },
+    {
+        key: 'dayOfficial',
+        label: 'Ngày chính thức',
+        sorter: false,
+    },
+    {
+        key: 'senority',
+        label: 'Thâm niên',
+        sorter: false,
+    },
+    {
+        key: 'vacationsDay',
+        label: 'Nghỉ phép',
+        sorter: false,
+    },
+    {
+        key: 'contractTerm',
+        label: 'Hợp đồng',
+        sorter: false,
+    },
+    {
+        key: 'role',
+        label: 'Chức vụ',
         sorter: false,
     },
     {
         key: 'show_details',
         label: '',
-        _style: { width: '10%', height: '100%' },
         sorter: false,
         filter: false,
     },
@@ -83,7 +131,7 @@ const StaffsOfRoom = () => {
                                 border
                                 size="md"
                                 fields={fields}
-                                itemsPerPage={5}
+                                itemsPerPage={10}
                                 tableFilter
                                 sorter
                                 pagination
