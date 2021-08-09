@@ -94,7 +94,9 @@ const Users = () => {
             const res = await userService.getAllUser();
             // console.log(res);
             setListUser(res);
-        } catch (error) {}
+        } catch (error) {
+            history.push('/error/500');
+        }
     };
 
     const deleteUser = async (email: string) => {
@@ -102,7 +104,7 @@ const Users = () => {
             await userService.deleteUser(email);
             getUsers();
         } catch (error) {
-            console.log('Xayr ra lỗi khi xóa');
+            console.log('Xảy ra lỗi khi xóa');
         }
     };
 
@@ -147,11 +149,7 @@ const Users = () => {
                                     },
                                     // eslint-disable-next-line react/display-name
                                     role: (item: any) => {
-                                        return (
-                                            <td>
-                                                {item.role} division {item.departmentId}
-                                            </td>
-                                        );
+                                        return <td>{item.role}</td>;
                                     },
                                     // eslint-disable-next-line react/display-name
                                     show_details: (item: any) => {

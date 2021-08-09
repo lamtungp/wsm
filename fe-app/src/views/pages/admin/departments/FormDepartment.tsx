@@ -13,7 +13,7 @@ const DepartmentSchema = Yup.object().shape({
     description: Yup.string().min(2, 'Too Short!').required('Required!'),
 });
 
-const FormRoom = () => {
+const FormDepartment: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();
     const params = useParams();
 
@@ -134,4 +134,4 @@ const FormRoom = () => {
     );
 };
 
-export default FormRoom;
+export default FormDepartment;

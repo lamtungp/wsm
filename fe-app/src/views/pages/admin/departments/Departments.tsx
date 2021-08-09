@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
 
 import departmentService from '../../../../common/redux/department/services';
-import userService from '../../../../common/redux/user/services';
 import { department } from '../../../../interfaces/deparment.d';
 
 const fields = [
@@ -36,7 +35,7 @@ const fields = [
     },
 ];
 
-const Rooms = () => {
+const Departments: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();
     const [listdepartment, setListdepartment] = useState<department[]>([]);
 
@@ -47,11 +46,6 @@ const Rooms = () => {
     const getListDepartment = async () => {
         try {
             const res = await departmentService.getAllDepartment();
-            res.map(async (item: any) => {
-                const users = await userService.getListUser(item.id);
-                item.countStaff = users.length;
-            });
-            console.log(res);
             setListdepartment(res);
         } catch (error) {
             history.push('/error/500');
@@ -66,8 +60,6 @@ const Rooms = () => {
             window.alert('Xảy ra lỗi khi xóa');
         }
     };
-
-    console.log(listdepartment);
 
     return (
         <div>
@@ -169,4 +161,4 @@ const Rooms = () => {
     );
 };
 
-export default Rooms;
+export default Departments;

@@ -60,6 +60,9 @@ const FormUser = () => {
     const getUser = async () => {
         try {
             const _user = await userService.getUserByEmail(email);
+            if (!!_user.dayOfficial) {
+                setSenority(handleSenority(new Date(_user.dayOfficial), new Date()));
+            }
             setUser(_user);
         } catch (error) {
             history.push('/error/500');

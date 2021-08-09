@@ -81,7 +81,7 @@ const fields = [
     },
 ];
 
-const StaffsOfRoom = () => {
+const StaffsOfDepartment: React.FunctionComponent = (): React.ReactElement => {
     const history = useHistory();
     const param = useParams();
     const [listUser, setListUser] = useState([{ id: '', email: '', password: '' }]);
@@ -178,4 +178,4 @@ const StaffsOfRoom = () => {
     );
 };
 
-export default StaffsOfRoom;
+export default StaffsOfDepartment;

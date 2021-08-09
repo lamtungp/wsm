@@ -9,8 +9,8 @@ class Bcrypt {
     }
 
     public async generateHashPassword(password: string): Promise<any> {
-        const salt = await bcrypt.genSalt(10);
-        return await bcrypt.hash(password, salt);
+        const genSalt = await bcrypt.genSalt(Number(this.salt));
+        return await bcrypt.hash(password, genSalt);
     }
 
     public async comparePassword(password: string, hashPassword: string): Promise<any> {
