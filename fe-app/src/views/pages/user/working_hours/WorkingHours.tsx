@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
 import { useHistory } from 'react-router-dom';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import userService from '../../../../common/redux/user/services';
 
 import { ExportToExcel } from './ExportToExcel';
+
+dayjs.extend(customParseFormat);
 
 const fields = [
     {
@@ -40,7 +44,6 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
     ]);
 
     React.useEffect(() => {
-        handleDate(new Date());
         if (localStorage.getItem('role') === 'manager') {
             getUsers();
         }
@@ -52,9 +55,8 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
     };
 
     const handleDate = (date: Date) => {
-        const arr = date.toLocaleDateString().split('/');
-        arr.shift();
-        return arr.join('-');
+        const str = dayjs(date.toUTCString()).format('M-YYYY');
+        return str;
     };
 
     const getUsers = async () => {
@@ -102,21 +104,6 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
                                 </h2>
                             </CCardHeader>
                             <CCardBody className="text-center">
-                                {/* <CCardHeader>
-                                    <Form>
-                                        <Form.Group>
-                                            <Form.Label>Nội dung:</Form.Label>
-                                            <Form.Control
-                                                name="month"
-                                                as="select"
-                                                defaultValue={new Date().getMonth()}
-                                                onChange={handleChange}
-                                            >
-                                                <option value="1-2021">1/2021</option>
-                                            </Form.Control>
-                                        </Form.Group>
-                                    </Form>
-                                </CCardHeader> */}
                                 <CCardHeader>
                                     <h5 className="m-0 font-weight-bold">
                                         Thống kê giờ làm việc nhân viên tháng: {handleDate(new Date())}
