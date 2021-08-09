@@ -162,6 +162,26 @@ describe('Test User', async () => {
         });
     });
 
+    describe('reset password', async () => {
+        let email: string = '';
+        before(async () => {
+            try {
+                const user = await userModel.create({ ...userValue.user, confirmationCode: 'abcd' });
+                email = user.email;
+            } catch (error) {
+                console.log(error.message);
+            }
+        });
+        it('should GET /api/v1/confirm/reset-password', async () => {
+            const res = await request(app)
+                .post(`/api/v1/confirm/reset-password`)
+                .send({ email: email, password: 'asdgasd' })
+                .set('auth-token', token.tokenAdmin);
+            expect(res.statusCode).to.deep.equal(200);
+            expect(res.body.message).to.deep.equal('Successfully! Please check your email');
+        });
+    });
+
     describe('verify user', async () => {
         let confirmationCode: string = '';
         before(async () => {
@@ -172,9 +192,9 @@ describe('Test User', async () => {
                 console.log(error.message);
             }
         });
-        it('should GET /api/v1/user/confirm/:confirmationCode', async () => {
+        it('should GET /api/v1/confirm/account/:confirmationCode', async () => {
             const res = await request(app)
-                .get(`/api/v1/user/confirm/${confirmationCode}`)
+                .get(`/api/v1/confirm/account/${confirmationCode}`)
                 .set('auth-token', token.tokenManager)
                 .set('Authorization', `Bearer ${token.tokenManager}`);
             expect(res.statusCode).to.deep.equal(200);
