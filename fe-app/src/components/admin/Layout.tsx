@@ -9,7 +9,9 @@ const Layout: React.FunctionComponent = (): React.ReactElement => {
   return (
     <>
       <div className="c-app c-default-layout">
-        <Sidebar />
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Sidebar />
+        </ErrorBoundary>
         <div className="c-wrapper">
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Header />

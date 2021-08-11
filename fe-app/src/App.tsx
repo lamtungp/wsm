@@ -5,7 +5,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 import ErrorFallback from './views/pages/error/ErrorFallback';
 
-import './assets/scss/admin/style.scss';
+import './assets/scss/style.scss';
 
 const loading = (
   <div className="pt-3 text-center">

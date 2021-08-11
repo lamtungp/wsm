@@ -8,7 +8,7 @@ const FallbackError = () => {
   return (
     <div className="align-items-center p-5">
       <div className="text-center container">
-        <h1 className="text-uppercase">Oops! Something went wrong. We&apos;re looking to see what happened.</h1>
+        <h3 className="text-uppercase">Oops! Something went wrong. We&apos;re looking to see what happened.</h3>
       </div>
     </div>
   );

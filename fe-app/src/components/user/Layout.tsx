@@ -1,4 +1,7 @@
 import React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+
+import ErrorFallback from '../../views/pages/error/ErrorFallback';
 
 import { Content, Sidebar, Footer, Header } from './index';
 
@@ -6,13 +9,22 @@ const Layout: React.FunctionComponent = (): React.ReactElement => {
   return (
     <>
       <div className="c-app c-default-layout">
-        <Sidebar />
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Sidebar />
+        </ErrorBoundary>
         <div className="c-wrapper">
-          <Header />
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Header />
+          </ErrorBoundary>
+
           <div className="c-body">
-            <Content />
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <Content />
+            </ErrorBoundary>
           </div>
-          <Footer />
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Footer />
+          </ErrorBoundary>
         </div>
       </div>
     </>

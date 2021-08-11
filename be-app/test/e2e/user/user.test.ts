@@ -7,36 +7,34 @@ import departmentModel from '../../../src/models/department.model';
 import userModel from '../../../src/models/user.model';
 import Bcrypt from '../../../src/lib/bcrypt';
 import checkinModel from '../../../src/models/checkin.model';
+import { users } from '../../seeds/user.seed';
+import { UserAttributes } from '../../../src/models/user.model.d';
+import { departments } from '../../seeds/department.seed';
+import { DepartmentAttributes } from '../../../src/models/department.model.d';
 
 const userValue = require('../../mocks/user/user.json');
-const checkinValue = require('../../mocks/checkin/checkin.json');
-const departmentValue = require('../../mocks/department/department.json');
 const token = require('../../mocks/user/token.json');
 
 describe('Test User', async () => {
-  let departmentId: number = 0;
+  let departmentId: number[] = [];
   let managerEmail: string = '';
 
   beforeEach(async () => {
     try {
-      const hashPasswordAdmin = await Bcrypt.generateHashPassword(userValue.admin.password);
-      const hashPasswordManager = await Bcrypt.generateHashPassword(userValue.manager.password);
-
-      const department = await departmentModel.create(departmentValue.initial);
-      await userModel.create({
-        ...userValue.admin,
-        password: hashPasswordAdmin,
-        departmentId: department.id,
-      });
-      const manager = await userModel.create({
-        ...userValue.manager,
-        password: hashPasswordManager,
-        departmentId: department.id,
-      });
-      await checkinModel.create({ ...checkinValue.create, userId: manager.id });
-
-      departmentId = department.id;
-      managerEmail = manager.email;
+      Promise.all(
+        departments.map(async (item: DepartmentAttributes) => {
+          const department = await departmentModel.create(item);
+          departmentId.push(department.id);
+        }),
+      );
+      Promise.all(
+        users.map(async (item: UserAttributes) => {
+          const hashPassword = await Bcrypt.generateHashPassword(item.password);
+          const user = await userModel.create({ ...item, password: hashPassword });
+          managerEmail = user.role === 'manager' ? item.email : '';
+        }),
+      );
+      // await checkinModel.create({ ...checkinValue.create, userId: manager.id });
     } catch (error) {
       console.log(error.message);
     }
@@ -68,7 +66,7 @@ describe('Test User', async () => {
   describe('get list user', async () => {
     it('should GET /api/v1/user/get-list-user', async () => {
       const res = await request(app)
-        .get(`/api/v1/user/get-list-user/${departmentId}`)
+        .get(`/api/v1/user/get-list-user/${departmentId[0]}`)
         .set('auth-token', token.tokenAdmin)
         .set('Authorization', `Bearer ${token.tokenAdmin}`);
       expect(res.statusCode).to.equal(200);
