@@ -11,21 +11,21 @@ import sidebarReducer, { SidebarState } from './sidebar/reducer';
 import userReducer, { UserState } from './user/reducer';
 
 export interface GlobalState {
-    auth: AuthState;
-    sidebar: SidebarState;
-    user: UserState;
-    checkin: CheckinState;
-    error: ErrorState;
+  auth: AuthState;
+  sidebar: SidebarState;
+  user: UserState;
+  checkin: CheckinState;
+  error: ErrorState;
 }
 
 export const combinedReducer = combineReducers({
-    auth: authReducer,
-    sidebar: sidebarReducer,
-    user: userReducer,
-    checkin: checkinReducer,
-    error: errorReducer,
+  auth: authReducer,
+  sidebar: sidebarReducer,
+  user: userReducer,
+  checkin: checkinReducer,
+  error: errorReducer,
 });
 
 export const rootSaga = function* (): any {
-    yield all([authSagas]);
+  yield all([authSagas]);
 };

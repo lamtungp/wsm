@@ -10,7 +10,8 @@ import authentication from '../middlewares/authentication';
 const router = Router();
 
 router.get('/health-check', (_req, res) => {
-    res.send('APIs OK !!');
+  res.setHeader('Content-Type', 'text/html');
+  res.send('APIs OK!!');
 });
 
 router.use('/user', authentication, usersRoute);

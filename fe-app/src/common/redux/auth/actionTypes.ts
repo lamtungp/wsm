@@ -1,37 +1,37 @@
 export const AUTH_ACTIONS = {
-    LOGIN: 'LOGIN',
-    LOGIN_FAILURE: 'LOGIN_FAILURE',
-    LOGIN_SUCCESS: 'LOGIN_SUCCESS',
-    LOGOUT: 'LOGOUT',
+  LOGIN: 'LOGIN',
+  LOGIN_FAILURE: 'LOGIN_FAILURE',
+  LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+  LOGOUT: 'LOGOUT',
 };
 
 interface LoginParams {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
 interface LoginRespone {
-    token: string;
-    status: string;
+  token: string;
+  status: string;
 }
 
 interface LoginAction {
-    type: typeof AUTH_ACTIONS.LOGIN;
-    payload: LoginParams;
+  type: typeof AUTH_ACTIONS.LOGIN;
+  payload: LoginParams;
 }
 
 interface LoginSuccessAction {
-    type: typeof AUTH_ACTIONS.LOGIN_SUCCESS;
-    payload: LoginRespone;
+  type: typeof AUTH_ACTIONS.LOGIN_SUCCESS;
+  payload: LoginRespone;
 }
 
 interface LoginFailureAction {
-    type: typeof AUTH_ACTIONS.LOGIN_FAILURE;
-    payload: LoginRespone;
+  type: typeof AUTH_ACTIONS.LOGIN_FAILURE;
+  payload: LoginRespone;
 }
 
 interface LogoutAction {
-    type: typeof AUTH_ACTIONS.LOGOUT;
+  type: typeof AUTH_ACTIONS.LOGOUT;
 }
 
 export type { LoginParams, LoginRespone, LoginAction, LoginSuccessAction, LoginFailureAction, LogoutAction };

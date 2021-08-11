@@ -8,16 +8,16 @@ const router = Router();
 const checkinController = new CheckinController();
 
 router.get('/', (_req, res) => {
-    res.setHeader('Content-Type', 'text/html');
-    res.send('Go to checkin APIs !!');
+  res.setHeader('Content-Type', 'text/html');
+  res.send('Go to checkin APIs !!');
 });
 
 router.get('/get-list-checkin/:userId', verifyUserManagerMiddleware, checkinController.getListCheckin);
 
 router.get(
-    '/get-list-checkin-with-date/:userId',
-    verifyAdminManagerMiddleware,
-    checkinController.getListCheckinWithDate,
+  '/get-list-checkin-with-date/:userId',
+  verifyAdminManagerMiddleware,
+  checkinController.getListCheckinWithDate,
 );
 
 router.get('/find-checkin/:userId', verifyUserManagerMiddleware, checkinController.findCheckinByUserIdDate);

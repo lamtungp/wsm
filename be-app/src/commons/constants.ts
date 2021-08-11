@@ -1,33 +1,33 @@
 export default {
-    mailTemplate: {
-        verificationCode: 'verification-code',
+  mailTemplate: {
+    verificationCode: 'verification-code',
+  },
+  validationAction: {
+    signUp: 'SignUp',
+    resetPassword: 'ResetPassword',
+  },
+  loginStatus: {
+    success: 'SUCCESS',
+    invalidAccount: 'INVALID_ACCOUNT',
+    inactiveAccount: 'INACTIVE_ACCOUNT',
+  },
+  category: {
+    deleteStatus: {
+      hasReferences: 'HAS_REFERENCES',
     },
-    validationAction: {
-        signUp: 'SignUp',
-        resetPassword: 'ResetPassword',
+    updateStatus: {
+      existed: 'EXISTED',
     },
-    loginStatus: {
-        success: 'SUCCESS',
-        invalidAccount: 'INVALID_ACCOUNT',
-        inactiveAccount: 'INACTIVE_ACCOUNT',
+  },
+  allergen: {
+    deleteStatus: {
+      hasReferences: 'HAS_REFERENCES',
     },
-    category: {
-        deleteStatus: {
-            hasReferences: 'HAS_REFERENCES',
-        },
-        updateStatus: {
-            existed: 'EXISTED',
-        },
-    },
-    allergen: {
-        deleteStatus: {
-            hasReferences: 'HAS_REFERENCES',
-        },
-    },
-    status: {
-        success: 'SUCCESS',
-        failed: 'FAILED',
-    },
-    AuthorizationAccessToken:
-        'Basic c2FmZW5vdXJpc2htZW50LTBjOTAzNTYxYjcwMDFhMmFjNjg1MmU1ZWY0MDdmOGUxODQ4NTQwOTQ4MjEyMTI4NDY3MzpraGVXekNWTk9OdFBhT3VzODVvdW5RR1FrTG53VExEQTI1SjJoYkJk',
+  },
+  status: {
+    success: 'SUCCESS',
+    failed: 'FAILED',
+  },
+  AuthorizationAccessToken:
+    'Basic c2FmZW5vdXJpc2htZW50LTBjOTAzNTYxYjcwMDFhMmFjNjg1MmU1ZWY0MDdmOGUxODQ4NTQwOTQ4MjEyMTI4NDY3MzpraGVXekNWTk9OdFBhT3VzODVvdW5RR1FrTG53VExEQTI1SjJoYkJk',
 };

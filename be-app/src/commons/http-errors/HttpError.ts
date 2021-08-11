@@ -1,15 +1,15 @@
 import messages from '../messages';
 
 export default class HttpError extends Error {
-    data: object;
-    messageKey: string;
-    statusCode: number;
+  data: object;
+  messageKey: string;
+  statusCode: number;
 
-    constructor(message = messages.httpMessages[544]) {
-        super();
+  constructor(message = messages.httpMessages[544]) {
+    super();
 
-        Object.setPrototypeOf(this, HttpError.prototype);
-        this.name = this.constructor.name;
-        this.message = message;
-    }
+    Object.setPrototypeOf(this, HttpError.prototype);
+    this.name = this.constructor.name;
+    this.message = message;
+  }
 }

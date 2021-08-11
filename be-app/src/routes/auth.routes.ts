@@ -10,8 +10,8 @@ const router = Router();
 const authController = new AuthController(userModel);
 
 router.get('/', (_req, res) => {
-    res.setHeader('Content-Type', 'text/html');
-    res.send('Go to auth APIs !!');
+  res.setHeader('Content-Type', 'text/html');
+  res.send('Go to auth APIs !!');
 });
 
 router.post('/user-login', validate(AuthRequest.customerLogin), wrap(authController.userLogin));

@@ -1,6 +1,6 @@
 export interface department {
-    id: number;
-    nameDepartment: string;
-    description: string;
-    countStaff: number;
+  id: number;
+  nameDepartment: string;
+  description: string;
+  countStaff: number;
 }

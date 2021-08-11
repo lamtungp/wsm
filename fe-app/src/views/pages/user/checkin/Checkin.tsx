@@ -14,78 +14,76 @@ import CustomEvents from './Event';
 const localizer = momentLocalizer(moment);
 
 const Dashboard = () => {
-    const history = useHistory();
-    const checkin = useSelector((state: GlobalState) => state.checkin.checkins);
-    // console.log(checkin);
-    const [listcheckin, setListCheckin] = useState([
-        {
-            date: '',
-            checkin: '',
-            checkout: '',
-        },
-    ]);
+  const history = useHistory();
+  const checkin = useSelector((state: GlobalState) => state.checkin.checkins);
+  // console.log(checkin);
+  const [listcheckin, setListCheckin] = useState([
+    {
+      date: '',
+      checkin: '',
+      checkout: '',
+    },
+  ]);
 
-    const myEvent = [
-        {
-            start: moment().toDate(),
-            end: checkin.length ? moment().add(0, 'days').toDate() : '',
-            title: checkin,
-        },
-    ];
-    // console.log(myEvent);
+  const myEvent = [
+    {
+      start: moment().toDate(),
+      end: checkin.length ? moment().add(0, 'days').toDate() : '',
+      title: checkin,
+    },
+  ];
+  // console.log(myEvent);
 
-    React.useEffect(() => {
-        getListCheckin();
-    }, []);
+  React.useEffect(() => {
+    getListCheckin();
+  }, []);
 
-    const getListCheckin = async () => {
-        try {
-            const list = await checkinServices.getListCheckin(Number(localStorage.getItem('userId')));
-            setListCheckin(list);
-        } catch (err) {
-            history.push('/error/500');
-        }
-    };
-
-    if (listcheckin.length > 0) {
-        listcheckin.map((item: any) => {
-            myEvent.push({
-                start: new Date(`${item.date} ${item.checkin}`),
-                end: item.checkout
-                    ? new Date(`${item.date} ${item.checkout}`)
-                    : new Date(`${item.date} ${item.checkin}`),
-                title: [item.checkin, item.checkout],
-            });
-        });
-        if (
-            myEvent.length > 1 &&
-            myEvent[0].start.toLocaleDateString() == myEvent[myEvent.length - 1].start.toLocaleDateString() &&
-            myEvent[0].title.length > 0
-        ) {
-            myEvent.pop();
-        }
+  const getListCheckin = async () => {
+    try {
+      const list = await checkinServices.getListCheckin(Number(localStorage.getItem('userId')));
+      setListCheckin(list);
+    } catch (err) {
+      history.push('/error/500');
     }
+  };
 
-    return (
-        <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
-            <Calendar
-                localizer={localizer}
-                events={myEvent}
-                startAccessor="start"
-                endAccessor="end"
-                style={{ height: 700 }}
-                views={{ month: true }}
-                culture="ar-AE"
-                components={{
-                    toolbar: CustomToolbar,
-                    event: CustomEvents,
-                    // day: {
-                    //     header: CustomHeader,
-                    // },
-                }}
-            />
-        </div>
-    );
+  if (listcheckin.length > 0) {
+    listcheckin.map((item: any) => {
+      myEvent.push({
+        start: new Date(`${item.date} ${item.checkin}`),
+        end: item.checkout ? new Date(`${item.date} ${item.checkout}`) : new Date(`${item.date} ${item.checkin}`),
+        title: [item.checkin, item.checkout],
+      });
+    });
+    if (
+      myEvent.length > 1 &&
+      myEvent[0].start.toLocaleDateString() == myEvent[myEvent.length - 1].start.toLocaleDateString() &&
+      myEvent[0].title.length > 0
+    ) {
+      myEvent.pop();
+    }
+  }
+
+  return (
+    <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
+      <Calendar
+        localizer={localizer}
+        events={myEvent}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 700 }}
+        views={{ month: true }}
+        culture="ar-AE"
+        components={{
+          toolbar: CustomToolbar,
+          event: CustomEvents,
+          // day: {
+          //     header: CustomHeader,
+          // },
+        }}
+      />
+    </div>
+  );
 };
 
 export default Dashboard;
