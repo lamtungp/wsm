@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import { Op, Sequelize } from 'sequelize';
 import checkinModel from '../models/checkin.model';
 import userModel from '../models/user.model';
 import { UserAttributes, UserStatic } from '../models/user.model.d';
@@ -58,20 +58,12 @@ export default class UserRepository {
     return users;
   }
 
-  public async getUserByEmail(email: string): Promise<UserAttributes> {
-    if (!!!email) {
-      return undefined;
-    }
+  public async findUser(param: string): Promise<UserAttributes> {
     const user = await this.user.findOne({
       attributes: { exclude: ['password'] },
-      where: { email },
-    });
-    return user;
-  }
-
-  public async findUserByConfirmCode(confirmationCode: string): Promise<UserAttributes> {
-    const user = await this.user.findOne({
-      where: { confirmationCode },
+      where: {
+        [Op.or]: [{ email: param }, { phoneNumber: param }, { confirmationCode: param }],
+      },
     });
     return user;
   }

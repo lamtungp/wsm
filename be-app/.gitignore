@@ -118,3 +118,6 @@ dist
 .pnp.*
 
 docker/services/db/data
+# log
+combined.log
+error.log

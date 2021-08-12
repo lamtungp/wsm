@@ -38,17 +38,17 @@ const userServices = {
   },
 
   updateUser: (param: object, email: string): Promise<any> => {
-    const result = AxiosClient.post(`${API.USER.UPDATE_USER}?email=${email}`, param);
+    const result = AxiosClient.put(`${API.USER.UPDATE_USER}?email=${email}`, param);
     return result;
   },
 
   verifyUser: (confirmationCode: string): Promise<any> => {
-    const result = AxiosClient.get(`${API.USER.VERIFY_USER}/${confirmationCode}`);
+    const result = AxiosClient.put(`${API.USER.VERIFY_USER}/${confirmationCode}`);
     return result;
   },
 
   resetPassword: (value: object): Promise<any> => {
-    const result = AxiosClient.post(API.USER.RESET_PASSWORD, value);
+    const result = AxiosClient.put(API.USER.RESET_PASSWORD, value);
     return result;
   },
 };

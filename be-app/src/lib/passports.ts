@@ -4,6 +4,7 @@ import { PassportStatic } from 'passport';
 import env from '../../config/env';
 import { UserAttributes } from '../models/user.model.d';
 import userModel from '../models/user.model';
+import { NextFunction } from 'express';
 
 const { ExtractJwt } = passportJWT;
 const JwtStrategy = passportJWT.Strategy;
@@ -13,9 +14,8 @@ export function passportConfiguration(passport: PassportStatic) {
     secretOrKey: env.jwtSecret,
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
   };
-
   passport.use(
-    new JwtStrategy(opts, async (jwtPayload: any, cb: any) => {
+    new JwtStrategy(opts, async (jwtPayload: any, cb: any, next: NextFunction) => {
       const user = await userModel.findOne({
         where: { email: jwtPayload.email },
       });

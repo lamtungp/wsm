@@ -1,14 +1,11 @@
-import { Response } from 'express';
+import { NextFunction, Response } from 'express';
+import InternalServerError from '../commons/http-errors/InternalServerError';
 import { generateTokenAuth } from '../lib/passports';
 import AuthRepository from '../repositories/auth.repository';
 
 export default class AuthController extends AuthRepository {
-  public userLogin = async (req: any, res: Response) => {
+  public userLogin = async (req: any, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
-
-    if (!!!req.body.email || !!!req.body.password) {
-      return res.status(500).json({ token: null });
-    }
     const userData = await this.checkAuthenticationData(email, password);
     if (!!userData) {
       if (userData.status === 'actived') {
@@ -20,8 +17,8 @@ export default class AuthController extends AuthRepository {
           vacationDay: userData.vacationsDay,
         });
       }
-      return res.status(500).json({ token: null });
+      return next(new InternalServerError());
     }
-    return res.status(500).json({ token: null });
+    return next(new InternalServerError());
   };
 }

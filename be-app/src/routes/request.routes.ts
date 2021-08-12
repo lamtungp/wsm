@@ -25,7 +25,7 @@ router.get('/find-request-by-id/:id', verifyAllMiddleware, requestController.fin
 
 router.post('/create-request', verifyAllMiddleware, requestController.addRequest);
 
-router.post('/update-request/:id', verifyAllMiddleware, requestController.updateForRequest);
+router.put('/update-request/:id', verifyAllMiddleware, requestController.updateForRequest);
 
 router.get('/find-request-by-state', verifyAllMiddleware, requestController.getListRequestByState);
 

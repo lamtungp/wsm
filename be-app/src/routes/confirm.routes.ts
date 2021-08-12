@@ -6,8 +6,8 @@ const router = Router();
 
 const userController = new UserController();
 
-router.get('/account/:confirmationCode', userController.verifyAccount);
+router.put('/account/:confirmationCode', userController.verifyAccount);
 
-router.post('/reset-password', verifyAdminMiddleware, userController.resetPassword);
+router.put('/reset-password', verifyAdminMiddleware, userController.resetPassword);
 
 export default router;

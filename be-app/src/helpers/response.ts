@@ -12,7 +12,7 @@ function returnObject(success = true, code: number, message = '', data = null) {
 }
 
 function responseData(res: Response, httpCode: number, success = true, message = '', data = null) {
-  return res.json(returnObject(success, httpCode, message, data));
+  return res.status(httpCode).json(returnObject(success, httpCode, message, data));
 }
 
 export function responseError(

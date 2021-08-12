@@ -5,8 +5,8 @@ export const users = [
     password: '12345678',
     gender: 'male',
     dayIn: '2021-07-05',
-    role: 'admin',
     status: 'actived',
+    role: 'admin',
   },
   {
     email: 'sownpham@gmail.com',

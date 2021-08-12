@@ -8,6 +8,5 @@ export default (error: HttpError, _req: Request, res: Response, next: NextFuncti
     logger.error(error);
     return responseError(res, error.statusCode, error.message);
   }
-
   return next(error);
 };

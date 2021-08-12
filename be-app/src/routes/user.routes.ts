@@ -1,9 +1,12 @@
 import { Router } from 'express';
 import UserController from '../controllers/user.controller';
+import { validate } from 'express-validation';
+import UserRequest from '../request/user.request';
 import verifyAdminManagerMiddleware from '../middlewares/verify.admin.manager.middleware';
 import verifyManagerMiddleware from '../middlewares/verify.manager.middleware';
 import verifyAdminMiddleware from '../middlewares/verify.admin.middleware';
 import verifyAllMiddleware from '../middlewares/verify.all.middleware';
+import wrap from '../helpers/wrap';
 
 const router = Router();
 
@@ -16,18 +19,23 @@ router.get('/', (_req, res) => {
 
 router.get('/get-all-user', verifyAdminMiddleware, userController.getAllUsers);
 
-router.get('/get-list-user/:departmentId', verifyAdminManagerMiddleware, userController.getListUsers);
+router.get('/get-list-user/:departmentId', verifyAdminMiddleware, userController.getListUsers);
 
 router.get('/get-list-staff', verifyManagerMiddleware, userController.getListStaffs);
 
-router.get('/get-staff-with-checkin', verifyAdminManagerMiddleware, userController.getStaffsWithCheckin);
+router.get('/get-staff-with-checkin', verifyManagerMiddleware, userController.getStaffsWithCheckin);
 
-router.get('/find-user-by-email', verifyAllMiddleware, userController.findUserByEmail);
+router.get(
+  '/find-user-by-email',
+  verifyAllMiddleware,
+  validate(UserRequest.queryRequest),
+  userController.findUserByEmail,
+);
 
-router.post('/create-user', verifyAdminMiddleware, userController.addUser);
+router.post('/create-user', verifyAdminMiddleware, validate(UserRequest.createUser), wrap(userController.addUser));
 
-router.post('/update-user', verifyAllMiddleware, userController.updateForUser);
+router.put('/update-user', verifyAllMiddleware, validate(UserRequest.updateUser), userController.updateForUser);
 
-router.delete('/delete-user', verifyAdminMiddleware, userController.deleteOneUser);
+router.delete('/delete-user', verifyAdminMiddleware, validate(UserRequest.queryRequest), userController.deleteOneUser);
 
 export default router;

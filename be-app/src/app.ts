@@ -12,16 +12,18 @@ import httpErrorHandler from './helpers/httpErrorHandler';
 import NotFoundError from './commons/http-errors/NotFoundError';
 import messages from './commons/messages';
 import { responseError } from './helpers/response';
+import swaggerUI from 'swagger-ui-express';
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerOptions from './docs';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-var app = express();
+const app = express();
+
+// const spec = swaggerJsDoc(option);
 
 app.use(cors());
 // view engine setup
-if (process.env.NODE_ENV === Environment.Development) {
-  app.use(RequestLogger());
-}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,14 +34,19 @@ app.use(passport.initialize());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// validation request to error handler
-app.use(requestValidationHandler);
+if (process.env.NODE_ENV === Environment.Development) {
+  app.use(RequestLogger());
+}
 
+// api swagger
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+
+// api app
 app.use('/api/v1', indexRouter);
 
-app.get('/', function (_req, res) {
-  res.send('Hello!');
-});
+// validation request to error handler
+app.use(requestValidationHandler);
 
 // catch 404 and forward to error handler
 app.use((_req, _res, next) => {

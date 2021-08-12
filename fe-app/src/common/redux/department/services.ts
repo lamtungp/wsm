@@ -23,7 +23,7 @@ const departmentServices = {
   },
 
   updateDepartment: (param: object, id: number): Promise<any> => {
-    const result = AxiosClient.post(`${API.DEPARTMENT.UPDATE_DEPARTMENT}/${id}`, param);
+    const result = AxiosClient.put(`${API.DEPARTMENT.UPDATE_DEPARTMENT}/${id}`, param);
     return result;
   },
 };

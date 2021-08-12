@@ -7,7 +7,8 @@ import RequestRepository from '../repositories/request.repository';
 import sendEmail from '../lib/nodemailer';
 import Bcrypt from '../lib/bcrypt';
 import NotFoundError from '../commons/http-errors/NotFoundError';
-
+import BadRequestError from '../commons/http-errors/BadRequestError';
+import { responseSuccess } from '../helpers/response';
 export default class UserController {
   private user: UserRepository;
   private checkin: CheckinRepository;
@@ -22,52 +23,56 @@ export default class UserController {
   public getAllUsers = async (_req: Request, res: Response, next: NextFunction) => {
     const users = await this.user.getUsers();
     if (!!users) {
-      return res.status(200).json(users);
+      return responseSuccess(res, users);
     }
-    next(new InternalServerError());
+    return next(new InternalServerError());
   };
 
   public getListUsers = async (req: Request, res: Response, next: NextFunction) => {
     const users = await this.user.getListUser(Number(req.params.departmentId));
     if (!!users) {
-      return res.status(200).json(users);
+      return responseSuccess(res, users);
     }
-    next(new InternalServerError());
+    return next(new InternalServerError());
   };
 
   public getListStaffs = async (req: Request, res: Response, next: NextFunction) => {
-    const manager = await this.user.getUserByEmail(String(req.query.email));
+    const manager = await this.user.findUser(String(req.query.email));
     if (!!manager) {
       const users = await this.user.getListStaff(manager.departmentId, String(req.query.role));
       if (!!users) {
-        return res.status(200).json(users);
+        return responseSuccess(res, users);
       }
-      next(new NotFoundError());
+      return next(new NotFoundError('Not found list staff'));
     }
-    next(new InternalServerError());
+    return next(new NotFoundError('Not found manager'));
   };
 
   public getStaffsWithCheckin = async (req: Request, res: Response, next: NextFunction) => {
-    const manager = await this.user.getUserByEmail(String(req.query.email));
+    const manager = await this.user.findUser(String(req.query.email));
     if (!!manager) {
       const users = await this.user.getStaffWithCheckin(manager.departmentId, String(req.query.date));
       if (!!users) {
-        return res.status(200).json(users);
+        return responseSuccess(res, users);
       }
-      next(new InternalServerError());
+      return next(new NotFoundError('Not found list staff with checkin'));
     }
-    next(new InternalServerError('Invalid useId'));
+    return next(new NotFoundError('Not found manager'));
   };
 
   public findUserByEmail = async (req: Request, res: Response, next: NextFunction) => {
-    const user = await this.user.getUserByEmail(String(req.query.email));
+    const user = await this.user.findUser(String(req.query.email));
     if (!!user) {
-      return res.status(200).json(user);
+      return responseSuccess(res, user);
     }
-    next(new InternalServerError('Invalid ID'));
+    return next(new NotFoundError('Not found user'));
   };
 
   public addUser = async (req: Request, res: Response, next: NextFunction) => {
+    const find_user = await this.user.findUser(String(req.body.email));
+    if (!!find_user) {
+      return next(new BadRequestError('Email existed'));
+    }
     const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
     const token = generateTokenConfirm(req.body);
     const user = await this.user.createUser({
@@ -84,20 +89,21 @@ export default class UserController {
         process.env.API_CONFIRM_ACCOUNT_ENTRYPOINT,
       );
       if (!!send) {
-        return res.status(200).send({
+        const dataSuccess = {
           message: 'User was registered successfully! Please check your email',
           confirmationCode: token,
-        });
+        };
+        return responseSuccess(res, dataSuccess);
       }
-      next(new InternalServerError('ko gui duoc email'));
+      return next(new InternalServerError('Send email failure'));
     }
-    next(new InternalServerError());
+    return next(new BadRequestError());
   };
 
   public resetPassword = async (req: Request, res: Response, next: NextFunction) => {
     const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
     const token = generateTokenConfirm(req.body);
-    const user = await this.user.getUserByEmail(req.body.email);
+    const user = await this.user.findUser(req.body.email);
     if (!!user) {
       const update = await this.user.updateUser({ passowrd: hashPassword }, req.body.email);
       if (!!update) {
@@ -109,54 +115,59 @@ export default class UserController {
           process.env.API_CONFIRM_RESETPASS_ENTRYPOINT,
         );
         if (!!send) {
-          return res.status(200).send({
+          const dataSuccess = {
             message: 'Successfully! Please check your email',
             confirmationCode: token,
-          });
+          };
+          return responseSuccess(res, dataSuccess);
         }
-        next(new InternalServerError('ko gui duoc email'));
+        return next(new InternalServerError('Send email failure'));
       }
-      next(new InternalServerError());
+      return next(new InternalServerError("Can't update"));
     }
-    next(new InternalServerError());
+    return next(new NotFoundError('Not found user'));
   };
 
   public verifyAccount = async (req: Request, res: Response, next: NextFunction) => {
-    const user = await this.user.findUserByConfirmCode(String(req.params.confirmationCode));
+    const user = await this.user.findUser(String(req.params.confirmationCode));
     if (!!user) {
       const update = await this.user.updateUser({ status: 'actived' }, user.email);
-      return res.status(200).json(update);
+      return responseSuccess(res, update);
     }
-    next(new InternalServerError());
+    return next(new NotFoundError('Not found user'));
   };
 
   public updateForUser = async (req: Request, res: Response, next: NextFunction) => {
-    if (!!req.body.password) {
-      const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
-      const user = await this.user.updateUser({ ...req.body, password: hashPassword }, String(req.query.email));
-      if (!!user) {
-        return res.status(200).json(user);
+    const find_user = await this.user.findUser(String(req.query.email));
+    if (!!find_user) {
+      if (!!req.body.password) {
+        const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
+        const user = await this.user.updateUser({ ...req.body, password: hashPassword }, String(req.query.email));
+        if (!!user) {
+          return responseSuccess(res, user);
+        }
+        return next(new InternalServerError());
       }
-      next(new InternalServerError());
+      const user = await this.user.updateUser(req.body, String(req.query.email));
+      if (!!user) {
+        return responseSuccess(res, user);
+      }
+      return next(new InternalServerError());
     }
-    const user = await this.user.updateUser(req.body, String(req.query.email));
-    if (!!user) {
-      return res.status(200).json(user);
-    }
-    next(new InternalServerError());
+    return next(new NotFoundError('Not found user'));
   };
 
   public deleteOneUser = async (req: Request, res: Response, next: NextFunction) => {
-    const user = await this.user.getUserByEmail(String(req.query.email));
+    const user = await this.user.findUser(String(req.query.email));
     if (!!user) {
       await this.checkin.deleteCheckinByUserId(user.id);
       await this.request.deleteRequestByUserId(user.id);
       const deleteUser = await this.user.deleteUser(String(req.query.email));
       if (!!deleteUser) {
-        return res.status(200).json(deleteUser);
+        return responseSuccess(res, deleteUser);
       }
-      next(new InternalServerError());
+      return next(new InternalServerError());
     }
-    next(new InternalServerError());
+    return next(new NotFoundError('Not found user'));
   };
 }

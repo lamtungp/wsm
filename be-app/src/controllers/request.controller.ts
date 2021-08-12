@@ -30,7 +30,7 @@ export default class RequestController {
   };
 
   public getListRequestOfStaff = async (req: Request, res: Response, next: NextFunction) => {
-    const manager = await this.user.getUserByEmail(String(req.query.emailManager));
+    const manager = await this.user.findUser(String(req.query.emailManager));
     if (!!manager) {
       const requests = await this.request.getRequestsStaff(manager.departmentId, 'user');
       if (!!requests) {

@@ -17,7 +17,7 @@ router.get('/find-department-by-id/:id', verifyAdminMiddleware, departmentContro
 
 router.post('/create-department', verifyAdminMiddleware, departmentController.addDepartment);
 
-router.post('/update-department/:id', verifyAdminMiddleware, departmentController.updateForDepartment);
+router.put('/update-department/:id', verifyAdminMiddleware, departmentController.updateForDepartment);
 
 router.delete('/delete-department/:id', verifyAdminMiddleware, departmentController.deleteOneDepartment);
 

@@ -33,7 +33,7 @@ const requestServices = {
   },
 
   updateRequest: (param: object, id: number): Promise<any> => {
-    const result = AxiosClient.post(`${API.REQUEST.UPDATE_REQUEST}/${id}`, param);
+    const result = AxiosClient.put(`${API.REQUEST.UPDATE_REQUEST}/${id}`, param);
     return result;
   },
 
