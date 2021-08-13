@@ -28,17 +28,21 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
     getRequests();
   }, []);
 
-  const str = option.replace(/(^\w{1})|(\s{1}\w{1})/g, (match) => match.toUpperCase());
-
   const getRequests = async () => {
     try {
-      const requests = await requestServices.getAllRequest();
-      requests.map((item: any) => {
-        if (item.state == 'Pending') setStatus({ ...status, pending: true });
-        else if (item.state == 'Confirmed') setStatus({ ...status, confirmed: true });
-        else setStatus({ ...status, declined: true });
+      const request = await requestServices.getAllRequest();
+      const dataStatus = { pending: false, confirmed: false, declined: false };
+      request.data.map((item: any) => {
+        if (item.state === 'pending') {
+          dataStatus.pending = true;
+        } else if (item.state === 'confirmed') {
+          dataStatus.confirmed = true;
+        } else if (item.state === 'declined') {
+          dataStatus.declined = true;
+        }
       });
-      setRequests(requests);
+      setStatus(dataStatus);
+      setRequests(request.data);
     } catch (error) {
       history.push('/error/500');
     }
@@ -83,21 +87,21 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
                 {requests.map((item, index) => {
                   // eslint-disable-next-line @typescript-eslint/no-unused-vars
                   length++;
-                  return item.state === str ? (
+                  return item.state === option ? (
                     <tr key={index}>
                       <td>{item.nameRequest}</td>
                       <td>
-                        {item.state === 'Confirmed' ? (
+                        {item.state === 'confirmed' ? (
                           <span className="badge badge-pill badge-success text-white">Đồng ý</span>
                         ) : (
                           <></>
                         )}
-                        {item.state === 'Declined' ? (
-                          <span className="badge badge-pill badge-warning text-white">Từ chối</span>
+                        {item.state === 'declined' ? (
+                          <span className="badge badge-pill badge-danger text-white">Từ chối</span>
                         ) : (
                           <></>
                         )}
-                        {item.state === 'Pending' ? (
+                        {item.state === 'pending' ? (
                           <span className="badge badge-pill badge-warning text-white">Đang chờ xử lý</span>
                         ) : (
                           <></>
@@ -108,14 +112,14 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
                       <td>{item.phoneNumber}</td>
                       <td>{item.project}</td>
                       <td>{item.reason}</td>
-                      {item.state === 'Pending' ? (
+                      {item.state === 'pending' ? (
                         <td style={{ width: '13%' }}>
                           <CButton
                             className="btn-primary mr-1"
                             onClick={() => {
                               handleRequest(
                                 {
-                                  state: 'Confirmed',
+                                  state: 'confirmed',
                                   handler: localStorage.getItem('email'),
                                 },
                                 item.id,
@@ -130,7 +134,7 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
                             onClick={() => {
                               handleRequest(
                                 {
-                                  state: 'Declined',
+                                  state: 'declined',
                                   handler: localStorage.getItem('email'),
                                 },
                                 item.id,

@@ -95,7 +95,7 @@ const StaffsOfDepartment: React.FunctionComponent = (): React.ReactElement => {
     try {
       const res = await userService.getListUser(deparmentId);
       // console.log(res);
-      setListUser(res);
+      setListUser(res.data);
     } catch (error) {
       history.push('/error/500');
     }

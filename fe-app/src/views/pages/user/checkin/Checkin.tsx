@@ -41,7 +41,7 @@ const Dashboard = () => {
   const getListCheckin = async () => {
     try {
       const list = await checkinServices.getListCheckin(Number(localStorage.getItem('userId')));
-      setListCheckin(list);
+      setListCheckin(list.data);
     } catch (err) {
       history.push('/error/500');
     }

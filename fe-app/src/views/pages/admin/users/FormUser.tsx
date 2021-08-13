@@ -71,10 +71,12 @@ const FormUser = () => {
   const getUser = async () => {
     try {
       const _user = await userService.getUserByEmail(email);
-      if (!!_user.dayOfficial) {
-        setSenority(handleSenority(new Date(_user.dayOfficial), new Date()));
+      if (!!_user.data.dayOfficial) {
+        setSenority(handleSenority(new Date(_user.data.dayOfficial), new Date()));
       }
-      setUser(_user);
+      delete _user.data['id'];
+      delete _user.data['email'];
+      setUser(_user.data);
     } catch (error) {
       history.push('/error/500');
     }
@@ -83,7 +85,7 @@ const FormUser = () => {
   const getDepartment = async () => {
     try {
       const department = await departmentServices.getAllDepartment();
-      setDepartments(department);
+      setDepartments(department.data);
     } catch (error) {
       history.push('/error/500');
     }
@@ -102,7 +104,7 @@ const FormUser = () => {
   }, []);
 
   const handle = async (values: any) => {
-    if (values.id) {
+    if (!!email) {
       try {
         await userService.updateUser(values, email);
         await userService.getAllUser();

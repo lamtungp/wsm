@@ -13,10 +13,10 @@ export default class DepartmentController {
 
   public getAllDepartment = async (req: Request, res: Response, next: NextFunction) => {
     const departments = await this.department.getDepartments();
-    if (!!departments.length) {
+    if (!!departments) {
       return responseSuccess(res, departments);
     }
-    return next(new NotFoundError('Not found department'));
+    return next(new BadRequestError('Get all department failure'));
   };
 
   public addDepartment = async (req: Request, res: Response, next: NextFunction) => {
@@ -40,7 +40,7 @@ export default class DepartmentController {
       }
       return next(new BadRequestError('Update department failure'));
     }
-    return next(new NotFoundError('Not found department'));
+    return next(new BadRequestError('Department does not exist'));
   };
 
   public findDepartmentById = async (req: Request, res: Response, next: NextFunction) => {
@@ -48,7 +48,7 @@ export default class DepartmentController {
     if (!!department) {
       return responseSuccess(res, department);
     }
-    return next(new NotFoundError('Not found department'));
+    return next(new BadRequestError('Department does not exist'));
   };
 
   public deleteOneDepartment = async (req: Request, res: Response, next: NextFunction) => {
@@ -60,6 +60,6 @@ export default class DepartmentController {
       }
       return next(new BadRequestError('Delete department failure'));
     }
-    return next(new NotFoundError('Not found department'));
+    return next(new BadRequestError('Department does not exist'));
   };
 }

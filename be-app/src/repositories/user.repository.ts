@@ -60,7 +60,7 @@ export default class UserRepository {
 
   public async findUser(param: string): Promise<UserAttributes> {
     const user = await this.user.findOne({
-      attributes: { exclude: ['password'] },
+      attributes: { exclude: ['password', 'createdAt', 'updatedAt', 'confirmationCode'] },
       where: {
         [Op.or]: [{ email: param }, { phoneNumber: param }, { confirmationCode: param }],
       },

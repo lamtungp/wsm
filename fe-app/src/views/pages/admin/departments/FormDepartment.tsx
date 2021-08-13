@@ -18,7 +18,6 @@ const FormDepartment: React.FunctionComponent = (): React.ReactElement => {
   const params = useParams();
 
   const [department, setDepartment] = useState({
-    id: '',
     nameDepartment: '',
     description: '',
   });
@@ -32,16 +31,17 @@ const FormDepartment: React.FunctionComponent = (): React.ReactElement => {
   const getItem = async () => {
     try {
       const _department = await departmentService.findDepartmentById(idDepartment);
-      setDepartment(_department);
+      delete _department.data['id'];
+      setDepartment(_department.data);
     } catch (error) {
       history.push('/error/500');
     }
   };
 
   const handle = async (values: any) => {
-    if (!!values.id) {
+    if (!!idDepartment) {
       try {
-        await departmentService.updateDepartment(values, values.id);
+        await departmentService.updateDepartment(values, idDepartment);
         await departmentService.getAllDepartment();
         history.push('/admin/departments');
       } catch (error) {

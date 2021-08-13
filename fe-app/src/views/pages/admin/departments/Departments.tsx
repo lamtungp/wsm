@@ -46,7 +46,7 @@ const Departments: React.FunctionComponent = (): React.ReactElement => {
   const getListDepartment = async () => {
     try {
       const res = await departmentService.getAllDepartment();
-      setListdepartment(res);
+      setListdepartment(res.data);
     } catch (error) {
       history.push('/error/500');
     }

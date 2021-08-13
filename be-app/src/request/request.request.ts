@@ -25,6 +25,7 @@ export default {
       phoneNumber: Joi.string(),
       project: Joi.string(),
       reason: Joi.string(),
+      handler: Joi.string().email(),
     }),
     params: Joi.object({
       requestId: Joi.number().min(1).integer().required(),
@@ -41,7 +42,7 @@ export default {
   queryRequest: {
     query: Joi.object({
       emailManager: Joi.string().email(),
-      state: Joi.string().valid('Pending', 'Confirmed', 'Declined'),
+      state: Joi.string().valid('pending', 'confirmed', 'declined'),
     }).or('emailManager', 'state'),
   },
 };

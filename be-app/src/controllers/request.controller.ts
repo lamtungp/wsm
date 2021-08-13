@@ -17,38 +17,38 @@ export default class RequestController {
 
   public getAllRequest = async (_req: Request, res: Response, next: NextFunction) => {
     const requests = await this.request.getRequests();
-    if (!!requests.length) {
+    if (!!requests) {
       return responseSuccess(res, requests);
     }
-    next(new NotFoundError('Not found request'));
+    return next(new BadRequestError('Get request failure'));
   };
 
   public getListRequest = async (req: Request, res: Response, next: NextFunction) => {
     const requests = await this.request.getRequestsAccount(Number(req.params.userId));
-    if (!!requests.length) {
+    if (!!requests) {
       return responseSuccess(res, requests);
     }
-    next(new NotFoundError('Not found request'));
+    return next(new BadRequestError('Get request failure'));
   };
 
   public getListRequestOfStaff = async (req: Request, res: Response, next: NextFunction) => {
     const manager = await this.user.findUser(String(req.query.emailManager));
     if (!!manager) {
       const requests = await this.request.getRequestsStaff(manager.departmentId, 'user');
-      if (!!requests.length) {
+      if (!!requests) {
         return responseSuccess(res, requests);
       }
-      next(new NotFoundError('Not found request of staff'));
+      return next(new BadRequestError('Get request of staff failure'));
     }
-    next(new BadRequestError('Not found manager'));
+    return next(new BadRequestError('Manager account does not exist'));
   };
 
   public getListRequestByState = async (req: Request, res: Response, next: NextFunction) => {
     const requests = await this.request.getRequestByState(String(req.query.state));
-    if (!!requests.length) {
+    if (!!requests) {
       return responseSuccess(res, requests);
     }
-    next(new NotFoundError('Not found request'));
+    return next(new BadRequestError('Get request failure'));
   };
 
   public findRequestById = async (req: Request, res: Response, next: NextFunction) => {
@@ -56,7 +56,7 @@ export default class RequestController {
     if (!!request) {
       return responseSuccess(res, request);
     }
-    next(new NotFoundError('Not found request'));
+    return next(new BadRequestError('Get request failure'));
   };
 
   public addRequest = async (req: Request, res: Response, next: NextFunction) => {
@@ -64,7 +64,7 @@ export default class RequestController {
     if (!!request) {
       return responseSuccess(res, request);
     }
-    next(new BadRequestError('Add request failure'));
+    return next(new BadRequestError('Add request failure'));
   };
 
   public updateForRequest = async (req: Request, res: Response, next: NextFunction) => {
@@ -74,9 +74,9 @@ export default class RequestController {
       if (!!request) {
         return responseSuccess(res, { message: 'Update request successfully' });
       }
-      next(new BadRequestError('Update request failure'));
+      return next(new BadRequestError('Update request failure'));
     }
-    next(new NotFoundError('Request does not exist'));
+    return next(new NotFoundError('Request does not exist'));
   };
 
   public deleteOneRequest = async (req: Request, res: Response, next: NextFunction) => {
@@ -86,8 +86,8 @@ export default class RequestController {
       if (!!request) {
         return responseSuccess(res, { message: 'Delete request successfully' });
       }
-      next(new BadRequestError('Delete request failure'));
+      return next(new BadRequestError('Delete request failure'));
     }
-    next(new NotFoundError('Request does not exist'));
+    return next(new NotFoundError('Request does not exist'));
   };
 }

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
-import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { CCard, CCardHeader, CCardBody, CRow, CCol } from '@coreui/react';
@@ -9,16 +8,10 @@ import dayjs from 'dayjs';
 
 import userService from '../../../../common/redux/user/services';
 
-const InformationSchema = Yup.object().shape({
-  email: Yup.string().min(2, 'Too short!').required('Required!').email('Invalid email'),
-});
-
 const FormInformation = () => {
   const history = useHistory();
 
   const [user, setUser] = useState({
-    id: '',
-    email: '',
     address: '',
     avatar: '',
     contractTerm: '',
@@ -39,22 +32,22 @@ const FormInformation = () => {
   const getInformation = async () => {
     try {
       const res = await userService.getUserByEmail(String(localStorage.getItem('email')));
-      // console.log(res);
-      setUser(res);
+      delete res.data['id'];
+      delete res.data['email'];
+      setUser(res.data);
     } catch (error) {
       history.push('/error/500');
     }
   };
 
   const handle = async (values: any) => {
-    if (values.id) {
-      console.log(values);
-      await userService.updateUser(values, values.id);
-      history.push('/user/profile');
+    try {
+      await userService.updateUser(values, String(localStorage.getItem('email')));
+      history.push('/admin/profile');
+    } catch (error) {
+      history.push('/error/500');
     }
   };
-
-  console.log(user);
 
   return (
     <CCard className="w3-margin-top login" style={{ backgroundColor: '#fff' }}>
@@ -67,7 +60,6 @@ const FormInformation = () => {
         <div>
           <Formik
             initialValues={user}
-            validationSchema={InformationSchema}
             enableReinitialize
             onSubmit={(values) => {
               handle(values);

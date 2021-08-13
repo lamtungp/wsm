@@ -85,7 +85,7 @@ const ListStaff = () => {
   const getUsers = async () => {
     try {
       const res = await userService.getListStaff(String(localStorage.getItem('email')));
-      setListUser(res);
+      setListUser(res.data);
     } catch (error) {
       history.push('/error/500');
     }

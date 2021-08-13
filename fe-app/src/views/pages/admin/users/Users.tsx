@@ -86,16 +86,6 @@ const Users = () => {
   const history = useHistory();
   const [listUser, setListUser] = useState([{ id: '', email: '', password: '' }]);
 
-  // function ErrorFallback(error: any, resetErrorBoundary: any) {
-  //   return (
-  //     <div role="alert">
-  //       <p>Something went wrong:</p>
-  //       <pre>{error.message}</pre>
-  //       <button onClick={() => history.push('/admin/user')}>Try again</button>
-  //     </div>
-  //   );
-  // }
-
   React.useEffect(() => {
     getUsers();
   }, []);
@@ -103,7 +93,7 @@ const Users = () => {
   const getUsers = async () => {
     try {
       const res = await userService.getAllUser();
-      setListUser(res);
+      setListUser(res.data);
     } catch (error) {
       history.push('/error/500');
     }

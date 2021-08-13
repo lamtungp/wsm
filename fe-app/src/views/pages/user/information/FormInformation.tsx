@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
-import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { CCard, CCardHeader, CCardBody, CRow, CCol } from '@coreui/react';
@@ -9,17 +8,10 @@ import dayjs from 'dayjs';
 
 import userService from '../../../../common/redux/user/services';
 
-const InformationSchema = Yup.object().shape({
-  email: Yup.string().min(2, 'Too short!').required('Required!').email('Invalid email'),
-});
-
 const FormInformation = () => {
   const history = useHistory();
-  // const params = useParams();
 
   const [user, setUser] = useState({
-    id: '',
-    email: '',
     address: '',
     avatar: '',
     contractTerm: '',
@@ -40,22 +32,22 @@ const FormInformation = () => {
   const getInformation = async () => {
     try {
       const res = await userService.getUserByEmail(String(localStorage.getItem('email')));
-      // console.log(res);
-      setUser(res);
+      delete res.data['id'];
+      delete res.data['email'];
+      setUser(res.data);
     } catch (error) {
       history.push('/error/500');
     }
   };
 
   const handle = async (values: any) => {
-    if (values.id) {
-      console.log(values);
-      await userService.updateUser(values, values.id);
+    try {
+      await userService.updateUser(values, String(localStorage.getItem('email')));
       history.push('/user/profile');
+    } catch (error) {
+      history.push('/error/500');
     }
   };
-
-  console.log(user);
 
   return (
     <CCard className="w3-margin-top login" style={{ backgroundColor: '#fff' }}>
@@ -68,7 +60,6 @@ const FormInformation = () => {
         <div>
           <Formik
             initialValues={user}
-            validationSchema={InformationSchema}
             enableReinitialize
             onSubmit={(values) => {
               handle(values);
@@ -182,27 +173,6 @@ const FormInformation = () => {
                     <CCol lg="3">
                       <Form.Control name="dob" type="date" value={values.dob} onChange={handleChange} />
                     </CCol>
-                    {/* <CCol lg="1" className="pr-1">
-                                            <Form.Control
-                                                name="day"
-                                                // value={values.phoneNumber}
-                                                onChange={handleChange}
-                                            />
-                                        </CCol>
-                                        <CCol lg="1" className="pr-1">
-                                            <Form.Control
-                                                name="month"
-                                                // value={values.phoneNumber}
-                                                onChange={handleChange}
-                                            />
-                                        </CCol>
-                                        <CCol lg="1" className="pr-1">
-                                            <Form.Control
-                                                name="year"
-                                                // value={values.phoneNumber}
-                                                onChange={handleChange}
-                                            />
-                                        </CCol> */}
                   </CRow>
                 </Form.Group>
                 <Form.Group>

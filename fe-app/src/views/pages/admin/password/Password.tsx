@@ -44,7 +44,7 @@ const Users = () => {
     try {
       const res = await userServices.getAllUser();
       // console.log(res);
-      setListUser(res);
+      setListUser(res.data);
     } catch (error) {
       history.push('/error/500');
     }

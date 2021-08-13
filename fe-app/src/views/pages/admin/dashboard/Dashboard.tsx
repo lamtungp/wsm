@@ -22,9 +22,9 @@ const Dashboard: React.FunctionComponent = (): React.ReactElement => {
 
   const getData = async () => {
     try {
-      const number_users = (await userServices.getAllUser()).length;
-      const number_departments = (await departmentServices.getAllDepartment()).length;
-      const number_requests = (await requestServices.findRequestByState('pending')).length;
+      const number_users = (await userServices.getAllUser()).data.length;
+      const number_departments = (await departmentServices.getAllDepartment()).data.length;
+      const number_requests = (await requestServices.findRequestByState('pending')).data.length;
       setNumberUser(number_users);
       setNumberDepartment(number_departments);
       setNumberRequest(number_requests);

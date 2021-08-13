@@ -20,7 +20,7 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
     try {
       const res = await requestService.getListRequest(Number(localStorage.getItem('userId')));
       // console.log(res);
-      setListRequest(res);
+      setListRequest(res.data);
     } catch (error) {
       history.push('/error/500');
     }
@@ -77,17 +77,17 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
                         <tr key={index}>
                           <td>{item.nameRequest}</td>
                           <td>
-                            {item.state === 'Confirmed' ? (
+                            {item.state === 'confirmed' ? (
                               <span className="badge badge-pill badge-success text-white">Đồng ý</span>
                             ) : (
                               <></>
                             )}
-                            {item.state === 'Declined' ? (
+                            {item.state === 'declined' ? (
                               <span className="badge badge-pill badge-danger text-white">Từ chối</span>
                             ) : (
                               <></>
                             )}
-                            {item.state === 'Pending' ? (
+                            {item.state === 'pending' ? (
                               <span className="badge badge-pill badge-warning text-white">Đang chờ xử lý</span>
                             ) : (
                               <></>

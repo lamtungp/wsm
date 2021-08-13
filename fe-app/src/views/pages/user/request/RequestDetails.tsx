@@ -29,7 +29,7 @@ const RequestDetails: React.FunctionComponent = (): React.ReactElement => {
     try {
       const res = await requestService.findRequestById(id);
       // console.log(res);
-      setRequest(res);
+      setRequest(res.data);
     } catch (error) {
       history.push('/error/500');
     }
@@ -48,7 +48,7 @@ const RequestDetails: React.FunctionComponent = (): React.ReactElement => {
                 Chi tiết yêu cầu
               </h2>
             </CCardHeader>
-            {request.state === 'Pending' ? (
+            {request.state === 'pending' ? (
               <CCardHeader style={{ border: 'none' }}>
                 <CButton
                   className="btn btn-primary shadow"

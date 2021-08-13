@@ -61,8 +61,8 @@ const CustomToolbar = (toolbar: any) => {
 
   const getCheckin = async () => {
     const res = await checkinServices.getCheckinByUserId(userId, date);
-    if (!!!res.message) {
-      if (!!res.checkin && !!!res.checkout) {
+    if (!!!res.data.message) {
+      if (!!res.data.checkin && !!!res.data.checkout) {
         setShow(false);
       } else {
         setShow(true);
@@ -74,12 +74,15 @@ const CustomToolbar = (toolbar: any) => {
   // const d = dayjs(new Date().toUTCString()).format('YYYY-MM-DD H:mm');
 
   const handleCheckin = async (values: object, type: string) => {
-    // console.log(values);
+    console.log(values);
+    console.log(type);
+
     const check = await checkinServices.createCheckin(values);
-    if (!!!check.message) {
+    console.log(check);
+    if (!!!check.data.message) {
       try {
         const checkin = await checkinServices.getCheckinByUserId(Number(localStorage.getItem('userId')), date);
-        dispatch(SetCheckin([checkin.checkin, checkin.checkout]));
+        dispatch(SetCheckin([checkin.data.checkin, checkin.data.checkout]));
         if (type === 'checkin') {
           setShow(false);
         } else {

@@ -6,7 +6,6 @@ import CheckinRepository from '../repositories/checkin.repository';
 import RequestRepository from '../repositories/request.repository';
 import sendEmail from '../lib/nodemailer';
 import Bcrypt from '../lib/bcrypt';
-import NotFoundError from '../commons/http-errors/NotFoundError';
 import BadRequestError from '../commons/http-errors/BadRequestError';
 import { responseSuccess } from '../helpers/response';
 export default class UserController {
@@ -25,7 +24,7 @@ export default class UserController {
     if (!!users) {
       return responseSuccess(res, users);
     }
-    return next(new InternalServerError());
+    return next(new BadRequestError('Get all user failure'));
   };
 
   public getListUsers = async (req: Request, res: Response, next: NextFunction) => {
@@ -33,7 +32,7 @@ export default class UserController {
     if (!!users) {
       return responseSuccess(res, users);
     }
-    return next(new InternalServerError());
+    return next(new BadRequestError('Get list user failure'));
   };
 
   public getListStaffs = async (req: Request, res: Response, next: NextFunction) => {
@@ -43,9 +42,9 @@ export default class UserController {
       if (!!users) {
         return responseSuccess(res, users);
       }
-      return next(new NotFoundError('Not found list staff'));
+      return next(new BadRequestError('Get list staff failure'));
     }
-    return next(new NotFoundError('Not found manager'));
+    return next(new BadRequestError('Manager account does not exist'));
   };
 
   public getStaffsWithCheckin = async (req: Request, res: Response, next: NextFunction) => {
@@ -55,9 +54,9 @@ export default class UserController {
       if (!!users) {
         return responseSuccess(res, users);
       }
-      return next(new NotFoundError('Not found list staff with checkin'));
+      return next(new BadRequestError('Get list staff with checkin failure'));
     }
-    return next(new NotFoundError('Not found manager'));
+    return next(new BadRequestError('Manager account does not exist'));
   };
 
   public findUserByEmail = async (req: Request, res: Response, next: NextFunction) => {
@@ -65,7 +64,7 @@ export default class UserController {
     if (!!user) {
       return responseSuccess(res, user);
     }
-    return next(new NotFoundError('Not found user'));
+    return next(new BadRequestError('User does not exist'));
   };
 
   public addUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -121,20 +120,23 @@ export default class UserController {
           };
           return responseSuccess(res, dataSuccess);
         }
-        return next(new InternalServerError('Send email failure'));
+        return next(new BadRequestError('Send email failure'));
       }
-      return next(new InternalServerError("Can't update"));
+      return next(new BadRequestError("Can't update"));
     }
-    return next(new NotFoundError('Not found user'));
+    return next(new BadRequestError('User does not exist'));
   };
 
   public verifyAccount = async (req: Request, res: Response, next: NextFunction) => {
     const user = await this.user.findUser(String(req.params.confirmationCode));
     if (!!user) {
       const update = await this.user.updateUser({ status: 'actived' }, user.email);
-      return responseSuccess(res, update);
+      if (!!update) {
+        return responseSuccess(res, { message: 'Account was actived' });
+      }
+      return next(new BadRequestError('Active account fail'));
     }
-    return next(new NotFoundError('Not found user'));
+    return next(new BadRequestError('User does not exist'));
   };
 
   public updateForUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -154,7 +156,7 @@ export default class UserController {
       }
       return next(new BadRequestError('Update user failure'));
     }
-    return next(new NotFoundError('Not found user'));
+    return next(new BadRequestError('User does not exist'));
   };
 
   public deleteOneUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -168,6 +170,6 @@ export default class UserController {
       }
       return next(new BadRequestError('Delete user failure'));
     }
-    return next(new NotFoundError('Not found user'));
+    return next(new BadRequestError('User does not exist'));
   };
 }

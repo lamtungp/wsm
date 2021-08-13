@@ -37,7 +37,6 @@ const FormRequest = () => {
   };
 
   const [request, setRequest] = useState({
-    id: 0,
     nameRequest: 'Nghỉ phép có lương',
     state: 'Pending',
     startDay: handleDate(new Date().toUTCString()),
@@ -59,17 +58,17 @@ const FormRequest = () => {
   const getRequest = async () => {
     try {
       const _request = await requestService.findRequestById(idRequest);
-      console.log(_request);
-      setRequest(_request);
-      setDateStart(new Date(_request.startDay));
-      setDateEnd(new Date(_request.endDay));
+      setRequest(_request.data);
+      setDateStart(new Date(_request.data.startDay));
+      setDateEnd(new Date(_request.data.endDay));
     } catch (error) {
       history.push('/error/500');
     }
   };
 
   const handle = async (values: any) => {
-    if (values.id) {
+    console.log(values);
+    if (idRequest) {
       try {
         await requestService.updateRequest(values, values.id);
         await requestService.getListRequest(Number(localStorage.getItem('userId')));
@@ -127,10 +126,8 @@ const FormRequest = () => {
                     enableReinitialize
                     onSubmit={(values) => {
                       values.timeout = `${values.startDay} ~ ${values.endDay}`;
-                      console.log(values);
-                      // console.log(cancle);
                       if (cancle) {
-                        deleteRequest(Number(values.id));
+                        deleteRequest(Number(idRequest));
                       } else {
                         handle(values);
                       }

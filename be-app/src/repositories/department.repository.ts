@@ -23,6 +23,7 @@ export default class DepartmentRepository {
 
   public async getDepartmentById(id: number): Promise<DepartmentAttributes> {
     const department = await this.department.findOne({
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
       where: { id },
     });
     return department;

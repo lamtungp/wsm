@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import UnauthorizedError from '../commons/http-errors/UnauthorizedError';
+import ForbiddenError from '../commons/http-errors/ForbiddenError';
 
 export default (req: Request, res: Response, next: NextFunction) => {
   const token = req.header('auth-token');
@@ -11,7 +12,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
     if (decodedData.role === 'admin' || decodedData.role === 'manager') return next();
-    else return next(new UnauthorizedError('Not permission'));
+    else return next(new ForbiddenError('Not permission'));
   } catch (err) {
     return next(new UnauthorizedError('Invalid Token'));
   }

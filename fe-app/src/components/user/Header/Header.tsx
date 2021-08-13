@@ -1,12 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  CHeader,
-  CToggler,
-  // CHeaderBrand,
-  CHeaderNav,
-  CHeaderNavItem,
-} from '@coreui/react';
+import { CHeader, CToggler, CHeaderNav, CHeaderNavItem } from '@coreui/react';
 
 // routes config
 import { SetSidebar } from '../../../common/redux/sidebar/actions';
@@ -26,15 +20,10 @@ const Header: React.FunctionComponent = (): React.ReactElement => {
     dispatch(SetSidebar(val));
   };
 
-  // console.log(sidebarShow);
-
   return (
     <CHeader withSubheader>
       <CToggler inHeader className="ml-md-3 d-lg-none" onClick={toggleSidebarMobile} />
       <CToggler inHeader className="ml-3 d-md-down-none" onClick={toggleSidebar} />
-      {/* <CHeaderBrand className="mx-auto d-lg-none" to="/"> */}
-      {/* <CIcon name="logo" height="48" alt="Logo" /> */}
-      {/* </CHeaderBrand> */}
 
       <CHeaderNav className="d-md-down-none mr-auto">
         <CHeaderNavItem className="px-3">
