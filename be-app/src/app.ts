@@ -45,15 +45,17 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 // api app
 app.use('/api/v1', indexRouter);
 
-// validation request to error handler
-app.use(requestValidationHandler);
-
 // catch 404 and forward to error handler
 app.use((_req, _res, next) => {
   next(new NotFoundError(messages.generalMessage.ApiNotExist));
 });
 
+// validation request to error handler
+app.use(requestValidationHandler);
+
+// handle http error
 app.use(httpErrorHandler);
+
 // error handler
 app.use((_error: Error, _req: express.Request, res: express.Response) => {
   responseError(res);

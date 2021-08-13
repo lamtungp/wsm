@@ -4,16 +4,11 @@ export default {
     description: 'Get list staff with role is user',
     operationId: 'get-list-staff',
     parameters: [
-      { $ref: '#/components/parameters/AuthToken' },
       {
-        name: 'email',
-        in: 'query',
-        required: true,
-        description: 'The email that needs to be fetched. Use an user for testing.',
-        schema: {
-          type: 'string',
-          example: 'lamtung2404@gmail.com',
-        },
+        $ref: '#/components/parameters/AuthToken',
+      },
+      {
+        $ref: '#/components/parameters/Email',
       },
       {
         name: 'role',
@@ -22,6 +17,7 @@ export default {
         description: 'List staff with role is user',
         schema: {
           type: 'string',
+          enum: ['user', 'admin', 'manager'],
           example: 'user',
         },
       },

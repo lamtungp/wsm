@@ -1,23 +1,21 @@
 export default {
   get: {
-    tags: ['user'],
-    description: 'Get list staff with checkin',
-    operationId: 'get-list-staff-with-checkin',
+    tags: ['request'],
+    description: 'This can only be done by the logged in.',
+    operationId: 'find-request-by-state',
+
     parameters: [
       {
         $ref: '#/components/parameters/AuthToken',
       },
       {
-        $ref: '#/components/parameters/Email',
-      },
-      {
-        name: 'date',
+        name: 'state',
         in: 'query',
         required: true,
-        description: 'Day checkin',
+        description: 'State of request',
         schema: {
           type: 'string',
-          example: '2021-08-08',
+          enum: ['Pending', 'Confirmed', 'Declined'],
         },
       },
     ],

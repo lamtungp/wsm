@@ -17,8 +17,8 @@ const checkinServices = {
     return results;
   },
 
-  updateCheckin: (param: object, userId: number, date: string): Promise<any> => {
-    const result = AxiosClient.post(`${API.CHECKIN.UPDATE_CHECKIN}?userId=${userId}&date=${date}`, param);
+  createCheckin: (param: object): Promise<any> => {
+    const result = AxiosClient.post(API.CHECKIN.CREATE_CHECKIN, param);
     return result;
   },
 };

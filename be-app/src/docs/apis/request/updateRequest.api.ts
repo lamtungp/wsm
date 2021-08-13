@@ -1,17 +1,18 @@
 export default {
-  get: {
-    tags: ['user'],
-    description: 'Get list user of department',
-    operationId: 'get-list-user',
+  put: {
+    tags: ['request'],
+    description: 'This can only be done by the logged in.',
+    operationId: 'update-request',
+
     parameters: [
       {
         $ref: '#/components/parameters/AuthToken',
       },
       {
-        name: 'departmentId',
+        name: 'requestId',
         in: 'path',
         required: true,
-        description: 'Id of department',
+        description: 'Id of request',
         schema: {
           type: 'integer',
           format: 'int64',
@@ -19,9 +20,21 @@ export default {
         },
       },
     ],
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/components/schemas/request',
+          },
+        },
+      },
+    },
     responses: {
       '200': {
         description: 'OK',
+      },
+      '201': {
+        description: 'Department created successfully',
       },
       '400': {
         description: 'Bad Request Error',

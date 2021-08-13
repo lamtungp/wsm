@@ -10,7 +10,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
     // eslint-disable-next-line no-unused-vars
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
-    if (decodedData.role === 'admin' || decodedData.role === 'user') return next();
+    if (decodedData.role === 'manager' || decodedData.role === 'user') return next();
     else return next(new UnauthorizedError('Not permission'));
   } catch (err) {
     return next(new UnauthorizedError('Invalid Token'));

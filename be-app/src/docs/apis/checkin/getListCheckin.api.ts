@@ -1,17 +1,18 @@
 export default {
   get: {
-    tags: ['user'],
-    description: 'Get list user of department',
-    operationId: 'get-list-user',
+    tags: ['checkin'],
+    description: 'Get list checkin',
+    operationId: 'get-list-checkin',
+
     parameters: [
       {
         $ref: '#/components/parameters/AuthToken',
       },
       {
-        name: 'departmentId',
+        name: 'userId',
         in: 'path',
         required: true,
-        description: 'Id of department',
+        description: 'Id of user',
         schema: {
           type: 'integer',
           format: 'int64',
@@ -19,18 +20,10 @@ export default {
         },
       },
     ],
+
     responses: {
       '200': {
         description: 'OK',
-      },
-      '400': {
-        description: 'Bad Request Error',
-      },
-      '401': {
-        description: 'Unauthorized Error',
-      },
-      '404': {
-        description: 'Not Found Error',
       },
       '500': {
         description: 'Internal Server Error',

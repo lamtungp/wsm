@@ -1,10 +1,24 @@
 import { Joi } from 'express-validation';
 
 export default {
-  customerLogin: {
+  createCheckin: {
     body: Joi.object({
-      email: Joi.string().email().required(),
-      password: Joi.string().required(),
+      checkin: Joi.string(),
+      checkout: Joi.string(),
+      date: Joi.string().required(),
+      userId: Joi.number().min(1).integer().required(),
+    }).or('checkin', 'checkout'),
+  },
+
+  paramsRequest: {
+    params: Joi.object({
+      userId: Joi.number().min(1).integer().required(),
+    }),
+  },
+
+  queryRequest: {
+    query: Joi.object({
+      date: Joi.string().required(),
     }),
   },
 };

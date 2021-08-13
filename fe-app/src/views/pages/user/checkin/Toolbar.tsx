@@ -75,7 +75,7 @@ const CustomToolbar = (toolbar: any) => {
 
   const handleCheckin = async (values: object, type: string) => {
     // console.log(values);
-    const check = await checkinServices.updateCheckin(values, userId, date);
+    const check = await checkinServices.createCheckin(values);
     if (!!!check.message) {
       try {
         const checkin = await checkinServices.getCheckinByUserId(Number(localStorage.getItem('userId')), date);
@@ -125,7 +125,7 @@ const CustomToolbar = (toolbar: any) => {
                       {
                         checkin: handleTime(new Date().toUTCString()),
                         date: date,
-                        userId: localStorage.getItem('userId'),
+                        userId: Number(localStorage.getItem('userId')),
                       },
                       'checkin',
                     )
@@ -141,6 +141,8 @@ const CustomToolbar = (toolbar: any) => {
                     handleClick(
                       {
                         checkout: handleTime(new Date().toUTCString()),
+                        date: date,
+                        userId: localStorage.getItem('userId'),
                       },
                       'checkout',
                     )

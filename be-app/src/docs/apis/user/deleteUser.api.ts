@@ -8,14 +8,7 @@ export default {
         $ref: '#/components/parameters/AuthToken',
       },
       {
-        name: 'email',
-        in: 'query',
-        required: true,
-        description: 'The email that needs to be fetched. Use a user for testing.',
-        schema: {
-          type: 'string',
-          example: 'lamtung2404@gmail.com',
-        },
+        $ref: '#/components/parameters/Email',
       },
     ],
     responses: {

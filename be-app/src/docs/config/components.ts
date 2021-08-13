@@ -198,8 +198,6 @@ export default {
       required: true,
       schema: {
         type: 'string',
-        example:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTYsImVtYWlsIjoibGFtcHQyNDA0QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYyODUwMTQwNywiZXhwIjoxNjMwMjI5NDA3fQ.tOTvMLPb8Rrt0SdGtybQlYrg-A6OZik1CD4_DP53HV8',
       },
     },
     Email: {

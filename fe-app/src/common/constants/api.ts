@@ -20,7 +20,7 @@ const API = {
     GET_LIST_CHECKIN: 'checkin/get-list-checkin',
     GET_LIST_CHECKIN_WITH_DATE: 'checkin/get-list-checkin-with-date',
     GET_CHECKIN_BY_USER_ID: 'checkin/find-checkin',
-    UPDATE_CHECKIN: 'checkin/update-checkin',
+    CREATE_CHECKIN: 'checkin/create-checkin',
   },
 
   REQUEST: {

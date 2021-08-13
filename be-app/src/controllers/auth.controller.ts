@@ -1,5 +1,6 @@
 import { NextFunction, Response } from 'express';
-import InternalServerError from '../commons/http-errors/InternalServerError';
+import BadRequestError from '../commons/http-errors/BadRequestError';
+import NotFoundError from '../commons/http-errors/NotFoundError';
 import { generateTokenAuth } from '../lib/passports';
 import AuthRepository from '../repositories/auth.repository';
 
@@ -17,8 +18,8 @@ export default class AuthController extends AuthRepository {
           vacationDay: userData.vacationsDay,
         });
       }
-      return next(new InternalServerError());
+      return next(new BadRequestError('User not actived'));
     }
-    return next(new InternalServerError());
+    return next(new NotFoundError('Email or password invalid'));
   };
 }

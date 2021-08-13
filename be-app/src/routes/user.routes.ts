@@ -2,7 +2,6 @@ import { Router } from 'express';
 import UserController from '../controllers/user.controller';
 import { validate } from 'express-validation';
 import UserRequest from '../request/user.request';
-import verifyAdminManagerMiddleware from '../middlewares/verify.admin.manager.middleware';
 import verifyManagerMiddleware from '../middlewares/verify.manager.middleware';
 import verifyAdminMiddleware from '../middlewares/verify.admin.middleware';
 import verifyAllMiddleware from '../middlewares/verify.all.middleware';
@@ -19,11 +18,26 @@ router.get('/', (_req, res) => {
 
 router.get('/get-all-user', verifyAdminMiddleware, userController.getAllUsers);
 
-router.get('/get-list-user/:departmentId', verifyAdminMiddleware, userController.getListUsers);
+router.get(
+  '/get-list-user/:departmentId',
+  verifyAdminMiddleware,
+  validate(UserRequest.paramRequest),
+  userController.getListUsers,
+);
 
-router.get('/get-list-staff', verifyManagerMiddleware, userController.getListStaffs);
+router.get(
+  '/get-list-staff',
+  verifyManagerMiddleware,
+  validate(UserRequest.queryRequest),
+  userController.getListStaffs,
+);
 
-router.get('/get-staff-with-checkin', verifyManagerMiddleware, userController.getStaffsWithCheckin);
+router.get(
+  '/get-staff-with-checkin',
+  verifyManagerMiddleware,
+  validate(UserRequest.queryRequest),
+  userController.getStaffsWithCheckin,
+);
 
 router.get(
   '/find-user-by-email',

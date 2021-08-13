@@ -9,9 +9,17 @@ export default {
       gender: Joi.string().required(),
       dayIn: Joi.string().required(),
       role: Joi.string().required(),
-    })
-      .without('email', ['id', 'createdAt', 'updatedAt'])
-      .unknown(),
+      avatar: Joi.string(),
+      dob: Joi.string(),
+      phoneNumber: Joi.string(),
+      senority: Joi.string(),
+      address: Joi.string(),
+      dayOfficial: Joi.string(),
+      contractTerm: Joi.string(),
+      vacationsDay: Joi.number().min(0).integer(),
+      departmentId: Joi.number().min(0).integer().required(),
+      status: Joi.string().valid('actived', 'pending'),
+    }),
   },
 
   updateUser: {
@@ -21,9 +29,17 @@ export default {
       gender: Joi.string(),
       dayIn: Joi.string(),
       role: Joi.string(),
-    })
-      .without('email', ['id', 'createdAt', 'updatedAt', 'email'])
-      .unknown(),
+      avatar: Joi.string(),
+      dob: Joi.string(),
+      phoneNumber: Joi.string(),
+      senority: Joi.string(),
+      address: Joi.string(),
+      dayOfficial: Joi.string(),
+      contractTerm: Joi.string(),
+      vacationsDay: Joi.number().min(0).integer(),
+      departmentId: Joi.number().min(0).integer(),
+      status: Joi.string().valid('actived', 'pending'),
+    }),
     query: Joi.object({ email: Joi.string().email().required() }),
   },
 
@@ -36,6 +52,6 @@ export default {
   },
 
   paramRequest: {
-    params: Joi.object({ departmentId: Joi.number().min(1).integer() }),
+    params: Joi.object({ departmentId: Joi.number().min(1).integer().required() }),
   },
 };

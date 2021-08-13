@@ -1,26 +1,15 @@
 export default {
   get: {
-    tags: ['user'],
-    description: 'Get list staff with checkin',
-    operationId: 'get-list-staff-with-checkin',
+    tags: ['department'],
+    description: 'This can only be done by the logged in admin.',
+    operationId: 'find-deparment',
+
     parameters: [
       {
         $ref: '#/components/parameters/AuthToken',
       },
-      {
-        $ref: '#/components/parameters/Email',
-      },
-      {
-        name: 'date',
-        in: 'query',
-        required: true,
-        description: 'Day checkin',
-        schema: {
-          type: 'string',
-          example: '2021-08-08',
-        },
-      },
     ],
+
     responses: {
       '200': {
         description: 'OK',

@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import { validate } from 'express-validation';
+import CheckinRequest from '../request/checkin.request';
 import CheckinController from '../controllers/checkin.controller';
 import verifyAdminManagerMiddleware from '../middlewares/verify.admin.manager.middleware';
 import verifyUserManagerMiddleware from '../middlewares/verify.user.manager.middleware';
@@ -12,16 +14,26 @@ router.get('/', (_req, res) => {
   res.send('Go to checkin APIs !!');
 });
 
-router.get('/get-list-checkin/:userId', verifyUserManagerMiddleware, checkinController.getListCheckin);
-
 router.get(
-  '/get-list-checkin-with-date/:userId',
-  verifyAdminManagerMiddleware,
-  checkinController.getListCheckinWithDate,
+  '/get-list-checkin/:userId',
+  verifyUserManagerMiddleware,
+  validate(CheckinRequest.paramsRequest),
+  checkinController.getListCheckin,
 );
 
-router.get('/find-checkin/:userId', verifyUserManagerMiddleware, checkinController.findCheckinByUserIdDate);
+router.get(
+  '/find-checkin/:userId',
+  verifyUserManagerMiddleware,
+  validate(CheckinRequest.paramsRequest),
+  validate(CheckinRequest.queryRequest),
+  checkinController.findCheckin,
+);
 
-router.post('/update-checkin', verifyUserManagerMiddleware, checkinController.updateCheckins);
+router.post(
+  '/create-checkin',
+  verifyUserManagerMiddleware,
+  validate(CheckinRequest.createCheckin),
+  checkinController.createCheckins,
+);
 
 export default router;

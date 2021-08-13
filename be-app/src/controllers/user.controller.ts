@@ -74,11 +74,11 @@ export default class UserController {
       return next(new BadRequestError('Email existed'));
     }
     const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
-    const token = generateTokenConfirm(req.body);
+    const tokenConfirm = generateTokenConfirm(req.body);
     const user = await this.user.createUser({
       ...req.body,
       password: hashPassword,
-      confirmationCode: token,
+      confirmationCode: tokenConfirm,
     });
     if (!!user) {
       const send = sendEmail(
@@ -91,18 +91,18 @@ export default class UserController {
       if (!!send) {
         const dataSuccess = {
           message: 'User was registered successfully! Please check your email',
-          confirmationCode: token,
+          confirmationCode: tokenConfirm,
         };
         return responseSuccess(res, dataSuccess);
       }
       return next(new InternalServerError('Send email failure'));
     }
-    return next(new BadRequestError());
+    return next(new BadRequestError('Create user failure'));
   };
 
   public resetPassword = async (req: Request, res: Response, next: NextFunction) => {
     const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
-    const token = generateTokenConfirm(req.body);
+    const tokenConfirm = generateTokenConfirm(req.body);
     const user = await this.user.findUser(req.body.email);
     if (!!user) {
       const update = await this.user.updateUser({ passowrd: hashPassword }, req.body.email);
@@ -111,13 +111,13 @@ export default class UserController {
           user.name,
           user.email,
           req.body.password,
-          token,
+          tokenConfirm,
           process.env.API_CONFIRM_RESETPASS_ENTRYPOINT,
         );
         if (!!send) {
           const dataSuccess = {
             message: 'Successfully! Please check your email',
-            confirmationCode: token,
+            confirmationCode: tokenConfirm,
           };
           return responseSuccess(res, dataSuccess);
         }
@@ -144,15 +144,15 @@ export default class UserController {
         const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
         const user = await this.user.updateUser({ ...req.body, password: hashPassword }, String(req.query.email));
         if (!!user) {
-          return responseSuccess(res, user);
+          return responseSuccess(res, { message: 'Update password successfully' });
         }
-        return next(new InternalServerError());
+        return next(new BadRequestError('Update password failure'));
       }
       const user = await this.user.updateUser(req.body, String(req.query.email));
       if (!!user) {
-        return responseSuccess(res, user);
+        return responseSuccess(res, { message: 'Update user successfully' });
       }
-      return next(new InternalServerError());
+      return next(new BadRequestError('Update user failure'));
     }
     return next(new NotFoundError('Not found user'));
   };
@@ -164,9 +164,9 @@ export default class UserController {
       await this.request.deleteRequestByUserId(user.id);
       const deleteUser = await this.user.deleteUser(String(req.query.email));
       if (!!deleteUser) {
-        return responseSuccess(res, deleteUser);
+        return responseSuccess(res, { message: 'Delete successfully' });
       }
-      return next(new InternalServerError());
+      return next(new BadRequestError('Delete user failure'));
     }
     return next(new NotFoundError('Not found user'));
   };

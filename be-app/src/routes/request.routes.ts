@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import RequestController from '../controllers/request.controller';
-import verifyAdminManagerMiddleware from '../middlewares/verify.admin.manager.middleware';
+import { validate } from 'express-validation';
+import validateRequest from '../request/request.request';
 import verifyAdminMiddleware from '../middlewares/verify.admin.middleware';
 import verifyUserManagerMiddleware from '../middlewares/verify.user.manager.middleware';
 import verifyManagerMiddleware from '../middlewares/verify.manager.middleware';
@@ -15,20 +16,55 @@ router.get('/', (_req, res) => {
   res.send('Go to request APIs !!');
 });
 
-router.get('/get-all-request', verifyAdminManagerMiddleware, requestController.getAllRequest);
+router.get('/get-all-request', verifyAdminMiddleware, requestController.getAllRequest);
 
-router.get('/get-list-request/:userId', verifyUserManagerMiddleware, requestController.getListRequest);
+router.get(
+  '/get-list-request/:userId',
+  verifyUserManagerMiddleware,
+  validate(validateRequest.paramsRequest),
+  requestController.getListRequest,
+);
 
-router.get('/get-list-request-of-staff', verifyManagerMiddleware, requestController.getListRequestOfStaff);
+router.get(
+  '/get-list-request-of-staff',
+  verifyManagerMiddleware,
+  validate(validateRequest.queryRequest),
+  requestController.getListRequestOfStaff,
+);
 
-router.get('/find-request-by-id/:id', verifyAllMiddleware, requestController.findRequestById);
+router.get(
+  '/find-request-by-id/:requestId',
+  verifyAllMiddleware,
+  validate(validateRequest.paramsRequest),
+  requestController.findRequestById,
+);
 
-router.post('/create-request', verifyAllMiddleware, requestController.addRequest);
+router.post(
+  '/create-request',
+  verifyAllMiddleware,
+  validate(validateRequest.createRequest),
+  requestController.addRequest,
+);
 
-router.put('/update-request/:id', verifyAllMiddleware, requestController.updateForRequest);
+router.put(
+  '/update-request/:requestId',
+  verifyAllMiddleware,
+  validate(validateRequest.updateRequest),
+  requestController.updateForRequest,
+);
 
-router.get('/find-request-by-state', verifyAllMiddleware, requestController.getListRequestByState);
+router.get(
+  '/find-request-by-state',
+  verifyAllMiddleware,
+  validate(validateRequest.queryRequest),
+  requestController.getListRequestByState,
+);
 
-router.delete('/delete-request/:id', verifyAllMiddleware, requestController.deleteOneRequest);
+router.delete(
+  '/delete-request/:requestId',
+  verifyAllMiddleware,
+  validate(validateRequest.paramsRequest),
+  requestController.deleteOneRequest,
+);
 
 export default router;

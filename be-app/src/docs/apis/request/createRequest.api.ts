@@ -1,29 +1,29 @@
 export default {
-  get: {
-    tags: ['user'],
-    description: 'Get list staff with checkin',
-    operationId: 'get-list-staff-with-checkin',
+  post: {
+    tags: ['request'],
+    description: 'This can only be done by the logged in.',
+    operationId: 'create-request',
+
     parameters: [
       {
         $ref: '#/components/parameters/AuthToken',
       },
-      {
-        $ref: '#/components/parameters/Email',
-      },
-      {
-        name: 'date',
-        in: 'query',
-        required: true,
-        description: 'Day checkin',
-        schema: {
-          type: 'string',
-          example: '2021-08-08',
+    ],
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/components/schemas/request',
+          },
         },
       },
-    ],
+    },
     responses: {
       '200': {
         description: 'OK',
+      },
+      '201': {
+        description: 'Department created successfully',
       },
       '400': {
         description: 'Bad Request Error',

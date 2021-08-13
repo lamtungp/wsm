@@ -26,6 +26,7 @@ export default (callback) => (req: Request, res: Response, next: NextFunction) =
             message: 'error catch by controller wrapper.',
             data: { url: req.url, method: req.method, errorType: typeof error },
           });
+          console.log('error');
         } catch (_error) {
           // ignore it.
         } finally {

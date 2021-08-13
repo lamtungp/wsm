@@ -1,26 +1,26 @@
 export default {
-  get: {
-    tags: ['user'],
-    description: 'Get list staff with checkin',
-    operationId: 'get-list-staff-with-checkin',
+  delete: {
+    tags: ['department'],
+    description: 'This can only be done by the logged in admin.',
+    operationId: 'delete-deparment',
+
     parameters: [
       {
         $ref: '#/components/parameters/AuthToken',
       },
       {
-        $ref: '#/components/parameters/Email',
-      },
-      {
-        name: 'date',
-        in: 'query',
+        name: 'departmentId',
+        in: 'path',
         required: true,
-        description: 'Day checkin',
+        description: 'Id of department',
         schema: {
-          type: 'string',
-          example: '2021-08-08',
+          type: 'integer',
+          format: 'int64',
+          example: 1,
         },
       },
     ],
+
     responses: {
       '200': {
         description: 'OK',

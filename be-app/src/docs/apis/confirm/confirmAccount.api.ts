@@ -1,25 +1,26 @@
 export default {
-  get: {
+  put: {
     tags: ['user'],
-    description: 'Get all user',
-    operationId: 'get-all-user',
+    summary: 'Please create a account before calling this api',
+    operationId: 'confirm-account',
+
     parameters: [
       {
-        $ref: '#/components/parameters/AuthToken',
+        name: 'confirmationCode',
+        in: 'path',
+        required: true,
+        schema: {
+          type: 'string',
+        },
       },
     ],
+
     responses: {
       '200': {
         description: 'OK',
       },
       '400': {
         description: 'Bad Request Error',
-      },
-      '401': {
-        description: 'Unauthorized Error',
-      },
-      '404': {
-        description: 'Not Found Error',
       },
       '500': {
         description: 'Internal Server Error',

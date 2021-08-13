@@ -6,8 +6,14 @@ import { responseError } from './response';
 export default (error: ValidationError, _req: Request, res: Response, next: NextFunction) => {
   if (error instanceof ValidationError) {
     logger.error(error);
-    // eslint-disable-next-line
+    if (!!error.details.params) {
+      return responseError(res, error.statusCode, error.details.params[0].message.replace(/(\")/g, ''));
+    }
+    if (!!error.details.query) {
+      return responseError(res, error.statusCode, error.details.query[0].message.replace(/(\")/g, ''));
+    }
     return responseError(res, error.statusCode, error.details.body[0].message.replace(/(\")/g, ''));
   }
+  console.log('request error', error);
   return next(error);
 };

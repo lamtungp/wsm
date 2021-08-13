@@ -1,8 +1,9 @@
 export default {
-  get: {
-    tags: ['user'],
-    description: 'Get list user of department',
-    operationId: 'get-list-user',
+  put: {
+    tags: ['department'],
+    description: 'This can only be done by the logged in admin.',
+    operationId: 'update-deparment',
+
     parameters: [
       {
         $ref: '#/components/parameters/AuthToken',
@@ -19,6 +20,20 @@ export default {
         },
       },
     ],
+
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            example: {
+              description: 'hi',
+            },
+          },
+        },
+      },
+    },
+
     responses: {
       '200': {
         description: 'OK',

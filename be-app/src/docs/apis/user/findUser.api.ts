@@ -4,16 +4,11 @@ export default {
     description: 'Find an user',
     operationId: 'find-an-user',
     parameters: [
-      { $ref: '#/components/parameters/AuthToken' },
       {
-        name: 'email',
-        in: 'query',
-        required: true,
-        description: 'The email that needs to be fetched. Use a user for testing.',
-        schema: {
-          type: 'string',
-          example: 'lamtung2404@gmail.com',
-        },
+        $ref: '#/components/parameters/AuthToken',
+      },
+      {
+        $ref: '#/components/parameters/Email',
       },
     ],
     responses: {
