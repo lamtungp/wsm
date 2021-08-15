@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import BadRequestError from '../commons/http-errors/BadRequestError';
 import { responseSuccess } from '../helpers/response';
 import CheckinRepository from '../repositories/checkin.repository';
 
@@ -25,16 +26,19 @@ export default class CheckinController {
     return responseSuccess(res, { message: 'Not found' });
   };
 
-  public createCheckins = async (req: Request, res: Response) => {
+  public createCheckins = async (req: Request, res: Response, next: NextFunction) => {
     const userCheckin = await this.checkin.getCheckinByUserIdDate(req.body.userId, req.body.date);
     if (!!userCheckin) {
       if (!!!userCheckin.checkout && !!userCheckin.checkin) {
         const checkin = await this.checkin.updateCheckin(req.body.userId, req.body.date, req.body);
-        return responseSuccess(res, checkin);
+        return responseSuccess(res, { message: 'Update checkin successfully' });
       }
       return responseSuccess(res, { message: 'Availabled checkin' });
     }
     const checkin = await this.checkin.createCheckin(req.body);
-    return responseSuccess(res, checkin);
+    if (!!checkin) {
+      return responseSuccess(res, checkin);
+    }
+    return next(new BadRequestError('Create checkin failure'));
   };
 }

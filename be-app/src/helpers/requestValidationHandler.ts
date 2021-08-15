@@ -14,6 +14,5 @@ export default (error: ValidationError, _req: Request, res: Response, next: Next
     }
     return responseError(res, error.statusCode, error.details.body[0].message.replace(/(\")/g, ''));
   }
-  console.log('request error', error);
   return next(error);
 };

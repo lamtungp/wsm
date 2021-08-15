@@ -1,6 +1,7 @@
 import { NextFunction, Response } from 'express';
 import BadRequestError from '../commons/http-errors/BadRequestError';
 import NotFoundError from '../commons/http-errors/NotFoundError';
+import { responseSuccess } from '../helpers/response';
 import { generateTokenAuth } from '../lib/passports';
 import AuthRepository from '../repositories/auth.repository';
 
@@ -11,7 +12,7 @@ export default class AuthController extends AuthRepository {
     if (!!userData) {
       if (userData.status === 'actived') {
         const token = generateTokenAuth(userData);
-        return res.status(200).json({
+        return responseSuccess(res, {
           token: token,
           role: userData.role,
           id: userData.id,

@@ -6,7 +6,7 @@ import InternalServerError from '../commons/http-errors/InternalServerError';
 export default (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('jwt', {}, (error, user, info) => {
     if (error) {
-      return next(new InternalServerError());
+      return next(new UnauthorizedError('Authenticate Error'));
     }
     if (user) {
       req.user = user.dataValues;

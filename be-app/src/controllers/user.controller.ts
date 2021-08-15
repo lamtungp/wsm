@@ -8,6 +8,7 @@ import sendEmail from '../lib/nodemailer';
 import Bcrypt from '../lib/bcrypt';
 import BadRequestError from '../commons/http-errors/BadRequestError';
 import { responseSuccess } from '../helpers/response';
+import NotFoundError from '../commons/http-errors/NotFoundError';
 export default class UserController {
   private user: UserRepository;
   private checkin: CheckinRepository;
@@ -44,7 +45,7 @@ export default class UserController {
       }
       return next(new BadRequestError('Get list staff failure'));
     }
-    return next(new BadRequestError('Manager account does not exist'));
+    return next(new NotFoundError('Manager account does not exist'));
   };
 
   public getStaffsWithCheckin = async (req: Request, res: Response, next: NextFunction) => {
@@ -56,7 +57,7 @@ export default class UserController {
       }
       return next(new BadRequestError('Get list staff with checkin failure'));
     }
-    return next(new BadRequestError('Manager account does not exist'));
+    return next(new NotFoundError('Manager account does not exist'));
   };
 
   public findUserByEmail = async (req: Request, res: Response, next: NextFunction) => {
@@ -64,7 +65,7 @@ export default class UserController {
     if (!!user) {
       return responseSuccess(res, user);
     }
-    return next(new BadRequestError('User does not exist'));
+    return next(new NotFoundError('User does not exist'));
   };
 
   public addUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -124,7 +125,7 @@ export default class UserController {
       }
       return next(new BadRequestError("Can't update"));
     }
-    return next(new BadRequestError('User does not exist'));
+    return next(new NotFoundError('User does not exist'));
   };
 
   public verifyAccount = async (req: Request, res: Response, next: NextFunction) => {
@@ -136,7 +137,7 @@ export default class UserController {
       }
       return next(new BadRequestError('Active account fail'));
     }
-    return next(new BadRequestError('User does not exist'));
+    return next(new NotFoundError('User does not exist'));
   };
 
   public updateForUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -156,7 +157,7 @@ export default class UserController {
       }
       return next(new BadRequestError('Update user failure'));
     }
-    return next(new BadRequestError('User does not exist'));
+    return next(new NotFoundError('User does not exist'));
   };
 
   public deleteOneUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -166,10 +167,10 @@ export default class UserController {
       await this.request.deleteRequestByUserId(user.id);
       const deleteUser = await this.user.deleteUser(String(req.query.email));
       if (!!deleteUser) {
-        return responseSuccess(res, { message: 'Delete successfully' });
+        return responseSuccess(res, { message: 'Delete user successfully' });
       }
       return next(new BadRequestError('Delete user failure'));
     }
-    return next(new BadRequestError('User does not exist'));
+    return next(new NotFoundError('User does not exist'));
   };
 }

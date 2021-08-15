@@ -4,16 +4,11 @@ export default {
     summary: 'Login before calling this api',
     operationId: 'confirm-reset-password',
 
-    // parameters: [
-    //   {
-    //     name: 'confirmationCode',
-    //     in: 'path',
-    //     required: true,
-    //     schema: {
-    //       type: 'string',
-    //     },
-    //   },
-    // ],
+    parameters: [
+      {
+        $ref: '#/components/parameters/AuthToken',
+      },
+    ],
 
     responses: {
       '200': {

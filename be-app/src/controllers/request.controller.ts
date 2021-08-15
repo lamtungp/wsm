@@ -40,7 +40,7 @@ export default class RequestController {
       }
       return next(new BadRequestError('Get request of staff failure'));
     }
-    return next(new BadRequestError('Manager account does not exist'));
+    return next(new NotFoundError('Manager account does not exist'));
   };
 
   public getListRequestByState = async (req: Request, res: Response, next: NextFunction) => {

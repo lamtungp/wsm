@@ -43,22 +43,6 @@ services:
   #     - ./be-app:/app
   #   working_dir: /app
 
-  db:
-    image: mysql:8.0
-    restart: always
-    ports:
-      - "3306:3306"
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: helloworld
-      MYSQL_USER: user
-      MYSQL_PASSWORD: secret
-    volumes:
-      - ./be-app/docker/services/db/data:/var/lib/mysql
-    cap_add:
-      - SYS_NICE
-
   # db:
   #   image: mysql:8.0
   #   restart: always
@@ -67,11 +51,27 @@ services:
   #   command: --default-authentication-plugin=mysql_native_password
   #   environment:
   #     MYSQL_ROOT_PASSWORD: root
-  #     MYSQL_DATABASE: project_test
+  #     MYSQL_DATABASE: helloworld
   #     MYSQL_USER: user
   #     MYSQL_PASSWORD: secret
+  #   volumes:
+  #     - ./be-app/docker/services/db/data:/var/lib/mysql
   #   cap_add:
   #     - SYS_NICE
+
+  db:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: project_test
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    cap_add:
+      - SYS_NICE
 
   # phpmyadmin:
   #   image: phpmyadmin/phpmyadmin:4.6

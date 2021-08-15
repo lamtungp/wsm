@@ -1,27 +1,27 @@
 {
-    "initial": {
-        "nameRequest": "Quên checkin/checkout",
-        "state": "Pending",
-        "timeout": "2021-08-01 9:00:00 ~ 2021-08-01 18:00:00",
-        "startDay": "2021-08-01 9:00:00",
-        "endDay": "2021-08-01 18:00:00",
-        "phoneNumber": "123456",
-        "project": "Zinza Intern",
-        "reason": "saaa"
-    },
+  "initial": {
+    "nameRequest": "Quên checkin/checkout",
+    "state": "pending",
+    "timeout": "2021-08-01 9:00:00 ~ 2021-08-01 18:00:00",
+    "startDay": "2021-08-01 9:00:00",
+    "endDay": "2021-08-01 18:00:00",
+    "phoneNumber": "123456",
+    "project": "Zinza Intern",
+    "reason": "saaa"
+  },
 
-    "create": {
-        "nameRequest": "Nghi phep co luong",
-        "state": "Pending",
-        "timeout": "2021-08-02 9:00:00 ~ 2021-08-03 9:00:00",
-        "startDay": "2021-08-02 9:00:00",
-        "endDay": "2021-08-03 9:00:00",
-        "phoneNumber": "123456",
-        "project": "Zinza Intern",
-        "reason": "saaa"
-    },
+  "create": {
+    "nameRequest": "Nghi phep co luong",
+    "state": "pending",
+    "timeout": "2021-08-10 9:00:00 ~ 2021-08-011 9:00:00",
+    "startDay": "2021-08-02 9:00:00",
+    "endDay": "2021-08-03 9:00:00",
+    "phoneNumber": "123456",
+    "project": "Zinza Intern",
+    "reason": "saaa"
+  },
 
-    "update": {
-        "nameRequest": "Nghi phep khong luong"
-    }
+  "update": {
+    "handler": "lampt2404@gmail.com"
+  }
 }

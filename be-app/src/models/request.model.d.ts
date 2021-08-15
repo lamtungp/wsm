@@ -10,7 +10,7 @@ export interface RequestAttributes {
   phoneNumber: string;
   project: string;
   reason: string;
-  userId: string;
+  userId: number;
   handler: string;
 }
 export interface RequestModel extends Model<RequestAttributes>, RequestAttributes {}

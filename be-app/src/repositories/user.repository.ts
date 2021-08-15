@@ -68,6 +68,14 @@ export default class UserRepository {
     return user;
   }
 
+  public async findUserByDeparment(departmentId: number): Promise<UserAttributes[]> {
+    const users = await this.user.findAll({
+      attributes: { exclude: ['password', 'createdAt', 'updatedAt', 'confirmationCode'] },
+      where: { departmentId },
+    });
+    return users;
+  }
+
   public async createUser(value: any): Promise<UserAttributes> {
     const user = await this.user.create(value);
     return user;

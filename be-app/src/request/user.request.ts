@@ -4,7 +4,7 @@ export default {
   createUser: {
     body: Joi.object({
       email: Joi.string().email().required(),
-      password: Joi.string().required(),
+      password: Joi.string().min(8).required(),
       name: Joi.string().required(),
       gender: Joi.string().required(),
       dayIn: Joi.string().required(),
@@ -24,7 +24,7 @@ export default {
 
   updateUser: {
     body: Joi.object({
-      password: Joi.string(),
+      password: Joi.string().min(8),
       name: Joi.string(),
       gender: Joi.string(),
       dayIn: Joi.string(),

@@ -20,8 +20,6 @@ dotenv.config();
 
 const app = express();
 
-// const spec = swaggerJsDoc(option);
-
 app.use(cors());
 // view engine setup
 
