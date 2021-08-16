@@ -6,6 +6,11 @@ import config, { Environment } from '../../config/env';
 const { combine, timestamp, printf, colorize, align, simple, prettyPrint } = winston.format;
 
 const logFormat = printf((info: winston.Logform.TransformableInfo): string => {
+  if (!!info.details) {
+    return `${info.level} [${dayjs(info.timestamp).format('MM-DD-YYYY HH:mm:ss')}] : ${info.message} : ${
+      info.details.body[0].message
+    }`;
+  }
   return `${info.level} [${dayjs(info.timestamp).format('MM-DD-YYYY HH:mm:ss')}] : ${info.message}`;
 });
 

@@ -31,7 +31,7 @@ export default {
       role: Joi.string(),
       avatar: Joi.string().allow(''),
       dob: Joi.string().allow(''),
-      phoneNumber: Joi.string(),
+      phoneNumber: Joi.string().allow(''),
       senority: Joi.string().allow(''),
       address: Joi.string().allow(''),
       dayOfficial: Joi.string().allow(''),

@@ -15,6 +15,8 @@ import { responseError } from './helpers/response';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerOptions from './docs';
+import { router } from './lib/bullboard';
+
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -32,6 +34,7 @@ app.use(passport.initialize());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// api logger
 if (process.env.NODE_ENV === Environment.Development) {
   app.use(RequestLogger());
 }
@@ -39,6 +42,9 @@ if (process.env.NODE_ENV === Environment.Development) {
 // api swagger
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+
+//api queue email
+app.use('/admin', router);
 
 // api app
 app.use('/api/v1', indexRouter);

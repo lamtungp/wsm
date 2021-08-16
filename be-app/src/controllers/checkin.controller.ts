@@ -30,10 +30,10 @@ export default class CheckinController {
     const userCheckin = await this.checkin.getCheckinByUserIdDate(req.body.userId, req.body.date);
     if (!!userCheckin) {
       if (!!!userCheckin.checkout && !!userCheckin.checkin) {
-        const checkin = await this.checkin.updateCheckin(req.body.userId, req.body.date, req.body);
+        await this.checkin.updateCheckin(req.body.userId, req.body.date, req.body);
         return responseSuccess(res, { message: 'Update checkin successfully' });
       }
-      return responseSuccess(res, { message: 'Availabled checkin' });
+      return responseSuccess(res, { error: 'Availabled checkin' });
     }
     const checkin = await this.checkin.createCheckin(req.body);
     if (!!checkin) {

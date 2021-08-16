@@ -3,7 +3,7 @@
     "username": "user",
     "password": "secret",
     "database": "helloworld",
-    "host": "localhost",
+    "host": "db",
     "dialect": "mysql"
   },
   "test": {

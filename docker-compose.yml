@@ -1,63 +1,49 @@
 version: "3.5"
 
 services:
-  # node:
-  #   build:
-  #     context: ./be-app
-  #   working_dir: /app
-  #   restart: always
-  #   tty: true
-  #   environment:
-  #     - NODE_ENV=development
-  #   volumes:
-  #     - ./be-app:/app
-  #     - /app/node_modules
-  #   env_file:
-  #     - ./be-app/.env.sample
-  #   ports:
-  #     - "4000:4000"
-  #   depends_on:
-  #     - db
+  node:
+    build:
+      context: ./be-app
+    working_dir: /app
+    restart: always
+    tty: true
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis
+    volumes:
+      - ./be-app:/app
+      - /app/node_modules
+    env_file:
+      - ./be-app/.env
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+      - redis
 
-  # react:
-  #   build:
-  #     context: ./fe-app
-  #   working_dir: /app
-  #   restart: always
-  #   volumes:
-  #     - ./fe-app:/app
-  #   environment:
-  #     - CHOKIDAR_USEPOLLING=true
-  #     - REACT_APP_API_ENDPOINT=http://api.pm.local/api/v1
-  #   ports:
-  #     - "3000:3000"
+  react:
+    build:
+      context: ./fe-app
+    working_dir: /app
+    restart: always
+    volumes:
+      - ./fe-app:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_ENDPOINT=http://api.pm.local/api/v1
+    ports:
+      - "3000:3000"
 
-  # nginx:
-  #   image: nginx:latest
-  #   restart: always
-  #   ports:
-  #     - "443:443"
-  #     - "80:80"
-  #   volumes:
-  #     - ./be-app/docker/services/nginx/conf:/etc/nginx/conf.d
-  #     - ./be-app:/app
-  #   working_dir: /app
-
-  # db:
-  #   image: mysql:8.0
-  #   restart: always
-  #   ports:
-  #     - "3306:3306"
-  #   command: --default-authentication-plugin=mysql_native_password
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: root
-  #     MYSQL_DATABASE: helloworld
-  #     MYSQL_USER: user
-  #     MYSQL_PASSWORD: secret
-  #   volumes:
-  #     - ./be-app/docker/services/db/data:/var/lib/mysql
-  #   cap_add:
-  #     - SYS_NICE
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./be-app/docker/services/nginx/conf:/etc/nginx/conf.d
+      - ./be-app:/app
+    working_dir: /app
 
   db:
     image: mysql:8.0
@@ -67,11 +53,27 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: project_test
+      MYSQL_DATABASE: helloworld
       MYSQL_USER: user
       MYSQL_PASSWORD: secret
+    volumes:
+      - ./be-app/docker/services/db/data:/var/lib/mysql
     cap_add:
       - SYS_NICE
+
+  # db:
+  #   image: mysql:8.0
+  #   restart: always
+  #   ports:
+  #     - "3306:3306"
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: project_test
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: secret
+  #   cap_add:
+  #     - SYS_NICE
 
   # phpmyadmin:
   #   image: phpmyadmin/phpmyadmin:4.6
@@ -85,8 +87,22 @@ services:
   #   depends_on:
   #     - db
 
-  # redis:
-  #   image: redis:latest
+  redis:
+    image: redis:latest
+    restart: always
+    command: redis-server --appendonly yes
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./be-app/docker/services/redis/data:/data
+    ports:
+      - "6379:6379"
+
+  # redis-commander:
+  #   hostname: redis-commander
+  #   image: rediscommander/redis-commander:latest
   #   restart: always
+  #   environment:
+  #     - REDIS_HOSTS=local:redis:6379
   #   ports:
-  #     - "6379:6379"
+  #     - "8081:8081"

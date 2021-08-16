@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
-import InternalServerError from '../commons/http-errors/InternalServerError';
 import { generateTokenConfirm } from '../lib/passports';
 import UserRepository from '../repositories/user.repository';
 import CheckinRepository from '../repositories/checkin.repository';
 import RequestRepository from '../repositories/request.repository';
-import sendEmail from '../lib/nodemailer';
+import { sendNewEmail } from '../lib/bullboard';
 import Bcrypt from '../lib/bcrypt';
 import BadRequestError from '../commons/http-errors/BadRequestError';
 import { responseSuccess } from '../helpers/response';
 import NotFoundError from '../commons/http-errors/NotFoundError';
+import email from '../../config/email';
 export default class UserController {
   private user: UserRepository;
   private checkin: CheckinRepository;
@@ -81,21 +81,26 @@ export default class UserController {
       confirmationCode: tokenConfirm,
     });
     if (!!user) {
-      const send = sendEmail(
-        user.name,
-        user.email,
-        req.body.password,
-        user.confirmationCode,
-        process.env.API_CONFIRM_ACCOUNT_ENTRYPOINT,
-      );
-      if (!!send) {
-        const dataSuccess = {
-          message: 'User was registered successfully! Please check your email',
-          confirmationCode: tokenConfirm,
-        };
-        return responseSuccess(res, dataSuccess);
-      }
-      return next(new InternalServerError('Send email failure'));
+      const options = {
+        from: email.auth.user,
+        to: user.email,
+        subject: 'Please confirm your account',
+        html: `<div>
+              <h1>Email Confirmation</h1>
+              <h2>Hello ${user.name}</h2>
+              <p>Thank you for subscribing.</p>
+              <p>Email: ${user.email}</p>
+              <p>Password: ${req.body.password}</p>
+              <p>Please confirm your email by clicking on the following link:</p>
+              <a href=${process.env.API_CONFIRM_ACCOUNT_ENTRYPOINT}/${user.confirmationCode}> Click here</a>
+          </div>`,
+      };
+      sendNewEmail(options);
+      const dataSuccess = {
+        message: 'User was registered successfully! Please check your email',
+        confirmationCode: tokenConfirm,
+      };
+      return responseSuccess(res, dataSuccess);
     }
     return next(new BadRequestError('Create user failure'));
   };
@@ -107,21 +112,26 @@ export default class UserController {
     if (!!user) {
       const update = await this.user.updateUser({ passowrd: hashPassword }, req.body.email);
       if (!!update) {
-        const send = sendEmail(
-          user.name,
-          user.email,
-          req.body.password,
-          tokenConfirm,
-          process.env.API_CONFIRM_RESETPASS_ENTRYPOINT,
-        );
-        if (!!send) {
-          const dataSuccess = {
-            message: 'Successfully! Please check your email',
-            confirmationCode: tokenConfirm,
-          };
-          return responseSuccess(res, dataSuccess);
-        }
-        return next(new BadRequestError('Send email failure'));
+        const options = {
+          from: email.auth.user,
+          to: user.email,
+          subject: 'Please confirm your account',
+          html: `<div>
+                <h1>Email Confirmation</h1>
+                <h2>Hello ${user.name}</h2>
+                <p>Hello. Your new password:</p>
+                <p>Email: ${user.email}</p>
+                <p>Password: ${req.body.password}</p>
+                <p>Please confirm your email by clicking on the following link:</p>
+                <a href=${process.env.API_CONFIRM_RESETPASSWORD_ENTRYPOINT}/${user.confirmationCode}> Click here</a>
+            </div>`,
+        };
+        sendNewEmail(options);
+        const dataSuccess = {
+          message: 'Successfully! Please check your email',
+          confirmationCode: tokenConfirm,
+        };
+        return responseSuccess(res, dataSuccess);
       }
       return next(new BadRequestError("Can't update"));
     }
