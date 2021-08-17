@@ -24,7 +24,7 @@ build-code-job:
     - npm build
     - docker-compose down
     # - apk add --no-cache docker-compose
-    - docker-compose up -d
+    - docker-compose up db-test -d --build
 # test-code-job:
 #   stage: test
 #   script:
