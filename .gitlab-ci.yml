@@ -1,24 +1,22 @@
+image: docker/compose:alpine-1.27.4
+
 stages:
   - build
   - test
 
-default:
-  image: node:14
-
 build-code-job:
   stage: build
+  image: node:14
   script:
     - echo "Check the Node version, then build some Node and React project files:"
     - node -v
+    - npm install
     - npm -v
     - npm build
 
 test-code-job:
   stage: test
   before_script:
-    - cd ./builds/lampt/wsm-dev
-    - npm install
-    - npm install docker-compose
     - docker-compose version
   script:
     - echo "If the files are built successfully, test some files with one command:"
