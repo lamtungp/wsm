@@ -15,7 +15,7 @@ build-code-job:
   stage: build
   image: node:14
   before_script:
-    - docker version
+    # - docker version
     - docker-compose version
   script:
     - echo "Check the Node version, then build some Node and React project files:"
