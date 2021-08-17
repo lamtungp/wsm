@@ -4,7 +4,7 @@ services:
   - mysql:8.0
   - redis:latest
   - nginx:latest
-  - node:14
+  - phpmyadmin/phpmyadmin:4.6
 
 stages:
   - build
@@ -12,6 +12,7 @@ stages:
 
 build-code-job:
   stage: build
+  image: node:14
   script:
     - echo "Check the Node version, then build some Node and React project files:"
     - node -v
