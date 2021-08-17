@@ -1,6 +1,7 @@
-image: docker/compose:alpine-1.27.4
+image: docker/compose:latest
 
 services:
+  - docker:dind
   - mysql:8.0
   # - redis:latest
   # - nginx:latest
@@ -14,7 +15,7 @@ build-code-job:
   stage: build
   image: node:14
   before_script:
-    # - docker info
+    - docker info
     - docker-compose version
   script:
     - echo "Check the Node version, then build some Node and React project files:"
