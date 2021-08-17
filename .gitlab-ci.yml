@@ -1,4 +1,4 @@
-image: docker/compose:alpine-1.27.4
+image: docker/compose:alpine-2.0.0
 
 stages:
   - build
