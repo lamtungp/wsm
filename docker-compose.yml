@@ -14,7 +14,7 @@ services:
       - ./be-app:/app
       - /app/node_modules
     env_file:
-      - ./be-app/.env
+      - ./be-app/.env.sample
     ports:
       - "4000:4000"
     depends_on:
