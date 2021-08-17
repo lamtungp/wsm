@@ -44,7 +44,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 //api queue email
-app.use('/admin', router);
+app.use('/queues', router);
 
 // api app
 app.use('/api/v1', indexRouter);

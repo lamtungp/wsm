@@ -17,10 +17,10 @@ const poolConfig = {
 };
 
 const database = {
-  username: process.env.DB_TEST_USERNAME,
-  password: process.env.DB_TEST_PASSWORD, // if blank then set null
-  database: process.env.DB_TEST_NAME,
-  host: process.env.DB_TEST_HOST,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD, // if blank then set null
+  database: process.env.NODE_ENV === Environment.Development ? process.env.DB_DEV_NAME : process.env.DB_TEST_NAME,
+  host: process.env.DB_HOST,
   pool: process.env.enableConnectionPool ? poolConfig : null,
   dialect: 'mysql',
   port: process.env.DB_PORT,

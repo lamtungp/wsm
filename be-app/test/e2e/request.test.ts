@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 import { expect } from 'chai';
-import app from '../../src/index';
+import app from '../../src/app';
 import { agent as request } from 'supertest';
 import Bcrypt from '../../src/lib/bcrypt';
 import userModel from '../../src/models/user.model';
