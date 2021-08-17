@@ -1,9 +1,8 @@
-image:
-  - name: "docker/compose:alpine-1.27.4"
-  - name: "node:14"
+image: docker/compose:alpine-1.27.4
 
 services:
   - mysql:8.0
+  - node:14
   # - redis:latest
   # - nginx:latest
   # - phpmyadmin/phpmyadmin:4.6
