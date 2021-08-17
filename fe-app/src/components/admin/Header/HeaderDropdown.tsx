@@ -27,8 +27,12 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
   };
 
   const getUser = async () => {
-    const user = await userService.getUserByEmail(String(localStorage.getItem('email')));
-    setUser(user.data);
+    try {
+      const user = await userService.getUserByEmail(String(localStorage.getItem('email')));
+      setUser(user.data);
+    } catch (error) {
+      history.push('/error/500');
+    }
   };
 
   return (
