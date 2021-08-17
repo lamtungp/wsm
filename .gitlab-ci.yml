@@ -1,4 +1,4 @@
-image: docker/compose:latest
+image: docker:19.0.0
 
 services:
   - docker:dind
@@ -22,8 +22,8 @@ build-code-job:
     - node -v
     - npm -v
     - npm build
+    - apk add --no-cache docker-compose
     - docker-compose down
-    # - apk add --no-cache docker-compose
     - docker-compose up db-test -d --build
 
 test-code-job:
