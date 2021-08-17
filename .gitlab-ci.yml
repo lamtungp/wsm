@@ -7,6 +7,10 @@ services:
   # - nginx:latest
   # - phpmyadmin/phpmyadmin:4.6
 
+before_script:
+  - docker info
+  - docker-compose version
+
 stages:
   - build
   - test
@@ -14,17 +18,15 @@ stages:
 build-code-job:
   stage: build
   image: node:14
-  before_script:
-    - docker info
-    - docker-compose version
+
   script:
     - echo "Check the Node version, then build some Node and React project files:"
     - node -v
     - npm -v
     - npm build
-    - docker-compose down
+    - docker-compose build
     # - apk add --no-cache docker-compose
-    - docker-compose up db-test -d --build
+    # - docker-compose up db-test -d --build
 # test-code-job:
 #   stage: test
 #   script:
