@@ -17,6 +17,7 @@ build-code-job:
 test-code-job:
   stage: test
   before_script:
+    - service docker start
     - docker-compose version
   script:
     - echo "If the files are built successfully, test some files with one command:"
