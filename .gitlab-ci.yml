@@ -17,4 +17,6 @@ test-code-job:
   stage: test
   script:
     - echo "If the files are built successfully, test some files with one command:"
-    - npm test
+    - docker-compose up -d
+    - sleep 15
+    - docker-compose exec -T node npm run test
