@@ -2,10 +2,10 @@ image: docker/compose:latest
 
 services:
   - docker:dind
-  - mysql:8.0
-  - redis:latest
-  - nginx:latest
-  - phpmyadmin/phpmyadmin:4.6
+  # - mysql:8.0
+  # - redis:latest
+  # - nginx:latest
+  # - phpmyadmin/phpmyadmin:4.6
 
 stages:
   - build
@@ -14,20 +14,20 @@ stages:
 build-code-job:
   stage: build
   image: node:14
+  before_script:
+    - docker version
+    - docker-compose version
   script:
     - echo "Check the Node version, then build some Node and React project files:"
     - node -v
     - npm -v
     - npm build
     - docker-compose down
-    - apk add --no-cache docker-compose
+    # - apk add --no-cache docker-compose
     - docker-compose up db-test -d --build
 
 test-code-job:
   stage: test
-  before_script:
-    - docker version
-    - docker-compose version
   script:
     - echo "If the files are built successfully, test some files with one command:"
     - sleep 15
