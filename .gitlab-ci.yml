@@ -1,5 +1,5 @@
 image:
-  name: docker/compose:latest
+  name: "docker/compose:latest"
 
 services:
   - docker:dind
@@ -26,13 +26,12 @@ build-code-job:
     - npm build
     - docker-compose down
     - docker-compose up db-test -d --build
-
-test-code-job:
-  stage: test
-   before_script:
-    # - docker version
-    - docker-compose version
-  script:
-    - echo "If the files are built successfully, test some files with one command:"
-    - sleep 15
-    - docker-compose exec -T node npm test
+# test-code-job:
+#   stage: test
+#    before_script:
+#     # - docker version
+#     - docker-compose version
+#   script:
+#     - echo "If the files are built successfully, test some files with one command:"
+#     - sleep 15
+#     - docker-compose exec -T node npm test
