@@ -11,7 +11,7 @@ stages:
   - test
 
 before_script:
-  - docker info
+  # - docker info
   - docker-compose version
 
 build-code-job:
