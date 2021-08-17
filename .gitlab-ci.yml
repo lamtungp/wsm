@@ -19,7 +19,7 @@ build-code-job:
     - node -v
     - npm -v
     - npm build
-    - docker compose down
+    - docker-compose down
     - apk add --no-cache docker-compose
     - docker-compose up db-test -d --build
 
