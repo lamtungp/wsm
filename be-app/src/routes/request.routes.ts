@@ -3,6 +3,7 @@ import RequestController from '../controllers/request.controller';
 import { validate } from 'express-validation';
 import validateRequest from '../request/request.request';
 import verifyAdminMiddleware from '../middlewares/verify.admin.middleware';
+import verifyAdminManagerMiddleware from '../middlewares/verify.admin.manager.middleware';
 import verifyUserManagerMiddleware from '../middlewares/verify.user.manager.middleware';
 import verifyManagerMiddleware from '../middlewares/verify.manager.middleware';
 import verifyAllMiddleware from '../middlewares/verify.all.middleware';
@@ -34,7 +35,7 @@ router.get(
 
 router.get(
   '/find-request-by-id/:requestId',
-  verifyAllMiddleware,
+  verifyUserManagerMiddleware,
   validate(validateRequest.paramsRequest),
   requestController.findRequestById,
 );
@@ -55,7 +56,7 @@ router.put(
 
 router.get(
   '/find-request-by-state',
-  verifyAllMiddleware,
+  verifyAdminManagerMiddleware,
   validate(validateRequest.queryRequest),
   requestController.getListRequestByState,
 );

@@ -66,7 +66,7 @@ const Users = () => {
       getListUser();
       window.alert('Reset mật khẩu thành công');
     } catch (error) {
-      history.push('/error/500');
+      window.alert('Xảy ra lỗi khi cập nhật');
     }
   };
 

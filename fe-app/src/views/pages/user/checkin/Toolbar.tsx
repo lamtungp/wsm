@@ -5,7 +5,6 @@ import { FaSignInAlt, FaSignOutAlt, FaChevronLeft, FaChevronRight } from 'react-
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { useHistory } from 'react-router-dom';
 
 import checkinServices from '../../../../common/redux/checkin/services';
 import { SetCheckin } from '../../../../common/redux/checkin/actions';
@@ -13,7 +12,6 @@ import { SetCheckin } from '../../../../common/redux/checkin/actions';
 dayjs.extend(customParseFormat);
 
 const CustomToolbar = (toolbar: any) => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const [show, setShow] = React.useState(true);
 
@@ -84,7 +82,7 @@ const CustomToolbar = (toolbar: any) => {
           setShow(true);
         }
       } catch (error) {
-        history.push('/error/500');
+        window.alert('Xảy ra lỗi khi checkin');
       }
     } else {
       if (type === 'checkin') {

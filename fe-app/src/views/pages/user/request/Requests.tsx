@@ -19,7 +19,6 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
   const getListTodo = async () => {
     try {
       const res = await requestService.getListRequest(Number(localStorage.getItem('userId')));
-      // console.log(res);
       setListRequest(res.data);
     } catch (error) {
       history.push('/error/500');

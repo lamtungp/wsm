@@ -1,0 +1,17 @@
+stages:
+  - build
+  - test
+
+build-code-job:
+  stage: build
+  script:
+    - echo "Check the Node version, then build some Node and React project files:"
+    - node -v
+    - npm -v
+    - npm build
+
+test-code-job:
+  stage: test
+  script:
+    - echo "If the files are built successfully, test some files with one command:"
+    - npm test

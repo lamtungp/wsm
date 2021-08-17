@@ -94,7 +94,6 @@ const ListStaff = () => {
   listUser.map((user: any) => {
     delete user['password'];
   });
-  // console.log(listUser);
 
   return (
     <>

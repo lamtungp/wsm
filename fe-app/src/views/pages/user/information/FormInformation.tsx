@@ -45,7 +45,7 @@ const FormInformation = () => {
       await userService.updateUser(values, String(localStorage.getItem('email')));
       history.push('/user/profile');
     } catch (error) {
-      history.push('/error/500');
+      window.alert('Xảy ra lỗi khi cập nhật');
     }
   };
 

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
-// import { useHistory, useParams } from 'react-router-dom';
 import { CCard, CCardHeader, CCardBody, CRow, CCol, CTextarea } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
 import 'flatpickr/dist/themes/airbnb.css';
