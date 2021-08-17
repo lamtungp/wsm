@@ -8,18 +8,18 @@ before_script:
   - docker-compose version
 
 stages:
-  - build
+  # - build
   - test
 
-build-code-job:
-  stage: build
-  script:
-    - echo "Check the Node version, then build docker-compose:"
-    - docker-compose build
+# build-code-job:
+#   stage: build
+#   script:
+#     - echo "Check the Node version, then build docker-compose:"
+#     - docker-compose build
 
 test-code-job:
   stage: test
   script:
     - echo "If the files are built successfully, test some files with one command:"
-    - docker-compose up -d
+    - docker-compose up --build -d
     - docker-compose exec -T node npm test
