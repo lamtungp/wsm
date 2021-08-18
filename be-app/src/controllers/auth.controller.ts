@@ -4,6 +4,7 @@ import NotFoundError from '../commons/http-errors/NotFoundError';
 import { responseSuccess } from '../helpers/response';
 import { generateTokenAuth } from '../lib/passports';
 import AuthRepository from '../repositories/auth.repository';
+import messages from '../commons/messages';
 
 export default class AuthController extends AuthRepository {
   public userLogin = async (req: any, res: Response, next: NextFunction) => {
@@ -19,8 +20,8 @@ export default class AuthController extends AuthRepository {
           vacationDay: userData.vacationsDay,
         });
       }
-      return next(new BadRequestError('User not actived'));
+      return next(new BadRequestError(messages.auth.inactive));
     }
-    return next(new NotFoundError('Email or password invalid'));
+    return next(new NotFoundError(messages.auth.customerNotExists));
   };
 }

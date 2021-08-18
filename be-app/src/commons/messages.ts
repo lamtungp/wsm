@@ -14,6 +14,7 @@ export default {
     500: 'Internal Server Error',
     544: 'Unknown HTTP Error',
   },
+
   auth: {
     failed: 'Either email or password is incorrect. Please try again',
     customerExists: 'Email Address already in use',
