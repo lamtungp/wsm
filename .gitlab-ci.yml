@@ -21,6 +21,9 @@ test-code-job:
   stage: test
   script:
     - echo "If the files are built successfully, test some files with one command:"
+
     - docker-compose up --build -d
     - sleep 10
+    - docker-compose exec -T node ifconfig
+    - docker-compose exec -T db ifconfig
     - docker-compose exec -T node npm test
