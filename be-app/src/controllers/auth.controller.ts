@@ -22,6 +22,6 @@ export default class AuthController extends AuthRepository {
       }
       return next(new BadRequestError(messages.auth.inactive));
     }
-    return next(new NotFoundError(messages.auth.customerNotExists));
+    return next(new NotFoundError(messages.auth.userNotExists));
   };
 }

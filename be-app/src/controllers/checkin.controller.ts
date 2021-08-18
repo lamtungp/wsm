@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import BadRequestError from '../commons/http-errors/BadRequestError';
 import { responseSuccess } from '../helpers/response';
 import CheckinRepository from '../repositories/checkin.repository';
+import messages from '../commons/messages';
 
 export default class CheckinController {
   private checkin: CheckinRepository;
@@ -15,7 +16,7 @@ export default class CheckinController {
     if (!!checkins) {
       return responseSuccess(res, checkins);
     }
-    return responseSuccess(res, { message: 'Not found' });
+    return responseSuccess(res, { message: messages.checkin.notFound });
   };
 
   public findCheckin = async (req: Request, res: Response) => {
@@ -23,7 +24,7 @@ export default class CheckinController {
     if (!!checkin) {
       return responseSuccess(res, checkin);
     }
-    return responseSuccess(res, { message: 'Not found' });
+    return responseSuccess(res, { message: messages.checkin.notFound });
   };
 
   public createCheckins = async (req: Request, res: Response, next: NextFunction) => {
@@ -31,14 +32,14 @@ export default class CheckinController {
     if (!!userCheckin) {
       if (!!!userCheckin.checkout && !!userCheckin.checkin) {
         await this.checkin.updateCheckin(req.body.userId, req.body.date, req.body);
-        return responseSuccess(res, { message: 'Update checkin successfully' });
+        return responseSuccess(res, { message: messages.checkin.updateSuccess });
       }
-      return responseSuccess(res, { error: 'Availabled checkin' });
+      return responseSuccess(res, { error: messages.checkin.availabled });
     }
     const checkin = await this.checkin.createCheckin(req.body);
     if (!!checkin) {
       return responseSuccess(res, checkin);
     }
-    return next(new BadRequestError('Create checkin failure'));
+    return next(new BadRequestError(messages.checkin.createFailure));
   };
 }

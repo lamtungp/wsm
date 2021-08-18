@@ -4,6 +4,7 @@ export default {
     ApiNotExist: 'Method does not exist',
     success: 'Success',
   },
+
   httpMessages: {
     400: 'Bad Request',
     401: 'Unauthorized',
@@ -17,17 +18,63 @@ export default {
 
   auth: {
     failed: 'Either email or password is incorrect. Please try again',
-    customerExists: 'Email Address already in use',
+    userExists: 'Email Address already in use',
     inactive: 'The account has not been verified',
-    customerNotExists: 'The email address you entered does not exist',
+    userNotExists: 'The email address you entered does not exist',
     invalidCode: 'Incorrect verification code',
     invalidAction: 'Not Supported',
     invalidToken: 'Token invalid',
+    tokenNotExists: 'Access Denied',
+    invalidRole: 'Not permission',
+    authFailure: 'Authenticate Error',
+    invalidBearerToken: 'BearerToken invalid',
   },
+
+  user: {
+    getUsersFailure: 'Get users failure',
+    managerAccountNotExists: 'Manager account does not exist',
+    createUserFailure: 'Create user failure',
+    updatePasswordFailure: 'Update password failure',
+    activeAccountFailure: 'Active account failure',
+    updateUserFailure: 'Update user failure',
+    deleteUserFailure: 'Delete user failure',
+    activeAcountSuccess: 'Account was actived',
+    updateUserSuccess: 'Update user successfully',
+    deleteUserSuccess: 'Delete user successfully',
+  },
+
   mail: {
     sendError: 'An error occurred while sending mail',
-    subject: {
-      verificationCode: 'Safe Nourishment verification code',
-    },
+    createAccountSuccess: 'User was registered successfully! Please check your email',
+    resetPasswordSuccess: 'Reset password successfully! Please check your email',
+  },
+
+  checkin: {
+    notFound: 'Not found checkin',
+    availabled: 'Availabled checkin',
+    createFailure: 'Create checkin failure',
+    updateSuccess: 'Update checkin successfully',
+  },
+
+  department: {
+    getFaliure: 'Get all department failure',
+    departmentNotExists: 'Department does not exist',
+    departmentExists: 'Department existed',
+    addFailure: 'Add department failure',
+    updateFailure: 'Update department failure',
+    notAllowDelete: 'Deparment has member, not allow to delete!!',
+    deleteFailure: 'Delete department failure',
+    updateSuccess: 'Update department successfully',
+    deleteSuccess: 'Delete department successfully',
+  },
+
+  request: {
+    getRequestFailure: 'Get request failure',
+    addRequestFailure: 'Add request failure',
+    updateRequestFailure: 'Update request failure',
+    deleteRequestFailure: 'Delete request failure',
+    requestNotExists: 'Request does not exist',
+    updateRequestSuccess: 'Update request success',
+    deleteRequestSuccess: 'Delete request success',
   },
 };
