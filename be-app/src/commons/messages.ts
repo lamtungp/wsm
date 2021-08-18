@@ -23,11 +23,11 @@ export default {
     userNotExists: 'The email address you entered does not exist',
     invalidCode: 'Incorrect verification code',
     invalidAction: 'Not Supported',
-    invalidToken: 'Token invalid',
+    invalidToken: 'Token Invalid',
     tokenNotExists: 'Access Denied',
     invalidRole: 'Not permission',
     authFailure: 'Authenticate Error',
-    invalidBearerToken: 'BearerToken invalid',
+    invalidBearerToken: 'BearerToken Invalid',
   },
 
   user: {
@@ -74,7 +74,7 @@ export default {
     updateRequestFailure: 'Update request failure',
     deleteRequestFailure: 'Delete request failure',
     requestNotExists: 'Request does not exist',
-    updateRequestSuccess: 'Update request success',
-    deleteRequestSuccess: 'Delete request success',
+    updateRequestSuccess: 'Update request successfully',
+    deleteRequestSuccess: 'Delete request successfully',
   },
 };

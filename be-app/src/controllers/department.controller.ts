@@ -64,7 +64,7 @@ export default class DepartmentController {
       }
       const department = await this.department.deleteDepartment(Number(req.params.departmentId));
       if (!!department) {
-        return responseSuccess(res, { message: messages.department.deleteFailure });
+        return responseSuccess(res, { message: messages.department.deleteSuccess });
       }
       return next(new BadRequestError(messages.department.deleteFailure));
     }

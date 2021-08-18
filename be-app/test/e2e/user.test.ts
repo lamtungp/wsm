@@ -1,5 +1,3 @@
-process.env.NODE_ENV = 'test';
-
 import { expect } from 'chai';
 import app from '../../src/app';
 import { agent as request } from 'supertest';
@@ -12,9 +10,9 @@ import { UserAttributes } from '../../src/models/user.model.d';
 import { departments } from '../seeds/department.seed';
 import { DepartmentAttributes } from '../../src/models/department.model.d';
 
-const userValue = require('../../mocks/user/user.json');
-const checkinValue = require('../../mocks/checkin/checkin.json');
-const token = require('../../mocks/user/token.json');
+const userValue = require('../mocks/user/user.json');
+const checkinValue = require('../mocks/checkin/checkin.json');
+const token = require('../mocks/user/token.json');
 
 describe('Test User', async () => {
   let departmentId: number[] = [];
@@ -105,7 +103,7 @@ describe('Test User', async () => {
       expect(res.status).to.equal(401);
       expect(res.body.success).to.equal(false);
       expect(res.body.data).to.equal(null);
-      expect(res.body.message).to.equal('BearerAuth invalid');
+      expect(res.body.message).to.equal('BearerToken Invalid');
     });
 
     it('get list staff with auth-token wrong', async () => {
@@ -116,7 +114,7 @@ describe('Test User', async () => {
       expect(res.status).to.equal(401);
       expect(res.body.success).to.equal(false);
       expect(res.body.data).to.equal(null);
-      expect(res.body.message).to.equal('Invalid Token');
+      expect(res.body.message).to.equal('Token Invalid');
     });
 
     it('get list staff with role invalid', async () => {
@@ -151,7 +149,6 @@ describe('Test User', async () => {
         .get(`/api/v1/user/get-staff-with-checkin?email=${managerEmail}&date=${date}`)
         .set('auth-token', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
-      console.log(res.body);
       expect(res.status).to.equal(200);
       expect(res.body.error).to.be.empty;
       expect(res.body.data).to.be.an('array');
@@ -216,12 +213,26 @@ describe('Test User', async () => {
         .post('/api/v1/user/create-user')
         .set('auth-token', token.tokenAdmin)
         .set('Authorization', `Bearer ${token.tokenAdmin}`)
-        .send({ ...userValue.user, departmentId: departmentId[0] });
+        .send({ ...userValue.manager, departmentId: departmentId[0] });
       expect(res.status).to.deep.equal(400);
       expect(res.body).to.be.an('object');
       expect(res.body.success).to.equal(false);
-      expect(res.body.message).to.equal('Email existed');
+      expect(res.body.message).to.equal('Email Address already in use');
       expect(res.body.data).to.deep.equal(null);
+    });
+
+    it('create user successfully', async () => {
+      const res = await request(app)
+        .post('/api/v1/user/create-user')
+        .set('auth-token', token.tokenAdmin)
+        .set('Authorization', `Bearer ${token.tokenAdmin}`)
+        .send({ ...userValue.user, departmentId: departmentId[0] });
+      expect(res.status).to.deep.equal(200);
+      expect(res.body.error).to.be.empty;
+      expect(res.body).to.be.an('object');
+      expect(res.body.success).to.equal(true);
+      expect(res.body.message).to.equal('Success');
+      expect(res.body.data.message).to.equal('User was registered successfully! Please check your email');
     });
   });
 
@@ -236,7 +247,7 @@ describe('Test User', async () => {
       expect(res.body).to.be.an('object');
       expect(res.body.success).to.equal(true);
       expect(res.body.message).to.equal('Success');
-      expect(res.body.data.message).to.deep.equal('Successfully! Please check your email');
+      expect(res.body.data.message).to.deep.equal('Reset password successfully! Please check your email');
     });
   });
 

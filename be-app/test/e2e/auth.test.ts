@@ -1,5 +1,3 @@
-process.env.NODE_ENV = 'test';
-
 import { expect } from 'chai';
 import app from '../../src/app';
 import { agent as request } from 'supertest';

@@ -1,5 +1,3 @@
-process.env.NODE_ENV = 'test';
-
 import { expect } from 'chai';
 import app from '../../src/app';
 import { agent as request } from 'supertest';
@@ -8,9 +6,9 @@ import { departments } from '../seeds/department.seed';
 import { DepartmentAttributes } from '../../src/models/department.model.d';
 import userModel from '../../src/models/user.model';
 
-const departmentValue = require('../../mocks/department/department.json');
-const userValue = require('../../mocks/user/user.json');
-const token = require('../../mocks/user/token.json');
+const departmentValue = require('../mocks/department/department.json');
+const userValue = require('../mocks/user/user.json');
+const token = require('../mocks/user/token.json');
 
 describe('Test Department', async () => {
   let departmentId: number[] = [];

@@ -11,8 +11,11 @@ export default (req: Request, _res: Response, next: NextFunction) => {
     // eslint-disable-next-line no-unused-vars
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
-    if (decodedData.role === 'manager') return next();
-    else return next(new UnauthorizedError(message.auth.invalidRole));
+    if (decodedData.role === 'manager') {
+      return next();
+    } else {
+      return next(new UnauthorizedError(message.auth.invalidRole));
+    }
   } catch (err) {
     return next(new UnauthorizedError(message.auth.invalidToken));
   }

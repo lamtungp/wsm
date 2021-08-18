@@ -19,40 +19,16 @@
     "dayIn": "2021-07-05",
     "vacationsDay": 0,
     "status": "actived",
-    "role": "manager",
-    "confirmationCode": "abcd"
+    "role": "manager"
   },
 
   "user": {
-    "email": "tunglam@gmail.com",
+    "email": "tunglam1234@gmail.com",
     "password": "12345678",
     "name": "Pham Tung Lam",
     "gender": "male",
     "dayIn": "2021-07-05",
     "vacationsDay": 0,
     "role": "user"
-  },
-
-  "update": {
-    "id": 1,
-    "email": "lampt2404@gmail.com",
-    "password": "$2b$10$WmF.FcD9tBeuWGXW31eULOxzHGaTO6Fc.0ObvXLUce3MtZCNzu25W",
-    "avatar": "",
-    "name": "Lam",
-    "gender": "male",
-    "dob": "2000-04-24",
-    "phoneNumber": "123456",
-    "senority": "",
-    "address": "",
-    "dayIn": "2021-07-05",
-    "dayOfficial": "",
-    "contractTerm": "",
-    "vacationsDay": 0,
-    "role": "admin",
-    "departmentId": 1,
-    "status": "actived",
-    "confirmationCode": "abcd",
-    "createdAt": "2021-07-26T17:12:07.000Z",
-    "updatedAt": "2021-07-27T03:38:53.000Z"
   }
 }

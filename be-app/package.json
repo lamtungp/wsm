@@ -9,7 +9,7 @@
     "build:migrations": "tsc -p tsconfig.migrations.json",
     "migration:generate": "sequelize migration:generate --migrations-path src/migrations --name",
     "build": "tsc",
-    "test": "cross-env NODE_ENV=test mocha -r ts-node/register test/e2e/checkin.test.ts",
+    "test": "cross-env NODE_ENV=test mocha -r ts-node/register test/e2e/*.test.ts --exit",
     "pretest": "cross-env NODE_ENV=test npm run db:reset",
     "db:reset": "sequelize db:drop && sequelize db:create && sequelize db:migrate --migrations-path src/migrations",
     "db:create:test": "cross-env NODE_ENV=test sequelize db:create",
