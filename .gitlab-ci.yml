@@ -15,12 +15,12 @@ build-code-job:
   stage: build
   script:
     - echo "Check the Node version, then build docker-compose:"
-    - docker-compose up --build -d
     - docker-compose build
 
 test-code-job:
   stage: test
   script:
     - echo "If the files are built successfully, test some files with one command:"
+    - docker-compose up --build -d
     - sleep 10
     - docker-compose exec -T node npm test
