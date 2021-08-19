@@ -31,9 +31,12 @@ dev:
   before_script:
     - export DYNAMIC_ENV_VAR=UAT
   tags:
-    - develop
+    - runner4
   only:
-    - develop
+    - uat
   script:
     - echo setting up env $DYNAMIC_ENV_VAR
     - docker-compose up --build -d
+  environment:
+    name: staging
+    url: staging.example.com
