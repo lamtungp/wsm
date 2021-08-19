@@ -2,7 +2,7 @@ version: "3.6"
 
 services:
   node:
-    image: staging.example.com:5000/wsm-dev
+    image: 127.19.0.3:5000/wsm-dev
     build:
       context: ./be-app
     working_dir: /app
@@ -23,7 +23,7 @@ services:
       - redis
 
   react:
-    image: staging.example.com:5000/wsm-dev
+    image: 127.19.0.3:5000/wsm-dev
     build:
       context: ./fe-app
     working_dir: /app
