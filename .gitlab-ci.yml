@@ -28,12 +28,12 @@ stages:
 
 dev:
   stage: deploy
-  before_script:
-    - export DYNAMIC_ENV_VAR=UAT
-  tags:
-    - uat
-  only:
-    - uat
   script:
-    - echo setting up env $DYNAMIC_ENV_VAR
-    - docker-compose up --build -d
+    - echo "Deploy a review app"
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: https://$CI_ENVIRONMENT_SLUG.example.com
+  only:
+    - branches
+  except:
+    - master
