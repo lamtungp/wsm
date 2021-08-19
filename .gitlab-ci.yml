@@ -36,4 +36,4 @@ dev:
     url: https://staging.example.com
   when: manual
   only:
-    - dev
+    - uat
