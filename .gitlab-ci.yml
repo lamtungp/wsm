@@ -28,6 +28,7 @@ stages:
 
 dev:
   stage: deploy
+<<<<<<< HEAD
   script:
     - echo "Deploy a review app"
   environment:
@@ -37,3 +38,15 @@ dev:
     - uat
   except:
     - master
+=======
+  before_script:
+    - export DYNAMIC_ENV_VAR=UAT
+  only:
+    - uat
+  script:
+    - echo setting up env $DYNAMIC_ENV_VAR
+    - docker stack deploy -c docker-compose.yml --with-registry-auth my-stack
+  environment:
+    name: staging
+    url: staging.example.com
+>>>>>>> develop

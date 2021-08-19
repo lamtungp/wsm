@@ -2,6 +2,7 @@ version: "3.6"
 
 services:
   node:
+    image: 127.0.0.1:5000/wsm-dev
     build:
       context: ./be-app
     working_dir: /app
@@ -22,6 +23,7 @@ services:
       - redis
 
   react:
+    image: 127.0.0.1:5000/wsm-dev
     build:
       context: ./fe-app
     working_dir: /app

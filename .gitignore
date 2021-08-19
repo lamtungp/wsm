@@ -5,4 +5,7 @@
 *.ali
 /node_modules
 
+be-app/docker/services/redis/data
+
+
 
