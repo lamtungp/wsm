@@ -37,6 +37,3 @@ dev:
   script:
     - echo setting up env $DYNAMIC_ENV_VAR
     - docker-compose up --build -d
-  environment:
-    name: staging
-    url: https://staging.example.com
