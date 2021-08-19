@@ -34,6 +34,6 @@ dev:
     name: review/$CI_COMMIT_REF_NAME
     url: https://$CI_ENVIRONMENT_SLUG.example.com
   only:
-    - branches
+    - uat
   except:
     - master
