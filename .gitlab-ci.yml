@@ -31,9 +31,9 @@ dev:
   before_script:
     - export DYNAMIC_ENV_VAR=UAT
   tags:
-    - uat
+    - develop
   only:
-    - uat
+    - develop
   script:
     - echo setting up env $DYNAMIC_ENV_VAR
     - docker-compose up --build -d
