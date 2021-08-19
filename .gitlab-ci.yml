@@ -32,8 +32,8 @@ dev:
     - echo "Deploy to staging server"
     - docker-compose up -d
   environment:
-    - name: staging
-    - url: https://staging.example.com
+    name: staging
+    url: https://staging.example.com
   when: manual
   only:
     - dev
