@@ -8,19 +8,32 @@ before_script:
   - docker-compose version
 
 stages:
-  - build
-  - test
+  # - build
+  # - test
+  - deploy
 
-build-code-job:
-  stage: build
-  script:
-    - echo "Check the Node version, then build docker-compose:"
-    - docker-compose build
+# build:
+#   stage: build
+#   script:
+#     - echo "Check the Node version, then build docker-compose:"
+#     - docker-compose build
 
-test-code-job:
-  stage: test
+# test-node:
+#   stage: test
+#   script:
+#     - echo "If the files are built successfully, test some files with one command:"
+#     - docker-compose up -d
+#     - sleep 15
+#     - docker-compose exec -T node npm test
+
+dev:
+  stage: deploy
   script:
-    - echo "If the files are built successfully, test some files with one command:"
+    - echo "Deploy to staging server"
     - docker-compose up -d
-    - sleep 15
-    - docker-compose exec -T node npm test
+  environment:
+    - name: staging
+    - url: https://staging.example.com
+  when: manual
+  only:
+    - dev

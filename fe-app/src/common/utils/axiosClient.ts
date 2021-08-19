@@ -7,14 +7,17 @@ const AxiosClient = axios.create({
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
-    'auth-token': localStorage.getItem('token'),
-    Authorization: 'Bearer ' + localStorage.getItem('token'),
   },
 });
 
 AxiosClient.interceptors.request.use(
   async (config) => {
     try {
+      const token = localStorage.getItem('token');
+      if (!!token) {
+        config.headers.Authorization = 'Bearer ' + token;
+        config.headers.AuthToken = token;
+      }
     } catch (e) {
       console.log('Token Invalid', e);
     }
