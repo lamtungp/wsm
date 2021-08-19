@@ -30,13 +30,11 @@ dev:
   stage: deploy
   before_script:
     - export DYNAMIC_ENV_VAR=UAT
-  tags:
-    - runner4
   only:
     - uat
   script:
     - echo setting up env $DYNAMIC_ENV_VAR
-    - docker-compose up --build -d
+    - docker stack deploy -c docker-compose.yml --with-registry-auth my-stack
   environment:
     name: staging
     url: staging.example.com
