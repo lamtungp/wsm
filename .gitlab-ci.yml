@@ -8,36 +8,27 @@ before_script:
   - docker-compose version
 
 stages:
-  # - build
-  # - test
+  - build
+  - test
   - deploy
 
-# build:
-#   stage: build
-#   script:
-#     - echo "Check the Node version, then build docker-compose:"
-#     - docker-compose build
+build:
+  stage: build
+  script:
+    - echo "Check the Node version, then build docker-compose:"
+    - docker-compose build
 
-# test-node:
-#   stage: test
-#   script:
-#     - echo "If the files are built successfully, test some files with one command:"
-#     - docker-compose up -d
-#     - sleep 15
-#     - docker-compose exec -T node npm test
+test-node:
+  stage: test
+  script:
+    - echo "If the files are built successfully, test some files with one command:"
+    - docker-compose up --build -d
+    - sleep 15
+    - docker-compose exec -T node npm test
 
 dev:
   stage: deploy
-  before_script:
-    - export DYNAMIC_ENV_VAR=UAT
   only:
     - uat
   script:
-    - echo setting up env $DYNAMIC_ENV_VAR
-    - docker swarm init
-    - docker service create --name registry --publish published=5000,target=5000 registry:2
-    - docker-compose push
-    - docker stack deploy -c docker-compose.yml --with-registry-auth wsm-dev
-  environment:
-    name: staging
-    url: staging.example.com
+    - docker-compose up --build -d
