@@ -321,3 +321,1265 @@ $13
 *1
 $4
 EXEC
+*2
+$6
+SELECT
+$1
+0
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367220946
+$4
+PXAT
+$13
+1629367250948
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367250957
+$4
+PXAT
+$13
+1629367280958
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367299521
+$4
+PXAT
+$13
+1629367329521
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367340962
+$4
+PXAT
+$13
+1629367370962
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367378061
+$4
+PXAT
+$13
+1629367408062
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367410941
+$4
+PXAT
+$13
+1629367440942
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367470944
+$4
+PXAT
+$13
+1629367500945
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367578238
+$4
+PXAT
+$13
+1629367608238
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367608552
+$4
+PXAT
+$13
+1629367638553
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367668554
+$4
+PXAT
+$13
+1629367698556
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367719743
+$4
+PXAT
+$13
+1629367749743
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367758556
+$4
+PXAT
+$13
+1629367788557
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367788561
+$4
+PXAT
+$13
+1629367818561
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367818561
+$4
+PXAT
+$13
+1629367848562
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367848564
+$4
+PXAT
+$13
+1629367878564
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367878565
+$4
+PXAT
+$13
+1629367908565
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367908568
+$4
+PXAT
+$13
+1629367938568
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367938569
+$4
+PXAT
+$13
+1629367968569
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629367968572
+$4
+PXAT
+$13
+1629367998572
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629368022562
+$4
+PXAT
+$13
+1629368052562
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629368052576
+$4
+PXAT
+$13
+1629368082577
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629368082577
+$4
+PXAT
+$13
+1629368112578
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629368133109
+$4
+PXAT
+$13
+1629368163109
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629368172583
+$4
+PXAT
+$13
+1629368202583
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629368202583
+$4
+PXAT
+$13
+1629368232585
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629368262584
+$4
+PXAT
+$13
+1629368292584
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629368292589
+$4
+PXAT
+$13
+1629368322589
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629368399753
+$4
+PXAT
+$13
+1629368429753
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629368429763
+$4
+PXAT
+$13
+1629368459763
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*1
+$5
+MULTI
+*5
+$3
+SET
+$24
+bull:email:stalled-check
+$13
+1629368459763
+$4
+PXAT
+$13
+1629368489764
+*1
+$4
+EXEC
+*1
+$5
+MULTI
+*2
+$4
+INCR
+$13
+bull:email:id
+*14
+$5
+HMSET
+$12
+bull:email:1
+$4
+name
+$11
+__default__
+$4
+data
+$686
+{"from":"lampt2404@gmail.com","to":"tunglam1234@gmail.com","subject":"Please confirm your account","html":"<div>\n              <h1>Email Confirmation</h1>\n              <h2>Hello Pham Tung Lam</h2>\n              <p>Thank you for subscribing.</p>\n              <p>Email: tunglam1234@gmail.com</p>\n              <p>Password: 12345678</p>\n              <p>Please confirm your email by clicking on the following link:</p>\n              <a href=http://pm.local/confirm/account/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InR1bmdsYW0xMjM0QGdtYWlsLmNvbSIsImlhdCI6MTYyOTM2ODQ2OCwiZXhwIjoxNjI5MzY5MDY4fQ.gju91odjsm5D35y9u--EQGfSYpIDEyp9Akiyh97qLGM> Click here</a>\n          </div>"}
+$4
+opts
+$50
+{"attempts":3,"delay":0,"timestamp":1629368468053}
+$9
+timestamp
+$13
+1629368468053
+$5
+delay
+$1
+0
+$8
+priority
+$1
+0
+*3
+$5
+LPUSH
+$15
+bull:email:wait
+$1
+1
+*1
+$4
+EXEC
+*3
+$9
+RPOPLPUSH
+$15
+bull:email:wait
+$17
+bull:email:active
+*1
+$5
+MULTI
+*5
+$3
+SET
+$18
+bull:email:limiter
+$1
+1
+$4
+PXAT
+$13
+1629368473064
+*5
+$3
+SET
+$17
+bull:email:1:lock
+$36
+f3a81d7e-00dd-4982-9597-4375f3e79750
+$4
+PXAT
+$13
+1629368498064
+*4
+$4
+HSET
+$12
+bull:email:1
+$11
+processedOn
+$13
+1629368468063
+*1
+$4
+EXEC
+*1
+$5
+MULTI
+*2
+$4
+INCR
+$13
+bull:email:id
+*14
+$5
+HMSET
+$12
+bull:email:2
+$4
+name
+$11
+__default__
+$4
+data
+$539
+{"from":"lampt2404@gmail.com","to":"sownpham@gmail.com","subject":"Please confirm your account","html":"<div>\n                <h1>Email Confirmation</h1>\n                <h2>Hello Pham Tung Lam</h2>\n                <p>Hello. Your new password:</p>\n                <p>Email: sownpham@gmail.com</p>\n                <p>Password: asdgasdd</p>\n                <p>Please confirm your email by clicking on the following link:</p>\n                <a href=http://pm.local/confirm/resetpassword/undefined> Click here</a>\n            </div>"}
+$4
+opts
+$50
+{"attempts":3,"delay":0,"timestamp":1629368468343}
+$9
+timestamp
+$13
+1629368468343
+$5
+delay
+$1
+0
+$8
+priority
+$1
+0
+*3
+$5
+LPUSH
+$15
+bull:email:wait
+$1
+2
+*1
+$4
+EXEC
+*3
+$9
+RPOPLPUSH
+$15
+bull:email:wait
+$17
+bull:email:active
+*1
+$5
+MULTI
+*2
+$4
+INCR
+$18
+bull:email:limiter
+*5
+$3
+SET
+$17
+bull:email:2:lock
+$36
+ffe30210-c958-4c7d-9b3d-f8b36038b0d2
+$4
+PXAT
+$13
+1629368498347
+*4
+$4
+HSET
+$12
+bull:email:2
+$11
+processedOn
+$13
+1629368468346
+*1
+$4
+EXEC
+*3
+$6
+script
+$4
+load
+$690
+--[[
+  Retries a failed job by moving it back to the wait queue.
+
+    Input:
+      KEYS[1] 'active',
+      KEYS[2] 'wait'
+      KEYS[3] jobId
+
+      ARGV[1]  pushCmd
+      ARGV[2]  jobId
+      ARGV[3]  token
+
+    Events:
+      'prefix:added'
+
+    Output:
+     0  - OK
+     -1 - Missing key
+     -2 - Job Not locked
+]]
+if redis.call("EXISTS", KEYS[3]) == 1 then
+
+  -- Check for job lock
+  if ARGV[3] ~= "0" then
+    local lockKey = KEYS[3] .. ':lock'
+    local lock = redis.call("GET", lockKey)
+    if redis.call("GET", lockKey) ~= ARGV[3] then
+      return -2
+    end
+  end
+
+  redis.call("LREM", KEYS[1], 0, ARGV[2])
+  redis.call(ARGV[1], KEYS[2], ARGV[2])
+
+  return 0
+else
+  return -1
+end
+
+*1
+$5
+MULTI
+*8
+$5
+hmset
+$12
+bull:email:2
+$12
+attemptsMade
+$1
+1
+$10
+stacktrace
+$1010
+["Error: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials i20sm2924578pfq.35 - gsmtp\n    at SMTPConnection._formatError (/app/node_modules/nodemailer/lib/smtp-connection/index.js:774:19)\n    at SMTPConnection._actionAUTHComplete (/app/node_modules/nodemailer/lib/smtp-connection/index.js:1518:34)\n    at SMTPConnection.<anonymous> (/app/node_modules/nodemailer/lib/smtp-connection/index.js:540:26)\n    at SMTPConnection._processResponse (/app/node_modules/nodemailer/lib/smtp-connection/index.js:937:20)\n    at SMTPConnection._onData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:739:14)\n    at TLSSocket.SMTPConnection._onSocketData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:189:44)\n    at TLSSocket.emit (events.js:400:28)\n    at TLSSocket.emit (domain.js:470:12)\n    at addChunk (internal/streams/readable.js:290:12)\n    at readableAddChunk (internal/streams/readable.js:265:9)"]
+$12
+failedReason
+$162
+Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials i20sm2924578pfq.35 - gsmtp
+*4
+$4
+LREM
+$17
+bull:email:active
+$1
+0
+$1
+2
+*3
+$5
+LPUSH
+$15
+bull:email:wait
+$1
+2
+*1
+$4
+exec
+*1
+$5
+MULTI
+*3
+$9
+RPOPLPUSH
+$15
+bull:email:wait
+$17
+bull:email:active
+*2
+$4
+INCR
+$18
+bull:email:limiter
+*5
+$3
+SET
+$17
+bull:email:2:lock
+$36
+ffe30210-c958-4c7d-9b3d-f8b36038b0d2
+$4
+PXAT
+$13
+1629368501072
+*4
+$4
+HSET
+$12
+bull:email:2
+$11
+processedOn
+$13
+1629368471072
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$18
+bull:email:limiter
+*1
+$5
+MULTI
+*8
+$5
+hmset
+$12
+bull:email:2
+$12
+attemptsMade
+$1
+2
+$10
+stacktrace
+$2018
+["Error: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials i20sm2924578pfq.35 - gsmtp\n    at SMTPConnection._formatError (/app/node_modules/nodemailer/lib/smtp-connection/index.js:774:19)\n    at SMTPConnection._actionAUTHComplete (/app/node_modules/nodemailer/lib/smtp-connection/index.js:1518:34)\n    at SMTPConnection.<anonymous> (/app/node_modules/nodemailer/lib/smtp-connection/index.js:540:26)\n    at SMTPConnection._processResponse (/app/node_modules/nodemailer/lib/smtp-connection/index.js:937:20)\n    at SMTPConnection._onData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:739:14)\n    at TLSSocket.SMTPConnection._onSocketData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:189:44)\n    at TLSSocket.emit (events.js:400:28)\n    at TLSSocket.emit (domain.js:470:12)\n    at addChunk (internal/streams/readable.js:290:12)\n    at readableAddChunk (internal/streams/readable.js:265:9)","Error: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials q68sm3398025pgq.5 - gsmtp\n    at SMTPConnection._formatError (/app/node_modules/nodemailer/lib/smtp-connection/index.js:774:19)\n    at SMTPConnection._actionAUTHComplete (/app/node_modules/nodemailer/lib/smtp-connection/index.js:1518:34)\n    at SMTPConnection.<anonymous> (/app/node_modules/nodemailer/lib/smtp-connection/index.js:540:26)\n    at SMTPConnection._processResponse (/app/node_modules/nodemailer/lib/smtp-connection/index.js:937:20)\n    at SMTPConnection._onData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:739:14)\n    at TLSSocket.SMTPConnection._onSocketData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:189:44)\n    at TLSSocket.emit (events.js:400:28)\n    at TLSSocket.emit (domain.js:470:12)\n    at addChunk (internal/streams/readable.js:290:12)\n    at readableAddChunk (internal/streams/readable.js:265:9)"]
+$12
+failedReason
+$161
+Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials q68sm3398025pgq.5 - gsmtp
+*4
+$4
+LREM
+$17
+bull:email:active
+$1
+0
+$1
+2
+*3
+$5
+LPUSH
+$15
+bull:email:wait
+$1
+2
+*1
+$4
+exec
+*1
+$5
+MULTI
+*3
+$9
+RPOPLPUSH
+$15
+bull:email:wait
+$17
+bull:email:active
+*5
+$3
+SET
+$18
+bull:email:limiter
+$1
+1
+$4
+PXAT
+$13
+1629368478672
+*5
+$3
+SET
+$17
+bull:email:2:lock
+$36
+ffe30210-c958-4c7d-9b3d-f8b36038b0d2
+$4
+PXAT
+$13
+1629368503672
+*4
+$4
+HSET
+$12
+bull:email:2
+$11
+processedOn
+$13
+1629368473672
+*1
+$4
+EXEC
+*3
+$6
+script
+$4
+load
+$3407
+--[[
+  Move job from active to a finished status (completed or failed)
+  A job can only be moved to completed if it was active.
+  The job must be locked before it can be moved to a finished status,
+  and the lock must be released in this script.
+
+     Input:
+      KEYS[1] active key
+      KEYS[2] completed/failed key
+      KEYS[3] jobId key
+
+      KEYS[4] wait key
+      KEYS[5] priority key
+      KEYS[6] active event key
+
+      KEYS[7] delayed key
+      KEYS[8] stalled key
+
+      ARGV[1]  jobId
+      ARGV[2]  timestamp
+      ARGV[3]  msg property
+      ARGV[4]  return value / failed reason
+      ARGV[5]  token
+      ARGV[6]  shouldRemove
+      ARGV[7]  event data (? maybe just send jobid).
+      ARGV[8]  should fetch next job
+      ARGV[9]  base key
+
+     Output:
+      0 OK
+      -1 Missing key.
+      -2 Missing lock.
+
+     Events:
+      'completed/failed'
+]]
+local rcall = redis.call
+
+if rcall("EXISTS", KEYS[3]) == 1 then -- // Make sure job exists
+  if ARGV[5] ~= "0" then
+    local lockKey = KEYS[3] .. ':lock'
+    if rcall("GET", lockKey) == ARGV[5] then
+      rcall("DEL", lockKey)
+      rcall("SREM", KEYS[8], ARGV[1])
+    else
+      return -2
+    end
+  end
+
+  -- Remove from active list
+  rcall("LREM", KEYS[1], -1, ARGV[1])
+
+  -- Remove job?
+  local removeJobs = tonumber(ARGV[6])
+  if removeJobs ~= 1 then
+    -- Add to complete/failed set
+    rcall("ZADD", KEYS[2], ARGV[2], ARGV[1])
+    rcall("HMSET", KEYS[3], ARGV[3], ARGV[4], "finishedOn", ARGV[2]) -- "returnvalue" / "failedReason" and "finishedOn"
+
+    -- Remove old jobs?
+    if removeJobs and removeJobs > 1 then
+      local start = removeJobs - 1
+      local jobIds = rcall("ZREVRANGE", KEYS[2], start, -1)
+      for i, jobId in ipairs(jobIds) do
+        local jobKey = ARGV[9] .. jobId
+        local jobLogKey = jobKey .. ':logs'
+        rcall("DEL", jobKey, jobLogKey)
+      end
+      rcall("ZREMRANGEBYRANK", KEYS[2], 0, -removeJobs);
+    end
+  else
+    local jobLogKey = KEYS[3] .. ':logs'
+    rcall("DEL", KEYS[3], jobLogKey)
+  end
+
+  rcall("PUBLISH", KEYS[2], ARGV[7])
+
+  -- -- Check if we should get from the delayed set instead of the waiting list
+  -- local delayedJobId = rcall("ZRANGEBYSCORE", KEYS[7], 0, tonumber(ARGV[2]) * 0x1000, "LIMIT", 0, 1)[1]
+  -- if delayedJobId ~= nil then
+  --   local jobId = delayedJobId
+  --   if jobId then
+  --     local jobKey = ARGV[9] .. jobId
+  --     local lockKey = jobKey .. ':lock'
+
+  --     -- get a lock
+  --     rcall("SET", lockKey, ARGV[11], "PX", ARGV[10])
+
+  --     rcall("ZREM", KEYS[5], jobId) -- remove from priority
+  --     rcall("PUBLISH", KEYS[6], jobId)
+  --     rcall("HSET", jobKey, "processedOn", ARGV[2]) 
+
+  --     return {rcall("HGETALL", jobKey), jobId} -- get job data
+  --   end
+  -- end
+
+  -- Try to get next job to avoid an extra roundtrip if the queue is not closing, 
+  -- and not rate limited.
+  if(ARGV[8] == "1") then
+    -- move from wait to active 
+    local jobId = rcall("RPOPLPUSH", KEYS[4], KEYS[1])
+    if jobId then
+      local jobKey = ARGV[9] .. jobId
+      local lockKey = jobKey .. ':lock'
+
+      -- get a lock
+      rcall("SET", lockKey, ARGV[11], "PX", ARGV[10])
+
+      rcall("ZREM", KEYS[5], jobId) -- remove from priority
+      rcall("PUBLISH", KEYS[6], jobId)
+      rcall("HSET", jobKey, "processedOn", ARGV[2]) 
+
+      return {rcall("HGETALL", jobKey), jobId} -- get job data
+    end
+  end
+
+  return 0
+else
+  return -1
+end
+
+*1
+$5
+MULTI
+*8
+$5
+hmset
+$12
+bull:email:2
+$12
+attemptsMade
+$1
+3
+$10
+stacktrace
+$3027
+["Error: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials i20sm2924578pfq.35 - gsmtp\n    at SMTPConnection._formatError (/app/node_modules/nodemailer/lib/smtp-connection/index.js:774:19)\n    at SMTPConnection._actionAUTHComplete (/app/node_modules/nodemailer/lib/smtp-connection/index.js:1518:34)\n    at SMTPConnection.<anonymous> (/app/node_modules/nodemailer/lib/smtp-connection/index.js:540:26)\n    at SMTPConnection._processResponse (/app/node_modules/nodemailer/lib/smtp-connection/index.js:937:20)\n    at SMTPConnection._onData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:739:14)\n    at TLSSocket.SMTPConnection._onSocketData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:189:44)\n    at TLSSocket.emit (events.js:400:28)\n    at TLSSocket.emit (domain.js:470:12)\n    at addChunk (internal/streams/readable.js:290:12)\n    at readableAddChunk (internal/streams/readable.js:265:9)","Error: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials q68sm3398025pgq.5 - gsmtp\n    at SMTPConnection._formatError (/app/node_modules/nodemailer/lib/smtp-connection/index.js:774:19)\n    at SMTPConnection._actionAUTHComplete (/app/node_modules/nodemailer/lib/smtp-connection/index.js:1518:34)\n    at SMTPConnection.<anonymous> (/app/node_modules/nodemailer/lib/smtp-connection/index.js:540:26)\n    at SMTPConnection._processResponse (/app/node_modules/nodemailer/lib/smtp-connection/index.js:937:20)\n    at SMTPConnection._onData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:739:14)\n    at TLSSocket.SMTPConnection._onSocketData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:189:44)\n    at TLSSocket.emit (events.js:400:28)\n    at TLSSocket.emit (domain.js:470:12)\n    at addChunk (internal/streams/readable.js:290:12)\n    at readableAddChunk (internal/streams/readable.js:265:9)","Error: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials c23sm3493155pgb.74 - gsmtp\n    at SMTPConnection._formatError (/app/node_modules/nodemailer/lib/smtp-connection/index.js:774:19)\n    at SMTPConnection._actionAUTHComplete (/app/node_modules/nodemailer/lib/smtp-connection/index.js:1518:34)\n    at SMTPConnection.<anonymous> (/app/node_modules/nodemailer/lib/smtp-connection/index.js:540:26)\n    at SMTPConnection._processResponse (/app/node_modules/nodemailer/lib/smtp-connection/index.js:937:20)\n    at SMTPConnection._onData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:739:14)\n    at TLSSocket.SMTPConnection._onSocketData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:189:44)\n    at TLSSocket.emit (events.js:400:28)\n    at TLSSocket.emit (domain.js:470:12)\n    at addChunk (internal/streams/readable.js:290:12)\n    at readableAddChunk (internal/streams/readable.js:265:9)"]
+$12
+failedReason
+$162
+Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials c23sm3493155pgb.74 - gsmtp
+*2
+$3
+DEL
+$17
+bull:email:2:lock
+*4
+$4
+LREM
+$17
+bull:email:active
+$2
+-1
+$1
+2
+*4
+$4
+ZADD
+$17
+bull:email:failed
+$13
+1629368475901
+$1
+2
+*6
+$5
+HMSET
+$12
+bull:email:2
+$12
+failedReason
+$162
+Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials c23sm3493155pgb.74 - gsmtp
+$10
+finishedOn
+$13
+1629368475901
+*1
+$4
+exec
+*1
+$5
+MULTI
+*1
+$4
+EXEC
+*2
+$3
+DEL
+$18
+bull:email:limiter
+*2
+$3
+DEL
+$24
+bull:email:stalled-check
+*2
+$3
+DEL
+$17
+bull:email:1:lock

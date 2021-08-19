@@ -71,7 +71,7 @@ describe('Test Checkin', async () => {
     it('should GET /api/v1/checkin/get-list-checkin', async () => {
       const res = await request(app)
         .get(`/api/v1/checkin/get-list-checkin/${userId}`)
-        .set('auth-token', token.tokenManager)
+        .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
@@ -88,7 +88,7 @@ describe('Test Checkin', async () => {
       const initial = checkinValue.initial;
       const res = await request(app)
         .get(`/api/v1/checkin/find-checkin/${userId}?date=${initial.date}`)
-        .set('auth-token', token.tokenManager)
+        .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
@@ -109,7 +109,7 @@ describe('Test Checkin', async () => {
       const res = await request(app)
         .post(`/api/v1/checkin/create-checkin?userId=${userId}&date=${initial.date}`)
         .send({ ...update, userId: userId, date: initial.date })
-        .set('auth-token', token.tokenManager)
+        .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;

@@ -73,7 +73,7 @@ describe('Test Request', async () => {
     it('should GET /api/v1/request/get-all-request', async () => {
       const res = await request(app)
         .get('/api/v1/request/get-all-request')
-        .set('auth-token', token.tokenAdmin)
+        .set('AuthToken', token.tokenAdmin)
         .set('Authorization', `Bearer ${token.tokenAdmin}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
@@ -89,7 +89,7 @@ describe('Test Request', async () => {
     it('should GET /api/v1/request/get-list-request', async () => {
       const res = await request(app)
         .get(`/api/v1/request/get-list-request/${userId}`)
-        .set('auth-token', token.tokenManager)
+        .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
@@ -105,7 +105,7 @@ describe('Test Request', async () => {
     it('should GET /api/v1/request/get-list-request-of-staff', async () => {
       const res = await request(app)
         .get(`/api/v1/request/get-list-request-of-staff?emailManager=${emailManager}`)
-        .set('auth-token', token.tokenManager)
+        .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
@@ -122,7 +122,7 @@ describe('Test Request', async () => {
       const value = requestValue.initial;
       const res = await request(app)
         .get(`/api/v1/request/find-request-by-id/${requestId[0]}`)
-        .set('auth-token', token.tokenManager)
+        .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
@@ -143,7 +143,7 @@ describe('Test Request', async () => {
     it('should GET /api/v1/request/find-request-by-state', async () => {
       const res = await request(app)
         .get('/api/v1/request/find-request-by-state?state=pending')
-        .set('auth-token', token.tokenManager)
+        .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
@@ -161,7 +161,7 @@ describe('Test Request', async () => {
       const res = await request(app)
         .post('/api/v1/request/create-request')
         .send({ ...value, userId: userId })
-        .set('auth-token', token.tokenManager)
+        .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
@@ -183,7 +183,7 @@ describe('Test Request', async () => {
       const update = requestValue.update;
       const res = await request(app)
         .put(`/api/v1/request/update-request/${requestId[0]}`)
-        .set('auth-token', token.tokenManager)
+        .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`)
         .send(update);
       expect(res.statusCode).to.deep.equal(200);
@@ -199,7 +199,7 @@ describe('Test Request', async () => {
     it('should POST /api/v1/request/delete-request', async () => {
       const res = await request(app)
         .delete(`/api/v1/request/delete-request/${requestId[0]}`)
-        .set('auth-token', token.tokenManager)
+        .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
       expect(res.statusCode).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
