@@ -1,13 +1,12 @@
 {
   "admin": {
+    "name": "Pham Tung Lam",
     "email": "lampt2404@gmail.com",
     "password": "12345678",
-    "name": "Pham Tung Lam",
     "gender": "male",
     "dayIn": "2021-07-05",
-    "vacationsDay": 0,
-    "role": "admin",
     "status": "actived",
+    "role": "admin",
     "confirmationCode": "abcd"
   },
 
