@@ -14,7 +14,6 @@ stages:
   - deploy
 
 build:
-  image: node:14
   stage: build
   tags:
     - main-docker-local
@@ -32,13 +31,11 @@ test-node:
   script:
     - echo "If the files are built successfully, test some files with one command:"
     - docker-compose down -v
-    - npm install -g npm
     - COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d
     - sleep 15
     - docker-compose exec -T node npm test
 
 dev:
-  image: node:14
   stage: deploy
   only:
     - uat
@@ -46,5 +43,4 @@ dev:
     - main-docker-local
   script:
     - docker-compose down -v
-    - npm install -g npm
     - COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d
