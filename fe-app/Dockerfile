@@ -4,5 +4,8 @@ COPY ./package*.json /app/
 RUN npm install -g npm
 RUN npm install
 RUN npm rebuild node-sass
+RUN pwd
+RUN ls -la
+RUN ls -la node-modules
 EXPOSE 3000 
 CMD ["npm", "start"]
