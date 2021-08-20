@@ -11,7 +11,7 @@ services:
       - NODE_ENV=development
       - REDIS_URL=redis
     volumes:
-      - ./be-app:/app
+      - ./be-app:/app/
       - /app/node_modules
     env_file:
       - ./be-app/.env.sample
@@ -27,7 +27,8 @@ services:
     working_dir: /app
     restart: always
     volumes:
-      - ./fe-app:/app
+      - ./fe-app:/app/
+      - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
       - REACT_APP_API_ENDPOINT=http://api.pm.local/api/v1
