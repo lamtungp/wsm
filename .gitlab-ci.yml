@@ -1,5 +1,4 @@
-default:
-  image: docker/compose:latest
+image: docker/compose:latest
 
 services:
   - docker:dind
@@ -24,7 +23,6 @@ build:
     - develop
 
 test-node:
-  image: node:14
   stage: test
   tags:
     - main-docker-local
