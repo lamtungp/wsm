@@ -17,7 +17,6 @@ build:
   tags:
     - main-docker-local
   script:
-    - export DOCKER_HOST="tcp://localhost:2375"
     - docker-compose build
 
 test-node:
@@ -26,7 +25,6 @@ test-node:
     - main-docker-local
   script:
     - echo "If the files are built successfully, test some files with one command:"
-    - export DOCKER_HOST="tcp://localhost:2375"
     - docker-compose up --build -d
     - sleep 15
     - docker-compose exec -T node npm test
@@ -38,5 +36,4 @@ dev:
   tags:
     - main-docker-local
   script:
-    - export DOCKER_HOST="tcp://localhost:2375"
     - docker-compose up --build -d
