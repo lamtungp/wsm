@@ -30,7 +30,6 @@ services:
     command: ls -la
     volumes:
       - ./fe-app:/app/
-      - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
       - REACT_APP_API_ENDPOINT=http://api.pm.local/api/v1

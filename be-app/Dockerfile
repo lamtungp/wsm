@@ -5,6 +5,6 @@ RUN npm install
 RUN npm i -g mocha   
 RUN pwd
 RUN ls -la
-RUN ls -la node-modules
+RUN ls -la node_modules
 EXPOSE 4000  
 CMD [ "npm", "start" ]
