@@ -39,7 +39,6 @@ services:
       - "80:80"
     volumes:
       - ./be-app/docker/services/nginx/conf:/etc/nginx/conf.d
-      - ./be-app:/app
     working_dir: /app
 
   db:
@@ -54,8 +53,8 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: secret
     volumes:
-      - ./be-app/docker/services/db/data:/var/lib/mysql
       - ./be-app/docker/services/db/init:/docker-entrypoint-initdb.d
+      - ./be-app/docker/services/db/data:/var/lib/mysql
     cap_add:
       - SYS_NICE
 
