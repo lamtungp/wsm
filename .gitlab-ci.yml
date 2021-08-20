@@ -13,7 +13,6 @@ stages:
   - deploy
 
 build:
-  images: docker-in-docker:latest
   stage: build
   tags:
     - main-docker-local
@@ -22,7 +21,6 @@ build:
     - docker-compose build
 
 test-node:
-  images: docker-in-docker:latest
   stage: test
   tags:
     - main-docker-local
@@ -33,7 +31,6 @@ test-node:
     - docker-compose exec -T node npm test
 
 dev:
-  images: docker-in-docker:latest
   stage: deploy
   only:
     - uat
