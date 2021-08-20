@@ -18,6 +18,7 @@ build:
     - main-docker-local
   script:
     - docker-compose down -v
+    - sleep 15
     - docker-compose build
   only:
     - develop
@@ -29,6 +30,7 @@ test-node:
   script:
     - echo "If the files are built successfully, test some files with one command:"
     - docker-compose down -v
+    - sleep 15
     - COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d
     - sleep 15
     - docker-compose exec -T node npm test
