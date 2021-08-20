@@ -15,7 +15,7 @@ stages:
 build:
   stage: build
   tags:
-    - main-docker
+    - main-docker-local
   script:
     - echo "Check the Node version, then build docker-compose:"
     - docker-compose build
@@ -23,7 +23,7 @@ build:
 test-node:
   stage: test
   tags:
-    - main-docker
+    - main-docker-local
   script:
     - echo "If the files are built successfully, test some files with one command:"
     - docker-compose up --build -d
@@ -35,6 +35,6 @@ dev:
   only:
     - uat
   tags:
-    - main-docker
+    - main-docker-local
   script:
     - docker-compose up --build -d
