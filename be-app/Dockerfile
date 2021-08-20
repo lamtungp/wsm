@@ -3,8 +3,6 @@ WORKDIR /app/
 COPY ./package*.json /app/
 RUN npm install  
 RUN npm i -g mocha   
-RUN pwd
-RUN ls -la
-RUN ls -la node_modules
+RUN tail package.json
 EXPOSE 4000  
 CMD [ "npm", "start" ]
