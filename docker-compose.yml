@@ -38,9 +38,13 @@ services:
     ports:
       - "443:443"
       - "80:80"
+    volumes:
+      - ./be-app/docker/services/nginx/conf:/etc/nginx/conf.d
+      - ./be-app:/app
 
   db:
     image: mysql:8.0
+    working_dir: /app
     restart: always
     ports:
       - "3306:3306"
@@ -50,11 +54,15 @@ services:
       MYSQL_DATABASE: helloworld
       MYSQL_USER: user
       MYSQL_PASSWORD: secret
+    volumes:
+      - ./be-app/docker/services/db/init:/docker-entrypoint-initdb.d
+      - ./be-app/docker/services/db/data:/var/lib/mysql
     cap_add:
       - SYS_NICE
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.6
+    working_dir: /app
     restart: always
     ports:
       - "8181:80"
@@ -67,9 +75,12 @@ services:
 
   redis:
     image: redis:latest
+    working_dir: /app
     restart: always
     command: redis-server --appendonly yes
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./be-app/docker/services/redis/data:/data
     ports:
       - "6379:6379"
