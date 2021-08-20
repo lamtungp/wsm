@@ -43,4 +43,5 @@ dev:
     - main-docker-local
   script:
     - docker-compose down -v
+    - sleep 15
     - COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d
