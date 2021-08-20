@@ -33,18 +33,15 @@ services:
 
   nginx:
     image: nginx:latest
-    working_dir: /app
     restart: always
     ports:
       - "443:443"
       - "80:80"
     volumes:
       - ./be-app/docker/services/nginx/conf:/etc/nginx/conf.d
-      - ./be-app:/app
 
   db:
     image: mysql:8.0
-    working_dir: /app
     restart: always
     ports:
       - "3306:3306"
@@ -62,7 +59,6 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.6
-    working_dir: /app
     restart: always
     ports:
       - "8181:80"
@@ -75,7 +71,6 @@ services:
 
   redis:
     image: redis:latest
-    working_dir: /app
     restart: always
     command: redis-server --appendonly yes
     environment:
