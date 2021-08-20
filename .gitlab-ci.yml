@@ -26,11 +26,9 @@ test-node:
   stage: test
   tags:
     - main-docker-local
-  before_script:
-    - export COMPOSE_HTTP_TIMEOUT = 120
   script:
     - echo "If the files are built successfully, test some files with one command:"
-    - docker-compose up --build -d
+    - COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d
     - sleep 15
     - docker-compose exec -T node npm test
     - docker-compose down -v
@@ -41,7 +39,5 @@ dev:
     - uat
   tags:
     - main-docker-local
-  before_script:
-    - export COMPOSE_HTTP_TIMEOUT = 120
   script:
-    - docker-compose up --build -d
+    - COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d
