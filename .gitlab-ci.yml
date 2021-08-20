@@ -23,6 +23,7 @@ build:
     - develop
 
 test-node:
+  image: node:14
   stage: test
   tags:
     - main-docker-local
@@ -35,6 +36,7 @@ test-node:
     - docker-compose exec -T node npm test
 
 dev:
+  image: node:14
   stage: deploy
   only:
     - uat
