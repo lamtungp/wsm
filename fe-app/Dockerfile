@@ -1,7 +1,6 @@
 FROM node:14
 WORKDIR /app
 COPY ./package*.json /app/
-RUN npm install -g npm
 RUN npm install
 RUN npm rebuild node-sass
 RUN pwd
