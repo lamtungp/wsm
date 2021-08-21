@@ -35,7 +35,6 @@ test-node:
     - echo "If the files are built successfully, test some files with one command:"
     - docker-compose down -v
     - sleep 15
-    - mkdir -p "$MOUNT_POINT"
     - COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d
     - sleep 15
     - docker-compose exec -T node npm test
