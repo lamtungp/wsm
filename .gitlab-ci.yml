@@ -7,6 +7,9 @@ before_script:
   - docker info
   - docker-compose version
 
+variables:
+  MOUNT_POINT: /builds/$CI_PROJECT_PATH/app
+
 stages:
   - build
   - test
@@ -31,7 +34,8 @@ test-node:
     - echo "If the files are built successfully, test some files with one command:"
     - docker-compose down -v
     - sleep 15
-    - COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d
+    - mkdir -p "$MOUNT_POINT"
+    - COMPOSE_HTTP_TIMEOUT=200 docker-compose up -v "$MOUNT_POINT:/app" --build -d
     - sleep 15
     - docker-compose exec -T node npm test
 
