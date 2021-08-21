@@ -1,14 +1,15 @@
 image: docker/compose:latest
 
-services:
-  - docker:dind
+# services:
+#   - docker:dind
 
 before_script:
+  - apk add bash ncurses docker-compose
   - docker info
   - docker-compose version
 
 variables:
-  MOUNT_POINT: /builds/$CI_PROJECT_PATH/app
+  DOCKER_DRIVER: overlay2
 
 stages:
   - build
@@ -35,7 +36,7 @@ test-node:
     - docker-compose down -v
     - sleep 15
     - mkdir -p "$MOUNT_POINT"
-    - COMPOSE_HTTP_TIMEOUT=200 docker-compose up -v "$MOUNT_POINT:/app" --build -d
+    - COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d
     - sleep 15
     - docker-compose exec -T node npm test
 
