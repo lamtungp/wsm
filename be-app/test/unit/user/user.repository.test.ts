@@ -18,10 +18,6 @@ describe('UserRepository', () => {
     sandbox.restore();
   });
 
-  it('should alway pass', () => {
-    expect(true).to.equal(true);
-  });
-
   describe('get instance', () => {
     it('UserRepository.instance exist', () => {
       const user = new UserRepository(userModel);

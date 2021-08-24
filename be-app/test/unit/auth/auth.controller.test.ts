@@ -22,18 +22,8 @@ describe('AuthController', () => {
     sandbox.restore();
   });
 
-  it('should alway pass', () => {
-    expect(true).to.equal(true);
-  });
-
   it('should not login a user when email param is not provided', async () => {
     const req = { body: { email: '', password: '12345' } };
-    res = {
-      success: true,
-      data: null,
-      message: '',
-      httpCode: 400,
-    };
     await new AuthController(userModel).userLogin(req, res, next);
     expect(status.calledOnce).to.be.true;
     expect(json.calledOnce).to.be.true;
@@ -52,8 +42,10 @@ describe('AuthController', () => {
 
   describe('should login a user when email and password is provided and exist', () => {
     it('account is actived', async () => {
-      const req = { body: { email: 'lampt2404@gmail.com', password: '123456' } };
-      const stub = sandbox.stub(userModel, 'findOne').resolves(userValue.update);
+      const req = { body: { email: 'tunglam1234@gmail.com', password: '12345678' } };
+      const stub = sandbox
+        .stub(userModel, 'findOne')
+        .resolves({ ...userValue.update, password: '$2a$12$h46b3PqNKylekQZTRiXsO.l52Ua1NtPIpj7yLhVkGi/ljSNHoKiaq' });
       await new AuthController(userModel).userLogin(req, res, next);
       expect(stub.calledOnce).to.be.true;
       expect(status.calledOnce).to.be.true;
@@ -63,7 +55,7 @@ describe('AuthController', () => {
     });
 
     it('account is pending', async () => {
-      const req = { body: { email: 'lampt2404@gmail.com', password: '123456' } };
+      const req = { body: { email: 'tunglam1234@gmail.com', password: '12345678' } };
       const stub = sandbox.stub(userModel, 'findOne').resolves({ ...userValue.update, status: 'pending' });
       await new AuthController(userModel).userLogin(req, res, next);
       expect(stub.calledOnce).to.be.true;
