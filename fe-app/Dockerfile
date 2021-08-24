@@ -4,6 +4,5 @@ COPY ./package*.json /app/
 COPY . /app/
 RUN npm install
 RUN npm rebuild node-sass
-RUN cat package.json
 EXPOSE 3000 
 CMD ["npm", "start"]

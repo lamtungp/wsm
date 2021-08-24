@@ -22,7 +22,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
     localStorage.removeItem('email');
     localStorage.removeItem('role');
     localStorage.removeItem('userId');
-    localStorage.removeItem('vacationDay');
+    localStorage.removeItem('vacationsDay');
     history.push('/');
   };
 

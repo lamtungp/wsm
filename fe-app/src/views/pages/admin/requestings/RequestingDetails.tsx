@@ -29,23 +29,19 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
   }, []);
 
   const getRequests = async () => {
-    try {
-      const request = await requestServices.getAllRequest();
-      const dataStatus = { pending: false, confirmed: false, declined: false };
-      request.data.map((item: any) => {
-        if (item.state === 'pending') {
-          dataStatus.pending = true;
-        } else if (item.state === 'confirmed') {
-          dataStatus.confirmed = true;
-        } else if (item.state === 'declined') {
-          dataStatus.declined = true;
-        }
-      });
-      setStatus(dataStatus);
-      setRequests(request.data);
-    } catch (error) {
-      history.push('/error/500');
-    }
+    const request = await requestServices.getAllRequest();
+    const dataStatus = { pending: false, confirmed: false, declined: false };
+    request.data.map((item: any) => {
+      if (item.state === 'pending') {
+        dataStatus.pending = true;
+      } else if (item.state === 'confirmed') {
+        dataStatus.confirmed = true;
+      } else if (item.state === 'declined') {
+        dataStatus.declined = true;
+      }
+    });
+    setStatus(dataStatus);
+    setRequests(request.data);
   };
 
   const handleRequest = async (values: object, id: number) => {

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 import { Button, Form } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
 import { CCard, CCardHeader, CCardBody, CRow, CCol } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
 import dayjs from 'dayjs';
@@ -9,8 +8,6 @@ import dayjs from 'dayjs';
 import userService from '../../../../common/redux/user/services';
 
 const FormInformation = () => {
-  const history = useHistory();
-
   const [user, setUser] = useState({
     address: '',
     avatar: '',
@@ -30,20 +27,16 @@ const FormInformation = () => {
   }, []);
 
   const getInformation = async () => {
-    try {
-      const res = await userService.getUserByEmail(String(localStorage.getItem('email')));
-      delete res.data['id'];
-      delete res.data['email'];
-      setUser(res.data);
-    } catch (error) {
-      history.push('/error/500');
-    }
+    const res = await userService.getUserByEmail(String(localStorage.getItem('email')));
+    delete res.data['id'];
+    delete res.data['email'];
+    setUser(res.data);
   };
 
   const handle = async (values: any) => {
     try {
       await userService.updateUser(values, String(localStorage.getItem('email')));
-      history.push('/admin/profile');
+      window.location.pathname = '/admin/profile';
     } catch (error) {
       window.alert('Xảy ra lỗi khi cập nhật');
     }

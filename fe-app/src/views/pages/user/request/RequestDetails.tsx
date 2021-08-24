@@ -26,12 +26,8 @@ const RequestDetails: React.FunctionComponent = (): React.ReactElement => {
   }, []);
 
   const getListRequest = async () => {
-    try {
-      const res = await requestService.findRequestById(id);
-      setRequest(res.data);
-    } catch (error) {
-      history.push('/error/500');
-    }
+    const res = await requestService.findRequestById(id);
+    setRequest(res.data);
   };
 
   return (

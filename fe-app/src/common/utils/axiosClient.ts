@@ -17,6 +17,8 @@ AxiosClient.interceptors.request.use(
       if (!!token) {
         config.headers.Authorization = 'Bearer ' + token;
         config.headers.AuthToken = token;
+      } else {
+        throw new Error();
       }
     } catch (e) {
       console.log('Token Invalid', e);

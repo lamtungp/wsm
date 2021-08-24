@@ -5,8 +5,8 @@ export default {
     body: Joi.object({
       nameRequest: Joi.string().required(),
       state: Joi.string().required(),
-      startDay: Joi.string().required(),
-      endDay: Joi.string().required(),
+      startDay: Joi.date().required(),
+      endDay: Joi.date().required(),
       timeout: Joi.string().required(),
       phoneNumber: Joi.string().required(),
       project: Joi.string().required(),
@@ -19,8 +19,8 @@ export default {
     body: Joi.object({
       nameRequest: Joi.string(),
       state: Joi.string(),
-      startDay: Joi.string(),
-      endDay: Joi.string(),
+      startDay: Joi.date(),
+      endDay: Joi.date(),
       timeout: Joi.string(),
       phoneNumber: Joi.string(),
       project: Joi.string(),

@@ -83,12 +83,8 @@ const FormUser = () => {
   };
 
   const getDepartment = async () => {
-    try {
-      const department = await departmentServices.getAllDepartment();
-      setDepartments(department.data);
-    } catch (error) {
-      history.push('/error/500');
-    }
+    const department = await departmentServices.getAllDepartment();
+    setDepartments(department.data);
   };
 
   const handleSenority = (start: Date, current: Date) => {
@@ -104,7 +100,7 @@ const FormUser = () => {
   }, []);
 
   const handle = async (values: any) => {
-    if (!!email) {
+    if (email !== 'undefined') {
       try {
         await userService.updateUser(values, email);
         await userService.getAllUser();

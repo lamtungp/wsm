@@ -4,6 +4,8 @@ export interface DepartmentAttributes {
   id: number;
   nameDepartment: string;
   description: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 export interface DepartmentModel extends Model<DepartmentAttributes>, DepartmentAttributes {}
 

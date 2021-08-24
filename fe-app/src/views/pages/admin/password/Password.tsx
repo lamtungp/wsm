@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
 
 import userServices from '../../../../common/redux/user/services';
@@ -33,7 +32,6 @@ const fields = [
 ];
 
 const Users = () => {
-  const history = useHistory();
   const [listUser, setListUser] = useState([{ id: '', name: '', email: '', password: '' }]);
 
   React.useEffect(() => {
@@ -41,13 +39,8 @@ const Users = () => {
   }, []);
 
   const getListUser = async () => {
-    try {
-      const res = await userServices.getAllUser();
-      // console.log(res);
-      setListUser(res.data);
-    } catch (error) {
-      history.push('/error/500');
-    }
+    const res = await userServices.getAllUser();
+    setListUser(res.data);
   };
 
   const handlePassword = (length: number) => {
@@ -93,6 +86,10 @@ const Users = () => {
                 sorter
                 pagination
                 scopedSlots={{
+                  // eslint-disable-next-line react/display-name
+                  id: (_item: any, index: any) => {
+                    return <td>{index + 1}</td>;
+                  },
                   // eslint-disable-next-line react/display-name
                   show_details: (item: any) => {
                     return (

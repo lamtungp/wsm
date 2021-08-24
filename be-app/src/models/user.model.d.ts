@@ -19,8 +19,8 @@ export interface UserAttributes {
   departmentId: number;
   status: string;
   confirmationCode: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 export interface UserModel extends Model<UserAttributes>, UserAttributes {}
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
-import { useHistory } from 'react-router-dom';
 
 import userService from '../../../../common/redux/user/services';
 
@@ -73,7 +72,6 @@ const fields = [
 ];
 
 const ListStaff = () => {
-  const history = useHistory();
   const [listUser, setListUser] = useState([{}]);
 
   React.useEffect(() => {
@@ -83,12 +81,8 @@ const ListStaff = () => {
   }, []);
 
   const getUsers = async () => {
-    try {
-      const res = await userService.getListStaff(String(localStorage.getItem('email')));
-      setListUser(res.data);
-    } catch (error) {
-      history.push('/error/500');
-    }
+    const res = await userService.getListStaff(String(localStorage.getItem('email')));
+    setListUser(res.data);
   };
 
   listUser.map((user: any) => {
@@ -117,6 +111,12 @@ const ListStaff = () => {
                   itemsPerPage={10}
                   tableFilter
                   pagination
+                  scopedSlots={{
+                    // eslint-disable-next-line react/display-name
+                    id: (_item: any, index: any) => {
+                      return <td>{index + 1}</td>;
+                    },
+                  }}
                 />
                 <ExportToExcel prop={{ apiData: listUser, fileName: 'DanhSachNhanVien' }} />
               </CCardBody>

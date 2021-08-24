@@ -12,6 +12,8 @@ export interface RequestAttributes {
   reason: string;
   userId: number;
   handler: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 export interface RequestModel extends Model<RequestAttributes>, RequestAttributes {}
 

@@ -44,12 +44,8 @@ const Departments: React.FunctionComponent = (): React.ReactElement => {
   }, []);
 
   const getListDepartment = async () => {
-    try {
-      const res = await departmentService.getAllDepartment();
-      setListdepartment(res.data);
-    } catch (error) {
-      history.push('/error/500');
-    }
+    const res = await departmentService.getAllDepartment();
+    setListdepartment(res.data);
   };
 
   const deletedepartment = async (id: number) => {
@@ -94,6 +90,10 @@ const Departments: React.FunctionComponent = (): React.ReactElement => {
                 sorter
                 pagination
                 scopedSlots={{
+                  // eslint-disable-next-line react/display-name
+                  id: (_item: any, index: any) => {
+                    return <td>{index + 1}</td>;
+                  },
                   // eslint-disable-next-line react/display-name
                   edit: (item: any) => {
                     return (

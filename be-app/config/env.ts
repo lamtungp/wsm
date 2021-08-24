@@ -24,6 +24,7 @@ const database = {
   pool: process.env.enableConnectionPool ? poolConfig : null,
   dialect: 'mysql',
   port: process.env.DB_PORT,
+  logging: process.env.NODE_ENV === Environment.Development,
   timezone: '+00:00',
 };
 

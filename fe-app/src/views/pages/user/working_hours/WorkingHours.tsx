@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
-import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
@@ -38,7 +37,6 @@ const fields = [
 ];
 
 const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
-  const history = useHistory();
   const [listUser, setListUser] = useState([
     { id: '', checkin: '', checkout: '', time: 0, checkins: [{}], gender: '' },
   ]);
@@ -60,17 +58,12 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
   };
 
   const getUsers = async () => {
-    try {
-      const res = await userService.getStaffWithCheckin(String(localStorage.getItem('email')), handleDate(new Date()));
-      setListUser(res.data);
-    } catch (error) {
-      history.push('/error/500');
-    }
+    const res = await userService.getStaffWithCheckin(String(localStorage.getItem('email')), handleDate(new Date()));
+    setListUser(res.data);
   };
 
   listUser.map((user: any) => {
     let t = 0;
-    // console.log(user);
     if (!!user.checkins) {
       user.checkins.map((item: any) => {
         if (!!!item.checkout) {
@@ -113,6 +106,12 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
                   itemsPerPage={10}
                   tableFilter
                   pagination
+                  scopedSlots={{
+                    // eslint-disable-next-line react/display-name
+                    id: (_item: any, index: any) => {
+                      return <td>{index + 1}</td>;
+                    },
+                  }}
                 />
                 <ExportToExcel prop={{ apiData: listUser, fileName: 'WorkingHours' }} />
               </CCardBody>

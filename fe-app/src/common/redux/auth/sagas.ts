@@ -14,12 +14,11 @@ function* loginSaga(action: LoginAction) {
     localStorage.setItem('role', response.data.role);
     localStorage.setItem('userId', response.data.id);
     localStorage.setItem('email', action.payload.email);
-    localStorage.setItem('vacationDay', response.vacationDay);
+    localStorage.setItem('vacationsDay', response.data.vacationsDay);
     yield put(loginSuccess({ token: response.data.token, status: response.message }));
     if (localStorage.getItem('role') === 'admin') window.location.pathname = '/admin';
     else window.location.pathname = '';
   } catch (error) {
-    // alert(error);
     yield put(loginFailure({ token: '', status: 'failure' }));
   }
 }

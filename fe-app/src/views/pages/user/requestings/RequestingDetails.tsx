@@ -31,23 +31,19 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
   }, []);
 
   const getRequests = async () => {
-    try {
-      const request = await requestServices.getListRequestOfStaff(String(localStorage.getItem('email')));
-      setListRequests(request);
-      const dataStatus = { pending: false, confirmed: false, declined: false };
-      request.data.map((item: any) => {
-        if (item.state === 'pending') {
-          dataStatus.pending = true;
-        } else if (item.state === 'confirmed') {
-          dataStatus.confirmed = true;
-        } else if (item.state === 'declined') {
-          dataStatus.declined = true;
-        }
-      });
-      setStatus(dataStatus);
-    } catch (error) {
-      history.push('/error/500');
-    }
+    const request = await requestServices.getListRequestOfStaff(String(localStorage.getItem('email')));
+    setListRequests(request);
+    const dataStatus = { pending: false, confirmed: false, declined: false };
+    request.data.map((item: any) => {
+      if (item.state === 'pending') {
+        dataStatus.pending = true;
+      } else if (item.state === 'confirmed') {
+        dataStatus.confirmed = true;
+      } else if (item.state === 'declined') {
+        dataStatus.declined = true;
+      }
+    });
+    setStatus(dataStatus);
   };
 
   const handleRequest = async (values: object, id: number) => {

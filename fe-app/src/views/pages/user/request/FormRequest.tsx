@@ -55,14 +55,10 @@ const FormRequest = () => {
   }, []);
 
   const getRequest = async () => {
-    try {
-      const _request = await requestService.findRequestById(idRequest);
-      setRequest(_request.data);
-      setDateStart(new Date(_request.data.startDay));
-      setDateEnd(new Date(_request.data.endDay));
-    } catch (error) {
-      history.push('/error/500');
-    }
+    const _request = await requestService.findRequestById(idRequest);
+    setRequest(_request.data);
+    setDateStart(new Date(_request.data.startDay));
+    setDateEnd(new Date(_request.data.endDay));
   };
 
   const handle = async (values: any) => {

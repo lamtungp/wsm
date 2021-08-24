@@ -11,19 +11,6 @@ export default {
     invalidAccount: 'INVALID_ACCOUNT',
     inactiveAccount: 'INACTIVE_ACCOUNT',
   },
-  category: {
-    deleteStatus: {
-      hasReferences: 'HAS_REFERENCES',
-    },
-    updateStatus: {
-      existed: 'EXISTED',
-    },
-  },
-  allergen: {
-    deleteStatus: {
-      hasReferences: 'HAS_REFERENCES',
-    },
-  },
   status: {
     success: 'SUCCESS',
     failed: 'FAILED',

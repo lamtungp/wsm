@@ -6,6 +6,8 @@ export interface CheckinAttributes {
   checkout: string;
   date: string;
   userId: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 export interface CheckinModel extends Model<CheckinAttributes>, CheckinAttributes {}
 

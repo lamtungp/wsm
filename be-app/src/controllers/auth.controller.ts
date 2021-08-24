@@ -7,7 +7,7 @@ import AuthRepository from '../repositories/auth.repository';
 import messages from '../commons/messages';
 
 export default class AuthController extends AuthRepository {
-  public userLogin = async (req: any, res: Response, next: NextFunction) => {
+  public userLogin = async (req: any, res: Response, next) => {
     const { email, password } = req.body;
     const userData = await this.checkAuthenticationData(email, password);
     if (!!userData) {
@@ -17,7 +17,7 @@ export default class AuthController extends AuthRepository {
           token: token,
           role: userData.role,
           id: userData.id,
-          vacationDay: userData.vacationsDay,
+          vacationsDay: userData.vacationsDay,
         });
       }
       return next(new BadRequestError(messages.auth.inactive));

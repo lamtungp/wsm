@@ -141,8 +141,8 @@ const Users = () => {
                 pagination
                 scopedSlots={{
                   // eslint-disable-next-line react/display-name
-                  id: (item: any, index: any) => {
-                    return <td>{index}</td>;
+                  id: (_item: any, index: any) => {
+                    return <td>{index + 1}</td>;
                   },
                   // eslint-disable-next-line react/display-name
                   role: (item: any) => {
