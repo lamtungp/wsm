@@ -9,6 +9,8 @@ services:
         tty: true
         # volumes:
         #     - ./be-app:/app
+        deploy:
+            replicas: 3
         environment:
             - NODE_ENV=development
             - REDIS_URL=redis
@@ -65,7 +67,7 @@ services:
         ports:
             - "8181:80"
         environment:
-            - PMA_HOST=db
+            - PMA_HOST=wsm-dev_db
             - PMA_USER=root
             - PMA_PASSWORD=root
         depends_on:
