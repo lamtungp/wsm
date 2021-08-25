@@ -4,7 +4,6 @@ services:
     - docker:dind
 
 before_script:
-    - apk add bash ncurses docker-compose
     - docker info
     - docker-compose version
 
@@ -20,6 +19,8 @@ build:
     stage: build
     tags:
         - main-docker-local
+    before_script:
+        - apk add bash ncurses docker-compose
     script:
         - docker stack rm wsm-dev
         - sleep 10
@@ -46,6 +47,7 @@ dev:
     tags:
         - main-docker-local
     before_script:
+        - apk add bash ncurses docker-compose
         - docker node ls
     script:
         - docker-compose down -v
