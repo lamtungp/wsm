@@ -3,21 +3,21 @@
     "username": "user",
     "password": "secret",
     "database": "helloworld",
-    "host": "db",
+    "host": "wsm-dev_db",
     "dialect": "mysql"
   },
   "test": {
     "username": "user",
     "password": "secret",
     "database": "project_test",
-    "host": "db",
+    "host": "wsm-dev_db",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": null,
     "database": "database_production",
-    "host": "db",
+    "host": "wsm-dev_db",
     "dialect": "mysql"
   }
 }
