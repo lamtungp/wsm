@@ -54,4 +54,4 @@ dev:
         - sleep 10
         - COMPOSE_HTTP_TIMEOUT=200 docker stack deploy -c docker-compose.yml wsm-dev
         - sleep 10
-        - docker service scale wsm_dev_node=3
+        - docker service scale wsm-dev_node=3
