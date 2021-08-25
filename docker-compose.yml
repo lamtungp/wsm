@@ -47,6 +47,10 @@ services:
     db:
         image: mysql:8.0
         restart: always
+        deploy:
+            placement:
+                constraints:
+                    - node.role == manager
         ports:
             - "3306:3306"
         command: --default-authentication-plugin=mysql_native_password
