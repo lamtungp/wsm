@@ -11,22 +11,22 @@ variables:
     DOCKER_DRIVER: overlay2
 
 stages:
-    # - build
+    - build
     - test
     - deploy
 
-# build:
-#     stage: build
-#     tags:
-#         - main-docker-local
-#     before_script:
-#         - apk add bash ncurses docker-compose
-#     script:
-#         - docker stack rm wsm-dev
-#         - sleep 10
-#         - docker-compose build
-#     only:
-#         - develop
+build:
+    stage: build
+    tags:
+        - main-docker-local
+    before_script:
+        - apk add bash ncurses docker-compose
+    script:
+        - docker stack rm wsm-dev
+        - sleep 10
+        - docker-compose build
+    only:
+        - develop
 
 test-node:
     stage: test
@@ -55,7 +55,6 @@ dev:
         - docker stack rm wsm-dev
         - docker-compose down -v
         - sleep 5
-        - pwd
         - cd ./be-app/docker/services/db
         - mkdir data
         - cd ..
