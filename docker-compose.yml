@@ -20,8 +20,8 @@ services:
             - "4000:4000"
         depends_on:
             - db
-            - nginx
             - redis
+            - nginx
 
     react:
         image: lampt2404/react-project:latest
@@ -52,7 +52,8 @@ services:
         restart: always
         deploy:
             placement:
-                constraints: [node.role == manager]
+                constraints:
+                    - node.role == manager
         ports:
             - "3306:3306"
         command: --default-authentication-plugin=mysql_native_password
@@ -62,10 +63,8 @@ services:
             MYSQL_USER: user
             MYSQL_PASSWORD: secret
         volumes:
-            - type: bind
-              source: ./be-app/docker/services/db/data
-              target: /var/lib/mysql
             - ./be-app/docker/services/db/init:/docker-entrypoint-initdb.d
+            - ./be-app/docker/services/db/data:/var/lib/mysql
         cap_add:
             - SYS_NICE
 
@@ -80,7 +79,6 @@ services:
             - PMA_PASSWORD=root
         depends_on:
             - db
-            - nginx
 
     redis:
         image: redis:latest
@@ -92,6 +90,3 @@ services:
             - ./be-app/docker/services/redis/data:/data
         ports:
             - "6379:6379"
-
-    # volumes:
-    #     builds:
