@@ -54,11 +54,12 @@ dev:
     script:
         - docker stack rm wsm-dev
         - docker-compose down -v
-        - sleep 10
+        - sleep 5
+        - pwd
         - cd ./be-app/docker/services/db
         - mkdir data
         - cd ..
         - mkdir redis
         - cd ./redis
         - mkdir data
-        - docker stack deploy -c docker-compose.yml wsm-dev
+        # - docker stack deploy -c docker-compose.yml wsm-dev
