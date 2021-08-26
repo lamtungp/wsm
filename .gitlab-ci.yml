@@ -62,4 +62,5 @@ dev:
         - mkdir redis
         - cd ./redis
         - mkdir data
-        # - docker stack deploy -c docker-compose.yml wsm-dev
+        - cd /builds/Dsi7E8q7/0/lampt/wsm-dev
+        - docker stack deploy -c docker-compose.yml wsm-dev
