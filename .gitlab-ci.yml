@@ -55,4 +55,5 @@ dev:
         - docker stack rm wsm-dev
         - docker-compose down -v
         - sleep 10
+        - ls -la
         - docker stack deploy -c docker-compose.yml wsm-dev

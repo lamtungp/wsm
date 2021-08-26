@@ -120,3 +120,6 @@ dist
 # log
 combined.log
 error.log
+
+docker/services/db/data
+docker/services/redis/data

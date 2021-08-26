@@ -1,1 +1,5 @@
 node_modules/
+
+docker/services/db/data
+docker/services/redis/data
+
