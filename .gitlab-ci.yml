@@ -57,6 +57,8 @@ dev:
         - sleep 10
         - cd ./be-app/docker/services/db
         - mkdir data
-        - cd ./be-app/docker/services/redis
+        - cd /be-app/docker/services
+        - mkdir redis
+        - cd ./redis
         - mkdir data
         - docker stack deploy -c docker-compose.yml wsm-dev
