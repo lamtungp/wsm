@@ -52,6 +52,7 @@ dev:
         - apk add bash ncurses docker-compose
         - docker node ls
     script:
+        - docker stack rm wsm-dev
         - docker-compose down -v
         - sleep 10
         - docker stack deploy -c docker-compose.yml wsm-dev
