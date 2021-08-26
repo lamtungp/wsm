@@ -55,5 +55,8 @@ dev:
         - docker stack rm wsm-dev
         - docker-compose down -v
         - sleep 10
-        - ls -la
+        - cd ./be-app/docker/services/db
+        - mkdir data
+        - cd ./be-app/docker/services/redis
+        - mkdir data
         - docker stack deploy -c docker-compose.yml wsm-dev
