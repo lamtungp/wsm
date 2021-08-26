@@ -21,7 +21,6 @@ services:
         depends_on:
             - db
             - redis
-            - nginx
 
     react:
         image: lampt2404/react-project:latest
@@ -35,8 +34,6 @@ services:
             - REACT_APP_API_ENDPOINT=http://api.pm.local/api/v1
         ports:
             - "3000:3000"
-        depends_on:
-            - nginx
 
     nginx:
         image: nginx:latest
@@ -46,6 +43,9 @@ services:
             - "80:80"
         volumes:
             - ./be-app/docker/services/nginx/conf:/etc/nginx/conf.d
+        depends_on:
+            - node
+            - react
 
     db:
         image: mysql:8.0
@@ -77,8 +77,6 @@ services:
             - PMA_HOST=db
             - PMA_USER=root
             - PMA_PASSWORD=root
-        depends_on:
-            - db
 
     redis:
         image: redis:latest
