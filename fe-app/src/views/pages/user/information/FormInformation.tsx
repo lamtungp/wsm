@@ -42,7 +42,7 @@ const FormInformation = () => {
 
   const handle = async (values: any) => {
     try {
-      await userService.updateUser(values, String(localStorage.getItem('email')));
+      await userService.updateUserRoleUser(values);
       history.push('/user/profile');
     } catch (error) {
       window.alert('Xảy ra lỗi khi cập nhật');

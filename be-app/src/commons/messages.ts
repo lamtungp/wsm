@@ -19,6 +19,7 @@ export default {
   auth: {
     failed: 'Either email or password is incorrect. Please try again',
     userExists: 'Email Address already in use',
+    invalidPassword: 'Password wrong',
     inactive: 'The account has not been verified',
     userNotExists: 'The email address you entered does not exist',
     invalidCode: 'Incorrect verification code',

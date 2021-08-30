@@ -26,12 +26,7 @@ router.get(
   requestController.getListRequest,
 );
 
-router.get(
-  '/get-list-request-of-staff',
-  verifyManagerMiddleware,
-  validate(validateRequest.queryRequest),
-  requestController.getListRequestOfStaff,
-);
+router.get('/get-list-request-of-staff', verifyManagerMiddleware, requestController.getListRequestOfStaff);
 
 router.get(
   '/find-request-by-id/:requestId',
@@ -56,7 +51,7 @@ router.put(
 
 router.get(
   '/find-request-by-state',
-  verifyAdminManagerMiddleware,
+  verifyAdminMiddleware,
   validate(validateRequest.queryRequest),
   requestController.getListRequestByState,
 );

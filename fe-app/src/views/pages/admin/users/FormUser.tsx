@@ -90,7 +90,7 @@ const FormUser = () => {
   const handle = async (values: any) => {
     if (email !== 'undefined') {
       try {
-        await userService.updateUser(values, email);
+        await userService.updateUserRoleAdmin(values, email);
         await userService.getAllUser();
         history.push('/admin/users');
       } catch (error) {

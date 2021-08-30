@@ -37,8 +37,13 @@ const userServices = {
     return result;
   },
 
-  updateUser: (param: object, email: string): Promise<any> => {
-    const result = AxiosClient.put(`${API.USER.UPDATE_USER}?email=${email}`, param);
+  updateUserRoleAdmin: (param: object, email: string): Promise<any> => {
+    const result = AxiosClient.put(`${API.USER.UPDATE_USER_ROLE_ADMIN}?email=${email}`, param);
+    return result;
+  },
+
+  updateUserRoleUser: (param: object): Promise<any> => {
+    const result = AxiosClient.put(API.USER.UPDATE_USER_ROLE_USER, param);
     return result;
   },
 

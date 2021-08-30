@@ -21,6 +21,8 @@ export default class AuthController extends AuthRepository {
         });
       }
       return next(new BadRequestError(messages.auth.inactive));
+    } else if (userData === null) {
+      return next(new NotFoundError(messages.auth.invalidPassword));
     }
     return next(new NotFoundError(messages.auth.userNotExists));
   };

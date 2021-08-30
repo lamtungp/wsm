@@ -38,16 +38,16 @@ export default class RequestRepository {
     const requests = await this.request.findAll({
       include: {
         model: userModel,
-        attributes: ['name'],
+        attributes: ['email'],
         where: { departmentId, role },
       },
     });
     return requests;
   }
 
-  public async getRequestById(id: number): Promise<RequestAttributes> {
+  public async getRequestById(id: number, userId: number): Promise<RequestAttributes> {
     const request = await this.request.findOne({
-      where: { id },
+      where: { id, userId },
     });
     return request;
   }

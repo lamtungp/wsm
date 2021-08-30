@@ -3,6 +3,7 @@ import UserController from '../controllers/user.controller';
 import { validate } from 'express-validation';
 import UserRequest from '../request/user.request';
 import verifyManagerMiddleware from '../middlewares/verify.manager.middleware';
+import verifyManagerUserMiddleware from '../middlewares/verify.user.manager.middleware';
 import verifyAdminMiddleware from '../middlewares/verify.admin.middleware';
 import verifyAllMiddleware from '../middlewares/verify.all.middleware';
 import wrap from '../helpers/wrap';
@@ -48,7 +49,19 @@ router.get(
 
 router.post('/create-user', verifyAdminMiddleware, validate(UserRequest.createUser), wrap(userController.addUser));
 
-router.put('/update-user', verifyAllMiddleware, validate(UserRequest.updateUser), userController.updateForUser);
+router.put(
+  '/update-user-role-admin',
+  verifyAdminMiddleware,
+  validate(UserRequest.updateUserRoleAdmin),
+  userController.updateUserRoleAdmin,
+);
+
+router.put(
+  '/update-user-role-user',
+  verifyManagerUserMiddleware,
+  validate(UserRequest.updateUserRoleUser),
+  userController.updateUserRoleUser,
+);
 
 router.delete('/delete-user', verifyAdminMiddleware, validate(UserRequest.queryRequest), userController.deleteOneUser);
 

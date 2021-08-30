@@ -62,7 +62,6 @@ const FormRequest = () => {
   };
 
   const handle = async (values: any) => {
-    console.log(values);
     if (idRequest) {
       try {
         await requestService.updateRequest(values, values.id);
@@ -84,8 +83,10 @@ const FormRequest = () => {
 
   const deleteRequest = async (id: number) => {
     try {
-      await requestService.deleteRequest(id);
-      history.push('/user/requests');
+      if (window.confirm('Bạn có chắc chắn muốn thực hiện xóa ?')) {
+        await requestService.deleteRequest(id);
+        history.push('/user/requests');
+      }
     } catch (error) {
       window.alert('Gặp lỗi khi xóa yêu cầu');
     }

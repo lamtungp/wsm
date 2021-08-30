@@ -29,7 +29,7 @@ export default class AuthRepository {
       return undefined;
     }
     const compare = await Bcrypt.comparePassword(password, user.password);
-    if (!compare) return undefined;
+    if (!compare) return null;
     return user;
   }
 }

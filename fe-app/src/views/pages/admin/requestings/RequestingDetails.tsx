@@ -127,14 +127,16 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
                             className="btn-primary mr-1"
                             title="Chấp nhận"
                             onClick={() => {
-                              handleRequest(
-                                {
-                                  state: 'confirmed',
-                                  handler: localStorage.getItem('email'),
-                                },
-                                item.id,
-                              );
-                              history.push('/admin/requestings/confirmed');
+                              if (window.confirm('Yêu cầu này sẽ được chấp nhận')) {
+                                handleRequest(
+                                  {
+                                    state: 'confirmed',
+                                    handler: localStorage.getItem('email'),
+                                  },
+                                  item.id,
+                                );
+                                history.push('/admin/requestings/confirmed');
+                              }
                             }}
                           >
                             <FaCheck />
@@ -143,14 +145,16 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
                             className="btn-primary"
                             title="Từ chối"
                             onClick={() => {
-                              handleRequest(
-                                {
-                                  state: 'declined',
-                                  handler: localStorage.getItem('email'),
-                                },
-                                item.id,
-                              );
-                              history.push('/admin/requestings/declined');
+                              if (window.confirm('Yêu cầu này sẽ bị từ chối')) {
+                                handleRequest(
+                                  {
+                                    state: 'declined',
+                                    handler: localStorage.getItem('email'),
+                                  },
+                                  item.id,
+                                );
+                                history.push('/admin/requestings/declined');
+                              }
                             }}
                           >
                             <FaTimesCircle />

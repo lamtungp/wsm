@@ -5,6 +5,7 @@ import messages from '../commons/messages';
 import { responseSuccess } from '../helpers/response';
 import RequestRepository from '../repositories/request.repository';
 import UserRepository from '../repositories/user.repository';
+import jwt from 'jsonwebtoken';
 
 export default class RequestController {
   private request: RequestRepository;
@@ -24,7 +25,10 @@ export default class RequestController {
   };
 
   public getListRequest = async (req: Request, res: Response, next: NextFunction) => {
-    const requests = await this.request.getRequestsAccount(Number(req.params.userId));
+    const token = req.header('AuthToken');
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedData = Object(verified);
+    const requests = await this.request.getRequestsAccount(decodedData.id);
     if (!!requests) {
       return responseSuccess(res, requests);
     }
@@ -32,7 +36,10 @@ export default class RequestController {
   };
 
   public getListRequestOfStaff = async (req: Request, res: Response, next: NextFunction) => {
-    const manager = await this.user.findUser(String(req.query.emailManager));
+    const token = req.header('AuthToken');
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedData = Object(verified);
+    const manager = await this.user.findUser(decodedData.email);
     if (!!manager) {
       const requests = await this.request.getRequestsStaff(manager.departmentId, 'user');
       if (!!requests) {
@@ -52,7 +59,10 @@ export default class RequestController {
   };
 
   public findRequestById = async (req: Request, res: Response, next: NextFunction) => {
-    const request = await this.request.getRequestById(Number(req.params.requestId));
+    const token = req.header('AuthToken');
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedData = Object(verified);
+    const request = await this.request.getRequestById(Number(req.params.requestId), decodedData.id);
     if (!!request) {
       return responseSuccess(res, request);
     }
@@ -60,7 +70,10 @@ export default class RequestController {
   };
 
   public addRequest = async (req: Request, res: Response, next: NextFunction) => {
-    const request = await this.request.createRequest(req.body);
+    const token = req.header('AuthToken');
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedData = Object(verified);
+    const request = await this.request.createRequest({ ...req.body, userId: decodedData.id });
     if (!!request) {
       return responseSuccess(res, request);
     }
@@ -68,7 +81,10 @@ export default class RequestController {
   };
 
   public updateForRequest = async (req: Request, res: Response, next: NextFunction) => {
-    const find_request = await this.request.getRequestById(Number(req.params.requestId));
+    const token = req.header('AuthToken');
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedData = Object(verified);
+    const find_request = await this.request.getRequestById(Number(req.params.requestId), decodedData.id);
     if (!!find_request) {
       const request = await this.request.updateRequest(req.body, Number(req.params.requestId));
       if (!!request) {
@@ -80,7 +96,10 @@ export default class RequestController {
   };
 
   public deleteOneRequest = async (req: Request, res: Response, next: NextFunction) => {
-    const find_request = await this.request.getRequestById(Number(req.params.requestId));
+    const token = req.header('AuthToken');
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedData = Object(verified);
+    const find_request = await this.request.getRequestById(Number(req.params.requestId), decodedData.id);
     if (!!find_request) {
       const request = await this.request.deleteRequestById(Number(req.params.requestId));
       if (!!request) {

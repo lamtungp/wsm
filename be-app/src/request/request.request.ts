@@ -11,7 +11,6 @@ export default {
       phoneNumber: Joi.string().required(),
       project: Joi.string().required(),
       reason: Joi.string().required(),
-      userId: Joi.number().min(1).integer().required(),
     }),
   },
 
@@ -41,8 +40,7 @@ export default {
 
   queryRequest: {
     query: Joi.object({
-      emailManager: Joi.string().email(),
-      state: Joi.string().valid('pending', 'confirmed', 'declined'),
-    }).or('emailManager', 'state'),
+      state: Joi.string().valid('pending', 'confirmed', 'declined').required(),
+    }),
   },
 };

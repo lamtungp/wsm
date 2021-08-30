@@ -119,6 +119,7 @@ dist
 
 # log
 *.log
+log_file/*.log
 
 docker/services/db/data
 docker/services/redis/data

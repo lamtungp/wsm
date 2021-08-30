@@ -35,7 +35,7 @@ const FormInformation = () => {
 
   const handle = async (values: any) => {
     try {
-      await userService.updateUser(values, String(localStorage.getItem('email')));
+      await userService.updateUserRoleAdmin(values, String(localStorage.getItem('email')));
       window.location.pathname = '/admin/profile';
     } catch (error) {
       window.alert('Xảy ra lỗi khi cập nhật');

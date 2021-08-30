@@ -34,7 +34,7 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
       },
     },
   ]);
-  const [status, setStatus] = React.useState<tplotOptions>({});
+  const [status, setStatus] = React.useState<tplotOptions>({ pending: false, confirmed: false, declined: false });
 
   React.useEffect(() => {
     if (localStorage.getItem('role') === 'manager') {
@@ -43,8 +43,7 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
   }, []);
 
   const getRequests = async () => {
-    const request = await requestServices.getListRequestOfStaff(String(localStorage.getItem('email')));
-    setListRequests(request);
+    const request = await requestServices.getListRequestOfStaff();
     const dataStatus = { pending: false, confirmed: false, declined: false };
     request.data.map((item: any) => {
       if (item.state === 'pending') {
@@ -56,6 +55,7 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
       }
     });
     setStatus(dataStatus);
+    setListRequests(request.data);
   };
 
   const handleRequest = async (values: object, id: number) => {
@@ -123,34 +123,40 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
                       <td>{item.phoneNumber}</td>
                       <td>{item.project}</td>
                       <td>{item.reason}</td>
-                      {item.state === 'Pending' ? (
+                      {item.state === 'pending' ? (
                         <td style={{ width: '13%' }}>
                           <CButton
                             className="btn-primary mr-1"
+                            title="Chấp nhận"
                             onClick={() => {
-                              handleRequest(
-                                {
-                                  state: 'confirmed',
-                                  handler: localStorage.getItem('email'),
-                                },
-                                item.id,
-                              );
-                              history.push('/user/member/requests/confirmed');
+                              if (window.confirm('Yêu cầu này sẽ được chấp nhận')) {
+                                handleRequest(
+                                  {
+                                    state: 'confirmed',
+                                    handler: localStorage.getItem('email'),
+                                  },
+                                  item.id,
+                                );
+                                history.push('/requestings/confirmed');
+                              }
                             }}
                           >
                             <FaCheck />
                           </CButton>
                           <CButton
                             className="btn-primary"
+                            title="Từ chối"
                             onClick={() => {
-                              handleRequest(
-                                {
-                                  state: 'declined',
-                                  handler: localStorage.getItem('email'),
-                                },
-                                item.id,
-                              );
-                              history.push('/user/member/requests/declined');
+                              if (window.confirm('Yêu cầu này sẽ bị từ chối')) {
+                                handleRequest(
+                                  {
+                                    state: 'declined',
+                                    handler: localStorage.getItem('email'),
+                                  },
+                                  item.id,
+                                );
+                                history.push('/requestings/declined');
+                              }
                             }}
                           >
                             <FaTimesCircle />
