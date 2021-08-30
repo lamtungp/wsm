@@ -40,36 +40,6 @@ const fields = [
     sorter: false,
   },
   {
-    key: 'dayIn',
-    label: 'Ngày vào',
-    sorter: false,
-  },
-  {
-    key: 'dayIn',
-    label: 'Ngày vào',
-    sorter: false,
-  },
-  {
-    key: 'dayOfficial',
-    label: 'Ngày chính thức',
-    sorter: false,
-  },
-  {
-    key: 'senority',
-    label: 'Thâm niên',
-    sorter: false,
-  },
-  {
-    key: 'vacationsDay',
-    label: 'Nghỉ phép',
-    sorter: false,
-  },
-  {
-    key: 'contractTerm',
-    label: 'Hợp đồng',
-    sorter: false,
-  },
-  {
     key: 'role',
     label: 'Chức vụ',
     sorter: false,
@@ -101,8 +71,10 @@ const Users = () => {
 
   const deleteUser = async (email: string) => {
     try {
-      await userService.deleteUser(email);
-      getUsers();
+      if (window.confirm('Bạn có chắc chắn muốn thực hiện xóa ?')) {
+        await userService.deleteUser(email);
+        getUsers();
+      }
     } catch (error) {
       console.log('Xảy ra lỗi khi xóa');
     }

@@ -133,7 +133,6 @@ const FormUser = () => {
             validationSchema={UserSchema}
             enableReinitialize
             onSubmit={(values) => {
-              console.log(values);
               handle(values);
             }}
             validateOnChange={true}
@@ -309,7 +308,7 @@ const FormUser = () => {
                           <>
                             {departments.map((item, index) => {
                               return (
-                                <option key={index} value={item.id}>
+                                <option key={index} value={Number(item.id)}>
                                   {item.nameDepartment}
                                 </option>
                               );

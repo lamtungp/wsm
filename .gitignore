@@ -4,3 +4,6 @@
 # Ada Library Information
 *.ali
 /node_modules
+
+be-app/docker/services/db/data
+be-app/docker/services/redis/data

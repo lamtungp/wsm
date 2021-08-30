@@ -26,13 +26,6 @@ const fields = [
     sorter: false,
     filter: false,
   },
-  {
-    key: 'edit',
-    label: '',
-    _style: { width: '15%', height: '100%' },
-    sorter: false,
-    filter: false,
-  },
 ];
 
 const Departments: React.FunctionComponent = (): React.ReactElement => {
@@ -93,26 +86,6 @@ const Departments: React.FunctionComponent = (): React.ReactElement => {
                   // eslint-disable-next-line react/display-name
                   id: (_item: any, index: any) => {
                     return <td>{index + 1}</td>;
-                  },
-                  // eslint-disable-next-line react/display-name
-                  edit: (item: any) => {
-                    return (
-                      <td>
-                        <div className="d-flex justify-content-center">
-                          <CButton
-                            color="primary"
-                            variant="outline"
-                            shape="square"
-                            size="sm"
-                            onClick={() => {
-                              history.push(`/admin/staffs-department/${item.id}`);
-                            }}
-                          >
-                            Xem nhân viên
-                          </CButton>
-                        </div>
-                      </td>
-                    );
                   },
                   // eslint-disable-next-line react/display-name
                   show_details: (item: any) => {

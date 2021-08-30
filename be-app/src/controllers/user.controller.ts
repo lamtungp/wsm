@@ -10,6 +10,7 @@ import { responseSuccess } from '../helpers/response';
 import NotFoundError from '../commons/http-errors/NotFoundError';
 import email from '../../config/email';
 import messages from '../commons/messages';
+import handlePassword from '../commons/utils/handlePassword';
 export default class UserController {
   private user: UserRepository;
   private checkin: CheckinRepository;
@@ -74,7 +75,8 @@ export default class UserController {
     if (!!find_user) {
       return next(new BadRequestError(messages.auth.userExists));
     }
-    const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
+    const password = handlePassword(8);
+    const hashPassword = await Bcrypt.generateHashPassword(password);
     const tokenConfirm = generateTokenConfirm(req.body);
     const user = await this.user.createUser({
       ...req.body,
@@ -107,7 +109,8 @@ export default class UserController {
   };
 
   public resetPassword = async (req: Request, res: Response, next: NextFunction) => {
-    const hashPassword = await Bcrypt.generateHashPassword(req.body.password);
+    const password = handlePassword(8);
+    const hashPassword = await Bcrypt.generateHashPassword(password);
     const tokenConfirm = generateTokenConfirm(req.body);
     const user = await this.user.findUser(req.body.email);
     if (!!user) {
@@ -122,9 +125,9 @@ export default class UserController {
                 <h2>Hello ${user.name}</h2>
                 <p>Hello. Your new password:</p>
                 <p>Email: ${user.email}</p>
-                <p>Password: ${req.body.password}</p>
-                <p>Please confirm your email by clicking on the following link:</p>
-                <a href=${process.env.API_CONFIRM_RESETPASSWORD_ENTRYPOINT}/${user.confirmationCode}> Click here</a>
+                <p>Password: ${password}</p>
+                <p>Please go back to login page:</p>
+                <a href="/"> Click here</a>
             </div>`,
         };
         sendNewEmail(options);

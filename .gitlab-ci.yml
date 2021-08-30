@@ -36,10 +36,11 @@ test-node:
         - apk add bash ncurses docker-compose
     script:
         - echo "If the files are built successfully, test some files with one command:"
+        - docker stack rm wsm-dev
         - docker-compose down -v
-        - sleep 15
+        - sleep 10
         - COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d
-        - sleep 15
+        - sleep 10
         - docker-compose exec -T node npm test
     only:
         - uat

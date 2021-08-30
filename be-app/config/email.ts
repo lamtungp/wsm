@@ -6,7 +6,6 @@ const auth = {
 
 const mail = {
   host: process.env.MAIL_HOST,
-  service: process.env.MAIL_SERVICE,
   port: process.env.MAIL_PORT,
 };
 

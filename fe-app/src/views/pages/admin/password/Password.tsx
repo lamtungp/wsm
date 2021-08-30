@@ -18,11 +18,6 @@ const fields = [
     sorter: false,
   },
   {
-    key: 'password',
-    label: 'Mật khẩu',
-    sorter: false,
-  },
-  {
     key: 'show_details',
     label: '',
     _style: { width: '15%' },
