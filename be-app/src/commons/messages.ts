@@ -52,6 +52,7 @@ export default {
   checkin: {
     notFound: 'Not found checkin',
     availabled: 'Availabled checkin',
+    notCheckin: 'Not checkin',
     createFailure: 'Create checkin failure',
     updateSuccess: 'Update checkin successfully',
   },

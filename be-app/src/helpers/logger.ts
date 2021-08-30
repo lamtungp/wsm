@@ -1,4 +1,5 @@
-import winston from 'winston';
+import * as winston from 'winston';
+import 'winston-daily-rotate-file';
 import dayjs from 'dayjs';
 import expressWinston from 'express-winston';
 import config, { Environment } from '../../config/env';
@@ -12,6 +13,20 @@ const logFormat = printf((info: winston.Logform.TransformableInfo): string => {
     }`;
   }
   return `${info.level} [${dayjs(info.timestamp).format('MM-DD-YYYY HH:mm:ss')}] : ${info.message}`;
+});
+
+const transportDaily = new winston.transports.DailyRotateFile({
+  filename: 'application-%DATE%.log',
+  datePattern: 'YYYY-MM-DD',
+  zippedArchive: true,
+  maxSize: '20m',
+  maxFiles: '1d',
+  dirname: './log_file',
+});
+
+transportDaily.on('rotate', function (oldFilename, newFilename) {
+  // do something fun
+  logger.info({ message: 'New file created!' });
 });
 
 const createLoggerForEnv = (environment: string) => {
@@ -41,7 +56,9 @@ const createLoggerForEnv = (environment: string) => {
       break;
 
     case Environment.Production:
-      logger = winston.createLogger({});
+      logger = winston.createLogger({
+        transports: transportDaily,
+      });
       logger.level = 'info';
       logger.add(
         new winston.transports.Console({

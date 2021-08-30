@@ -118,8 +118,7 @@ dist
 .pnp.*
 
 # log
-combined.log
-error.log
+*.log
 
 docker/services/db/data
 docker/services/redis/data

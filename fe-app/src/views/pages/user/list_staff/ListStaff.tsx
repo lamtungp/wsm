@@ -39,36 +39,6 @@ const fields = [
     label: 'Địa chỉ',
     sorter: false,
   },
-  {
-    key: 'dayIn',
-    label: 'Ngày vào',
-    sorter: false,
-  },
-  {
-    key: 'dayIn',
-    label: 'Ngày vào',
-    sorter: false,
-  },
-  {
-    key: 'dayOfficial',
-    label: 'Ngày chính thức',
-    sorter: false,
-  },
-  {
-    key: 'senority',
-    label: 'Thâm niên',
-    sorter: false,
-  },
-  {
-    key: 'vacationsDay',
-    label: 'Nghỉ phép',
-    sorter: false,
-  },
-  {
-    key: 'contractTerm',
-    label: 'Hợp đồng',
-    sorter: false,
-  },
 ];
 
 const ListStaff = () => {
@@ -97,7 +67,7 @@ const ListStaff = () => {
             <CCard>
               <CCardHeader>
                 <h2 className="m-0 font-weight-bold d-flex" style={{ fontSize: '13px', lineHeight: '1.57' }}>
-                  Thông tin nhân viên cấp dưới
+                  Thông tin nhân viên
                 </h2>
               </CCardHeader>
               <CCardBody className="text-center">

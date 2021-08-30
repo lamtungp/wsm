@@ -91,7 +91,7 @@ describe('UserRepository', () => {
       const listStaff = userListMock.userList;
       const stub = sandbox.stub(userModel, 'findAll').resolves(listStaff);
       const userRepository = new UserRepository(userModel);
-      const users = await userRepository.getListStaff(1, 'user');
+      const users = await userRepository.getListStaff(1);
       expect(stub.calledOnce).to.be.true;
       expect(users).to.be.an('array');
       expect(users.length).to.deep.equal(1);

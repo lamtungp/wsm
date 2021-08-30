@@ -43,8 +43,10 @@ const Departments: React.FunctionComponent = (): React.ReactElement => {
 
   const deletedepartment = async (id: number) => {
     try {
-      await departmentService.deleteDepartment(id);
-      getListDepartment();
+      if (window.confirm('Bạn có chắc chắn muốn thực hiện xóa ?')) {
+        await departmentService.deleteDepartment(id);
+        getListDepartment();
+      }
     } catch (error) {
       window.alert('Xảy ra lỗi khi xóa');
     }

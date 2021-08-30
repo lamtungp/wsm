@@ -16,7 +16,6 @@ const Layout: React.FunctionComponent = (): React.ReactElement => {
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Header />
           </ErrorBoundary>
-
           <div className="c-body">
             <ErrorBoundary FallbackComponent={ErrorFallback}>
               <Content />

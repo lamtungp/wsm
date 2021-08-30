@@ -23,7 +23,6 @@ const FormUser = () => {
       ? Yup.object().shape({
           name: Yup.string().min(1, 'Too short!').required('Required!'),
           email: Yup.string().min(2, 'Too short!').required('Required!').email('Invalid email'),
-          password: Yup.string().min(7, 'Too short!').required('Required!'),
           dayIn: Yup.string().required('Required!'),
         })
       : Yup.object().shape({
@@ -31,22 +30,11 @@ const FormUser = () => {
           dayIn: Yup.string().required('Required!'),
         });
 
-  const handlePassword = (length: number) => {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  };
-
   const [senority, setSenority] = useState('');
 
   const [user, setUser] = useState({
     name: '',
     email: '',
-    password: handlePassword(8),
     avatar: 'no-avatar.jpg',
     address: '',
     dayIn: '',

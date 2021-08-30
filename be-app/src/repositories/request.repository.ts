@@ -18,12 +18,19 @@ export default class RequestRepository {
   }
 
   public async getRequests(): Promise<any> {
-    const requests = await this.request.findAll({});
+    const requests = await this.request.findAll({
+      include: {
+        model: userModel,
+        attributes: ['email'],
+      },
+    });
     return requests;
   }
 
   public async getRequestsAccount(userId: number): Promise<RequestAttributes[]> {
-    const requests = await this.request.findAll({ where: { userId } });
+    const requests = await this.request.findAll({
+      where: { userId },
+    });
     return requests;
   }
 
@@ -31,6 +38,7 @@ export default class RequestRepository {
     const requests = await this.request.findAll({
       include: {
         model: userModel,
+        attributes: ['name'],
         where: { departmentId, role },
       },
     });

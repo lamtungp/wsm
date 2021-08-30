@@ -121,7 +121,6 @@ const CustomToolbar = (toolbar: any) => {
                       {
                         checkin: handleTime(new Date().toUTCString()),
                         date: date,
-                        userId: Number(localStorage.getItem('userId')),
                       },
                       'checkin',
                     )
@@ -138,7 +137,6 @@ const CustomToolbar = (toolbar: any) => {
                       {
                         checkout: handleTime(new Date().toUTCString()),
                         date: date,
-                        userId: Number(localStorage.getItem('userId')),
                       },
                       'checkout',
                     )

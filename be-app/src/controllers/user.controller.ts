@@ -41,7 +41,7 @@ export default class UserController {
   public getListStaffs = async (req: Request, res: Response, next: NextFunction) => {
     const manager = await this.user.findUser(String(req.query.email));
     if (!!manager) {
-      const users = await this.user.getListStaff(manager.departmentId, String(req.query.role));
+      const users = await this.user.getListStaff(manager.departmentId);
       if (!!users) {
         return responseSuccess(res, users);
       }
@@ -93,7 +93,7 @@ export default class UserController {
               <h2>Hello ${user.name}</h2>
               <p>Thank you for subscribing.</p>
               <p>Email: ${user.email}</p>
-              <p>Password: ${req.body.password}</p>
+              <p>Password: ${password}</p>
               <p>Please confirm your email by clicking on the following link:</p>
               <a href=${process.env.API_CONFIRM_ACCOUNT_ENTRYPOINT}/${user.confirmationCode}> Click here</a>
           </div>`,
@@ -111,10 +111,9 @@ export default class UserController {
   public resetPassword = async (req: Request, res: Response, next: NextFunction) => {
     const password = handlePassword(8);
     const hashPassword = await Bcrypt.generateHashPassword(password);
-    const tokenConfirm = generateTokenConfirm(req.body);
     const user = await this.user.findUser(req.body.email);
     if (!!user) {
-      const update = await this.user.updateUser({ passowrd: hashPassword }, req.body.email);
+      const update = await this.user.updateUser({ password: hashPassword }, req.body.email);
       if (!!update) {
         const options = {
           from: email.auth.user,
@@ -127,13 +126,12 @@ export default class UserController {
                 <p>Email: ${user.email}</p>
                 <p>Password: ${password}</p>
                 <p>Please go back to login page:</p>
-                <a href="/"> Click here</a>
+                <a href=${process.env.URL_PROJECT}> Click here</a>
             </div>`,
         };
         sendNewEmail(options);
         const dataSuccess = {
           message: messages.mail.resetPasswordSuccess,
-          confirmationCode: tokenConfirm,
         };
         return responseSuccess(res, dataSuccess);
       }

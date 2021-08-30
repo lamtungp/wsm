@@ -6,7 +6,6 @@ export default {
       checkin: Joi.string(),
       checkout: Joi.string(),
       date: Joi.date().required(),
-      userId: Joi.number().min(1).integer().required(),
     }).or('checkin', 'checkout'),
   },
 

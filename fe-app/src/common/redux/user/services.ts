@@ -13,7 +13,7 @@ const userServices = {
   },
 
   getListStaff: (email: string): Promise<any> => {
-    const results = AxiosClient.get(`${API.USER.GET_LIST_STAFF}?email=${email}&role=user`);
+    const results = AxiosClient.get(`${API.USER.GET_LIST_STAFF}?email=${email}`);
     return results;
   },
 

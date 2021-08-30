@@ -24,14 +24,17 @@ export default class UserRepository {
   }
 
   public async getListUser(departmentId: number): Promise<UserAttributes[]> {
-    const users = await this.user.findAll({ where: { departmentId } });
+    const users = await this.user.findAll({
+      where: { departmentId },
+      attributes: { exclude: ['createdAt', 'updatedAt', 'confirmationCode', 'password'] },
+    });
     return users;
   }
 
-  public async getListStaff(departmentId: number, role: string): Promise<UserAttributes[]> {
+  public async getListStaff(departmentId: number): Promise<UserAttributes[]> {
     const users = await this.user.findAll({
-      attributes: { exclude: ['createdAt', 'updatedAt', 'confirmationCode'] },
-      where: { departmentId, role },
+      attributes: { exclude: ['createdAt', 'updatedAt', 'confirmationCode', 'password'] },
+      where: { departmentId },
     });
     return users;
   }

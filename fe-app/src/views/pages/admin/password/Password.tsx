@@ -38,19 +38,9 @@ const Users = () => {
     setListUser(res.data);
   };
 
-  const handlePassword = (length: number) => {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  };
-
   const resetPassword = async (email: string) => {
     try {
-      await userServices.resetPassword({ email: email, password: handlePassword(8) });
+      await userServices.resetPassword({ email: email });
       getListUser();
       window.alert('Reset mật khẩu thành công');
     } catch (error) {

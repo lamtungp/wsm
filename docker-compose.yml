@@ -2,9 +2,9 @@ version: "3.6"
 
 services:
     node:
-        image: lampt2404/node-project:latest
-        # build:
-        #     context: ./be-app
+        # image: lampt2404/node-project:latest
+        build:
+            context: ./be-app
         restart: always
         tty: true
         volumes:
@@ -23,9 +23,9 @@ services:
             - redis
 
     react:
-        image: lampt2404/react-project:latest
-        # build:
-        #     context: ./fe-app
+        # image: lampt2404/react-project:latest
+        build:
+            context: ./fe-app
         restart: always
         volumes:
             - ./fe-app:/app

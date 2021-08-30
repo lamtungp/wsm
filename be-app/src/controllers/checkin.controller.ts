@@ -3,6 +3,7 @@ import BadRequestError from '../commons/http-errors/BadRequestError';
 import { responseSuccess } from '../helpers/response';
 import CheckinRepository from '../repositories/checkin.repository';
 import messages from '../commons/messages';
+import jwt from 'jsonwebtoken';
 
 export default class CheckinController {
   private checkin: CheckinRepository;
@@ -28,17 +29,26 @@ export default class CheckinController {
   };
 
   public createCheckins = async (req: Request, res: Response, next: NextFunction) => {
-    const userCheckin = await this.checkin.getCheckinByUserIdDate(req.body.userId, req.body.date);
+    const token = req.header('AuthToken');
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedData = Object(verified);
+    const userCheckin = await this.checkin.getCheckinByUserIdDate(decodedData.id, req.body.date);
     if (!!userCheckin) {
       if (!!!userCheckin.checkout && !!userCheckin.checkin) {
-        await this.checkin.updateCheckin(req.body.userId, req.body.date, req.body);
+        if (req.body.checkin) {
+          return next(new BadRequestError(messages.checkin.availabled));
+        }
+        await this.checkin.updateCheckin(decodedData.id, req.body.date, req.body);
         return responseSuccess(res, { message: messages.checkin.updateSuccess });
       }
       return responseSuccess(res, { error: messages.checkin.availabled });
     }
-    const checkin = await this.checkin.createCheckin(req.body);
-    if (!!checkin) {
-      return responseSuccess(res, checkin);
+    if (req.body.checkin) {
+      const checkin = await this.checkin.createCheckin({ ...req.body, userId: decodedData.id });
+      if (!!checkin) {
+        return responseSuccess(res, checkin);
+      }
+      return next(new BadRequestError(messages.checkin.notCheckin));
     }
     return next(new BadRequestError(messages.checkin.createFailure));
   };

@@ -28,7 +28,7 @@ const _nav = [
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'Danh sach nhân viên cấp dưới',
+    name: 'Danh sách nhân viên',
     to: '/user/list_staff',
     icon: <FaCalendarCheck style={{ marginRight: '1rem' }} />,
   },

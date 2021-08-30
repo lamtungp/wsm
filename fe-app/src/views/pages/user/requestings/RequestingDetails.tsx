@@ -9,7 +9,7 @@ import AppsConstant from '../../../../common/constants/app';
 
 import HeaderRequest from './HeaderRequest';
 
-const fields = ['Nội dung', 'Trạng thái', 'Người xử lý', 'Thời hạn', 'SDT', 'Dự án', 'Lý do'];
+const fields = ['Người gửi', 'Nội dung', 'Trạng thái', 'Người xử lý', 'Thời hạn', 'SDT', 'Dự án', 'Lý do'];
 
 type tplotOptions = {
   [key: string]: boolean;
@@ -20,7 +20,19 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
   const param = useParams();
   const option = String(Object.values(param)[0]) !== 'undefined' ? String(Object.values(param)[0]) : 'pending';
   const [listRequest, setListRequests] = React.useState([
-    { id: 0, nameRequest: '', state: '', handler: '', timeout: '', phoneNumber: '', project: '', reason: '' },
+    {
+      id: 0,
+      nameRequest: '',
+      state: '',
+      handler: '',
+      timeout: '',
+      phoneNumber: '',
+      project: '',
+      reason: '',
+      user: {
+        email: '',
+      },
+    },
   ]);
   const [status, setStatus] = React.useState<tplotOptions>({});
 
@@ -87,6 +99,7 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
                   length++;
                   return item.state === option ? (
                     <tr key={index}>
+                      <td>{item.user.email}</td>
                       <td>{item.nameRequest}</td>
                       <td>
                         {item.state === 'confirmed' ? (
