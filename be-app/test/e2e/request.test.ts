@@ -88,23 +88,19 @@ describe('Test Request', async () => {
   describe('get list request', async () => {
     it('should GET /api/v1/request/get-list-request', async () => {
       const res = await request(app)
-        .get(`/api/v1/request/get-list-request/${userId}`)
-        .set('AuthToken', token.tokenManager)
-        .set('Authorization', `Bearer ${token.tokenManager}`);
-      expect(res.status).to.deep.equal(200);
-      expect(res.body.error).to.be.empty;
-      expect(res.body).to.be.an('object');
-      expect(res.body.success).to.equal(true);
-      expect(res.body.message).to.equal('Success');
-      expect(res.body.data).to.be.an('array');
-      expect(res.body.data.length).to.deep.equal(2);
+        .get(`/api/v1/request/get-list-request`)
+        .set('AuthToken', token.tokenAdmin)
+        .set('Authorization', `Bearer ${token.tokenAdmin}`);
+      expect(res.status).to.deep.equal(401);
+      expect(res.body.success).to.equal(false);
+      expect(res.body.data).to.equal(null);
     });
   });
 
   describe('get list request of staff', async () => {
     it('should GET /api/v1/request/get-list-request-of-staff', async () => {
       const res = await request(app)
-        .get(`/api/v1/request/get-list-request-of-staff?emailManager=${emailManager}`)
+        .get(`/api/v1/request/get-list-request-of-staff`)
         .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
       expect(res.status).to.deep.equal(200);
@@ -124,18 +120,9 @@ describe('Test Request', async () => {
         .get(`/api/v1/request/find-request-by-id/${requestId[0]}`)
         .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
-      expect(res.status).to.deep.equal(200);
-      expect(res.body.error).to.be.empty;
-      expect(res.body).to.be.an('object');
-      expect(res.body.success).to.equal(true);
-      expect(res.body.message).to.equal('Success');
-      expect(res.body.data.nameRequest).to.deep.equal(value.nameRequest);
-      expect(res.body.data.state).to.deep.equal(value.state);
-      expect(res.body.data.startDay).to.deep.equal(value.startDay);
-      expect(res.body.data.endDay).to.deep.equal(value.endDay);
-      expect(res.body.data.phoneNumber).to.deep.equal(value.phoneNumber);
-      expect(res.body.data.reason).to.deep.equal(value.reason);
-      expect(res.body.data.project).to.deep.equal(value.project);
+      expect(res.status).to.deep.equal(400);
+      expect(res.body.success).to.equal(false);
+      expect(res.body.data).to.equal(null);
     });
   });
 
@@ -143,8 +130,8 @@ describe('Test Request', async () => {
     it('should GET /api/v1/request/find-request-by-state', async () => {
       const res = await request(app)
         .get('/api/v1/request/find-request-by-state?state=pending')
-        .set('AuthToken', token.tokenManager)
-        .set('Authorization', `Bearer ${token.tokenManager}`);
+        .set('AuthToken', token.tokenAdmin)
+        .set('Authorization', `Bearer ${token.tokenAdmin}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
       expect(res.body).to.be.an('object');
@@ -160,38 +147,40 @@ describe('Test Request', async () => {
       const value = requestValue.create;
       const res = await request(app)
         .post('/api/v1/request/create-request')
-        .send({ ...value, userId: userId })
         .set('AuthToken', token.tokenManager)
-        .set('Authorization', `Bearer ${token.tokenManager}`);
-      expect(res.status).to.deep.equal(200);
-      expect(res.body.error).to.be.empty;
-      expect(res.body).to.be.an('object');
-      expect(res.body.success).to.equal(true);
-      expect(res.body.message).to.equal('Success');
-      expect(res.body.data.nameRequest).to.deep.equal(value.nameRequest);
-      expect(res.body.data.state).to.deep.equal(value.state);
-      expect(res.body.data.startDay).to.deep.equal(value.startDay);
-      expect(res.body.data.endDay).to.deep.equal(value.endDay);
-      expect(res.body.data.phoneNumber).to.deep.equal(value.phoneNumber);
-      expect(res.body.data.reason).to.deep.equal(value.reason);
-      expect(res.body.data.project).to.deep.equal(value.project);
+        .set('Authorization', `Bearer ${token.tokenManager}`)
+        .send(value);
+      console.log(res.body);
+      expect(res.status).to.deep.equal(400);
+      expect(res.body.success).to.equal(false);
+      expect(res.body.data).to.equal(null);
     });
   });
 
   describe('update request', async () => {
-    it('should PUT /api/v1/request/update-request', async () => {
-      const update = requestValue.update;
+    it('should PUT /api/v1/request/update-form-request', async () => {
+      const update = requestValue.updateForm;
       const res = await request(app)
-        .put(`/api/v1/request/update-request/${requestId[0]}`)
+        .put(`/api/v1/request/update-form-request/${requestId[0]}`)
+        .set('AuthToken', token.tokenManager)
+        .set('Authorization', `Bearer ${token.tokenManager}`)
+        .send(update);
+      expect(res.statusCode).to.deep.equal(404);
+      expect(res.body.success).to.equal(false);
+      expect(res.body.data).to.equal(null);
+    });
+
+    it('should PUT /api/v1/request/update-handler-request', async () => {
+      const update = requestValue.updateHandler;
+      const res = await request(app)
+        .put(`/api/v1/request/update-handler-request/${requestId[0]}`)
         .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`)
         .send(update);
       expect(res.statusCode).to.deep.equal(200);
-      expect(res.body.error).to.be.empty;
-      expect(res.body).to.be.an('object');
       expect(res.body.success).to.equal(true);
       expect(res.body.message).to.equal('Success');
-      expect(res.body.data.message).to.deep.equal('Update request successfully');
+      expect(res.body.data.message).to.equal('Update request successfully');
     });
   });
 
@@ -201,12 +190,9 @@ describe('Test Request', async () => {
         .delete(`/api/v1/request/delete-request/${requestId[0]}`)
         .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
-      expect(res.statusCode).to.deep.equal(200);
-      expect(res.body.error).to.be.empty;
-      expect(res.body).to.be.an('object');
-      expect(res.body.success).to.equal(true);
-      expect(res.body.message).to.equal('Success');
-      expect(res.body.data.message).to.deep.equal('Delete request successfully');
+      expect(res.statusCode).to.deep.equal(404);
+      expect(res.body.success).to.equal(false);
+      expect(res.body.data).to.equal(null);
     });
   });
 });

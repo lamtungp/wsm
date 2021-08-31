@@ -19,12 +19,7 @@ router.get('/', (_req, res) => {
 
 router.get('/get-all-request', verifyAdminMiddleware, requestController.getAllRequest);
 
-router.get(
-  '/get-list-request/:userId',
-  verifyUserManagerMiddleware,
-  validate(validateRequest.paramsRequest),
-  requestController.getListRequest,
-);
+router.get('/get-list-request', verifyUserManagerMiddleware, requestController.getListRequest);
 
 router.get('/get-list-request-of-staff', verifyManagerMiddleware, requestController.getListRequestOfStaff);
 
@@ -43,10 +38,17 @@ router.post(
 );
 
 router.put(
-  '/update-request/:requestId',
+  '/update-form-request/:requestId',
   verifyAllMiddleware,
-  validate(validateRequest.updateRequest),
-  requestController.updateForRequest,
+  validate(validateRequest.updateFormRequest),
+  requestController.updateFormRequest,
+);
+
+router.put(
+  '/update-handler-request/:requestId',
+  verifyAdminManagerMiddleware,
+  validate(validateRequest.updateHandlerRequest),
+  requestController.updateHandlerRequest,
 );
 
 router.get(

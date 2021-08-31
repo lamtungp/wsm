@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
+import { Helmet } from 'react-helmet';
 
 import userServices from '../../../../common/redux/user/services';
 
@@ -40,9 +41,11 @@ const Users = () => {
 
   const resetPassword = async (email: string) => {
     try {
-      await userServices.resetPassword({ email: email });
-      getListUser();
-      window.alert('Reset mật khẩu thành công');
+      if (window.confirm('Bạn có chắc chắn muốn reset mật khẩu cho tài khoản này')) {
+        await userServices.resetPassword({ email: email });
+        getListUser();
+        window.alert('Reset mật khẩu thành công');
+      }
     } catch (error) {
       window.alert('Xảy ra lỗi khi cập nhật');
     }
@@ -50,6 +53,10 @@ const Users = () => {
 
   return (
     <div>
+      <Helmet>
+        <title> Reset Password</title>
+        <meta name="description" content="Password component" />
+      </Helmet>
       <CRow>
         <CCol xs="12">
           <CCard>

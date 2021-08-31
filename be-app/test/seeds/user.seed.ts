@@ -1,7 +1,7 @@
 export const users = [
   {
-    name: 'Pham Tung Lam',
-    email: 'lampt2404@gmail.com',
+    name: 'admin',
+    email: 'admin@gmail.com',
     password: '12345678',
     gender: 'male',
     dayIn: '2021-07-05',
@@ -10,9 +10,9 @@ export const users = [
     confirmationCode: 'abcd',
   },
   {
-    email: 'sownpham@gmail.com',
+    email: 'manager@gmail.com',
     password: '12345678',
-    name: 'Pham Tung Lam',
+    name: 'manager',
     gender: 'male',
     dayIn: '2021-07-05',
     status: 'pending',
@@ -20,9 +20,9 @@ export const users = [
     confirmationCode: 'abcsssd',
   },
   {
-    email: 'tunglam@gmail.com',
+    email: 'user@gmail.com',
     password: '12345678',
-    name: 'Pham Tung Lam',
+    name: 'user',
     gender: 'male',
     dayIn: '2021-07-05',
     role: 'user',

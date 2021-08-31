@@ -3,6 +3,7 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import { useParams, useHistory } from 'react-router-dom';
 import { FaCheck, FaTimesCircle } from 'react-icons/fa';
+import { Helmet } from 'react-helmet';
 
 import requestServices from '../../../../common/redux/request/services';
 import AppsConstant from '../../../../common/constants/app';
@@ -60,7 +61,7 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
 
   const handleRequest = async (values: object, id: number) => {
     try {
-      await requestServices.updateRequest(values, id);
+      await requestServices.updateHandlerRequest(values, id);
       getRequests();
     } catch (error) {
       window.alert('Xảy ra lỗi khi cập nhật');
@@ -69,6 +70,10 @@ const RequestsConfirmed: React.FunctionComponent = (): React.ReactElement => {
 
   return (
     <div>
+      <Helmet>
+        <title>Requestings</title>
+        <meta name="description" content="Requestings component" />
+      </Helmet>
       <HeaderRequest tabs={AppsConstant.tabSetting} />
       <CCard className="mt-3">
         <CCardHeader>

@@ -7,8 +7,8 @@ const requestServices = {
     return results;
   },
 
-  getListRequest: (id: number): Promise<any> => {
-    const results = AxiosClient.get(`${API.REQUEST.GET_LIST_REQUEST}/${id}`);
+  getListRequest: (): Promise<any> => {
+    const results = AxiosClient.get(API.REQUEST.GET_LIST_REQUEST);
     return results;
   },
 
@@ -32,8 +32,13 @@ const requestServices = {
     return result;
   },
 
-  updateRequest: (param: object, id: number): Promise<any> => {
-    const result = AxiosClient.put(`${API.REQUEST.UPDATE_REQUEST}/${id}`, param);
+  updateFormRequest: (param: object, id: number): Promise<any> => {
+    const result = AxiosClient.put(`${API.REQUEST.UPDATE_FORM_REQUEST}/${id}`, param);
+    return result;
+  },
+
+  updateHandlerRequest: (param: object, id: number): Promise<any> => {
+    const result = AxiosClient.put(`${API.REQUEST.UPDATE_HANDLER_REQUEST}/${id}`, param);
     return result;
   },
 

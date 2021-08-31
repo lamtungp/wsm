@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react';
 import { Table } from 'react-bootstrap';
 import { FaEye, FaDownload } from 'react-icons/fa';
+import { Helmet } from 'react-helmet';
 
 import requestService from '../../../../common/redux/request/services';
 
@@ -18,7 +19,7 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
 
   const getListTodo = async () => {
     try {
-      const res = await requestService.getListRequest(Number(localStorage.getItem('userId')));
+      const res = await requestService.getListRequest();
       setListRequest(res.data);
     } catch (error) {
       history.push('/error/500');
@@ -27,6 +28,10 @@ const Requests: React.FunctionComponent = (): React.ReactElement => {
 
   return (
     <div>
+      <Helmet>
+        <title>Requests</title>
+        <meta name="description" content="Requests component" />
+      </Helmet>
       <CRow>
         <CCol xs="12">
           <CCard>

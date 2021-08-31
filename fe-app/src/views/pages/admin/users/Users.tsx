@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
-// import { ErrorBoundary } from 'react-error-boundary';
+import { Helmet } from 'react-helmet';
 
 import userService from '../../../../common/redux/user/services';
 
@@ -82,6 +82,10 @@ const Users = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Manage Users</title>
+        <meta name="description" content="Users component" />
+      </Helmet>
       <CRow>
         <CCol xs="12">
           <CCard>

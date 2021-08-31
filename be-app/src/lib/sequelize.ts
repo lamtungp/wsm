@@ -8,4 +8,5 @@ export default new Sequelize(database.database, database.username, database.pass
   host: database.host,
   port: Number(database.port),
   pool: database.pool,
+  logging: database.logging,
 });

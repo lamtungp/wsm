@@ -3,6 +3,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import { GlobalState } from '../../../../common/redux/index';
 import checkinServices from '../../../../common/redux/checkin/services';
@@ -57,24 +58,30 @@ const Dashboard = () => {
   }
 
   return (
-    <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
-      <Calendar
-        localizer={localizer}
-        events={myEvent}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 700 }}
-        views={{ month: true }}
-        culture="ar-AE"
-        components={{
-          toolbar: CustomToolbar,
-          event: CustomEvents,
-          // day: {
-          //     header: CustomHeader,
-          // },
-        }}
-      />
-    </div>
+    <>
+      <Helmet>
+        <title>Dashboard</title>
+        <meta name="description" content="Dashboard component" />
+      </Helmet>
+      <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
+        <Calendar
+          localizer={localizer}
+          events={myEvent}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ height: 700 }}
+          views={{ month: true }}
+          culture="ar-AE"
+          components={{
+            toolbar: CustomToolbar,
+            event: CustomEvents,
+            // day: {
+            //     header: CustomHeader,
+            // },
+          }}
+        />
+      </div>
+    </>
   );
 };
 

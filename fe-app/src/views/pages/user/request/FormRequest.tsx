@@ -64,8 +64,8 @@ const FormRequest = () => {
   const handle = async (values: any) => {
     if (idRequest) {
       try {
-        await requestService.updateRequest(values, values.id);
-        await requestService.getListRequest(Number(localStorage.getItem('userId')));
+        await requestService.updateFormRequest(values, values.id);
+        await requestService.getListRequest();
         history.push('/user/requests');
       } catch (error) {
         window.alert('Gặp lỗi khi cập nhật yêu cầu');
@@ -73,7 +73,7 @@ const FormRequest = () => {
     } else {
       try {
         await requestService.addRequest(values);
-        await requestService.getListRequest(Number(localStorage.getItem('userId')));
+        await requestService.getListRequest();
         history.push('/user/requests');
       } catch (error) {
         window.alert('Gặp lỗi khi tạo mới yêu cầu');

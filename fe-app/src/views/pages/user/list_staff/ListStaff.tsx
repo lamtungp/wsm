@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
+import { Helmet } from 'react-helmet';
 
 import userService from '../../../../common/redux/user/services';
 
@@ -61,6 +62,10 @@ const ListStaff = () => {
 
   return (
     <>
+      <Helmet>
+        <title>List Staff</title>
+        <meta name="description" content="Staff component" />
+      </Helmet>
       {localStorage.getItem('role') === 'manager' ? (
         <CRow>
           <CCol xs="12">

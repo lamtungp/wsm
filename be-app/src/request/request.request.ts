@@ -14,7 +14,7 @@ export default {
     }),
   },
 
-  updateRequest: {
+  updateFormRequest: {
     body: Joi.object({
       nameRequest: Joi.string(),
       state: Joi.string(),
@@ -24,7 +24,16 @@ export default {
       phoneNumber: Joi.string(),
       project: Joi.string(),
       reason: Joi.string(),
-      handler: Joi.string().email(),
+    }),
+    params: Joi.object({
+      requestId: Joi.number().min(1).integer().required(),
+    }),
+  },
+
+  updateHandlerRequest: {
+    body: Joi.object({
+      state: Joi.string().required(),
+      handler: Joi.string().email().required(),
     }),
     params: Joi.object({
       requestId: Joi.number().min(1).integer().required(),

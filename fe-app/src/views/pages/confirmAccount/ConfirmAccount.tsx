@@ -1,6 +1,7 @@
 import { CContainer, CLink } from '@coreui/react';
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import userServices from '../../../common/redux/user/services';
 
@@ -22,6 +23,10 @@ const ConfirmAccount: React.FunctionComponent = (): React.ReactElement => {
 
   return (
     <div className="align-items-center p-5">
+      <Helmet>
+        <title>Confirm</title>
+        <meta name="description" content="Confirm component" />
+      </Helmet>
       <CContainer className="text-center">
         <div className="bg-success text-light p-5">
           <h3>Tài khoản được kích hoạt thành công!!</h3>

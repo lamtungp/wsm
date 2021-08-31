@@ -62,7 +62,7 @@ export default class RequestController {
     const token = req.header('AuthToken');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
-    const request = await this.request.getRequestById(Number(req.params.requestId), decodedData.id);
+    const request = await this.request.getRequestByIdUserId(Number(req.params.requestId), decodedData.id);
     if (!!request) {
       return responseSuccess(res, request);
     }
@@ -80,11 +80,23 @@ export default class RequestController {
     return next(new BadRequestError(messages.request.addRequestFailure));
   };
 
-  public updateForRequest = async (req: Request, res: Response, next: NextFunction) => {
+  public updateFormRequest = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.header('AuthToken');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
-    const find_request = await this.request.getRequestById(Number(req.params.requestId), decodedData.id);
+    const find_request = await this.request.getRequestByIdUserId(Number(req.params.requestId), decodedData.id);
+    if (!!find_request) {
+      const request = await this.request.updateRequest(req.body, Number(req.params.requestId));
+      if (!!request) {
+        return responseSuccess(res, { message: messages.request.updateRequestSuccess });
+      }
+      return next(new BadRequestError(messages.request.updateRequestFailure));
+    }
+    return next(new NotFoundError(messages.request.requestNotExists));
+  };
+
+  public updateHandlerRequest = async (req: Request, res: Response, next: NextFunction) => {
+    const find_request = await this.request.getRequestById(Number(req.params.requestId));
     if (!!find_request) {
       const request = await this.request.updateRequest(req.body, Number(req.params.requestId));
       if (!!request) {
@@ -99,7 +111,7 @@ export default class RequestController {
     const token = req.header('AuthToken');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
-    const find_request = await this.request.getRequestById(Number(req.params.requestId), decodedData.id);
+    const find_request = await this.request.getRequestByIdUserId(Number(req.params.requestId), decodedData.id);
     if (!!find_request) {
       const request = await this.request.deleteRequestById(Number(req.params.requestId));
       if (!!request) {

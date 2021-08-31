@@ -52,7 +52,7 @@ describe('Test Auth', async () => {
     it('login success', async () => {
       const res = await request(app)
         .post('/api/v1/auth/user-login')
-        .send({ email: userValue.admin.email, password: userValue.admin.password });
+        .send({ email: userValue.admin.email, password: '12345678' });
       expect(res.status).to.equal(200);
       expect(res.body.error).to.be.empty;
       expect(res.body).to.be.an('object');

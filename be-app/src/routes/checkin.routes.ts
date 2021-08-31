@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { validate } from 'express-validation';
 import CheckinRequest from '../request/checkin.request';
 import CheckinController from '../controllers/checkin.controller';
-import verifyAdminManagerMiddleware from '../middlewares/verify.admin.manager.middleware';
 import verifyUserManagerMiddleware from '../middlewares/verify.user.manager.middleware';
 
 const router = Router();

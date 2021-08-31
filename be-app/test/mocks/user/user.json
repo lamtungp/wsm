@@ -1,8 +1,7 @@
 {
   "admin": {
-    "name": "Pham Tung Lam",
-    "email": "lampt2404@gmail.com",
-    "password": "12345678",
+    "name": "admin",
+    "email": "admin@gmail.com",
     "gender": "male",
     "dayIn": "2021-07-05",
     "status": "actived",
@@ -11,9 +10,8 @@
   },
 
   "manager": {
-    "email": "sownpham@gmail.com",
-    "password": "12345678",
-    "name": "Pham Tung Lam",
+    "email": "manager@gmail.com",
+    "name": "manager",
     "gender": "male",
     "dayIn": "2021-07-05",
     "vacationsDay": 0,
@@ -22,9 +20,8 @@
   },
 
   "user": {
-    "email": "tunglam1234@gmail.com",
-    "password": "12345678",
-    "name": "Pham Tung Lam",
+    "email": "user1@gmail.com",
+    "name": "user1",
     "gender": "male",
     "dayIn": "2021-07-05",
     "vacationsDay": 0,

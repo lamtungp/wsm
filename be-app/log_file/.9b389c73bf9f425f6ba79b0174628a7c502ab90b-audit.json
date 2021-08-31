@@ -9,6 +9,11 @@
             "date": 1630307292422,
             "name": "log_file/application-2021-08-30.log",
             "hash": "1c62ab115280c617995ae9b4b5f31f63"
+        },
+        {
+            "date": 1630374877026,
+            "name": "log_file/application-2021-08-31.log",
+            "hash": "e92d61ec6c4e7912c5b8546984113ae4"
         }
     ]
 }

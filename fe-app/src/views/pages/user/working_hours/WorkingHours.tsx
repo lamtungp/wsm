@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { Helmet } from 'react-helmet';
 
 import userService from '../../../../common/redux/user/services';
 
@@ -81,6 +82,10 @@ const WorkingHours: React.FunctionComponent = (): React.ReactElement => {
 
   return (
     <>
+      <Helmet>
+        <title>Working Hours</title>
+        <meta name="description" content="Working Hours component" />
+      </Helmet>
       {localStorage.getItem('role') === 'manager' ? (
         <CRow>
           <CCol xs="12">

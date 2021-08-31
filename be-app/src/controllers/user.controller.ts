@@ -40,7 +40,10 @@ export default class UserController {
   };
 
   public getListStaffs = async (req: Request, res: Response, next: NextFunction) => {
-    const manager = await this.user.findUser(String(req.query.email));
+    const token = req.header('AuthToken');
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedData = Object(verified);
+    const manager = await this.user.findUser(decodedData.email);
     if (!!manager) {
       const users = await this.user.getListStaff(manager.departmentId);
       if (!!users) {
@@ -52,7 +55,10 @@ export default class UserController {
   };
 
   public getStaffsWithCheckin = async (req: Request, res: Response, next: NextFunction) => {
-    const manager = await this.user.findUser(String(req.query.email));
+    const token = req.header('AuthToken');
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedData = Object(verified);
+    const manager = await this.user.findUser(decodedData.email);
     if (!!manager) {
       const users = await this.user.getStaffWithCheckin(manager.departmentId, String(req.query.date));
       if (!!users) {

@@ -2,16 +2,13 @@ version: "3.6"
 
 services:
     node:
-        # image: lampt2404/node-project:latest
-        build:
-            context: ./be-app
+        image: lampt2404/node-project:latest
         restart: always
         tty: true
-        volumes:
-            - ./be-app:/app
-            - /app/node_modules
+        deploy:
+            replicas: 3
         environment:
-            - NODE_ENV=development
+            - NODE_ENV=production
             - REDIS_URL=redis
         env_file:
             - ./be-app/.env.sample
@@ -22,15 +19,9 @@ services:
             - redis
 
     react:
-        # image: lampt2404/react-project:latest
-        build:
-            context: ./fe-app
+        image: lampt2404/react-project:latest
         restart: always
-        volumes:
-            - ./fe-app:/app
-            - /app/node_modules
         environment:
-            - CHOKIDAR_USEPOLLING=true
             - REACT_APP_API_ENDPOINT=http://api.pm.local/api/v1
         ports:
             - "3000:3000"
@@ -50,6 +41,10 @@ services:
     db:
         image: mysql:8.0
         restart: always
+        deploy:
+            placement:
+                constraints:
+                    - node.role == manager
         ports:
             - "3306:3306"
         command: --default-authentication-plugin=mysql_native_password

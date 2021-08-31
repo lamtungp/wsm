@@ -21,7 +21,7 @@ describe('Test Department', async () => {
           departmentId.push(department.id);
         }),
       );
-      await userModel.create({ ...userValue.admin, departmentId: departmentId[0] });
+      await userModel.create({ ...userValue.admin, password: '12345678', departmentId: departmentId[0] });
     } catch (error) {
       console.log(error.message);
     }
@@ -46,7 +46,6 @@ describe('Test Department', async () => {
   describe('create department', async () => {
     it('should POST /api/v1/department/create-department', async () => {
       const createValue = departmentValue.create;
-      console.log(createValue);
       const res = await request(app)
         .post('/api/v1/department/create-department')
         .set('AuthToken', token.tokenAdmin)

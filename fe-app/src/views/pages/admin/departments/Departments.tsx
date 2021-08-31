@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CButton, CCard, CCardBody, CCol, CDataTable, CRow, CCardHeader } from '@coreui/react';
+import { Helmet } from 'react-helmet';
 
 import departmentService from '../../../../common/redux/department/services';
 import { department } from '../../../../interfaces/deparment.d';
@@ -54,6 +55,10 @@ const Departments: React.FunctionComponent = (): React.ReactElement => {
 
   return (
     <div>
+      <Helmet>
+        <title>Manage Departments</title>
+        <meta name="description" content="Departments component" />
+      </Helmet>
       <CRow>
         <CCol xs="12">
           <CCard>

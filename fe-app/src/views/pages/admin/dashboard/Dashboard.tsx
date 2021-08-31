@@ -2,6 +2,7 @@ import { CRow, CCol } from '@coreui/react';
 import React, { useState } from 'react';
 import { FaBusinessTime, FaCalendarCheck, FaUserPlus, FaUsers } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import departmentServices from '../../../../common/redux/department/services';
 import requestServices from '../../../../common/redux/request/services';
@@ -35,6 +36,10 @@ const Dashboard: React.FunctionComponent = (): React.ReactElement => {
 
   return (
     <>
+      <Helmet>
+        <title>Dashboard</title>
+        <meta name="description" content="Dashboard component" />
+      </Helmet>
       <CRow>
         <CCol sm="6" md="6" lg="3">
           <WidgetDropdown

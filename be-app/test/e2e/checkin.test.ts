@@ -17,7 +17,6 @@ const checkinValue = require('../mocks/checkin/checkin.json');
 
 describe('Test Checkin', async () => {
   let userId: number = 0;
-  let emailManager: string = '';
   let departmentId: number[] = [];
 
   beforeEach(async () => {
@@ -33,7 +32,6 @@ describe('Test Checkin', async () => {
           const hashPassword = await Bcrypt.generateHashPassword(item.password);
           const user = await userModel.create({ ...item, password: hashPassword, departmentId: departmentId[0] });
           if (user.role === 'manager') {
-            emailManager = user.email;
             userId = user.id;
           }
         }),
@@ -54,7 +52,6 @@ describe('Test Checkin', async () => {
       await userModel.destroy({ where: {}, truncate: false });
       await departmentModel.destroy({ where: {}, truncate: false });
       userId = 0;
-      emailManager = '';
       departmentId = [];
     } catch (error) {
       console.log(error);
@@ -90,6 +87,7 @@ describe('Test Checkin', async () => {
         .get(`/api/v1/checkin/find-checkin/${userId}?date=${initial.date}`)
         .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
+      console.log(res.body);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
       expect(res.body).to.be.an('object');
@@ -104,19 +102,19 @@ describe('Test Checkin', async () => {
 
   describe('create checkin', async () => {
     it('should POST /api/v1/checkin/create-checkin', async () => {
-      const initial = checkinValue.initial;
-      const update = checkinValue.update;
+      const create = checkinValue.create;
       const res = await request(app)
-        .post(`/api/v1/checkin/create-checkin?userId=${userId}&date=${initial.date}`)
-        .send({ ...update, userId: userId, date: initial.date })
+        .post(`/api/v1/checkin/create-checkin?date=${create.date}`)
+        .send(create)
         .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
+      console.log(res.body);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
       expect(res.body).to.be.an('object');
       expect(res.body.success).to.equal(true);
       expect(res.body.message).to.equal('Success');
-      expect(res.body.data.message).to.equal('Update checkin successfully');
+      expect(res.body.data.message).to.equal('Create checkin successfully');
     });
   });
 });

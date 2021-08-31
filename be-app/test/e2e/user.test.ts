@@ -130,7 +130,7 @@ describe('Test User', async () => {
 
     it('get list staff with token manager', async () => {
       const res = await request(app)
-        .get(`/api/v1/user/get-list-staff?email=${managerEmail}&role=user`)
+        .get(`/api/v1/user/get-list-staff`)
         .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);
       expect(res.status).to.equal(200);
@@ -138,7 +138,7 @@ describe('Test User', async () => {
       expect(res.body.success).to.equal(true);
       expect(res.body.message).to.equal('Success');
       expect(res.body.data).to.be.an('array');
-      expect(res.body.data.length).to.deep.equal(1);
+      expect(res.body.data.length).to.deep.equal(3);
     });
   });
 
@@ -175,11 +175,27 @@ describe('Test User', async () => {
   });
 
   describe('update user', async () => {
-    it('should put /api/v1/user/update-user', async () => {
+    it('should put /api/v1/user/update-user-role-admin', async () => {
       const res = await request(app)
-        .put(`/api/v1/user/update-user?email=${userValue.admin.email}`)
+        .put(`/api/v1/user/update-user-role-admin?email=${userValue.manager.email}`)
         .send({
           name: 'Lam',
+        })
+        .set('AuthToken', token.tokenAdmin)
+        .set('Authorization', `Bearer ${token.tokenAdmin}`);
+      expect(res.status).to.deep.equal(200);
+      expect(res.body.error).to.be.empty;
+      expect(res.body).to.be.an('object');
+      expect(res.body.success).to.equal(true);
+      expect(res.body.message).to.equal('Success');
+      expect(res.body.data.message).to.equal('Update user successfully');
+    });
+
+    it('should put /api/v1/user/update-user-role-user', async () => {
+      const res = await request(app)
+        .put(`/api/v1/user/update-user-role-user`)
+        .send({
+          name: 'LamTung',
         })
         .set('AuthToken', token.tokenManager)
         .set('Authorization', `Bearer ${token.tokenManager}`);

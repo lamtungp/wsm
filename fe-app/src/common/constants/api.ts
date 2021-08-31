@@ -31,7 +31,9 @@ const API = {
     FIND_REQUEST_BY_ID: 'request/find-request-by-id',
     FIND_REQUEST_BY_SATE: 'request/find-request-by-state',
     ADD_REQUEST: 'request/create-request',
-    UPDATE_REQUEST: 'request/update-request',
+    UPDATE_FORM_REQUEST: 'request/update-form-request',
+    UPDATE_HANDLER_REQUEST: 'request/update-handler-request',
+
     DELETE_REQUEST: 'request/delete-request',
   },
 

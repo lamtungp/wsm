@@ -26,19 +26,9 @@ router.get(
   userController.getListUsers,
 );
 
-router.get(
-  '/get-list-staff',
-  verifyManagerMiddleware,
-  validate(UserRequest.queryRequest),
-  userController.getListStaffs,
-);
+router.get('/get-list-staff', verifyManagerMiddleware, userController.getListStaffs);
 
-router.get(
-  '/get-staff-with-checkin',
-  verifyManagerMiddleware,
-  validate(UserRequest.queryRequest),
-  userController.getStaffsWithCheckin,
-);
+router.get('/get-staff-with-checkin', verifyManagerMiddleware, userController.getStaffsWithCheckin);
 
 router.get(
   '/find-user-by-email',
