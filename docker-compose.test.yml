@@ -5,10 +5,8 @@ services:
         image: lampt2404/node-project:latest
         restart: always
         tty: true
-        deploy:
-            replicas: 3
         environment:
-            - NODE_ENV=production
+            - NODE_ENV=test
             - REDIS_URL=redis
         env_file:
             - ./be-app/.env.sample
@@ -41,10 +39,6 @@ services:
     db:
         image: mysql:8.0
         restart: always
-        deploy:
-            placement:
-                constraints:
-                    - node.role == manager
         ports:
             - "3306:3306"
         command: --default-authentication-plugin=mysql_native_password

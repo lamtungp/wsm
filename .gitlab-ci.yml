@@ -45,7 +45,7 @@ test-node:
     only:
         - uat
 
-dev:
+deploy_test:
     stage: deploy
     tags:
         - main-docker-local
@@ -63,4 +63,6 @@ dev:
         - cd ./redis
         - mkdir data
         - cd /builds/Dsi7E8q7/0/lampt/wsm-dev
-        - docker stack deploy -c docker-compose.yml wsm-dev
+        - docker stack deploy -c docker-compose.test.yml wsm-dev
+    only:
+        - uat
