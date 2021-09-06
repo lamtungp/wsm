@@ -25,7 +25,7 @@ export default class RequestController {
   };
 
   public getListRequest = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('AuthToken');
+    const token = req.header('Authorization').replace('Bearer ', '');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
     const requests = await this.request.getRequestsAccount(decodedData.id);
@@ -36,7 +36,7 @@ export default class RequestController {
   };
 
   public getListRequestOfStaff = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('AuthToken');
+    const token = req.header('Authorization').replace('Bearer ', '');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
     const manager = await this.user.findUser(decodedData.email);
@@ -59,7 +59,7 @@ export default class RequestController {
   };
 
   public findRequestById = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('AuthToken');
+    const token = req.header('Authorization').replace('Bearer ', '');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
     const request = await this.request.getRequestByIdUserId(Number(req.params.requestId), decodedData.id);
@@ -70,7 +70,7 @@ export default class RequestController {
   };
 
   public addRequest = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('AuthToken');
+    const token = req.header('Authorization').replace('Bearer ', '');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
     const request = await this.request.createRequest({ ...req.body, userId: decodedData.id });
@@ -81,7 +81,7 @@ export default class RequestController {
   };
 
   public updateFormRequest = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('AuthToken');
+    const token = req.header('Authorization').replace('Bearer ', '');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
     const find_request = await this.request.getRequestByIdUserId(Number(req.params.requestId), decodedData.id);
@@ -108,7 +108,7 @@ export default class RequestController {
   };
 
   public deleteOneRequest = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('AuthToken');
+    const token = req.header('Authorization').replace('Bearer ', '');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
     const find_request = await this.request.getRequestByIdUserId(Number(req.params.requestId), decodedData.id);

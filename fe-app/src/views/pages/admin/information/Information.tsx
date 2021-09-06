@@ -37,8 +37,6 @@ const Infomation: React.FunctionComponent = (): React.ReactElement => {
     }
   };
 
-  console.log(user);
-
   return (
     <>
       <Helmet>

@@ -13,7 +13,7 @@ import CustomEvents from './Event';
 
 const localizer = momentLocalizer(moment);
 
-const Dashboard = () => {
+const Dashboard: React.FunctionComponent = (): React.ReactElement => {
   const checkin = useSelector((state: GlobalState) => state.checkin.checkins);
   const [listcheckin, setListCheckin] = useState([
     {

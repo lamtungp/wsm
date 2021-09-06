@@ -12,6 +12,7 @@ const Requestings = React.lazy(() => import('../views/pages/admin/requestings/Re
 const RequestingDetails = React.lazy(() => import('../views/pages/admin/requestings/RequestingDetails'));
 const Information = React.lazy(() => import('../views/pages/admin/information/Information'));
 const FormInformation = React.lazy(() => import('../views/pages/admin/information/FormInformation'));
+const ChangePassword = React.lazy(() => import('../views/pages/admin/change_password/ChangePassword'));
 
 const routes = [
   { path: '/admin', name: 'Dashboard', component: Dashboard, exact: true },
@@ -28,6 +29,7 @@ const routes = [
   { path: '/admin/resetpassword', name: 'Password', component: Password, exact: true },
   { path: '/admin/requestings', name: 'Requestings', component: Requestings, exact: true },
   { path: '/admin/requestings/:option', name: 'RequestingDetails', component: RequestingDetails },
+  { path: '/admin/change-password', name: 'ChangePassword', component: ChangePassword },
 ];
 
 export default routes;

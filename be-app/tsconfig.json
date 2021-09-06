@@ -7,8 +7,8 @@
     "checkJs": true,
     "esModuleInterop": true,
     "outDir": "./dist",
-    "typeRoots": ["./node_modules/@types", "./src/typing/index.d.ts"]
+    "typeRoots": ["./node_modules/@types"]
   },
   "files": ["src/index.ts", "config/env.ts"],
-  "include": ["test/**/*.test.ts", "test/mocks/**/*.json", ".sequelizerc", "lib/*.ts"]
+  "include": ["test/**/*.test.ts", "test/mocks/**/*.json", ".sequelizerc", "lib/*.ts", "src/typing/index.ts"]
 }

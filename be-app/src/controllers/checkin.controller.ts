@@ -29,7 +29,7 @@ export default class CheckinController {
   };
 
   public createCheckins = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('AuthToken');
+    const token = req.header('Authorization').replace('Bearer ', '');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
     const userCheckin = await this.checkin.getCheckinByUserIdDate(decodedData.id, req.body.date);

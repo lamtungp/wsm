@@ -40,7 +40,7 @@ export default class UserController {
   };
 
   public getListStaffs = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('AuthToken');
+    const token = req.header('Authorization').replace('Bearer ', '');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
     const manager = await this.user.findUser(decodedData.email);
@@ -55,7 +55,7 @@ export default class UserController {
   };
 
   public getStaffsWithCheckin = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('AuthToken');
+    const token = req.header('Authorization').replace('Bearer ', '');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
     const manager = await this.user.findUser(decodedData.email);
@@ -172,12 +172,29 @@ export default class UserController {
   };
 
   public updateUserRoleUser = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('AuthToken');
+    const token = req.header('Authorization').replace('Bearer ', '');
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const decodedData = Object(verified);
     const find_user = await this.user.findUser(decodedData.email);
     if (!!find_user) {
       const user = await this.user.updateUser(req.body, decodedData.email);
+      if (!!user) {
+        return responseSuccess(res, { message: messages.user.updateUserSuccess });
+      }
+      return next(new BadRequestError(messages.user.updateUserFailure));
+    }
+    return next(new NotFoundError(messages.auth.userNotExists));
+  };
+
+  public changePassword = async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.header('Authorization').replace('Bearer ', '');
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedData = Object(verified);
+    const find_user = await this.user.findUser(decodedData.email);
+    if (!!find_user) {
+      const { password } = req.body;
+      const hashPassword = await Bcrypt.generateHashPassword(password);
+      const user = await this.user.updateUser({ password: hashPassword }, decodedData.email);
       if (!!user) {
         return responseSuccess(res, { message: messages.user.updateUserSuccess });
       }

@@ -15,6 +15,14 @@ const CustomToolbar = (toolbar: any) => {
   const dispatch = useDispatch();
   const [show, setShow] = React.useState(true);
 
+  const dateCheck = localStorage.getItem('date');
+
+  React.useEffect(() => {
+    if (dateCheck && dateCheck !== new Date().toLocaleDateString()) {
+      setShow(true);
+    }
+  }, []);
+
   const goToBack = () => {
     toolbar.date.setMonth(toolbar.date.getMonth() - 1);
     toolbar.onNavigate('prev');
@@ -77,6 +85,7 @@ const CustomToolbar = (toolbar: any) => {
         const checkin = await checkinServices.getCheckinByUserId(Number(localStorage.getItem('userId')), date);
         dispatch(SetCheckin([checkin.data.checkin, checkin.data.checkout]));
         if (type === 'checkin') {
+          localStorage.setItem('date', new Date().toLocaleDateString());
           setShow(false);
         } else {
           setShow(true);

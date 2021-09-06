@@ -4,7 +4,7 @@ import UnauthorizedError from '../commons/http-errors/UnauthorizedError';
 import message from '../commons/messages';
 
 export default (req: Request, _res: Response, next: NextFunction) => {
-  const token = req.header('AuthToken');
+  const token = req.header('Authorization').replace('Bearer ', '');
 
   if (!token) return next(new UnauthorizedError(message.auth.tokenNotExists));
 

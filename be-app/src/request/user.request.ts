@@ -60,6 +60,12 @@ export default {
     }),
   },
 
+  changePassword: {
+    body: Joi.object({
+      password: Joi.string().min(8).required(),
+    }),
+  },
+
   queryRequest: {
     query: Joi.object({
       email: Joi.string().email(),

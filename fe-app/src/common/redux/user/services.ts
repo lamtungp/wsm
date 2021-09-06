@@ -17,8 +17,8 @@ const userServices = {
     return results;
   },
 
-  getStaffWithCheckin: (email: string, date: string): Promise<any> => {
-    const results = AxiosClient.get(`${API.USER.GET_STAFF_WITH_CHECKIN}?email=${email}&date=${date}`);
+  getStaffWithCheckin: (date: string): Promise<any> => {
+    const results = AxiosClient.get(`${API.USER.GET_STAFF_WITH_CHECKIN}?date=${date}`);
     return results;
   },
 
@@ -44,6 +44,11 @@ const userServices = {
 
   updateUserRoleUser: (param: object): Promise<any> => {
     const result = AxiosClient.put(API.USER.UPDATE_USER_ROLE_USER, param);
+    return result;
+  },
+
+  changePassword: (param: object): Promise<any> => {
+    const result = AxiosClient.put(API.USER.CHANGE_PASSWORD, param);
     return result;
   },
 

@@ -69,6 +69,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
         </CDropdownItem>
         <CDropdownItem onClick={() => history.push('/admin/profile')}>Thông tin cá nhân</CDropdownItem>
         <CDropdownItem onClick={() => history.push('/admin/requestings')}>Danh sách yêu cầu</CDropdownItem>
+        <CDropdownItem onClick={() => history.push('/admin/change-password')}>Đổi mật khẩu</CDropdownItem>
         <CDropdownItem className="m-0" divider />
         <CDropdownItem onClick={() => logOut()}>Đăng xuất</CDropdownItem>
       </CDropdownMenu>

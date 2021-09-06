@@ -11,6 +11,7 @@ const Information = React.lazy(() => import('../views/pages/user/information/Inf
 const FormInformation = React.lazy(() => import('../views/pages/user/information/FormInformation'));
 const ListStaff = React.lazy(() => import('../views/pages/user/list_staff/ListStaff'));
 const WorkingHours = React.lazy(() => import('../views/pages/user/working_hours/WorkingHours'));
+const ChangePassword = React.lazy(() => import('../views/pages/user/change_password/ChangePassword'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home', component: Checked },
@@ -26,6 +27,7 @@ const routes = [
   { path: '/user/profile/edit', name: 'FormInformation', component: FormInformation, exact: true },
   { path: '/user/list_staff', name: 'ListStaff', component: ListStaff },
   { path: '/user/working_hours', name: 'WorkingHours', component: WorkingHours },
+  { path: '/user/change-password', name: 'ChangePassword', component: ChangePassword },
 ];
 
 export default routes;

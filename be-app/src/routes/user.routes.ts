@@ -53,6 +53,13 @@ router.put(
   userController.updateUserRoleUser,
 );
 
+router.put(
+  '/change-password',
+  verifyAllMiddleware,
+  validate(UserRequest.changePassword),
+  userController.changePassword,
+);
+
 router.delete('/delete-user', verifyAdminMiddleware, validate(UserRequest.queryRequest), userController.deleteOneUser);
 
 export default router;

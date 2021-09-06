@@ -15,6 +15,7 @@ const API = {
     DELETE_USER: 'user/delete-user',
     VERIFY_USER: 'confirm/account',
     RESET_PASSWORD: 'confirm/reset-password',
+    CHANGE_PASSWORD: 'user/change-password',
   },
 
   CHECKIN: {
