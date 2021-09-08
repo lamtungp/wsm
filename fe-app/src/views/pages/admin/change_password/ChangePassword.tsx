@@ -25,12 +25,12 @@ const ChangePassword: React.FunctionComponent = (): React.ReactElement => {
   const handle = async (values: any) => {
     try {
       await userServices.changePassword(values);
+      localStorage.removeItem('token');
+      localStorage.removeItem('email');
+      localStorage.removeItem('role');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('vacationsDay');
       if (window.confirm('Thay đổi mật khẩu thành công. Vui lòng đăng nhập lại!')) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('email');
-        localStorage.removeItem('role');
-        localStorage.removeItem('userId');
-        localStorage.removeItem('vacationsDay');
         history.push('/');
       }
     } catch (error) {}

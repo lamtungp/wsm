@@ -22,6 +22,9 @@ AxiosClient.interceptors.request.use(
     } catch (e) {
       console.log('Token Invalid', e);
     }
+    // if (config.data.password) {
+    //   config.data.password = '********';
+    // }
     return config;
   },
   (error) => {

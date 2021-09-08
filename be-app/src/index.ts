@@ -7,7 +7,9 @@
 import app from './app';
 const debug = require('debug')('be-app:server');
 import http from 'http';
-// import db from './lib/sequelize';
+import cluster from 'cluster';
+import { cpus } from 'os';
+import process from 'process';
 /**
  * Get port from environment and store in Express.
  */
@@ -15,21 +17,48 @@ import http from 'http';
 const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
+const numCPUs = cpus().length;
 
-const server = http.createServer(app);
+if (cluster.isMaster) {
+  console.log(`Primary ${process.pid} is running`);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
 
-server.listen(port, () => {
-  console.log('App listening at port ' + port);
-});
-server.on('error', onError);
-server.on('listening', onListening);
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+    cluster.fork();
+  });
+} else {
+  /**
+   * Create HTTP server.
+   */
+
+  const server = http.createServer(app);
+
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
+
+  server.listen(port, () => {
+    console.log('App listening at port ' + port);
+    console.log(`Worker ${process.pid} started`);
+  });
+
+  /**
+   * Event listener for HTTP server "listening" event.
+   */
+
+  server.on('error', onError);
+  server.on('listening', onListening);
+  function onListening() {
+    const addr = server.address();
+    const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+  }
+}
 
 /**
  * Normalize a port into a number, string, or false.
@@ -76,15 +105,3 @@ function onError(error) {
       throw error;
   }
 }
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  const addr = server.address();
-  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
-
-export default server;

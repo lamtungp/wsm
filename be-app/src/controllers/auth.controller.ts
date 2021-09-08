@@ -9,6 +9,7 @@ import messages from '../commons/messages';
 export default class AuthController extends AuthRepository {
   public userLogin = async (req: any, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
+    req.body.password = '*******';
     const userData = await this.checkAuthenticationData(email, password);
     if (!!userData) {
       if (userData.status === 'actived') {
