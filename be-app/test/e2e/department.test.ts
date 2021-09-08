@@ -48,7 +48,6 @@ describe('Test Department', async () => {
       const createValue = departmentValue.create;
       const res = await request(app)
         .post('/api/v1/department/create-department')
-        .set('AuthToken', token.tokenAdmin)
         .set('Authorization', `Bearer ${token.tokenAdmin}`)
         .send(createValue);
       expect(res.status).to.deep.equal(200);
@@ -65,7 +64,6 @@ describe('Test Department', async () => {
     it('should GET /api/v1/department/find-department-by-id/:departmentId', async () => {
       const res = await request(app)
         .get(`/api/v1/department/find-department-by-id/${departmentId[0]}`)
-        .set('AuthToken', token.tokenAdmin)
         .set('Authorization', `Bearer ${token.tokenAdmin}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
@@ -81,7 +79,6 @@ describe('Test Department', async () => {
     it('should GET /api/v1/department/get-all-department', async () => {
       const res = await request(app)
         .get('/api/v1/department/get-all-department')
-        .set('AuthToken', token.tokenAdmin)
         .set('Authorization', `Bearer ${token.tokenAdmin}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
@@ -98,7 +95,6 @@ describe('Test Department', async () => {
       const updateValue = departmentValue.update;
       const res = await request(app)
         .put(`/api/v1/department/update-department/${departmentId[0]}`)
-        .set('AuthToken', token.tokenAdmin)
         .set('Authorization', `Bearer ${token.tokenAdmin}`)
         .send(updateValue);
       expect(res.status).to.deep.equal(200);
@@ -115,7 +111,6 @@ describe('Test Department', async () => {
     it('delete department has members', async () => {
       const res = await request(app)
         .delete(`/api/v1/department/delete-department/${departmentId[0]}`)
-        .set('AuthToken', token.tokenAdmin)
         .set('Authorization', `Bearer ${token.tokenAdmin}`);
       expect(res.status).to.deep.equal(400);
       expect(res.body).to.be.an('object');
@@ -126,7 +121,6 @@ describe('Test Department', async () => {
     it("delete department hasn't members", async () => {
       const res = await request(app)
         .delete(`/api/v1/department/delete-department/${departmentId[1]}`)
-        .set('AuthToken', token.tokenAdmin)
         .set('Authorization', `Bearer ${token.tokenAdmin}`);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
