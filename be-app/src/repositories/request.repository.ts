@@ -52,9 +52,13 @@ export default class RequestRepository {
     return request;
   }
 
-  public async getRequestById(id: number): Promise<RequestAttributes> {
+  public async getRequestById(id: number): Promise<any> {
     const request = await this.request.findOne({
       where: { id },
+      include: {
+        model: userModel,
+        attributes: ['email'],
+      },
     });
     return request;
   }

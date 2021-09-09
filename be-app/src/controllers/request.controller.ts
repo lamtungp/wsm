@@ -6,6 +6,8 @@ import { responseSuccess } from '../helpers/response';
 import RequestRepository from '../repositories/request.repository';
 import UserRepository from '../repositories/user.repository';
 import jwt from 'jsonwebtoken';
+import { sendNewEmail } from '../lib/bullboard';
+import email from '../../config/email';
 
 export default class RequestController {
   private request: RequestRepository;
@@ -75,6 +77,7 @@ export default class RequestController {
     const decodedData = Object(verified);
     const request = await this.request.createRequest({ ...req.body, userId: decodedData.id });
     if (!!request) {
+      // return res.success(request);
       return responseSuccess(res, request);
     }
     return next(new BadRequestError(messages.request.addRequestFailure));
@@ -99,7 +102,23 @@ export default class RequestController {
     const find_request = await this.request.getRequestById(Number(req.params.requestId));
     if (!!find_request) {
       const request = await this.request.updateRequest(req.body, Number(req.params.requestId));
+      console.log(req.body);
       if (!!request) {
+        const options = {
+          from: email.auth.user,
+          to: find_request.user.email,
+          subject: req.body.state === 'declined' ? 'Yêu cầu đã bị từ chối' : 'Yêu cầu đã được chấp nhận',
+          html: `<div>
+                <h1>${req.body.state === 'declined' ? 'Yêu cầu đã bị từ chối' : 'Yêu cầu đã được chấp nhận'}</h1>
+                <h2>Hello</h2>
+                <p>${
+                  req.body.state === 'declined'
+                    ? `${req.body.handler} đã từ chối yêu cầu này`
+                    : `${req.body.handler} đã chấp nhận yêu cầu `
+                }</p>
+            </div>`,
+        };
+        sendNewEmail(options);
         return responseSuccess(res, { message: messages.request.updateRequestSuccess });
       }
       return next(new BadRequestError(messages.request.updateRequestFailure));

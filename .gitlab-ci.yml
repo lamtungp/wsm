@@ -25,6 +25,7 @@ build:
         - docker stack rm wsm-dev
         - sleep 10
         - docker-compose build
+        - docker-compose down -v
     only:
         - develop
 

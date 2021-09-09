@@ -6,7 +6,7 @@ services:
         restart: always
         tty: true
         environment:
-            - NODE_ENV=test
+            - NODE_ENV=development
             - REDIS_URL=redis
         env_file:
             - ./be-app/.env.sample

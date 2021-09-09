@@ -105,7 +105,6 @@ describe('Test Checkin', async () => {
         .post(`/api/v1/checkin/create-checkin?date=${create.date}`)
         .send(create)
         .set('Authorization', `Bearer ${token.tokenManager}`);
-      console.log(res.body);
       expect(res.status).to.deep.equal(200);
       expect(res.body.error).to.be.empty;
       expect(res.body).to.be.an('object');

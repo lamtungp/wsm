@@ -16,7 +16,7 @@ module.exports = {
       [
         {
           email: 'admin@gmail.com',
-          password: '$2a$12$jqoQ3sXnlzP2GIBY3yb2D.7scGz7gLfx7dhIn8FGnjGfd5f7lQfL2',
+          password: '$2a$12$jqoQ3sXnlzP2GIBY3yb2D.7scGz7gLfx7dhIn8FGnjGfd5f7lQfL2', //12345678
           name: 'admin',
           gender: 'male',
           dob: '2000-04-24',
@@ -28,7 +28,7 @@ module.exports = {
         },
         {
           email: 'manager@gmail.com',
-          password: '$2a$12$jqoQ3sXnlzP2GIBY3yb2D.7scGz7gLfx7dhIn8FGnjGfd5f7lQfL2',
+          password: '$2a$12$jqoQ3sXnlzP2GIBY3yb2D.7scGz7gLfx7dhIn8FGnjGfd5f7lQfL2', //12345678
           name: 'manager',
           gender: 'male',
           dob: '2000-04-24',
@@ -40,7 +40,7 @@ module.exports = {
         },
         {
           email: 'user@gmail.com',
-          password: '$2a$12$jqoQ3sXnlzP2GIBY3yb2D.7scGz7gLfx7dhIn8FGnjGfd5f7lQfL2',
+          password: '$2a$12$jqoQ3sXnlzP2GIBY3yb2D.7scGz7gLfx7dhIn8FGnjGfd5f7lQfL2', //12345678
           name: 'user',
           gender: 'male',
           dob: '2000-04-24',
