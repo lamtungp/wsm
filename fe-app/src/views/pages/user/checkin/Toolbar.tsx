@@ -53,9 +53,6 @@ const CustomToolbar = (toolbar: any) => {
   const handleDate = (date: string) => {
     return dayjs(date).format('YYYY-MM-DD');
   };
-  const handleTime = (time: string) => {
-    return dayjs(time).format('H:mm');
-  };
 
   const userId = Number(localStorage.getItem('userId'));
   const date = handleDate(new Date().toUTCString());
@@ -78,8 +75,8 @@ const CustomToolbar = (toolbar: any) => {
     }
   };
 
-  const handleCheckin = async (values: object, type: string) => {
-    const check = await checkinServices.createCheckin(values);
+  const handleCheckin = async (type: string) => {
+    const check = await checkinServices.createCheckin();
     if (!!!check.data.error) {
       try {
         const checkin = await checkinServices.getCheckinByUserId(Number(localStorage.getItem('userId')), date);
@@ -103,13 +100,13 @@ const CustomToolbar = (toolbar: any) => {
     }
   };
 
-  const handleClick = (values: object, type: string) => {
+  const handleClick = (type: string) => {
     if (type === 'checkout') {
       if (window.confirm('Bạn muốn check-out ngay bây giờ?')) {
-        handleCheckin(values, type);
+        handleCheckin(type);
       }
     } else {
-      handleCheckin(values, type);
+      handleCheckin(type);
     }
   };
 
@@ -125,15 +122,7 @@ const CustomToolbar = (toolbar: any) => {
               <>
                 <button
                   className={show ? 'btn btn-primary mr-1' : 'd-none'}
-                  onClick={() =>
-                    handleClick(
-                      {
-                        checkin: handleTime(new Date().toUTCString()),
-                        date: date,
-                      },
-                      'checkin',
-                    )
-                  }
+                  onClick={() => handleClick('checkin')}
                   style={{ borderRadius: '4px' }}
                 >
                   <FaSignInAlt className="mr-1" />
@@ -141,15 +130,7 @@ const CustomToolbar = (toolbar: any) => {
                 </button>
                 <button
                   className={!show ? 'btn btn-primary mr-1' : 'd-none'}
-                  onClick={() =>
-                    handleClick(
-                      {
-                        checkout: handleTime(new Date().toUTCString()),
-                        date: date,
-                      },
-                      'checkout',
-                    )
-                  }
+                  onClick={() => handleClick('checkout')}
                   style={{ borderRadius: '4px' }}
                 >
                   <FaSignOutAlt className="mr-1" />

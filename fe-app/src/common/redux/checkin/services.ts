@@ -17,8 +17,8 @@ const checkinServices = {
     return results;
   },
 
-  createCheckin: (param: object): Promise<any> => {
-    const result = AxiosClient.post(API.CHECKIN.CREATE_CHECKIN, param);
+  createCheckin: (): Promise<any> => {
+    const result = AxiosClient.post(API.CHECKIN.CREATE_CHECKIN);
     return result;
   },
 };

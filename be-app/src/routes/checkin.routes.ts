@@ -28,11 +28,6 @@ router.get(
   checkinController.findCheckin,
 );
 
-router.post(
-  '/create-checkin',
-  verifyUserManagerMiddleware,
-  validate(CheckinRequest.createCheckin),
-  checkinController.createCheckins,
-);
+router.post('/create-checkin', verifyUserManagerMiddleware, checkinController.createCheckins);
 
 export default router;
