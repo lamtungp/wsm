@@ -4,7 +4,7 @@ export default {
   createUser: {
     body: Joi.object({
       email: Joi.string().email().required(),
-      name: Joi.string().required(),
+      name: Joi.string().allow(''),
       gender: Joi.string().required(),
       dayIn: Joi.date().required(),
       role: Joi.string().required(),

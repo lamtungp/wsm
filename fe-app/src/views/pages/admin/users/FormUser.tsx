@@ -21,16 +21,14 @@ const FormUser = () => {
   const UserSchema =
     email === 'undefined'
       ? Yup.object().shape({
-          name: Yup.string().min(1, 'Too short!').required('Required!'),
           email: Yup.string().min(2, 'Too short!').required('Required!').email('Invalid email'),
           dayIn: Yup.string().required('Required!'),
         })
       : Yup.object().shape({
-          name: Yup.string().min(1, 'Too short!').required('Required!'),
           dayIn: Yup.string().required('Required!'),
         });
 
-  const [senority, setSenority] = useState('');
+  const [seniority, setSeniority] = useState('');
 
   const [user, setUser] = useState({
     name: '',
@@ -41,7 +39,7 @@ const FormUser = () => {
     dayOfficial: '',
     dob: '',
     phoneNumber: '',
-    senority: senority,
+    seniority,
     contractTerm: 'Chưa có hợp đồng chính thức',
     vacationsDay: 0,
     gender: 'male',
@@ -60,7 +58,7 @@ const FormUser = () => {
     try {
       const _user = await userService.getUserByEmail(email);
       if (!!_user.data.dayOfficial) {
-        setSenority(handleSenority(new Date(_user.data.dayOfficial), new Date()));
+        setSeniority(handleSeniority(new Date(_user.data.dayOfficial), new Date()));
       }
       delete _user.data['id'];
       delete _user.data['email'];
@@ -75,7 +73,7 @@ const FormUser = () => {
     setDepartments(department.data);
   };
 
-  const handleSenority = (start: Date, current: Date) => {
+  const handleSeniority = (start: Date, current: Date) => {
     const diff = new Date(current.getTime() - start.getTime());
     return `${diff.getUTCFullYear() - 1970} năm ${diff.getUTCMonth()} tháng ${diff.getUTCDate()} ngày`;
   };
@@ -135,17 +133,6 @@ const FormUser = () => {
                     }
                   }}
                 >
-                  <Form.Group>
-                    <CRow>
-                      <CCol lg="5">
-                        <Form.Label className="font-weight-bold">
-                          Họ tên <span className="text-danger">(*)</span>
-                        </Form.Label>
-                        <Form.Control name="name" type="text" value={values.name} onChange={handleChange} />
-                      </CCol>
-                    </CRow>
-                    {errors.name && touched.name ? <Form.Text className="text-danger">{errors.name}</Form.Text> : null}
-                  </Form.Group>
                   {email === 'undefined' ? (
                     <>
                       <Form.Group>
@@ -236,8 +223,8 @@ const FormUser = () => {
                           value={values.dayOfficial}
                           onChange={(e: any) => {
                             values.dayOfficial = e.target.value;
-                            setSenority(handleSenority(new Date(e.target.value), new Date()));
-                            values.senority = handleSenority(new Date(e.target.value), new Date());
+                            setSeniority(handleSeniority(new Date(e.target.value), new Date()));
+                            values.seniority = handleSeniority(new Date(e.target.value), new Date());
                           }}
                         />
                       </CCol>
@@ -280,7 +267,7 @@ const FormUser = () => {
                     <CRow>
                       <CCol lg="4">
                         <Form.Label className="font-weight-bold">Thâm niên</Form.Label>
-                        <Form.Control name="senority" type="text" value={values.senority} onChange={handleChange} />
+                        <Form.Control name="senority" type="text" value={values.seniority} onChange={handleChange} />
                       </CCol>
                     </CRow>
                   </Form.Group>
