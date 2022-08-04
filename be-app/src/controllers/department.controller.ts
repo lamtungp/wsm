@@ -20,7 +20,7 @@ export default class DepartmentController {
     if (!!departments) {
       return responseSuccess(res, departments);
     }
-    return next(new BadRequestError(messages.department.getFaliure));
+    return next(new BadRequestError(messages.department.getFailure));
   };
 
   public addDepartment = async (req: Request, res: Response, next: NextFunction) => {

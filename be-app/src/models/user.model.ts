@@ -5,7 +5,7 @@ import departmentModel from './department.model';
 import checkinModel from './checkin.model';
 
 const UserModel = function (sequelize: Sequelize): UserStatic {
-  const User = <UserStatic>sequelize.define('users', {
+  const User = <UserStatic>sequelize.define('Users', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -40,7 +40,7 @@ const UserModel = function (sequelize: Sequelize): UserStatic {
       type: DataTypes.STRING,
       defaultValue: '',
     },
-    senority: {
+    seniority: {
       type: DataTypes.STRING,
       defaultValue: '',
     },
@@ -73,7 +73,7 @@ const UserModel = function (sequelize: Sequelize): UserStatic {
       references: { model: 'departments', key: 'id' },
     },
     status: {
-      type: DataTypes.ENUM({ values: ['actived', 'pending'] }),
+      type: DataTypes.ENUM({ values: ['activated', 'pending'] }),
       defaultValue: 'pending',
     },
     confirmationCode: {

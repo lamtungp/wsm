@@ -254,7 +254,7 @@ describe('Test User', async () => {
       expect(res.body).to.be.an('object');
       expect(res.body.success).to.equal(true);
       expect(res.body.message).to.equal('Success');
-      expect(res.body.data.message).to.deep.equal('Account was actived');
+      expect(res.body.data.message).to.deep.equal('Account was activated');
     });
   });
 });

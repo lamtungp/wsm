@@ -4,7 +4,7 @@
     "email": "admin@gmail.com",
     "gender": "male",
     "dayIn": "2021-07-05",
-    "status": "actived",
+    "status": "activated",
     "role": "admin",
     "confirmationCode": "abcd"
   },
@@ -15,7 +15,7 @@
     "gender": "male",
     "dayIn": "2021-07-05",
     "vacationsDay": 0,
-    "status": "actived",
+    "status": "activated",
     "role": "manager"
   },
 
@@ -25,6 +25,7 @@
     "gender": "male",
     "dayIn": "2021-07-05",
     "vacationsDay": 0,
-    "role": "user"
+    "role": "user",
+    "status": "activated"
   }
 }

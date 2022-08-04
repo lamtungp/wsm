@@ -72,6 +72,7 @@ const FormRequest = () => {
       }
     } else {
       try {
+        delete values['userId'];
         await requestService.addRequest(values);
         await requestService.getListRequest();
         history.push('/user/requests');

@@ -47,7 +47,7 @@ export default class CheckinController {
         await this.checkin.updateCheckin(decodedData.id, date, { date: date, checkout: time });
         return responseSuccess(res, { message: messages.checkin.updateSuccess });
       }
-      return responseSuccess(res, { error: messages.checkin.availabled });
+      return responseSuccess(res, { error: messages.checkin.available });
     }
     const checkin = await this.checkin.createCheckin({ date: date, checkin: time, userId: decodedData.id });
     if (!!checkin) {

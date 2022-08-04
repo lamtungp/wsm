@@ -150,9 +150,9 @@ export default class UserController {
   public verifyAccount = async (req: Request, res: Response, next: NextFunction) => {
     const user = await this.user.findUser(String(req.params.confirmationCode));
     if (!!user) {
-      const update = await this.user.updateUser({ status: 'actived' }, user.email);
+      const update = await this.user.updateUser({ status: 'activated' }, user.email);
       if (!!update) {
-        return responseSuccess(res, { message: messages.user.activeAcountSuccess });
+        return responseSuccess(res, { message: messages.user.activeAccountSuccess });
       }
       return next(new BadRequestError(messages.user.activeAccountFailure));
     }

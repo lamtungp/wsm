@@ -72,17 +72,17 @@ const RequestDetails: React.FunctionComponent = (): React.ReactElement => {
                       <b>Trạng thái</b>
                     </td>
                     <td>
-                      {request.state === 'Pending' ? (
+                      {request.state === 'pending' ? (
                         <span className="badge badge-pill badge-warning text-white">Đang chờ xử lý</span>
                       ) : (
                         <></>
                       )}
-                      {request.state === 'Confirmed' ? (
+                      {request.state === 'confirmed' ? (
                         <span className="badge badge-pill badge-success text-white">Đã đồng ý</span>
                       ) : (
                         <></>
                       )}
-                      {request.state === 'Declinded' ? (
+                      {request.state === 'declinded' ? (
                         <span className="badge badge-pill badge-danger text-white">Đã từ chối</span>
                       ) : (
                         <></>

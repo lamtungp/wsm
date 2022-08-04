@@ -8,7 +8,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('Users', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -43,7 +43,7 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: '',
       },
-      senority: {
+      seniority: {
         type: Sequelize.STRING,
         defaultValue: '',
       },
@@ -73,7 +73,7 @@ module.exports = {
       },
       departmentId: {
         type: Sequelize.INTEGER,
-        references: { model: 'departments', key: 'id' },
+        references: { model: 'Departments', key: 'id' },
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -86,7 +86,7 @@ module.exports = {
         defaultValue: Sequelize.literal('NOW()'),
       },
       status: {
-        type: Sequelize.ENUM({ values: ['actived', 'pending'] }),
+        type: Sequelize.ENUM({ values: ['activated', 'pending'] }),
         defaultValue: 'pending',
       },
       confirmationCode: {
@@ -103,6 +103,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('Users');
   },
 };

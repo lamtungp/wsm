@@ -83,7 +83,7 @@ const Users = () => {
   return (
     <>
       <Helmet>
-        <title>Manage Users</title>
+        <title>Users</title>
         <meta name="description" content="Users component" />
       </Helmet>
       <CRow>

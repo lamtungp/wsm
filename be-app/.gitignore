@@ -119,7 +119,8 @@ dist
 
 # log
 *.log
-log_file/*.log
+log_file/*
 
-docker/services/db/data
-docker/services/redis/data
+.docker/services/db/data
+.docker/services/redis/data
+.docker/services/minio

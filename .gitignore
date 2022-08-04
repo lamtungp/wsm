@@ -7,3 +7,4 @@
 
 be-app/docker/services/db/data
 be-app/docker/services/redis/data
+be-app/docker/services/minio

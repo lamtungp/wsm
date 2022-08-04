@@ -41,7 +41,7 @@ describe('AuthController', () => {
   });
 
   describe('should login a user when email and password is provided and exist', () => {
-    it('account is actived', async () => {
+    it('account is activated', async () => {
       const req = { body: { email: 'tunglam1234@gmail.com', password: '12345678' } };
       const stub = sandbox
         .stub(userModel, 'findOne')

@@ -56,7 +56,7 @@ const Departments: React.FunctionComponent = (): React.ReactElement => {
   return (
     <div>
       <Helmet>
-        <title>Manage Departments</title>
+        <title>Departments</title>
         <meta name="description" content="Departments component" />
       </Helmet>
       <CRow>

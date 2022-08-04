@@ -68,8 +68,8 @@ export default {
         },
         status: {
           type: 'string',
-          enum: ['pending', 'actived'],
-          example: 'actived',
+          enum: ['pending', 'activated'],
+          example: 'activated',
         },
         role: {
           type: 'string',

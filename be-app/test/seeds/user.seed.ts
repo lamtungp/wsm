@@ -5,7 +5,7 @@ export const users = [
     password: '12345678',
     gender: 'male',
     dayIn: '2021-07-05',
-    status: 'actived',
+    status: 'activated',
     role: 'admin',
     confirmationCode: 'abcd',
   },
@@ -26,7 +26,7 @@ export const users = [
     gender: 'male',
     dayIn: '2021-07-05',
     role: 'user',
-    status: 'actived',
+    status: 'activated',
     confirmationCode: 'abcddsads',
   },
 ];

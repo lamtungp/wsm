@@ -39,7 +39,7 @@ export default {
     activeAccountFailure: 'Active account failure',
     updateUserFailure: 'Update user failure',
     deleteUserFailure: 'Delete user failure',
-    activeAcountSuccess: 'Account was actived',
+    activeAccountSuccess: 'Account was activated',
     updateUserSuccess: 'Update user successfully',
     deleteUserSuccess: 'Delete user successfully',
   },
@@ -52,19 +52,19 @@ export default {
 
   checkin: {
     notFound: 'Not found checkin',
-    availabled: 'Availabled checkin',
+    available: 'Available checkin',
     notCheckin: 'Not checkin',
     createFailure: 'Create checkin failure',
     updateSuccess: 'Update checkin successfully',
   },
 
   department: {
-    getFaliure: 'Get all department failure',
+    getFailure: 'Get all department failure',
     departmentNotExists: 'Department does not exist',
     departmentExists: 'Department existed',
     addFailure: 'Add department failure',
     updateFailure: 'Update department failure',
-    notAllowDelete: 'Deparment has member, not allow to delete!!',
+    notAllowDelete: 'Department has member, not allow to delete!!',
     deleteFailure: 'Delete department failure',
     updateSuccess: 'Update department successfully',
     deleteSuccess: 'Delete department successfully',

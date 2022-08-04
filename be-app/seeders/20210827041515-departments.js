@@ -12,11 +12,11 @@ module.exports = {
      * }], {});
      */
     return queryInterface.bulkInsert(
-      'departments',
+      'Departments',
       [
-        { nameDepartment: 'Division 1', description: 'hello' },
-        { nameDepartment: 'Division 2', description: 'hello' },
-        { nameDepartment: 'Division 3', description: 'hello' },
+        { nameDepartment: 'D1', description: 'hello' },
+        { nameDepartment: 'D2', description: 'hello' },
+        { nameDepartment: 'D3', description: 'hello' },
         { nameDepartment: 'Support', description: 'hello' },
       ],
       {},

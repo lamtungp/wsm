@@ -3,7 +3,7 @@ import { CheckinStatic } from './checkin.model.d';
 import sequelizeInstance from '../lib/sequelize';
 
 const CheckinModel = function (sequelize: Sequelize): CheckinStatic {
-  const Checkin = <CheckinStatic>sequelize.define('checkins', {
+  const Checkin = <CheckinStatic>sequelize.define('Checkins', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
