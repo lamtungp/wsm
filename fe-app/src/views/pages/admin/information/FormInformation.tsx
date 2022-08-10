@@ -5,6 +5,7 @@ import { CCard, CCardHeader, CCardBody, CRow, CCol } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
 import dayjs from 'dayjs';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 
 import userService from '../../../../common/redux/user/services';
 
@@ -41,6 +42,41 @@ const FormInformation = () => {
     } catch (error) {
       window.alert('Xảy ra lỗi khi cập nhật');
     }
+  };
+
+  const uploadToMinio = async (file: File) => {
+    const { data } = await axios({
+      baseURL: 'http://localhost:4000/api/v1',
+      url: '/user/upload',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: {
+        name: file.name,
+        type: file.type,
+        userId: localStorage.getItem('userId'),
+      },
+    });
+
+    const { signedData } = data.data;
+    const formData = new FormData();
+
+    formData.append('AWSAccessKeyId', signedData.AWSAccessKeyId);
+    formData.append('Content-Type', signedData['Content-Type']);
+    formData.append('Expires', signedData.Expires);
+    formData.append('filename', signedData.filename);
+    formData.append('key', signedData.key);
+    formData.append('policy', signedData.policy);
+    formData.append('signature', signedData.signature);
+    formData.append('file', file);
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    await axios.post(data.data.actionUrl, formData, config);
   };
 
   return (
@@ -103,7 +139,7 @@ const FormInformation = () => {
                           }}
                         >
                           <img
-                            src={values.avatar ? `/avatars/${values.avatar}` : '/avatars/no-avatar.jpg'}
+                            src={values.avatar ? `${values.avatar}` : '/avatars/no-avatar.jpg'}
                             alt="avatar"
                             style={{
                               width: '100%',
@@ -115,11 +151,12 @@ const FormInformation = () => {
                             <Form.Control
                               name="avatar"
                               type="file"
+                              accept="image/png, image/jpeg"
                               onChange={(e: any) => {
                                 if (e.target.value) {
-                                  const files = e.target.files[0].name;
-                                  console.log(files);
-                                  setFieldValue('avatar', files);
+                                  const file = e.target.files[0];
+                                  uploadToMinio(e.target.files[0]);
+                                  setFieldValue('avatar', file);
                                 } else {
                                   setFieldValue('avatar', 'no-avatar.jpg');
                                 }

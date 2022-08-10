@@ -28,6 +28,16 @@ const database = {
   timezone: '+00:00',
 };
 
+const aws = {
+  accessKey: process.env.AWS_ACCESS_KEY_ID || 'test',
+  secretKey: process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_KEY || 'test',
+  port: parseInt(process.env.MINIO_PORT) || 9000,
+  host: process.env.MINIO_HOST || 'minio',
+  bucket: process.env.AWS_BUCKET || 'wsm',
+  region: process.env.AWS_REGION || 'us-west-2',
+  endpoint: process.env.AWS_ENDPOINT || undefined,
+};
+
 export default {
   environment: process.env.NODE_ENV,
   /**
@@ -35,6 +45,7 @@ export default {
    * @type {Object}
    */
   database,
+  aws,
   jwtSecret: process.env.JWT_SECRET,
   jwtExpiresIn: '20d',
 

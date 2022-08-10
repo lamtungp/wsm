@@ -13,7 +13,7 @@ router.get('/health-check', (_req, res) => {
   return res.setHeader('Content-Type', 'text/html').send('APIs OK!!');
 });
 
-router.use('/user', authentication, usersRoute);
+router.use('/user', usersRoute);
 
 router.use('/request', authentication, requestRoute);
 

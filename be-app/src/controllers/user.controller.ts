@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+
 import { generateTokenConfirm } from '../lib/passports';
 import UserRepository from '../repositories/user.repository';
 import CheckinRepository from '../repositories/checkin.repository';
@@ -11,7 +13,8 @@ import { responseSuccess } from '../helpers/response';
 import NotFoundError from '../commons/http-errors/NotFoundError';
 import messages from '../commons/messages';
 import handlePassword from '../commons/utils/handlePassword';
-import jwt from 'jsonwebtoken';
+import Utils from '../utils';
+
 export default class UserController {
   private user: UserRepository;
   private checkin: CheckinRepository;
@@ -90,7 +93,10 @@ export default class UserController {
       password: hashPassword,
       confirmationCode: tokenConfirm,
     });
-    if (!!user) {
+    if (user) {
+      const code = Utils.generateAvatarCode(user.id, process.env.JWT_SECRET);
+      await Utils.setObjectPolicy(Utils.createPathImage(code));
+
       const options = {
         from: email.auth.user,
         to: user.email,
@@ -215,5 +221,10 @@ export default class UserController {
       return next(new BadRequestError(messages.user.deleteUserFailure));
     }
     return next(new NotFoundError(messages.auth.userNotExists));
+  };
+
+  public uploadImage = async (req: Request, res: Response, next: NextFunction) => {
+    const data = await Utils.putObject(req.body.name, req.body.type, req.body.userId);
+    return responseSuccess(res, data);
   };
 }

@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { CCard, CCardHeader, CCardBody, CRow, CCol } from '@coreui/react';
 import { FaSave } from 'react-icons/fa';
 import dayjs from 'dayjs';
+import axios from 'axios';
 
 import userService from '../../../../common/redux/user/services';
 
@@ -38,6 +39,41 @@ const FormInformation = () => {
     } catch (error) {
       history.push('/error/500');
     }
+  };
+
+  const uploadToMinio = async (file: File) => {
+    const { data } = await axios({
+      baseURL: 'http://localhost:4000/api/v1',
+      url: '/user/upload',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: {
+        name: file.name,
+        type: file.type,
+        userId: localStorage.getItem('userId'),
+      },
+    });
+
+    const { signedData } = data.data;
+    const formData = new FormData();
+
+    formData.append('AWSAccessKeyId', signedData.AWSAccessKeyId);
+    formData.append('Content-Type', signedData['Content-Type']);
+    formData.append('Expires', signedData.Expires);
+    formData.append('filename', signedData.filename);
+    formData.append('key', signedData.key);
+    formData.append('policy', signedData.policy);
+    formData.append('signature', signedData.signature);
+    formData.append('file', file);
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    await axios.post(data.data.actionUrl, formData, config);
   };
 
   const handle = async (values: any) => {
@@ -118,9 +154,9 @@ const FormInformation = () => {
                             type="file"
                             onChange={(e: any) => {
                               if (e.target.value) {
-                                const files = e.target.files[0].name;
-                                console.log(files);
-                                setFieldValue('avatar', files);
+                                const file = e.target.files[0];
+                                uploadToMinio(e.target.files[0]);
+                                setFieldValue('avatar', file);
                               } else {
                                 setFieldValue('avatar', 'no-avatar.jpg');
                               }

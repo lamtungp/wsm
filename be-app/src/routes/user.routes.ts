@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import UserController from '../controllers/user.controller';
 import { validate } from 'express-validation';
+
+import UserController from '../controllers/user.controller';
 import UserRequest from '../request/user.request';
 import verifyManagerMiddleware from '../middlewares/verify.manager.middleware';
 import verifyManagerUserMiddleware from '../middlewares/verify.user.manager.middleware';
@@ -61,5 +62,7 @@ router.put(
 );
 
 router.delete('/delete-user', verifyAdminMiddleware, validate(UserRequest.queryRequest), userController.deleteOneUser);
+
+router.post('/upload', userController.uploadImage);
 
 export default router;
