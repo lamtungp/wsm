@@ -41,7 +41,7 @@ const FormRequest = () => {
     startDay: handleDate(new Date().toUTCString()),
     endDay: handleDate(new Date().toUTCString()),
     timeout: '',
-    project: 'Zinza Intern',
+    project: 'Intern',
     phoneNumber: '',
     reason: '',
     userId: localStorage.getItem('userId'),
