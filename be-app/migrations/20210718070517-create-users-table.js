@@ -8,7 +8,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('users', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -74,7 +74,7 @@ module.exports = {
       },
       departmentId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Departments', key: 'id' },
+        references: { model: 'departments', key: 'id' },
       },
       createdAt: {
         type: Sequelize.DATE,

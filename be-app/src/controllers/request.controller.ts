@@ -103,7 +103,7 @@ export default class RequestController {
     if (!!find_request) {
       const request = await this.request.updateRequest(req.body, Number(req.params.requestId));
       console.log(req.body);
-      if (!!request) {
+      if (request) {
         const options = {
           from: email.auth.user,
           to: find_request.user.email,

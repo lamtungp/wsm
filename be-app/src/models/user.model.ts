@@ -5,7 +5,7 @@ import departmentModel from './department.model';
 import checkinModel from './checkin.model';
 
 const UserModel = function (sequelize: Sequelize): UserStatic {
-  const User = <UserStatic>sequelize.define('Users', {
+  const User = <UserStatic>sequelize.define('users', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
