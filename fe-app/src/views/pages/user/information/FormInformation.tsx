@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Formik, Field } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
@@ -8,9 +9,11 @@ import dayjs from 'dayjs';
 import axios from 'axios';
 
 import userService from '../../../../common/redux/user/services';
+import { SetAvatar } from '../../../../common/redux/user/actions';
 
 const FormInformation = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [user, setUser] = useState({
     address: '',
@@ -21,7 +24,7 @@ const FormInformation = () => {
     dob: dayjs().format('YYYY-MM-DD'),
     name: '',
     phoneNumber: '',
-    senority: '',
+    seniority: '',
     gender: '',
     vacationsDay: '0',
   });
@@ -74,11 +77,13 @@ const FormInformation = () => {
       },
     };
     await axios.post(data.data.actionUrl, formData, config);
+    setUser({ ...user, avatar: data.data.url });
   };
 
   const handle = async (values: any) => {
     try {
       await userService.updateUserRoleUser(values);
+      dispatch(SetAvatar(values.avatar));
       history.push('/user/profile');
     } catch (error) {
       window.alert('Xảy ra lỗi khi cập nhật');
@@ -140,7 +145,7 @@ const FormInformation = () => {
                         }}
                       >
                         <img
-                          src={values.avatar ? `/avatars/${values.avatar}` : '/avatars/no-avatar.jpg'}
+                          src={values.avatar ? `${values.avatar}` : '/avatars/no-avatar.jpg'}
                           alt="avatar"
                           style={{
                             width: '100%',

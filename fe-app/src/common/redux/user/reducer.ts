@@ -3,10 +3,12 @@ import { USER_ACTION } from './actionTypes';
 
 export interface UserState {
   users: any[];
+  avatar: string;
 }
 
 const initialState: UserState = {
   users: [],
+  avatar: '',
 };
 
 const reducer = (state = initialState, action: any): UserState | undefined => {
@@ -15,6 +17,11 @@ const reducer = (state = initialState, action: any): UserState | undefined => {
       return {
         ...state,
         users: action.payload,
+      };
+    case USER_ACTION.SET_AVATAR:
+      return {
+        ...state,
+        avatar: action.payload,
       };
   }
   return state;

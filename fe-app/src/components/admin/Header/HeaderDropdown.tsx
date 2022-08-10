@@ -1,11 +1,14 @@
 import React from 'react';
 import { CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CImg } from '@coreui/react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import userService from '../../../common/redux/user/services';
+import { GlobalState } from '../../../common/redux';
 
 const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
   const history = useHistory();
+  const imageProfile = useSelector((state: GlobalState) => state.user.avatar);
 
   const [user, setUser] = React.useState({
     avatar: '',
@@ -39,11 +42,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
     <CDropdown inNav className="c-header-nav-items mx-2">
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
-          <CImg
-            src={user.avatar ? `/avatars/${user.avatar}` : '/avatars/no-avatar.jpg'}
-            className="c-avatar-img"
-            alt={user.email}
-          />
+          <CImg src={imageProfile ? `${imageProfile}` : user.avatar} className="c-avatar-img" alt={user.email} />
         </div>
       </CDropdownToggle>
       <CDropdownMenu className="p-0" placement="bottom-end" style={{ width: '18rem' }}>
@@ -55,11 +54,7 @@ const HeaderDropdown: React.FunctionComponent = (): React.ReactElement => {
         >
           <div className="d-flex h-100 align-items-center">
             <div className="c-avatar">
-              <CImg
-                src={user.avatar ? `/avatars/${user.avatar}` : '/avatars/no-avatar.jpg'}
-                className="c-avatar-img"
-                alt={user.email}
-              />
+              <CImg src={imageProfile ? `${imageProfile}` : user.avatar} className="c-avatar-img" alt={user.email} />
             </div>
             <span className="ml-3">
               <div className="fs-lg font-weight-bold text-white">{user.name}</div>
