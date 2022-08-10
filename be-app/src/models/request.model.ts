@@ -4,7 +4,7 @@ import sequelizeInstance from '../lib/sequelize';
 import userModel from './user.model';
 
 const RequestModel = function (sequelize: Sequelize): RequestStatic {
-  const Request = <RequestStatic>sequelize.define('Requests', {
+  const Request = <RequestStatic>sequelize.define('requests', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,

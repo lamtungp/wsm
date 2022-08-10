@@ -125,6 +125,11 @@ const putObject = async (fileName: string, fileType: string, code: string) => {
 
 const setObjectPolicy = async (pathObject: string) => {
   const { bucket } = aws;
+  const bk = await minioClient.bucketExists(bucket);
+  if (!bk) {
+    await minioClient.makeBucket(bucket, aws.region);
+  }
+
   pathObject = `${pathObject}/*`;
 
   const rule = {
