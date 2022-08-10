@@ -1,0 +1,32 @@
+export const users = [
+  {
+    name: 'admin',
+    email: 'admin@gmail.com',
+    password: '12345678',
+    gender: 'male',
+    dayIn: '2021-07-05',
+    status: 'activated',
+    role: 'admin',
+    confirmationCode: 'abcd',
+  },
+  {
+    email: 'manager@gmail.com',
+    password: '12345678',
+    name: 'manager',
+    gender: 'male',
+    dayIn: '2021-07-05',
+    status: 'pending',
+    role: 'manager',
+    confirmationCode: 'abcsssd',
+  },
+  {
+    email: 'user@gmail.com',
+    password: '12345678',
+    name: 'user',
+    gender: 'male',
+    dayIn: '2021-07-05',
+    role: 'user',
+    status: 'activated',
+    confirmationCode: 'abcddsads',
+  },
+];

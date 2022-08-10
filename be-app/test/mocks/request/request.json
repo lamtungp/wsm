@@ -1,0 +1,32 @@
+{
+  "initial": {
+    "nameRequest": "Quên checkin/checkout",
+    "state": "pending",
+    "timeout": "2021-08-01 9:00:00 ~ 2021-08-01 18:00:00",
+    "startDay": "2021-08-01 9:00:00",
+    "endDay": "2021-08-01 18:00:00",
+    "phoneNumber": "123456",
+    "project": "Zinza Intern",
+    "reason": "saaa"
+  },
+
+  "create": {
+    "state": "pending",
+    "nameRequest": "Quên check in/check out",
+    "phoneNumber": "0397561148",
+    "project": "Zinza Intern",
+    "reason": "sdfdsff",
+    "startDay": "2021-08-02 9:00:00",
+    "endDay": "2021-08-02 18:00:00",
+    "timeout": "2021-08-02 9:00:00 ~ 2021-08-02 18:00:00"
+  },
+
+  "updateForm": {
+    "reason": "abcxyz"
+  },
+
+  "updateHandler": {
+    "state": "confirmed",
+    "handler": "lampt2404@gmail.com"
+  }
+}

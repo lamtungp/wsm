@@ -1,11 +1,14 @@
 {
-    "compilerOptions": {
-        "target": "ES5",
-        "module": "commonjs",
-        "allowJs": true,
-        "checkJs": true,
-        "esModuleInterop": true,
-        "outDir": "./dist",
-        "typeRoots": ["./node_modules/@types"]
-    }
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "ES6",
+    "module": "commonjs",
+    "allowJs": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "typeRoots": ["./node_modules/@types", "./src/typings"]
+  },
+  "files": ["src/index.ts", "config/env.ts"],
+  "include": ["test/**/*.test.ts", "test/mocks/**/*.json", ".sequelizerc", "lib/*.ts"]
 }

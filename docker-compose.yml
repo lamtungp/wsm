@@ -1,69 +1,94 @@
-version: "3.5"
+version: "3.6"
 
 services:
   node:
     build:
       context: ./be-app
-    working_dir: /app
     restart: always
+    working_dir: /app
     tty: true
-    # command: /bin/bash
     volumes:
       - ./be-app:/app
-      # - /app/node_modules
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis
+    env_file:
+      - ./be-app/.env
+    ports:
+      - "4000:4000"
     depends_on:
       - db
 
   react:
     build:
       context: ./fe-app
-    working_dir: /app
     restart: always
+    working_dir: /app
     volumes:
       - ./fe-app:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_ENDPOINT=http://localhost:4000/api/v1
     ports:
       - "3000:3000"
-    command: npm start
 
-  nginx:
-    image: nginx:latest
-    restart: always
-    ports:
-      - "443:443"
-      - "80:80"
-    volumes:
-      - ./be-app/docker/services/nginx/conf:/etc/nginx/conf.d
-      - ./be-app:/app
-    working_dir: /app
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:4.6
-    restart: always
-    ports:
-      - "8181:80"
-    environment:
-      - PMA_HOST=db
-      - PMA_USER=root
-      - PMA_PASSWORD=root
-    depends_on:
-      - db
+  # nginx:
+  #   image: nginx:latest
+  #   restart: always
+  #   ports:
+  #     - "443:443"
+  #     - "80:80"
+  #   volumes:
+  #     - ./be-app/.docker/services/nginx/conf:/etc/nginx/conf.d
+  #   depends_on:
+  #     - react
 
   db:
     image: mysql:8.0
     restart: always
     ports:
-      - "3307:3306"
+      - "3306:3306"
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: helloworld
-      MYSQL_USER: user
-      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: wsmdev
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
     volumes:
-      - ./be-app/docker/services/db/data:/var/lib/mysql
+      - ./be-app/.docker/services/db/init:/docker-entrypoint-initdb.d
+      - ./be-app/.docker/services/db/data:/var/lib/mysql
+    cap_add:
+      - SYS_NICE
 
   redis:
     image: redis:latest
     restart: always
+    command: redis-server --appendonly yes
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./be-app/.docker/services/redis/data:/data
     ports:
       - "6379:6379"
+
+  mailhog:
+    image: mailhog/mailhog
+    restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  minio:
+    image: quay.io/minio/minio
+    volumes:
+      - ./be-app/.docker/services/minio:/data
+    ports:
+      - "80:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    command: server /data --console-address ":9001"
+    restart: always

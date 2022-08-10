@@ -1,8 +1,7 @@
-import Content from './Content';
-import Footer from './Footer';
-import Header from './Header';
-import HeaderDropdown from './HeaderDropdown';
-import Layout from './Layout';
-import Sidebar from './Sidebar';
+import Content from './Content/Content';
+import Footer from './Footer/Footer';
+import Header from './Header/Header';
+import HeaderDropdown from './Header/HeaderDropdown';
+import Sidebar from './Sidebar/Sidebar';
 
-export { Content, Footer, Header, HeaderDropdown, Layout, Sidebar };
+export { Content, Footer, Header, HeaderDropdown, Sidebar };

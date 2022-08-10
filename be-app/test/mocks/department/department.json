@@ -1,0 +1,5 @@
+{
+  "initial": { "nameDepartment": "Division 1", "description": "hello" },
+  "create": { "nameDepartment": "Division 4", "description": "hello" },
+  "update": { "description": "hello everyone" }
+}

@@ -1,39 +1,66 @@
 import AxiosClient from '../../utils/axiosClient';
+import API from '../../constants/api';
 
-const UserService = {
-    getList: (): Promise<any> => {
-        const results = AxiosClient.get('/users/get-user');
-        return results;
-    },
+const userServices = {
+  getAllUser: (): Promise<any> => {
+    const results = AxiosClient.get(API.USER.GET_ALL_USER);
+    return results;
+  },
 
-    findUserById: (id: number): Promise<any> => {
-        const result = AxiosClient.get(`users/find-user-byid/${id}`);
-        return result;
-    },
+  getListUser: (departmentId: number): Promise<any> => {
+    const results = AxiosClient.get(`${API.USER.GET_LIST_USER}/${departmentId}`);
+    return results;
+  },
 
-    findUserByEmail: (email: string): Promise<any> => {
-        const result = AxiosClient.get(`user/find-user-byemail/${email}`);
-        return result;
-    },
+  getListStaff: (email: string): Promise<any> => {
+    const results = AxiosClient.get(`${API.USER.GET_LIST_STAFF}?email=${email}`);
+    return results;
+  },
 
-    addUser: (param: object): Promise<any> => {
-        const result = AxiosClient.post('user/add-user', param);
-        return result;
-    },
+  getStaffWithCheckin: (date: string): Promise<any> => {
+    const results = AxiosClient.get(`${API.USER.GET_STAFF_WITH_CHECKIN}?date=${date}`);
+    return results;
+  },
 
-    deleteUser: (id: number): Promise<any> => {
-        const result = AxiosClient.delete(`user/delete-user/${id}`);
-        return result;
-    },
+  getUserByEmail: (email: string): Promise<any> => {
+    const result = AxiosClient.get(`${API.USER.GET_USER_BY_EMAIL}?email=${email}`);
+    return result;
+  },
 
-    updateUser: (param: object, id: number): Promise<any> => {
-        const result = AxiosClient.post(`user/update-user/${id}`, param);
-        return result;
-    },
+  addUser: (param: object): Promise<any> => {
+    const result = AxiosClient.post(API.USER.ADD_USER, param);
+    return result;
+  },
 
-    searchUser: (param: any): Promise<any> => {
-        const result = AxiosClient.get(`user/search-user?search=${param}`);
-        return result;
-    },
+  deleteUser: (email: string): Promise<any> => {
+    const result = AxiosClient.delete(`${API.USER.DELETE_USER}?email=${email}`);
+    return result;
+  },
+
+  updateUserRoleAdmin: (param: object, email: string): Promise<any> => {
+    const result = AxiosClient.put(`${API.USER.UPDATE_USER_ROLE_ADMIN}?email=${email}`, param);
+    return result;
+  },
+
+  updateUserRoleUser: (param: object): Promise<any> => {
+    const result = AxiosClient.put(API.USER.UPDATE_USER_ROLE_USER, param);
+    return result;
+  },
+
+  changePassword: (param: object): Promise<any> => {
+    const result = AxiosClient.put(API.USER.CHANGE_PASSWORD, param);
+    return result;
+  },
+
+  verifyUser: (confirmationCode: string): Promise<any> => {
+    const result = AxiosClient.put(`${API.USER.VERIFY_USER}/${confirmationCode}`);
+    return result;
+  },
+
+  resetPassword: (value: object): Promise<any> => {
+    const result = AxiosClient.put(API.USER.RESET_PASSWORD, value);
+    return result;
+  },
 };
-export default UserService;
+
+export default userServices;

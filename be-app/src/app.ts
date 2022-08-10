@@ -1,44 +1,70 @@
-import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
-import logger from 'morgan';
+import { Environment } from '../config/env';
 import cors from 'cors';
+import passport from 'passport';
+import { passportConfiguration } from './lib/passports';
+import RequestLogger from './helpers/logger';
 import indexRouter from './routes/index';
+import requestValidationHandler from './helpers/requestValidationHandler';
+import httpErrorHandler from './helpers/httpErrorHandler';
+import NotFoundError from './commons/http-errors/NotFoundError';
+import messages from './commons/messages';
+import { responseError } from './helpers/response';
+import swaggerUI from 'swagger-ui-express';
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerOptions from './docs';
+import { router } from './lib/bullboard';
 
-var app = express();
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+const app = express();
 
 app.use(cors());
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+passportConfiguration(passport);
+app.use(passport.initialize());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
+// api logger
+if (process.env.NODE_ENV === Environment.Development) {
+  app.use(RequestLogger());
+}
+
+// api swagger
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+
+//api queue email
+app.use('/queues', router);
+
+// api app
 app.use('/api/v1', indexRouter);
 
-app.get('/', function (_req, res) {
-    res.send('Hello!');
+// catch 404 and forward to error handler
+app.use((_req, _res, next) => {
+  next(new NotFoundError(messages.generalMessage.ApiNotExist));
 });
 
-// catch 404 and forward to error handler
-app.use(function (_req, _res, next) {
-    next(createError(404));
-});
+// validation request to error handler
+app.use(requestValidationHandler);
+
+// handle http error
+app.use(httpErrorHandler);
 
 // error handler
-app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
+app.use((_error: Error, _req: express.Request, res: express.Response) => {
+  responseError(res);
 });
+
+// automatically update senority user after 1 day
 
 export default app;

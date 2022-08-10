@@ -1,0 +1,90 @@
+version: "3.6"
+
+services:
+    node:
+        image: lampt2404/node-project:latest
+        restart: always
+        tty: true
+        deploy:
+            replicas: 3
+        environment:
+            - NODE_ENV=production
+            - REDIS_URL=redis
+        env_file:
+            - ./be-app/.env.sample
+        ports:
+            - "4000:4000"
+        depends_on:
+            - db
+            - redis
+
+    react:
+        image: lampt2404/react-project:latest
+        restart: always
+        environment:
+            - REACT_APP_API_ENDPOINT=http://api.pm.local/api/v1
+        ports:
+            - "3000:3000"
+
+    nginx:
+        image: nginx:latest
+        restart: always
+        ports:
+            - "443:443"
+            - "80:80"
+        volumes:
+            - ./be-app/.docker/services/nginx/conf:/etc/nginx/conf.d
+        depends_on:
+            - node
+            - react
+
+    db:
+        image: mysql:8.0
+        restart: always
+        deploy:
+            placement:
+                constraints:
+                    - node.role == manager
+        ports:
+            - "3306:3306"
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: helloworld
+            MYSQL_USER: user
+            MYSQL_PASSWORD: secret
+        volumes:
+            - ./be-app/.docker/services/db/init:/docker-entrypoint-initdb.d
+            - ./be-app/.docker/services/db/data:/var/lib/mysql
+        cap_add:
+            - SYS_NICE
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:4.6
+        restart: always
+        ports:
+            - "8181:80"
+        environment:
+            - PMA_HOST=db
+            - PMA_USER=root
+            - PMA_PASSWORD=root
+        depends_on:
+            - db
+
+    redis:
+        image: redis:latest
+        restart: always
+        command: redis-server --appendonly yes
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+        volumes:
+            - ./be-app/.docker/services/redis/data:/data
+        ports:
+            - "6379:6379"
+
+    mailhog:
+        image: mailhog/mailhog
+        restart: always
+        ports:
+            - "1025:1025"
+            - "8025:8025"

@@ -1,39 +1,35 @@
-// import bcrypt from '../lib/bcrypt';
-import { UserAttributes, UserStatic } from '../interfaces/user';
-
+import { UserAttributes, UserStatic } from '../models/user.model.d';
+import Bcrypt from '../lib/bcrypt';
 export default class AuthRepository {
-    private customer: UserStatic;
+  private user: UserStatic;
 
-    constructor(customer: UserStatic) {
-        this.customer = customer;
+  constructor(user: UserStatic) {
+    this.user = user;
+  }
+
+  /**
+   * @param  {string} email
+   * @param  {string} password
+   * @param  {Request} req
+   * @returns Promise
+   */
+
+  public async findUserByEmail(email: string): Promise<UserAttributes> {
+    const user = await this.user.findOne({
+      where: {
+        email: email,
+      },
+    });
+    return user;
+  }
+
+  public async checkAuthenticationData(email: string, password: string): Promise<UserAttributes | undefined> {
+    const user = await this.findUserByEmail(email);
+    if (!!!user) {
+      return undefined;
     }
-
-    /**
-     * CUSTOMER
-     */
-
-    /**
-     * @param  {string} email
-     * @param  {string} password
-     * @param  {Request} req
-     * @returns Promise
-     */
-
-    protected async findCustomerByEmail(email: string, password: string): Promise<UserAttributes> {
-        const customer = await this.customer.findOne({
-            where: {
-                email: email,
-                password: password,
-            },
-        });
-        return customer;
-    }
-
-    protected async checkAuthenticationData(email: string, password: string): Promise<UserAttributes | undefined> {
-        const customer = await this.findCustomerByEmail(email, password);
-        if (!customer) {
-            return undefined;
-        }
-        return customer;
-    }
+    const compare = await Bcrypt.comparePassword(password, user.password);
+    if (!compare) return null;
+    return user;
+  }
 }

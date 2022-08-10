@@ -1,0 +1,69 @@
+image: docker:latest
+
+services:
+    - docker:dind
+
+before_script:
+    - docker info
+    - docker-compose version
+
+variables:
+    DOCKER_DRIVER: overlay2
+
+stages:
+    - build
+    - test
+    - deploy
+
+build:
+    stage: build
+    tags:
+        - main-docker-local
+    before_script:
+        - apk add bash ncurses docker-compose
+    script:
+        - docker stack rm wsm-dev
+        - sleep 10
+        - docker-compose build
+        - docker-compose down -v
+    only:
+        - develop
+
+test-node:
+    stage: test
+    tags:
+        - main-docker-local
+    before_script:
+        - apk add bash ncurses docker-compose
+    script:
+        - echo "If the files are built successfully, test some files with one command:"
+        - docker stack rm wsm-dev
+        - docker-compose down -v
+        - sleep 10
+        - COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d
+        - sleep 10
+        - docker-compose exec -T node npm test
+    only:
+        - uat
+
+deploy_test:
+    stage: deploy
+    tags:
+        - main-docker-local
+    before_script:
+        - apk add bash ncurses docker-compose
+        - docker node ls
+    script:
+        - docker stack rm wsm-dev
+        - docker-compose down -v
+        - sleep 5
+        - cd ./be-app/docker/services/db
+        - mkdir data
+        - cd ..
+        - mkdir redis
+        - cd ./redis
+        - mkdir data
+        - cd /builds/Dsi7E8q7/0/lampt/wsm-dev
+        - docker stack deploy -c docker-compose.test.yml wsm-dev
+    only:
+        - uat

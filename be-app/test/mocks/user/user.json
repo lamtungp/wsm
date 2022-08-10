@@ -1,0 +1,31 @@
+{
+  "admin": {
+    "name": "admin",
+    "email": "admin@gmail.com",
+    "gender": "male",
+    "dayIn": "2021-07-05",
+    "status": "activated",
+    "role": "admin",
+    "confirmationCode": "abcd"
+  },
+
+  "manager": {
+    "email": "manager@gmail.com",
+    "name": "manager",
+    "gender": "male",
+    "dayIn": "2021-07-05",
+    "vacationsDay": 0,
+    "status": "activated",
+    "role": "manager"
+  },
+
+  "user": {
+    "email": "user1@gmail.com",
+    "name": "user1",
+    "gender": "male",
+    "dayIn": "2021-07-05",
+    "vacationsDay": 0,
+    "role": "user",
+    "status": "activated"
+  }
+}

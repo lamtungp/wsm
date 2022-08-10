@@ -117,4 +117,10 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-docker/services/db/data
+# log
+*.log
+log_file/*
+
+.docker/services/db/data
+.docker/services/redis/data
+.docker/services/minio
