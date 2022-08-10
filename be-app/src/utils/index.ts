@@ -31,7 +31,7 @@ const generateAvatarCode = (payload: any, secretKey: string) => {
 };
 
 const createPathImage = (str: string) => {
-  return `wsm/avatar/${str}`;
+  return `${aws.bucket}/avatar/${str}`;
 };
 
 const createPathPublic = (objectName: string) => {
@@ -117,6 +117,7 @@ const signPolicy = (bucket: string, contentType: string, fileName: string) => {
 };
 
 const putObject = async (fileName: string, fileType: string, code: string) => {
+  await setObjectPolicy(`${aws.bucket}/avatar/${code}`);
   const result = await signedUrl(aws.bucket, `avatar/${code}/${fileName}`, fileName, fileType);
 
   return result;
