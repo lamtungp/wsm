@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Formik, Field } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import { CCard, CCardHeader, CCardBody, CRow, CCol } from '@coreui/react';
@@ -8,8 +9,10 @@ import { Helmet } from 'react-helmet';
 import axios from 'axios';
 
 import userService from '../../../../common/redux/user/services';
+import { SetAvatar } from '../../../../common/redux/user/actions';
 
 const FormInformation = () => {
+  const dispatch = useDispatch();
   const [user, setUser] = useState({
     address: '',
     avatar: '',
@@ -38,6 +41,7 @@ const FormInformation = () => {
   const handle = async (values: any) => {
     try {
       await userService.updateUserRoleAdmin(values, String(localStorage.getItem('email')));
+      dispatch(SetAvatar(values.avatar));
       window.location.pathname = '/admin/profile';
     } catch (error) {
       window.alert('Xảy ra lỗi khi cập nhật');
@@ -77,6 +81,7 @@ const FormInformation = () => {
       },
     };
     await axios.post(data.data.actionUrl, formData, config);
+    setUser({ ...user, avatar: data.data.url });
   };
 
   return (
