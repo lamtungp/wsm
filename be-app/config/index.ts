@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export const Environment = {
-  TEST: 'test',
+  Test: 'test',
   Production: 'production',
   Development: 'development',
 };

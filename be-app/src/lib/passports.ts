@@ -1,7 +1,7 @@
 import passportJWT from 'passport-jwt';
 import * as jwt from 'jsonwebtoken';
 import { PassportStatic } from 'passport';
-import env from '../../config/env';
+import config from '../../config';
 import { UserAttributes } from '../models/user.model.d';
 import userModel from '../models/user.model';
 import { NextFunction } from 'express';
@@ -11,7 +11,7 @@ const JwtStrategy = passportJWT.Strategy;
 
 export function passportConfiguration(passport: PassportStatic) {
   const opts: passportJWT.StrategyOptions = {
-    secretOrKey: env.jwtSecret,
+    secretOrKey: config.jwtSecret,
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
   };
   passport.use(
@@ -29,13 +29,13 @@ export function passportConfiguration(passport: PassportStatic) {
 }
 
 export function generateTokenAuth(user: UserAttributes) {
-  return jwt.sign({ id: user.id, email: user.email, role: user.role }, env.jwtSecret, {
-    expiresIn: env.jwtExpiresIn,
+  return jwt.sign({ id: user.id, email: user.email, role: user.role }, config.jwtSecret, {
+    expiresIn: config.jwtExpiresIn,
   });
 }
 
 export function generateTokenConfirm(user: UserAttributes) {
-  return jwt.sign({ id: user.id, email: user.email }, env.jwtSecret, {
+  return jwt.sign({ id: user.id, email: user.email }, config.jwtSecret, {
     expiresIn: 600,
   });
 }

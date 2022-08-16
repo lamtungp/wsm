@@ -3,7 +3,7 @@ import { S3 } from 'aws-sdk';
 import jwt from 'jsonwebtoken';
 import * as url from 'url';
 import * as crypto from 'crypto';
-import config from '../../config/env';
+import config from '../../config';
 const { aws } = config;
 
 export const s3 = new S3({
@@ -121,6 +121,20 @@ const putObject = async (fileName: string, fileType: string, code: string) => {
   const result = await signedUrl(aws.bucket, `avatar/${code}/${fileName}`, fileName, fileType);
 
   return result;
+};
+
+const makeBucket = async (bucketName: string) => {
+  const bucketParams = {
+    Bucket: bucketName,
+  };
+  // call S3 to create the bucket
+  s3.createBucket(bucketParams, function (err, data) {
+    if (err) {
+      console.log('Error', err);
+    } else {
+      console.log('Success', data.Location);
+    }
+  });
 };
 
 const setObjectPolicy = async (pathObject: string) => {
