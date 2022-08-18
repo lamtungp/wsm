@@ -5,9 +5,7 @@ import helmet from 'helmet';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
 import passport from 'passport';
-import cluster from 'cluster';
 import process from 'process';
-import { cpus } from 'os';
 
 import RequestLogger from './helpers/logger';
 import { Environment } from '../config';
@@ -21,7 +19,7 @@ import { router } from './lib/bullboard';
 class App {
   private app: Application;
   public port: number;
-  public apiPrefix = 'api/v1';
+  public apiPrefix = '/api/v1';
 
   constructor(appInit: { port: number; middleWares: any }) {
     this.app = express();
@@ -51,10 +49,10 @@ class App {
   }
 
   private initRoutes() {
-    //api app
+    // api app
     this.app.use(this.apiPrefix, indexRouter);
 
-    //api queue email
+    // api queue email
     this.app.use('/queues', router);
   }
 
@@ -74,27 +72,12 @@ class App {
   }
 
   public listen() {
-    const numCPUs = cpus().length;
-
-    if (cluster.isMaster) {
-      console.log(`Primary ${process.pid} is running`);
-
-      // Fork workers.
-      for (let i = 0; i < numCPUs; i++) {
-        cluster.fork();
+    this.app.listen(this.port, () => {
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('Server is listening at port', this.port);
+        console.log(`Worker ${process.pid} started`);
       }
-
-      cluster.on('exit', (worker, _code, _signal) => {
-        console.log(`worker ${worker.process.pid} died`);
-      });
-    } else {
-      this.app.listen(this.port, () => {
-        if (process.env.NODE_ENV !== 'production') {
-          console.log('Server is listening at port', this.port);
-          console.log(`Worker ${process.pid} started`);
-        }
-      });
-    }
+    });
   }
 }
 

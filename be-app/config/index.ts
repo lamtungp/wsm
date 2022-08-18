@@ -21,9 +21,9 @@ const database = {
   password: process.env.DB_PASSWORD, // if blank then set null
   database: process.env.NODE_ENV === Environment.Development ? process.env.DB_DEV_NAME : process.env.DB_TEST_NAME,
   host: process.env.DB_HOST,
-  pool: process.env.ENABLE_CONNECTION_POOL === 'true' ? poolConfig : null,
-  dialect: process.env.DB_DIALECT,
   port: process.env.DB_PORT,
+  pool: process.env.ENABLE_CONNECTION_POOL === 'true' ? poolConfig : null,
+  dialect: 'mysql',
   logging: process.env.NODE_ENV === Environment.Development,
   timezone: '+00:00',
 };
@@ -39,6 +39,7 @@ const aws = {
   bucket: process.env.AWS_BUCKET || 'wsm',
   region: process.env.AWS_REGION || 'us-west-2',
   endpoint: process.env.AWS_ENDPOINT || undefined,
+  s3ForcePathStyle: process.env.AWS_S3_FORCE_PATH_STYLE === 'true',
 };
 
 const mail = {

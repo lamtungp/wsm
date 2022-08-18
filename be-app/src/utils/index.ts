@@ -9,7 +9,7 @@ const { aws, minio } = config;
 export const s3 = new S3({
   region: aws.region,
   endpoint: aws.endpoint,
-  s3ForcePathStyle: process.env.AWS_S3_FORCE_PATH_STYLE === 'true', // needed with minio?
+  s3ForcePathStyle: aws.s3ForcePathStyle, // needed with minio?
   credentials: {
     accessKeyId: aws.accessKey,
     secretAccessKey: aws.secretKey,
