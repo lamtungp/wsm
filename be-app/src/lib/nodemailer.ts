@@ -1,8 +1,8 @@
 import nodemailer from 'nodemailer';
 import { Job } from 'bull';
-import email from '../../config/email';
+import config from '../../config';
 
-const { mail } = email;
+const { mail } = config;
 
 const emailProcess = async (job: Job) => {
   const transporter = nodemailer.createTransport({

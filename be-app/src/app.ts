@@ -1,70 +1,84 @@
-import express from 'express';
-import path from 'path';
-import cookieParser from 'cookie-parser';
-import { Environment } from '../config/env';
+import express, { Application } from 'express';
+import compress from 'compression';
 import cors from 'cors';
-import passport from 'passport';
-import { passportConfiguration } from './lib/passports';
-import RequestLogger from './helpers/logger';
-import indexRouter from './routes/index';
-import requestValidationHandler from './helpers/requestValidationHandler';
-import httpErrorHandler from './helpers/httpErrorHandler';
-import NotFoundError from './commons/http-errors/NotFoundError';
-import messages from './commons/messages';
-import { responseError } from './helpers/response';
+import helmet from 'helmet';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
+import passport from 'passport';
+import process from 'process';
+
+import RequestLogger from './helpers/logger';
+import { Environment } from '../config';
+import indexRouter from './routes/index';
+import { errorHandler } from './middlewares/errorHandler';
+import requestValidationHandler from './helpers/requestValidationHandler';
+import { passportConfiguration } from './lib/passports';
 import swaggerOptions from './docs';
 import { router } from './lib/bullboard';
 
-import * as dotenv from 'dotenv';
-dotenv.config();
+class App {
+  private app: Application;
+  public port: number;
+  public apiPrefix = '/api/v1';
 
-const app = express();
+  constructor(appInit: { port: number; middleWares: any }) {
+    this.app = express();
+    this.port = appInit.port;
+    this.assets();
+    this.middleWares(appInit.middleWares);
+    this.initRoutes();
+    this.swaggerDocuments();
+    this.handleError();
+  }
 
-app.use(cors());
-// view engine setup
+  private assets() {
+    if (process.env.NODE_ENV === Environment.Production) {
+      this.app.use(compress());
+      this.app.use(helmet());
+    } else {
+      this.app.use(cors());
+      passportConfiguration(passport);
+      this.app.use(passport.initialize());
+    }
+  }
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+  private middleWares(middleWares: { forEach: (arg0: (middleWare: any) => void) => void }) {
+    middleWares.forEach((middleWare) => {
+      this.app.use(middleWare);
+    });
+  }
 
-passportConfiguration(passport);
-app.use(passport.initialize());
+  private initRoutes() {
+    // api app
+    this.app.use(this.apiPrefix, indexRouter);
 
-app.use(express.static(path.join(__dirname, 'public')));
+    // api queue email
+    this.app.use('/queues', router);
+  }
 
-// api logger
-if (process.env.NODE_ENV === Environment.Development) {
-  app.use(RequestLogger());
+  private swaggerDocuments() {
+    // api swagger
+    const swaggerDocs = swaggerJsDoc(swaggerOptions);
+    this.app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+  }
+
+  private handleError() {
+    // Handle common errors
+    if (process.env.NODE_ENV === Environment.Development) {
+      this.app.use(RequestLogger());
+    }
+    this.app.use(requestValidationHandler);
+    this.app.use(errorHandler);
+  }
+
+  public listen() {
+    this.app.listen(this.port, () => {
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('Server is listening at port', this.port);
+        console.log(`Worker ${process.pid} started`);
+      }
+    });
+  }
 }
 
-// api swagger
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
-
-//api queue email
-app.use('/queues', router);
-
-// api app
-app.use('/api/v1', indexRouter);
-
-// catch 404 and forward to error handler
-app.use((_req, _res, next) => {
-  next(new NotFoundError(messages.generalMessage.ApiNotExist));
-});
-
-// validation request to error handler
-app.use(requestValidationHandler);
-
-// handle http error
-app.use(httpErrorHandler);
-
-// error handler
-app.use((_error: Error, _req: express.Request, res: express.Response) => {
-  responseError(res);
-});
-
-// automatically update senority user after 1 day
-
-export default app;
+export default App;

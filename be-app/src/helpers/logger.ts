@@ -2,7 +2,7 @@ import * as winston from 'winston';
 import 'winston-daily-rotate-file';
 import dayjs from 'dayjs';
 import expressWinston from 'express-winston';
-import config, { Environment } from '../../config/env';
+import config, { Environment } from '../../config';
 
 const { combine, timestamp, printf, colorize, align, simple, prettyPrint } = winston.format;
 
@@ -44,7 +44,7 @@ const createLoggerForEnv = (environment: string) => {
       logger.level = 'debug';
       break;
 
-    case Environment.TEST:
+    case Environment.Test:
       logger = winston.createLogger({});
       logger.level = 'debug';
       logger.add(

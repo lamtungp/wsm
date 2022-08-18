@@ -3,13 +3,13 @@ import { S3 } from 'aws-sdk';
 import jwt from 'jsonwebtoken';
 import * as url from 'url';
 import * as crypto from 'crypto';
-import config from '../../config/env';
-const { aws } = config;
+import config from '../../config';
+const { aws, minio } = config;
 
 export const s3 = new S3({
   region: aws.region,
   endpoint: aws.endpoint,
-  s3ForcePathStyle: true, // needed with minio?
+  s3ForcePathStyle: aws.s3ForcePathStyle, // needed with minio?
   credentials: {
     accessKeyId: aws.accessKey,
     secretAccessKey: aws.secretKey,
@@ -17,8 +17,8 @@ export const s3 = new S3({
 });
 
 const minioClient = new Minio.Client({
-  endPoint: aws.host,
-  port: aws.port,
+  endPoint: minio.host,
+  port: minio.port,
   useSSL: false,
   accessKey: aws.accessKey,
   secretKey: aws.secretKey,
@@ -36,7 +36,7 @@ const createPathImage = (str: string) => {
 
 const createPathPublic = (objectName: string) => {
   if (process.env.NODE_ENV === 'production') {
-    return `https://${aws.host}/${aws.bucket}/${objectName}`;
+    return `https://${minio.host}/${aws.bucket}/${objectName}`;
   }
   return `${aws.endpoint}/${aws.bucket}/${objectName}`;
 };
@@ -121,6 +121,20 @@ const putObject = async (fileName: string, fileType: string, code: string) => {
   const result = await signedUrl(aws.bucket, `avatar/${code}/${fileName}`, fileName, fileType);
 
   return result;
+};
+
+const makeBucket = async (bucketName: string) => {
+  const bucketParams = {
+    Bucket: bucketName,
+  };
+  // call S3 to create the bucket
+  s3.createBucket(bucketParams, function (err, data) {
+    if (err) {
+      console.log('Error', err);
+    } else {
+      console.log('Success', data.Location);
+    }
+  });
 };
 
 const setObjectPolicy = async (pathObject: string) => {

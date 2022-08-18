@@ -7,7 +7,7 @@ import RequestRepository from '../repositories/request.repository';
 import UserRepository from '../repositories/user.repository';
 import jwt from 'jsonwebtoken';
 import { sendNewEmail } from '../lib/bullboard';
-import email from '../../config/email';
+import config from '../../config';
 
 export default class RequestController {
   private request: RequestRepository;
@@ -104,8 +104,9 @@ export default class RequestController {
       const request = await this.request.updateRequest(req.body, Number(req.params.requestId));
       console.log(req.body);
       if (request) {
+        const { mail } = config;
         const options = {
-          from: email.auth.user,
+          from: mail.user,
           to: find_request.user.email,
           subject: req.body.state === 'declined' ? 'Yêu cầu đã bị từ chối' : 'Yêu cầu đã được chấp nhận',
           html: `<div>

@@ -1,6 +1,6 @@
 {
-  "name": "nodejs-typescript",
-  "version": "0.0.0",
+  "name": "wsm",
+  "version": "1.0.0",
   "type": "commonjs",
   "private": true,
   "scripts": {
@@ -42,6 +42,7 @@
     "nodemailer": "^6.6.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "path": "^0.12.7",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.6.4",
     "sequelize-cli": "^6.2.0",
