@@ -21,21 +21,32 @@ const database = {
   password: process.env.DB_PASSWORD, // if blank then set null
   database: process.env.NODE_ENV === Environment.Development ? process.env.DB_DEV_NAME : process.env.DB_TEST_NAME,
   host: process.env.DB_HOST,
-  pool: process.env.enableConnectionPool ? poolConfig : null,
-  dialect: 'mysql',
+  pool: process.env.ENABLE_CONNECTION_POOL === 'true' ? poolConfig : null,
+  dialect: process.env.DB_DIALECT,
   port: process.env.DB_PORT,
   logging: process.env.NODE_ENV === Environment.Development,
   timezone: '+00:00',
 };
 
+const minio = {
+  port: parseInt(process.env.MINIO_PORT) || 9000,
+  host: process.env.MINIO_HOST || 'minio',
+};
+
 const aws = {
   accessKey: process.env.AWS_ACCESS_KEY_ID || 'test',
   secretKey: process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_KEY || 'test',
-  port: parseInt(process.env.MINIO_PORT) || 9000,
-  host: process.env.MINIO_HOST || 'minio',
   bucket: process.env.AWS_BUCKET || 'wsm',
   region: process.env.AWS_REGION || 'us-west-2',
   endpoint: process.env.AWS_ENDPOINT || undefined,
+};
+
+const mail = {
+  secret: process.env.JWT_SECRET,
+  user: process.env.MAIL_USERNAME,
+  pass: process.env.MAIL_PASSWORD,
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
 };
 
 export default {
@@ -45,6 +56,8 @@ export default {
    * @type {Object}
    */
   database,
+  mail,
+  minio,
   aws,
   jwtSecret: process.env.JWT_SECRET,
   jwtExpiresIn: '20d',

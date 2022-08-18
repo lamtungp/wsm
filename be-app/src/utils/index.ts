@@ -4,12 +4,12 @@ import jwt from 'jsonwebtoken';
 import * as url from 'url';
 import * as crypto from 'crypto';
 import config from '../../config';
-const { aws } = config;
+const { aws, minio } = config;
 
 export const s3 = new S3({
   region: aws.region,
   endpoint: aws.endpoint,
-  s3ForcePathStyle: true, // needed with minio?
+  s3ForcePathStyle: process.env.AWS_S3_FORCE_PATH_STYLE === 'true', // needed with minio?
   credentials: {
     accessKeyId: aws.accessKey,
     secretAccessKey: aws.secretKey,
@@ -17,8 +17,8 @@ export const s3 = new S3({
 });
 
 const minioClient = new Minio.Client({
-  endPoint: aws.host,
-  port: aws.port,
+  endPoint: minio.host,
+  port: minio.port,
   useSSL: false,
   accessKey: aws.accessKey,
   secretKey: aws.secretKey,
@@ -36,7 +36,7 @@ const createPathImage = (str: string) => {
 
 const createPathPublic = (objectName: string) => {
   if (process.env.NODE_ENV === 'production') {
-    return `https://${aws.host}/${aws.bucket}/${objectName}`;
+    return `https://${minio.host}/${aws.bucket}/${objectName}`;
   }
   return `${aws.endpoint}/${aws.bucket}/${objectName}`;
 };

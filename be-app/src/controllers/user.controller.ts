@@ -6,7 +6,7 @@ import UserRepository from '../repositories/user.repository';
 import CheckinRepository from '../repositories/checkin.repository';
 import RequestRepository from '../repositories/request.repository';
 import { sendNewEmail } from '../lib/bullboard';
-import email from '../../config/email';
+import config from '../../config';
 import Bcrypt from '../lib/bcrypt';
 import BadRequestError from '../commons/http-errors/BadRequestError';
 import { responseSuccess } from '../helpers/response';
@@ -97,8 +97,9 @@ export default class UserController {
       const code = Utils.generateAvatarCode(user.id, process.env.JWT_SECRET);
       await Utils.setObjectPolicy(Utils.createPathImage(code));
 
+      const { mail } = config;
       const options = {
-        from: email.auth.user,
+        from: mail.user,
         to: user.email,
         subject: 'Please confirm your account',
         html: `<div>
@@ -128,8 +129,9 @@ export default class UserController {
     if (!!user) {
       const update = await this.user.updateUser({ password: hashPassword }, req.body.email);
       if (!!update) {
+        const { mail } = config;
         const options = {
-          from: email.auth.user,
+          from: mail.user,
           to: user.email,
           subject: 'Please confirm your account',
           html: `<div>
